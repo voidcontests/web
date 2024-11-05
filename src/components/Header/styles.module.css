@@ -1,0 +1,46 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 700;
+
+    text-decoration: none;
+    color: var(--black);
+}
+
+.link {
+    font-size: 18px;
+
+    text-decoration: none;
+    color: var(--black);
+}
+
+.container {
+    height: 70px;
+    width: 80vw;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.separator {
+    height: 1px;
+    width: 100%;
+
+    margin: 0;
+    border: none;
+
+    background-color: var(--gray);
+}
