@@ -6,9 +6,15 @@ const manifest = "https://raw.githubusercontent.com/ton-connect/demo-dapp/refs/h
 
 export const TonConnectProvider = ({ children }: { children: React.ReactNode }) => {
     return (
-        <TonConnectUIProvider manifestUrl={manifest} uiPreferences={{
-            theme: THEME.LIGHT
-        }}>
+        <TonConnectUIProvider
+            manifestUrl={manifest}
+            actionsConfiguration={{
+                modals: ['before', 'success', 'error'],
+                notifications: ['before', 'success', 'error'],
+            }}
+            uiPreferences={{
+                theme: THEME.LIGHT
+            }}>
             {children}
         </TonConnectUIProvider>
     );
