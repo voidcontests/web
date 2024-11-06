@@ -7,7 +7,7 @@ export default function Home() {
     <div className={styles.page}>
       <main>
         <h1>
-          Hello
+          Home
         </h1>
       </main>
     </div>
