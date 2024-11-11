@@ -12,8 +12,8 @@ export const Header = () => {
                 <div className={styles.right}>
                     <Link href={"/contests"} className={styles.link}>Contests</Link>
                     <Link href={"/leaderboards"} className={styles.link}>Leaderboards</Link>
-                    <TonConnectButton />
                 </div>
+                <TonConnectButton />
             </div>
         </header>
     );

@@ -5,15 +5,17 @@
 }
 
 .title {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 900;
+    width: 164px;
 
     text-decoration: none;
     color: var(--black);
 }
 
 .link {
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 600;
 
     text-decoration: none;
     color: var(--black);
@@ -21,7 +23,7 @@
 
 .container {
     height: 70px;
-    width: 80vw;
+    width: 1120px;
 
     display: flex;
     justify-content: space-between;
