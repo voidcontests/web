@@ -1,7 +1,7 @@
-import LinkedIn from "@/icons/linkedin";
-import GitHub from "@/icons/github";
-import Twitter from "@/icons/twitter";
-import Email from "@/icons/email";
+import LinkedIn from "@/icons/LinkedIn";
+import GitHub from "@/icons/GitHub";
+import Twitter from "@/icons/Twitter";
+import Email from "@/icons/Email";
 import styles from "./styles.module.css";
 
 export const Footer = () => {

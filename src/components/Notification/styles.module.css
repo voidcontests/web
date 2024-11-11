@@ -1,0 +1,32 @@
+.notification {
+    display: flex;
+    flex-direction: row;
+}
+
+.container {
+    width: 100vw;
+    height: 45px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    color: #ffffff;
+}
+
+.container:hover {
+    cursor: pointer;
+}
+
+.info {
+    background: linear-gradient(90deg, #2d83ec, #1ac9ff);
+}
+
+.warning {
+    background: linear-gradient(90deg, #ec4a2d, #ffa71a);
+}
