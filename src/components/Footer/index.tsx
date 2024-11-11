@@ -6,7 +6,7 @@ import styles from "./styles.module.css";
 
 export const Footer = () => {
     return (
-        <footer className={styles.footer}>
+        <div className={styles.footer}>
             <hr className={styles.separator} />
             <div className={styles.container}>
                 <div className={styles.label}>
@@ -19,6 +19,6 @@ export const Footer = () => {
                     <Email />
                 </div>
             </div>
-        </footer>
+        </div>
     );
 }

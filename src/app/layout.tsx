@@ -1,10 +1,10 @@
-import { TonConnectProvider } from "@/components/TonConnectProvider";
 import type { Metadata } from "next";
-import "./globals.css";
+import { TonConnectProvider } from "@/components/TonConnectProvider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Notification } from "@/components/Notification";
 import AlertTriangle from "@/icons/AlertTriangle";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "CIIM: Contests",

@@ -2,7 +2,6 @@
 
 import RightArrow from "@/icons/RightArrow";
 import styles from "./styles.module.css";
-import Twitter from "@/icons/Twitter";
 
 interface Props {
     type: 'warning' | 'info';
