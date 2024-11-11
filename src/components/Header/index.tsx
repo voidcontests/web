@@ -15,7 +15,6 @@ export const Header = () => {
                     <TonConnectButton />
                 </div>
             </div>
-            <hr className={styles.separator} />
         </header>
     );
 }

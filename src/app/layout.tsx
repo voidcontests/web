@@ -2,6 +2,7 @@ import { TonConnectProvider } from "@/components/TonConnectProvider";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "CIIM - Contests",
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <body>
           <Header />
           {children}
+          <Footer />
         </body>
       </TonConnectProvider>
     </html>
