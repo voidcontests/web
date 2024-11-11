@@ -31,21 +31,21 @@ export default function Home() {
           <Card
             icon={<Computer />}
             title="Host contests"
-            description="Host competitions for your communities."
+            description="Host competitions for your communities"
             linkLabel="Host"
             link="/contest/create"
           />
           <Card
             icon={<Coin />}
             title="Win & earn prizes"
-            description="Win paid contests for grab all prize pot."
+            description="Win paid contests for grab all prize pot"
             linkLabel="Paid contests"
             link="/contests/?filter=paid"
           />
           <Card
             icon={<Brain />}
             title="Train your skills"
-            description="Participate in training contests to upgrade your skills in free competitive mode."
+            description="Participate in training contests to upgrade your skills in free competitive mode"
             linkLabel="Training contests"
             link="/contests/?filter=training"
           />
