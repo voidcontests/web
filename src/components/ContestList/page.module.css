@@ -22,6 +22,18 @@
     text-align: left;
 }
 
+.name {
+    color: black;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.name:hover {
+    color: #0069ff;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
 .link {
     font-family: 'Rubik', sans-serif;
 

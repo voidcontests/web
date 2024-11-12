@@ -53,7 +53,9 @@ const ContestList = (props: Props) => {
                             {`${index + 1}.`}
                         </td>
                         <td className={styles.itemHeader}>
-                            {contest.name}
+                            <a className={styles.name} href={contest.hostURL}>
+                                {contest.name}
+                            </a>
                         </td>
                         <td className={styles.item}>
                             <a className={styles.link} href={contest.hostURL}>
