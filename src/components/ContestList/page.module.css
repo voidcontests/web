@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+.container {
+    width: 1120px;
+}
+
+.item {
+    font-size: 18px;
+    font-weight: 400;
+
+    border: none;
+    padding: 8px;
+    text-align: left;
+}
+
+.itemHeader {
+    font-size: 18px;
+    font-weight: 500;
+
+    border: none;
+    padding: 8px;
+    text-align: left;
+}
+
+.link {
+    font-family: 'Rubik', sans-serif;
+
+    text-decoration: none;
+    color: #0069ff;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
