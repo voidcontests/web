@@ -19,8 +19,17 @@
     color: #ffffff;
 }
 
+.arrow {
+    transition: 0.3s;
+}
+
 .container:hover {
     cursor: pointer;
+
+    .arrow {
+        padding-left: 20px;
+        transition: 0.3s;
+    }
 }
 
 .info {

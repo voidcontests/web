@@ -22,7 +22,9 @@ export const Notification = (props: Props) => {
         >
             {props.icon}
             {props.label}
-            <RightArrow />
+            <div className={styles.arrow}>
+                <RightArrow />
+            </div>
         </div>
     );
 }
