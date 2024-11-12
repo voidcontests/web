@@ -4,4 +4,60 @@
 
     width: 350px;
     height: 300px;
+
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    background-color: #f0f4f8;
+    transition: 0.3s ease;
+}
+
+.container {
+    margin: 35px;
+    height: 230px;
+    /* background-color: aqua; */
+    position: relative;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+
+    padding-top: 20px;
+}
+
+.description {
+    font-size: 18px;
+    font-weight: 400;
+
+    margin-top: 5px;
+}
+
+.link {
+    position: absolute;
+    bottom: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    text-decoration: none;
+
+    .label {
+        color: #0098ea;
+
+        font-size: 16px;
+        font-weight: 700;
+    }
+}
+
+.link:hover {
+    .label {
+        text-decoration: underline;
+    }
+}
+
+.arrow {
+    stroke: #0098ea;
 }
