@@ -2,6 +2,7 @@
 
 import RightArrow from "@/icons/RightArrow";
 import styles from "./styles.module.css";
+import Link from "next/link";
 
 interface Props {
     icon: React.ReactNode;
@@ -13,7 +14,7 @@ interface Props {
 
 export const Card = (props: Props) => {
     return (
-        <a href={props.link} className={styles.card}>
+        <Link href={props.link} className={styles.card}>
             <div className={styles.container}>
                 {props.icon}
                 <div className={styles.title}>
@@ -30,6 +31,6 @@ export const Card = (props: Props) => {
                     <RightArrow className={styles.arrow} />
                 </div>
             </div>
-        </a>
+        </Link>
     );
 }

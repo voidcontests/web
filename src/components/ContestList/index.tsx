@@ -1,4 +1,5 @@
 import styles from "./page.module.css";
+import Link from "next/link";
 
 interface Props {
     contests: Contest[];
@@ -53,19 +54,19 @@ const ContestList = (props: Props) => {
                             {`${index + 1}.`}
                         </td>
                         <td className={styles.itemHeader}>
-                            <a className={styles.name} href={contest.hostURL}>
+                            <Link className={styles.name} href={contest.hostURL}>
                                 {contest.name}
-                            </a>
+                            </Link>
                         </td>
                         <td className={styles.item}>
-                            <a className={styles.link} href={contest.hostURL}>
+                            <Link className={styles.link} href={contest.hostURL}>
                                 {`@${contest.host}`}
-                            </a>
+                            </Link>
                         </td>
                         <td className={styles.ritemow}>
-                            <a className={styles.link} href={`https://tonscan.org/address/${contest.address}`}>
+                            <Link className={styles.link} href={`https://tonscan.org/address/${contest.address}`}>
                                 {shortenAddress(contest.address)}
-                            </a>
+                            </Link>
                         </td>
                         <td className={styles.item}>
                             {formatDate(contest.start)}

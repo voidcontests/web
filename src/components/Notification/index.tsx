@@ -2,6 +2,7 @@
 
 import RightArrow from "@/icons/RightArrow";
 import styles from "./styles.module.css";
+import Link from "next/link";
 
 interface Props {
     type: 'warning' | 'info';
@@ -12,7 +13,7 @@ interface Props {
 
 export const Notification = (props: Props) => {
     return (
-        <a
+        <Link
             href={props.link}
             target="_blank" rel="noopener noreferrer"
             className={`${styles.container} ${props.type === 'warning' ? styles.warning : styles.info}`}
@@ -22,6 +23,6 @@ export const Notification = (props: Props) => {
             <div className={styles.arrow}>
                 <RightArrow />
             </div>
-        </a>
+        </Link>
     );
 }

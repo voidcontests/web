@@ -41,7 +41,7 @@
     cursor: pointer;
 
     .arrow {
-        animation: pulse 2s infinite;
+        animation: pulse 2s ease-out infinite;
     }
 }
 
