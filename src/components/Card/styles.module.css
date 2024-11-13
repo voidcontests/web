@@ -2,6 +2,9 @@
     background-color: #f7f9fb;
     border-radius: 25px;
 
+    text-decoration: none;
+    color: var(--black);
+
     width: 350px;
     height: 300px;
 
@@ -16,7 +19,7 @@
 .container {
     margin: 35px;
     height: 230px;
-    /* background-color: aqua; */
+
     position: relative;
 }
 

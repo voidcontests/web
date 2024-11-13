@@ -13,7 +13,7 @@ interface Props {
 
 export const Card = (props: Props) => {
     return (
-        <div className={styles.card}>
+        <a href={props.link} className={styles.card}>
             <div className={styles.container}>
                 {props.icon}
                 <div className={styles.title}>
@@ -23,24 +23,13 @@ export const Card = (props: Props) => {
                     {props.description}
                 </div>
 
-                <a href={props.link} className={styles.link}>
+                <div className={styles.link}>
                     <div className={styles.label}>
                         {props.linkLabel}
                     </div>
                     <RightArrow className={styles.arrow} />
-                </a>
+                </div>
             </div>
-
-            {/* <div className={styles.icon}>
-            </div>
-            <div className={styles.text}>
-                <h1 className={styles.title}>
-                </h1>
-                <p className={styles.description}>
-                </p>
-            </div>
-            <div className={styles.linkContainer}>
-            </div> */}
-        </div>
+        </a>
     );
 }
