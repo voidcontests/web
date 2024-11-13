@@ -15,20 +15,33 @@
 
     font-size: 16px;
     font-weight: 600;
+    text-decoration: none;
 
     color: #ffffff;
 }
 
 .arrow {
+    width: 30px;
     transition: 0.3s;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        padding-left: 0;
+    }
+
+    50% {
+        padding-left: 10px;
+    }
 }
 
 .container:hover {
     cursor: pointer;
 
     .arrow {
-        padding-left: 20px;
-        transition: 0.3s;
+        animation: pulse 2s infinite;
     }
 }
 

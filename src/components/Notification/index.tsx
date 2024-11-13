@@ -12,19 +12,16 @@ interface Props {
 
 export const Notification = (props: Props) => {
     return (
-        <div
+        <a
+            href={props.link}
+            target="_blank" rel="noopener noreferrer"
             className={`${styles.container} ${props.type === 'warning' ? styles.warning : styles.info}`}
-            onClick={() => {
-                if (window.location.href !== undefined) {
-                    window.open(props.link);
-                }
-            }}
         >
             {props.icon}
             {props.label}
             <div className={styles.arrow}>
                 <RightArrow />
             </div>
-        </div>
+        </a>
     );
 }
