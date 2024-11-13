@@ -1,7 +1,7 @@
 export default function NotFound() {
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <div>
+            <div style={{ margin: "200px 0" }}>
                 <div style={{ fontWeight: "700", fontSize: "130px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     404
                 </div>

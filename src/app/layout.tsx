@@ -18,8 +18,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <body>
           <Notification
             type="warning"
-            label="This is an early development build. But still be as strict as possible about bugs and not implemented things"
-            link="https://github.com/jus1d/ciim/bug-report"
+            label="This is an early development build. But still be as strict as possible about any bugs and not implemented things"
+            link="https://github.com/jus1d/ciim/bug-report" // TODO: Update this link, on repository create
             icon={<AlertTriangle />}
           />
           <Header />
