@@ -13,7 +13,9 @@ export const Header = () => {
                     <Link href={"/contests"} className={styles.link}>Contests</Link>
                     <Link href={"/leaderboards"} className={styles.link}>Leaderboards</Link>
                 </div>
-                <TonConnectButton />
+                <div className={styles.tonconnectButton}>
+                    <TonConnectButton />
+                </div>
             </div>
         </header>
     );

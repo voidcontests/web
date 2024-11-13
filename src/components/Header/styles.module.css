@@ -57,3 +57,7 @@
     align-items: center;
     gap: 20px;
 }
+
+.tonconnectButton {
+    width: 170px;
+}
