@@ -17,8 +17,13 @@ interface Contest {
 const ContestList = (props: Props) => {
 
     const formatDate = (date: Date) => {
-        const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' };
-        return date.toLocaleDateString('en-US', options).replace(/(\w+)\s(\d+),\s(\d+)/, '$2 $1, $3');
+        const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short' };
+        const formattedDate = date.toLocaleDateString('en-US', options).replace(/(\w+)\s(\d+),\s(\d+)/, '$2 $1, $3');
+
+        const timeOptions: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
+        const formattedTime = date.toLocaleTimeString('en-US', timeOptions);
+
+        return `${formattedDate}, ${formattedTime}`;
     }
 
     const shortenAddress = (str: string) => {
