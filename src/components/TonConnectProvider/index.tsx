@@ -2,7 +2,7 @@
 
 import { THEME, TonConnectUIProvider } from "@tonconnect/ui-react";
 
-const manifest = "https://raw.githubusercontent.com/ton-connect/demo-dapp/refs/heads/master/docs/tonconnect-manifest.json";
+const manifest = "https://raw.githubusercontent.com/cascadecontests/frontend/refs/heads/master/public/tonconnect-manifest.json";
 
 export const TonConnectProvider = ({ children }: { children: React.ReactNode }) => {
     return (
