@@ -31,7 +31,7 @@
 }
 
 .link {
-    color: #000000;
+    color: var(--black);
     text-decoration: none;
     transition: 0.3s;
 
@@ -39,7 +39,7 @@
 }
 
 .link:hover {
-    color: #0098ea;
+    color: var(--TON-accent);
     transition: 0.3s;
 }
 
@@ -57,6 +57,6 @@
 }
 
 .icons>*:hover {
-    color: #0098ea;
+    color: var(--TON-accent);
     transition: 0.3s;
 }
