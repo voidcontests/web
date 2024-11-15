@@ -1,9 +1,5 @@
-.notification {
-    display: flex;
-    flex-direction: row;
-}
-
 .container {
+    position: relative;
     width: 100vw;
     height: 45px;
 
@@ -18,6 +14,11 @@
     text-decoration: none;
 
     color: #ffffff;
+}
+
+.notification {
+    display: flex;
+    flex-direction: row;
 }
 
 .arrow {

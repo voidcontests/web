@@ -16,12 +16,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <TonConnectProvider>
         <body>
-          {/* <Notification
+          <Notification
             type="warning"
             label="This is an early development build. But still be as strict as possible about any bugs and not implemented things"
             link="https://github.com/cascadecontests/frontend/bug-report" // TODO: Update this link, on repository create
             icon={<AlertTriangle />}
-          /> */}
+          />
           <Header />
           {children}
           <Footer />
