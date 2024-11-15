@@ -11,9 +11,9 @@ export default function Home() {
     <div className={styles.page}>
       <main>
         <h1 className={styles.title}>
-          Contest/998
+          Cascade Contests
           <div className={styles.gradient}>
-            host and compete
+            host, compete & win
           </div>
         </h1>
         <div className={styles.description}>
@@ -49,6 +49,12 @@ export default function Home() {
             linkLabel="Training contests"
             link="/contests/?filter=training"
           />
+        </div>
+        <div className="content">
+          {/* Длинный контент для прокрутки */}
+          {[...Array(50)].map((_, index) => (
+            <p key={index}>Содержимое {index + 1}...</p>
+          ))}
         </div>
       </main>
     </div>

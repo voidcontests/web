@@ -1,5 +1,5 @@
 .header {
-    /* Header pinned to top:
+    /* Header pinned to top: */
     position: fixed;
     top: 0;
     left: 0;
@@ -7,7 +7,7 @@
     width: 100vw;
 
     background: #ffffffb2;
-    backdrop-filter: blur(100px); */
+    backdrop-filter: blur(100px);
 
     display: flex;
     flex-direction: column;
