@@ -9,11 +9,20 @@ export const Footer = () => {
             <hr className={styles.separator} />
             <div className={styles.container}>
                 <div className={styles.label}>
-                    Created by <Link href="https://github.com/jus1d" className={styles.link}>@ndbtea</Link>
+                    Created by <Link
+                        href="https://github.com/jus1d"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.link}
+                    >@ndbtea</Link>
                 </div>
                 <div className={styles.icons}>
-                    <GitHub />
-                    <Email />
+                    <Link href="https://github.com/cascadecontests" target="_blank" rel="noopener noreferrer">
+                        <GitHub />
+                    </Link>
+                    <Link href="mailto:artfa63@gmail.com">
+                        <Email />
+                    </Link>
                 </div>
             </div>
         </div>
