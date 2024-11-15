@@ -50,12 +50,6 @@ export default function Home() {
             link="/contests/?filter=training"
           />
         </div>
-        <div className="content">
-          {/* Длинный контент для прокрутки */}
-          {[...Array(50)].map((_, index) => (
-            <p key={index}>Содержимое {index + 1}...</p>
-          ))}
-        </div>
       </main>
     </div>
   );
