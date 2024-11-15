@@ -45,6 +45,18 @@
 
 .icons {
     display: flex;
-    flex-direction: row;
     gap: 10px;
+
+    align-items: center;
+}
+
+.icons>* {
+    cursor: pointer;
+    color: var(--black);
+    transition: 0.3s;
+}
+
+.icons>*:hover {
+    color: #0098ea;
+    transition: 0.3s;
 }
