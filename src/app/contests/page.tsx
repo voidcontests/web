@@ -14,23 +14,23 @@ interface Contest {
 
 const contests: Contest[] = [
     {
-        name: "Coding Challenge",
+        name: "Canary Contest",
         host: "ndbtea",
-        hostURL: "https://techuniversity.edu",
-        address: "UQCR1zBW4DUjLwmq-CQqHVHuqYtqW-u_isDJ5SHQKhpL21nQ",
+        hostURL: "https://ndbtea.xyz",
+        address: "UQBKplAgUpM8oTuQftmU3Cc7lB-gxDqACP0cfxmYZZkejvE7",
         start: new Date("2023-01-12T12:00:00"),
         end: new Date("2023-01-14T18:00:00"),
     },
     {
         name: "Hackathon",
         host: "reilix",
-        hostURL: "https://codeacademy.com",
+        hostURL: "https://github.com/re1l1x",
         address: "UQCR1zBW4DUjLwmq-CQqHVHuqYtqW-u_isDJ5SHQKhpL21nR",
         start: new Date("2023-01-12T12:00:00"),
         end: new Date("2023-01-14T18:00:00"),
     },
     {
-        name: "Game Jam",
+        name: "Game Jam o1",
         host: "whoo",
         hostURL: "https://devcommunity.org",
         address: "UQCR1zBW4DUjLwmq-CQqHVHuqYtqW-u_isDJ5SHQKhpL21nS",
@@ -46,7 +46,7 @@ const contests: Contest[] = [
         end: new Date("2023-01-14T18:00:00"),
     },
     {
-        name: "Data Science Competition",
+        name: "Comp. Sci. Basics",
         host: "ccc",
         hostURL: "https://creativeminds.com",
         address: "UQCR1zBW4DUjLwmq-CQqHVHuqYtqW-u_isDJ5SHQKhpL21nU",
@@ -54,7 +54,7 @@ const contests: Contest[] = [
         end: new Date("2023-01-14T18:00:00"),
     },
     {
-        name: "AI Challenge",
+        name: "Hack-AI",
         host: "ccc",
         hostURL: "https://futuretech.com",
         address: "UQCR1zBW4DUjLwmq-CQqHVHuqYtqW-u_isDJ5SHQKhpL21nV",
@@ -62,7 +62,7 @@ const contests: Contest[] = [
         end: new Date("2023-01-14T18:00:00"),
     },
     {
-        name: "Web Development Contest",
+        name: "web",
         host: "ccc",
         hostURL: "https://webwizards.com",
         address: "UQCR1zBW4DUjLwmq-CQqHVHuqYtqW-u_isDJ5SHQKhpL21nW",
