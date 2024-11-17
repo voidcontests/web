@@ -12,9 +12,10 @@ export const TonConnectProvider = ({ children }: { children: React.ReactNode }) 
                 modals: ['before', 'success', 'error'],
                 notifications: ['before', 'success', 'error'],
             }}
-            uiPreferences={{
-                theme: THEME.LIGHT
-            }}>
+        // uiPreferences={{
+        //     theme: THEME.LIGHT
+        // }}
+        >
             {children}
         </TonConnectUIProvider>
     );

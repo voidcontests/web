@@ -32,8 +32,28 @@
     margin: 40px 0;
 }
 
+.cardsTitle {
+    font-size: 40px;
+    font-weight: 700;
+    margin-top: 40px;
+}
+
 .cards {
     display: flex;
     flex-direction: row;
     gap: 30px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .title {
+        color: #e5e5e9;
+    }
+
+    .description {
+        color: #e5e5e9;
+    }
+
+    .cardsTitle {
+        color: #e5e5e9;
+    }
 }

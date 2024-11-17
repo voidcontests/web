@@ -61,3 +61,21 @@
 .arrow {
     stroke: var(--TON-accent);
 }
+
+@media (prefers-color-scheme: dark) {
+    .card {
+        background-color: #101011;
+    }
+
+    .card:hover {
+        background-color: #080910;
+    }
+
+    .title {
+        color: #e5e5e9;
+    }
+
+    .description {
+        color: #e5e5e9;
+    }
+}

@@ -61,3 +61,21 @@
 .tonconnectButton {
     width: 170px;
 }
+
+@media (prefers-color-scheme: dark) {
+    .header {
+        background-color: #121214fb;
+    }
+
+    .title {
+        color: #e5e5e9;
+    }
+
+    .link {
+        color: #e5e5e9;
+    }
+
+    .link:hover {
+        background-color: #091009;
+    }
+}

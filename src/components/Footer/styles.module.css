@@ -27,6 +27,9 @@
 }
 
 .label {
+    color: var(--black);
+
+    font-weight: 400;
     font-size: 16px;
 }
 
@@ -59,4 +62,22 @@
 .icons>*:hover {
     color: var(--TON-accent);
     transition: 0.3s;
+}
+
+@media (prefers-color-scheme: dark) {
+    .separator {
+        background-color: var(--dark-gray);
+    }
+
+    .label {
+        color: #e5e5e9;
+    }
+
+    .link {
+        color: #e5e5e9;
+    }
+
+    .icons>* {
+        color: #e5e5e9;
+    }
 }

@@ -2,10 +2,12 @@
 
 :root {
   --black: #09090b;
-  --white: #fafafa;
+  --white: #ffffff;
   --gray: #d0d0d0;
+  --dark-gray: #232323;
 
   --TON-accent: #0098EA;
+  --TON-black: #121214;
   --blue: #0069FF;
 
   font-family: 'Inter', sans-serif;
@@ -17,4 +19,12 @@
 
 body {
   margin: 0;
+  background-color: var(--white);
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--TON-black);
+    color: #e5e5e9;
+  }
 }

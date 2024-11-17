@@ -7,7 +7,7 @@ import AlertTriangle from "@/icons/AlertTriangle";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Cascade > Home",
+  title: "Cascade",
   description: "Host and participate in programming contests",
 };
 

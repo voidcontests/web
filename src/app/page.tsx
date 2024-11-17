@@ -24,7 +24,8 @@ export default function Home() {
             and <b>participating</b> in paid or training programming contests
           </div>
         </div>
-        <h2 style={{ fontSize: "40px", fontWeight: "700", marginTop: "40px" }}>
+        {/* <h2 style={{ fontSize: "40px", fontWeight: "700", marginTop: "40px" }}> */}
+        <h2 className={styles.cardsTitle}>
           Looking for your next step?
         </h2>
         <div className={styles.cards}>
