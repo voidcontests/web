@@ -42,3 +42,17 @@
     flex-direction: row;
     gap: 30px;
 }
+
+@media (prefers-color-scheme: dark) {
+    .title {
+        color: var(--gray-50);
+    }
+
+    .description {
+        color: var(--gray-200);
+    }
+
+    .cardsTitle {
+        color: var(--gray-50);
+    }
+}

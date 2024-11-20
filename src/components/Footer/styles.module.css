@@ -37,7 +37,7 @@
 
 .link:hover {
     transition: 0.3s;
-    color: var(--TON-accent);
+    color: var(--blue-500);
 }
 
 .icons {
@@ -55,4 +55,22 @@
 .icons>*:hover {
     transition: 0.3s;
     color: var(--blue-500);
+}
+
+@media (prefers-color-scheme: dark) {
+    .separator {
+        background-color: var(--gray-800);
+    }
+
+    .label {
+        color: var(--gray-100);
+    }
+
+    .link {
+        color: var(--gray-100);
+    }
+
+    .icons>* {
+        color: var(--gray-100);
+    }
 }

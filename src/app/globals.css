@@ -8,9 +8,9 @@
   --gray-400: #7b7f95;
   --gray-500: #60637a;
   --gray-600: #525468;
-  --gray-700: #474957;
-  --gray-800: #383941;
-  --gray-900: #18181b;
+  --gray-700: #383941;
+  --gray-800: #18181b;
+  --gray-900: #121214;
   --gray-950: #09090b;
 
   --blue-50: #edf9ff;
@@ -51,4 +51,10 @@
 body {
   margin: 0;
   background-color: var(--gray-50);
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--gray-950);
+  }
 }
