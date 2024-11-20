@@ -14,7 +14,7 @@
     margin: 0;
     border: none;
 
-    background-color: var(--gray);
+    background-color: var(--gray-200);
 }
 
 .container {
@@ -27,14 +27,14 @@
 }
 
 .label {
-    color: var(--black);
+    color: var(--gray-950);
 
     font-weight: 400;
     font-size: 16px;
 }
 
 .link {
-    color: var(--black);
+    color: var(--gray-950);
     text-decoration: none;
     transition: 0.3s;
 
@@ -55,29 +55,11 @@
 
 .icons>* {
     cursor: pointer;
-    color: var(--black);
+    color: var(--gray-950);
     transition: 0.3s;
 }
 
 .icons>*:hover {
-    color: var(--TON-accent);
+    color: var(--blue-500);
     transition: 0.3s;
-}
-
-@media (prefers-color-scheme: dark) {
-    .separator {
-        background-color: var(--dark-gray);
-    }
-
-    .label {
-        color: #e5e5e9;
-    }
-
-    .link {
-        color: #e5e5e9;
-    }
-
-    .icons>* {
-        color: #e5e5e9;
-    }
 }

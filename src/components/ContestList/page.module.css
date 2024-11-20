@@ -5,6 +5,8 @@
 }
 
 .item {
+    color: var(--gray-950);
+
     font-size: 18px;
     font-weight: 400;
 
@@ -14,6 +16,8 @@
 }
 
 .itemHeader {
+    color: var(--gray-950);
+
     font-size: 18px;
     font-weight: 500;
 
@@ -23,13 +27,13 @@
 }
 
 .name {
-    color: black;
+    color: var(--gray-950);
     text-decoration: none;
     transition: 0.3s ease;
 }
 
 .name:hover {
-    color: #0069ff;
+    color: var(--blue-700);
     cursor: pointer;
     transition: 0.3s ease;
 }
@@ -38,7 +42,7 @@
     font-family: 'Rubik', sans-serif;
 
     text-decoration: none;
-    color: #0069ff;
+    color: var(--blue-700);
 }
 
 .link:hover {

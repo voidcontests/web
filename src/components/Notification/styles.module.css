@@ -13,7 +13,7 @@
     font-weight: 600;
     text-decoration: none;
 
-    color: #ffffff;
+    color: var(--gray-50);
 }
 
 .notification {
@@ -47,9 +47,9 @@
 }
 
 .info {
-    background: linear-gradient(90deg, #2d83ec, #1ac9ff);
+    background: var(--gradient-info);
 }
 
 .warning {
-    background: linear-gradient(90deg, #ec4a2d, #ffa71a);
+    background: var(--gradient-warning);
 }

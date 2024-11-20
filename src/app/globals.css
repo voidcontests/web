@@ -1,6 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
+  --gray-50: #ffffff;
+  --gray-100: #f7f9fb;
+  --gray-200: #f0f4f8;
+  --gray-300: #a7aab9;
+  --gray-400: #7b7f95;
+  --gray-500: #60637a;
+  --gray-600: #525468;
+  --gray-700: #474957;
+  --gray-800: #383941;
+  --gray-900: #18181b;
+  --gray-950: #09090b;
+
+  --blue-50: #edf9ff;
+  --blue-100: #d6efff;
+  --blue-200: #b5e5ff;
+  --blue-300: #83d7ff;
+  --blue-400: #48beff;
+  --blue-500: #1e9dff;
+  --blue-600: #067dff;
+  --blue-700: #0069ff;
+  --blue-800: #0850c5;
+  --blue-900: #0d479b;
+  --blue-950: #0e2c5d;
+
+  --red-50: #fff2f1;
+  --red-100: #ffe2df;
+  --red-200: #ffcac5;
+  --red-300: #ffa59d;
+  --red-400: #ff7164;
+  --red-500: #ff3220;
+  --red-600: #ed2615;
+  --red-700: #c81c0d;
+  --red-800: #a51b0f;
+  --red-900: #881d14;
+  --red-950: #4b0a04;
+
+  --gradient-title: linear-gradient(90deg, #2d83ec, #7b84ff);
+  --gradient-info: linear-gradient(90deg, #2d83ec, #1ac9ff);
+  --gradient-warning: linear-gradient(90deg, #ec4a2d, #ffa71a);
+
   --black: #09090b;
   --white: #ffffff;
   --gray: #d0d0d0;
@@ -19,12 +59,5 @@
 
 body {
   margin: 0;
-  background-color: var(--white);
-}
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: var(--TON-black);
-    color: #e5e5e9;
-  }
+  background-color: var(--gray-50);
 }

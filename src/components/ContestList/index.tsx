@@ -55,7 +55,7 @@ const ContestList = (props: Props) => {
                 <div className={styles.itemHeader} style={{ flex: '1' }}>End</div>
             </div>
             {props.contests.map((contest, index) => (
-                <div key={index} style={{ height: "40px", display: 'flex', alignItems: 'center', borderRadius: "15px", backgroundColor: index % 2 === 0 ? '#f7f9fb' : 'white', padding: '10px' }}>
+                <div key={index} style={{ height: "40px", display: 'flex', alignItems: 'center', borderRadius: "15px", backgroundColor: index % 2 === 0 ? 'var(--gray-100)' : 'none', padding: '10px' }}>
                     <div className={styles.itemHeader} style={{ flex: '0 0 50px' }}>
                         {`${index + 1}.`}
                     </div>
@@ -83,48 +83,6 @@ const ContestList = (props: Props) => {
                 </div>
             ))}
         </div>
-        // <table style={{ borderCollapse: 'collapse', width: '1120px', margin: '0 auto' }}>
-        //     <thead>
-        //         <tr>
-        //             <th className={styles.itemHeader}>#</th>
-        //             <th className={styles.itemHeader}>Name</th>
-        //             <th className={styles.itemHeader}>Host</th>
-        //             <th className={styles.itemHeader}>Address</th>
-        //             <th className={styles.itemHeader}>Start</th>
-        //             <th className={styles.itemHeader}>End</th>
-        //         </tr>
-        //     </thead>
-        //     <tbody>
-        //         {props.contests.map((contest, index) => (
-        //             <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#f7f9fb' : 'white' }}>
-        //                 <td className={styles.itemHeader}>
-        //                     {`${index + 1}.`}
-        //                 </td>
-        //                 <td className={styles.itemHeader}>
-        //                     <Link className={styles.name} href={contest.hostURL}>
-        //                         {contest.name}
-        //                     </Link>
-        //                 </td>
-        //                 <td className={styles.item}>
-        //                     <Link className={styles.link} href={contest.hostURL}>
-        //                         {`@${contest.host}`}
-        //                     </Link>
-        //                 </td>
-        //                 <td className={styles.ritemow}>
-        //                     <Link className={styles.link} href={`https://tonscan.org/address/${contest.address}`}>
-        //                         {shortenAddress(contest.address)}
-        //                     </Link>
-        //                 </td>
-        //                 <td className={styles.item}>
-        //                     {formatDate(contest.start)}
-        //                 </td>
-        //                 <td className={styles.item}>
-        //                     {formatDate(contest.end)}
-        //                 </td>
-        //             </tr>
-        //         ))}
-        //     </tbody>
-        // </table>
     );
 }
 

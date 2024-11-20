@@ -4,7 +4,8 @@
 
     width: 100vw;
 
-    background: #ffffffb2;
+    /* TODO: Make header a bit transparent and blurred */
+    background-color: var(--gray-50);
     backdrop-filter: blur(100px);
 
     display: flex;
@@ -20,7 +21,7 @@
     width: 164px;
 
     text-decoration: none;
-    color: var(--black);
+    color: var(--gray-950);
 }
 
 .link {
@@ -31,13 +32,13 @@
 
     border-radius: 13px;
     text-decoration: none;
-    color: var(--black);
+    color: var(--gray-950);
 
     transition: 0.3s;
 }
 
 .link:hover {
-    background-color: #f7f9fb;
+    background-color: var(--gray-200);
 
     transition: 0.3s;
 }
@@ -60,22 +61,4 @@
 
 .tonconnectButton {
     width: 170px;
-}
-
-@media (prefers-color-scheme: dark) {
-    .header {
-        background-color: #121214fb;
-    }
-
-    .title {
-        color: #e5e5e9;
-    }
-
-    .link {
-        color: #e5e5e9;
-    }
-
-    .link:hover {
-        background-color: #091009;
-    }
 }

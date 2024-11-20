@@ -1,9 +1,9 @@
 .card {
-    background-color: #f7f9fb;
+    background-color: var(--gray-100);
     border-radius: 25px;
 
     text-decoration: none;
-    color: var(--TON-accent);
+    color: var(--blue-500);
 
     width: 350px;
     height: 300px;
@@ -12,7 +12,7 @@
 }
 
 .card:hover {
-    background-color: #f0f4f8;
+    background-color: var(--gray-200);
 
     transition: 0.3s ease;
 }
@@ -27,7 +27,7 @@
 .title {
     font-size: 24px;
     font-weight: 600;
-    color: var(--black);
+    color: var(--gray-950);
 
     padding-top: 20px;
 }
@@ -35,7 +35,7 @@
 .description {
     font-size: 18px;
     font-weight: 400;
-    color: var(--black);
+    color: var(--gray-800);
 
     margin-top: 5px;
 }
@@ -51,7 +51,7 @@
     text-decoration: none;
 
     .label {
-        color: var(--TON-accent);
+        color: var(--blue-500);
 
         font-size: 16px;
         font-weight: 700;
@@ -59,23 +59,5 @@
 }
 
 .arrow {
-    stroke: var(--TON-accent);
-}
-
-@media (prefers-color-scheme: dark) {
-    .card {
-        background-color: #101011;
-    }
-
-    .card:hover {
-        background-color: #080910;
-    }
-
-    .title {
-        color: #e5e5e9;
-    }
-
-    .description {
-        color: #e5e5e9;
-    }
+    stroke: var(--blue-500);
 }
