@@ -53,10 +53,3 @@ body {
   background-color: var(--gray-50);
   color: var(--gray-950);
 }
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: var(--gray-950);
-    color: var(--gray-50);
-  }
-}
