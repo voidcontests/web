@@ -41,15 +41,6 @@
   --gradient-info: linear-gradient(90deg, #2d83ec, #1ac9ff);
   --gradient-warning: linear-gradient(90deg, #ec4a2d, #ffa71a);
 
-  --black: #09090b;
-  --white: #ffffff;
-  --gray: #d0d0d0;
-  --dark-gray: #232323;
-
-  --TON-accent: #0098EA;
-  --TON-black: #121214;
-  --blue: #0069FF;
-
   font-family: 'Inter', sans-serif;
 }
 

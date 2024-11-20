@@ -1,19 +1,15 @@
 .container {
-    position: relative;
-    width: 100vw;
-    height: 45px;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     gap: 10px;
-
+    position: relative;
+    width: 100vw;
+    height: 45px;
     font-size: 16px;
     font-weight: 600;
-    text-decoration: none;
-
     color: var(--gray-50);
+    text-decoration: none;
 }
 
 .notification {
@@ -40,11 +36,12 @@
 
 .container:hover {
     cursor: pointer;
-
-    .arrow {
-        animation: pulse 2s ease-out infinite;
-    }
 }
+
+.arrow {
+    animation: pulse 2s ease-out infinite;
+}
+
 
 .info {
     background: var(--gradient-info);

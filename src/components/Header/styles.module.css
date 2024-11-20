@@ -1,55 +1,45 @@
+/* TODO: Make header a bit transparent and blurred */
 .header {
-    position: sticky;
-    top: 0;
-
-    width: 100vw;
-
-    /* TODO: Make header a bit transparent and blurred */
-    background-color: var(--gray-50);
     backdrop-filter: blur(100px);
-
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    position: sticky;
     z-index: 100;
+    top: 0;
+    width: 100vw;
+    background-color: var(--gray-50);
 }
 
 .title {
+    width: 164px;
     font-size: 20px;
     font-weight: 700;
-    width: 164px;
-
-    text-decoration: none;
     color: var(--gray-950);
+    text-decoration: none;
 }
 
 .link {
     padding: 8px 15px;
-
+    transition: 0.3s;
+    border-radius: 13px;
     font-size: 16px;
     font-weight: 600;
-
-    border-radius: 13px;
-    text-decoration: none;
     color: var(--gray-950);
-
-    transition: 0.3s;
+    text-decoration: none;
 }
 
 .link:hover {
-    background-color: var(--gray-200);
-
     transition: 0.3s;
+    background-color: var(--gray-200);
 }
 
 .container {
-    height: 70px;
-    width: 1120px;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 1120px;
+    height: 70px;
 }
 
 .navigation {

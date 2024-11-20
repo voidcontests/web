@@ -5,44 +5,39 @@
 }
 
 .item {
-    color: var(--gray-950);
-
+    padding: 8px;
+    border: none;
     font-size: 18px;
     font-weight: 400;
-
-    border: none;
-    padding: 8px;
+    color: var(--gray-950);
     text-align: left;
 }
 
 .itemHeader {
-    color: var(--gray-950);
-
+    padding: 8px;
+    border: none;
     font-size: 18px;
     font-weight: 500;
-
-    border: none;
-    padding: 8px;
+    color: var(--gray-950);
     text-align: left;
 }
 
 .name {
+    transition: 0.3s ease;
     color: var(--gray-950);
     text-decoration: none;
-    transition: 0.3s ease;
 }
 
 .name:hover {
-    color: var(--blue-700);
-    cursor: pointer;
     transition: 0.3s ease;
+    cursor: pointer;
+    color: var(--blue-700);
 }
 
 .link {
     font-family: 'Rubik', sans-serif;
-
-    text-decoration: none;
     color: var(--blue-700);
+    text-decoration: none;
 }
 
 .link:hover {
