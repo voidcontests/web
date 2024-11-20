@@ -38,10 +38,9 @@
     cursor: pointer;
 }
 
-.arrow {
+.container:hover .arrow {
     animation: pulse 2s ease-out infinite;
 }
-
 
 .info {
     background: var(--gradient-info);
