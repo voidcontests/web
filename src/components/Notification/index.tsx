@@ -7,11 +7,20 @@ import Link from "next/link";
 interface Props {
     type: 'warning' | 'info';
     label: string;
-    link: string;
+    link?: string;
     icon: React.ReactNode;
 }
 
 export const Notification = (props: Props) => {
+    if (props.link === undefined) {
+        return (
+            <div className={`${styles.container} ${props.type === 'warning' ? styles.warning : styles.info}`}>
+                {props.icon}
+                {props.label}
+            </div>
+        );
+    }
+
     return (
         <Link
             href={props.link}
