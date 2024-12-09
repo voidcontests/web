@@ -1,55 +1,85 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
-:root {
-  --gray-50: #ffffff;
-  --gray-100: #f7f9fb;
-  --gray-200: #f0f4f8;
-  --gray-300: #a7aab9;
-  --gray-400: #7b7f95;
-  --gray-500: #60637a;
-  --gray-600: #525468;
-  --gray-700: #383941;
-  --gray-800: #18181b;
-  --gray-900: #121214;
-  --gray-950: #09090b;
-
-  --blue-50: #edf9ff;
-  --blue-100: #d6efff;
-  --blue-200: #b5e5ff;
-  --blue-300: #83d7ff;
-  --blue-400: #48beff;
-  --blue-500: #1e9dff;
-  --blue-600: #067dff;
-  --blue-700: #0069ff;
-  --blue-800: #0850c5;
-  --blue-900: #0d479b;
-  --blue-950: #0e2c5d;
-
-  --red-50: #fff2f1;
-  --red-100: #ffe2df;
-  --red-200: #ffcac5;
-  --red-300: #ffa59d;
-  --red-400: #ff7164;
-  --red-500: #ff3220;
-  --red-600: #ed2615;
-  --red-700: #c81c0d;
-  --red-800: #a51b0f;
-  --red-900: #881d14;
-  --red-950: #4b0a04;
-
-  --gradient-title: linear-gradient(90deg, #2d83ec, #7b84ff);
-  --gradient-info: linear-gradient(90deg, #2d83ec, #1ac9ff);
-  --gradient-warning: linear-gradient(90deg, #ec4a2d, #ffa71a);
-
-  font-family: 'Inter', sans-serif;
-}
-
-* {
-  box-sizing: border-box;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
-  margin: 0;
-  background-color: var(--gray-50);
-  color: var(--gray-950);
+  font-family: 'Rubik', sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 6%;
+    --foreground: 210 17% 84%;
+    --muted-foreground: 0 0% 49%;
+    --logo: 0 0% 93%;
+    --border: 0 0% 19%;
+    --link: 214 100% 65%;
+
+    /* TON */
+    --ton: 202 100% 57%;
+
+    /* Badge */
+    --badge-primary: 0 0% 17%;
+    --badge-primary-text: 210 17% 84%;
+    --badge-blue: 210 23% 22%;
+    --badge-blue-text: 214 100% 65%;
+    --badge-green: 134 38% 17%;
+    --badge-green-text: 134 59% 48%;
+    --badge-orange: 21 27% 25%;
+    --badge-orange-text: 30 92% 69%;
+    --badge-red: 0 24% 25%;
+    --badge-red-text: 0 88% 72%;
+
+    /* Toggle */
+    --toggle-active: 0 0% 9%;
+    --toggle-active-text: 210 17% 84%;
+
+    /* Card */
+    --card: 0 0% 13%;
+    --card-dark: 0 2% 11%;
+    --card-foreground: 210 17% 84%;
+
+    /* Notification */
+    --notification-foreground: 0 0% 100%;
+    --notification-default: linear-gradient(to right, hsl(208, 89%, 59%), hsl(191, 100%, 62%));
+    --notification-warning: linear-gradient(to right, hsl(10, 82%, 55%), hsl(35, 100%, 60%));
+
+    /* Button */
+    --primary: 0 0% 11%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 10% 95%;
+    --secondary-foreground: 0 0% 6%;
+
+    /* Popover */
+    --popover: 0 0% 13%;
+    --popover-foreground: 210 17% 84%;
+
+    --muted: 0 0% 96.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground border-border;
+  }
 }
