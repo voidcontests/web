@@ -1,6 +1,6 @@
 "use client";
 
-import { THEME, TonConnectUIProvider } from "@tonconnect/ui-react";
+import { TonConnectUIProvider } from "@tonconnect/ui-react";
 
 const manifest = "https://raw.githubusercontent.com/cascadecontests/frontend/refs/heads/master/public/tonconnect-manifest.json";
 

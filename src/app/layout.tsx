@@ -1,29 +1,35 @@
+import { TonConnectProvider } from "@/components/ton-connect/provider";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+
 import type { Metadata } from "next";
-import { TonConnectProvider } from "@/components/TonConnectProvider";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { Notification } from "@/components/Notification";
-import AlertTriangle from "@/icons/AlertTriangle";
+
 import "./globals.css";
+import { Notification } from "@/components/notification";
+import { Bug, ChevronRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Cascade",
-  description: "Host and participate in programming contests",
+  title: "Cascade :: Home",
+  description: "Compete. Win. Improve.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <TonConnectProvider>
-        <body>
+        <body className='antialiased'>
           <Notification
-            type="warning"
-            label="This is an early development build. But still be as strict as possible about any bugs and not implemented things"
-            link="https://github.com/cascadecontests/frontend/issues/new?assignees=&labels=&projects=&template=bug_report.md&title="
-            icon={<AlertTriangle />}
-          />
+            variant="warning"
+            href="https://github.com/cascadecontests/frontend/issues/new?assignees=&labels=&projects=&template=bug_report.md&title="
+          >
+            <Bug className="w-5 h-5" />
+            <div>This is an early development build</div>
+            <ChevronRight className="w-5 h-5" />
+          </Notification>
           <Header />
-          {children}
+          <main>
+            {children}
+          </main>
           <Footer />
         </body>
       </TonConnectProvider>
