@@ -1,23 +1,20 @@
-import { TonConnectProvider } from "@/components/ton-connect/provider";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
-
+import Header from "@/components/header";
 import type { Metadata } from "next";
-
 import "./globals.css";
+import { TonConnectProvider } from "@/components/ton-connect/provider";
+import { Footer } from "@/components/footer";
 import { Notification } from "@/components/notification";
 import { Bug, ChevronRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Cascade :: Home",
-  description: "Compete. Win. Improve.",
+  title: "VOID",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <TonConnectProvider>
-        <body className='antialiased'>
+        <body className='flex flex-col min-h-screen antialiased'>
           <Notification
             variant="warning"
             href="https://github.com/cascadecontests/frontend/issues/new?assignees=&labels=&projects=&template=bug_report.md&title="
@@ -27,7 +24,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <ChevronRight className="w-5 h-5" />
           </Notification>
           <Header />
-          <main>
+          <main className="flex-grow">
             {children}
           </main>
           <Footer />

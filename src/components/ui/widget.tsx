@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-const Card = React.forwardRef<
+const Widget = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
@@ -16,29 +16,29 @@ const Card = React.forwardRef<
     {...props}
   />
 ))
-Card.displayName = "Card"
+Widget.displayName = "Widget"
 
-const CardContent = React.forwardRef<
+const WidgetContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
   <div ref={ref} className={cn("flex flex-col gap-[10px]", className)} {...props} />
 ))
-CardContent.displayName = "CardContent"
+WidgetContent.displayName = "WidgetContent"
 
-const CardTitle = React.forwardRef<
+const WidgetTitle = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("font-medium text-text-bright leading-none", className)}
+    className={cn("font-medium text-text-muted leading-none", className)}
     {...props}
   />
 ))
-CardTitle.displayName = "CardTitle"
+WidgetTitle.displayName = "WidgetTitle"
 
-const CardFooter = React.forwardRef<
+const WidgetFooter = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
@@ -48,6 +48,6 @@ const CardFooter = React.forwardRef<
     {...props}
   />
 ))
-CardFooter.displayName = "CardFooter"
+WidgetFooter.displayName = "WidgetFooter"
 
-export { Card, CardFooter, CardTitle, CardContent }
+export { Widget, WidgetFooter, WidgetTitle, WidgetContent }

@@ -10,8 +10,6 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -39,7 +37,7 @@ const TonConnectButton = () => {
 
     if (!isConnectionRestored) {
         return (
-            <Button variant="secondary" disabled>
+            <Button variant="secondary" className="font-medium" disabled>
                 <Icons.loader className="animate-spin" /> LOADING
             </Button>
         );
@@ -47,7 +45,7 @@ const TonConnectButton = () => {
 
     if (!wallet || !tonConnectUI.account) {
         return (
-            <Button onClick={() => tonConnectUI.openModal()} className="text-white bg-ton hover:bg-ton/90">
+            <Button onClick={() => tonConnectUI.openModal()} className="text-white font-medium bg-ton hover:bg-ton/90">
                 CONNECT WALLET
             </Button>
         );
@@ -55,27 +53,29 @@ const TonConnectButton = () => {
 
 
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger>
-                <Button variant="secondary">
-                    {enshortAdress(address)} <Icons.chevronDown />
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-                <DropdownMenuItem
-                    onClick={handleCopyAddress}
-                >
-                    <Copy /> Copy Address
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                    onClick={handleLogOut}
-                    className="text-red-500 focus:bg-red-500/10 focus:text-red-500"
-                >
-                    <LogOut /> Log Out
-                </DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
-
+        <Button className="font-medium" onClick={handleLogOut}>
+            {enshortAdress(address)} <Icons.chevronDown />
+        </Button>
+        // <DropdownMenu>
+        //     <DropdownMenuTrigger>
+        //         <Button className="font-medium">
+        //             {enshortAdress(address)} <Icons.chevronDown />
+        //         </Button>
+        //     </DropdownMenuTrigger>
+        //     <DropdownMenuContent>
+        //         <DropdownMenuItem
+        //             onClick={handleCopyAddress}
+        //         >
+        //             <Copy /> Copy Address
+        //         </DropdownMenuItem>
+        //         <DropdownMenuItem
+        //             onClick={handleLogOut}
+        //             className="text-red-500 focus:bg-red-500/10 focus:text-red-500"
+        //         >
+        //             <LogOut /> Log Out
+        //         </DropdownMenuItem>
+        //     </DropdownMenuContent>
+        // </DropdownMenu>
     );
 }
 

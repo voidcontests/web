@@ -9,16 +9,74 @@ const config: Config = {
 	],
 	theme: {
 		extend: {
+			// TODO: change font sizes to rem
+			fontSize: {
+				'sm': '13px',
+				'base': '16px',
+			},
 			backgroundImage: {
 				'notification-default': 'var(--notification-default)',
 				'notification-warning': 'var(--notification-warning)',
 			},
 			colors: {
-				background: 'hsl(var(--background))',
+				ton: 'hsl(var(--ton))',
+				background: {
+					DEFAULT: 'hsl(var(--background))',
+					dark: 'hsl(var(--background-dark))',
+					muted: 'hsl(var(--background-muted))',
+				},
+				text: {
+					DEFAULT: 'hsl(var(--text-default))',
+					bright: 'hsl(var(--text-bright))',
+					muted: 'hsl(var(--text-muted))',
+					link: 'hsl(var(--text-link))',
+				},
+				button: {
+					background: {
+						primary: 'hsl(var(--button-background-primary))',
+						secondary: 'hsl(var(--button-background-secondary))',
+						destructive: 'hsl(var(--button-background-destructive))',
+						link: 'hsl(var(--button-background-link))',
+						muted: 'hsl(var(--button-background-muted))',
+					},
+					text: {
+						primary: 'hsl(var(--button-text-primary))',
+						secondary: 'hsl(var(--button-text-secondary))',
+						link: 'hsl(var(--button-text-link))',
+						muted: 'hsl(var(--button-text-muted))',
+					},
+				},
+				badge: {
+					background: {
+						blue: 'hsl(var(--badge-background-blue))',
+						green: 'hsl(var(--badge-background-green))',
+						orange: 'hsl(var(--badge-background-orange))',
+						red: 'hsl(var(--badge-background-red))',
+					},
+					text: {
+						blue: 'hsl(var(--badge-text-blue))',
+						green: 'hsl(var(--badge-text-green))',
+						orange: 'hsl(var(--badge-text-orange))',
+						red: 'hsl(var(--badge-text-red))',
+					},
+				},
+				input: {
+					DEFAULT: 'hsl(var(--input))',
+					background: 'hsl(var(--input-background))',
+					text: {
+						placeholder: 'hsl(var(--input-text-placeholder))'
+					},
+					border: {
+						focus: 'hsl(var(--input-border-focus))',
+						destructive: 'hsl(var(--input-border-destructive))',
+					},
+				},
+				notification: {
+					text: 'hsl(var(--notification-text))',
+				},
 				foreground: 'hsl(var(--foreground))',
 				card: {
 					DEFAULT: 'hsl(var(--card))',
-					dark: 'hsl(var(--card-dark))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				popover: {
@@ -45,43 +103,8 @@ const config: Config = {
 					DEFAULT: 'hsl(var(--destructive))',
 					foreground: 'hsl(var(--destructive-foreground))'
 				},
-				notification: {
-					foreground: 'hsl(var(--notification-foreground))',
-				},
-				link: 'hsl(var(--link))',
-				ton: 'hsl(var(--ton))',
-				badge: {
-					primary: {
-						DEFAULT: 'hsl(var(--badge-primary))',
-						text: 'hsl(var(--badge-primary-text))'
-					},
-					blue: {
-						DEFAULT: 'hsl(var(--badge-blue))',
-						text: 'hsl(var(--badge-blue-text))'
-					},
-					green: {
-						DEFAULT: 'hsl(var(--badge-green))',
-						text: 'hsl(var(--badge-green-text))'
-					},
-					orange: {
-						DEFAULT: 'hsl(var(--badge-orange))',
-						text: 'hsl(var(--badge-orange-text))'
-					},
-					red: {
-						DEFAULT: 'hsl(var(--badge-red))',
-						text: 'hsl(var(--badge-red-text))'
-					},
-				},
-				toggle: {
-					active: {
-						DEFAULT: 'hsl(var(--toggle-active))',
-						text: 'hsl(var(--toggle-active-text))',
-					},
-				},
 				border: 'hsl(var(--border))',
-				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
-				logo: 'hsl(var(--logo))',
 				chart: {
 					'1': 'hsl(var(--chart-1))',
 					'2': 'hsl(var(--chart-2))',
