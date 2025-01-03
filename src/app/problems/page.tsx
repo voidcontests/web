@@ -16,7 +16,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { Toggle } from "@/components/ui/toggle";
 
-export default function Home() {
+export default function Problems() {
   return (
     <div>
       <div className="flex gap-[20px] m-[40px]">
