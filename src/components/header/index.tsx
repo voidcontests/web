@@ -1,13 +1,13 @@
 "use client";
 
 import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import React from 'react';
 
 import { TonConnectButton } from '../ton-connect/button';
 import { Icons } from '@/components/icons';
 import { NavItem } from './nav-item';
-import { cn } from '@/lib/utils';
 
 const Header = () => {
     const pathname = usePathname();
@@ -40,17 +40,6 @@ const Header = () => {
                 <TonConnectButton />
             </div>
         </header>
-        // <header className={cn((pathname === '/' ? 'bg-background-dark' : 'bg-background border-b'),
-        //     'h-[56px] flex justify-between items-center sticky top-0')}>
-        //     <Link href="/" className='flex-1 text-foreground hover:text-logo transform scale-150 mr-2 transition duration-300'>
-        //         <Icons.logo />
-        //     </Link>
-        //     <div className='w-[1200px] px-4 flex justify-between items-center'>
-        //     </div>
-        //     <div className='flex-1'>
-        //         <Button>CONNECT WALLET</Button>
-        //     </div>
-        // </header>
     );
 };
 

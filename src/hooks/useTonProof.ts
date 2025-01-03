@@ -1,16 +1,17 @@
-import { useContext, useEffect, useRef } from "react";
-import { TonProofContext } from "../contexts/TonProofToken";
 import { useIsConnectionRestored, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
+import { TonProofContext } from "../contexts/TonProofToken";
+import { useContext, useEffect, useRef } from "react";
 import * as Api from "@/api";
 
 const localStorageKey = 'void-access-token';
 const payloadTTLMS = 1000 * 60 * 20;
 
 export function useTonProof() {
-    const { setToken } = useContext(TonProofContext);
     const isConnectionRestored = useIsConnectionRestored();
-    const wallet = useTonWallet();
+    const { setToken } = useContext(TonProofContext);
     const [tonConnectUI] = useTonConnectUI();
+    const wallet = useTonWallet();
+
     const interval = useRef<ReturnType<typeof setInterval> | undefined>();
 
     useEffect(() => {

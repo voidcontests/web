@@ -1,20 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/icons";
+import React from "react";
 import {
     useIsConnectionRestored,
     useTonConnectUI,
     useTonAddress,
     useTonWallet
 } from "@tonconnect/ui-react";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
-import React from "react";
-import { Copy, LogOut } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Icons } from "@/components/icons";
 
 const TonConnectButton = () => {
     const isConnectionRestored = useIsConnectionRestored();

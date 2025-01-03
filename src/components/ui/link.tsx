@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import * as React from "react";
 import NextLink from "next/link";
+import * as React from "react";
 
 const linkVariants = cva(
     "text-base text-text-link hover:underline underline-offset-2",

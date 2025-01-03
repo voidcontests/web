@@ -1,5 +1,5 @@
-import * as React from "react";
 import { cn } from "@/lib/utils";
+import * as React from "react";
 
 interface InputProps extends React.ComponentProps<"input"> {
   status?: "error" | "default";
@@ -22,7 +22,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
-
 Input.displayName = "Input";
 
 export { Input };

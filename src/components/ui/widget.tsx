@@ -1,11 +1,7 @@
-import * as React from "react"
+import { cn } from "@/lib/utils";
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
-
-const Widget = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+const Widget = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
@@ -15,39 +11,30 @@ const Widget = React.forwardRef<
     )}
     {...props}
   />
-))
-Widget.displayName = "Widget"
+));
+Widget.displayName = "Widget";
 
-const WidgetContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+const WidgetContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
   <div ref={ref} className={cn("flex flex-col gap-[10px]", className)} {...props} />
-))
-WidgetContent.displayName = "WidgetContent"
+));
+WidgetContent.displayName = "WidgetContent";
 
-const WidgetTitle = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+const WidgetTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
   <div
     ref={ref}
     className={cn("font-medium text-text-muted leading-none", className)}
     {...props}
   />
-))
-WidgetTitle.displayName = "WidgetTitle"
+));
+WidgetTitle.displayName = "WidgetTitle";
 
-const WidgetFooter = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+const WidgetFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
   <div
     ref={ref}
     className={cn("flex items-center", className)}
     {...props}
   />
-))
-WidgetFooter.displayName = "WidgetFooter"
+));
+WidgetFooter.displayName = "WidgetFooter";
 
-export { Widget, WidgetFooter, WidgetTitle, WidgetContent }
+export { Widget, WidgetFooter, WidgetTitle, WidgetContent };
