@@ -78,6 +78,18 @@ const TableCell = React.forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<
 ));
 TableCell.displayName = "TableCell";
 
+const TableFooter = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
+  <tfoot
+    ref={ref}
+    className={cn(
+      "h-[40px] w-full flex items-center justify-center bg-transparent font-regular text-sm text-text border-t [&>tr]:last:border-b-0",
+      className
+    )}
+    {...props}
+  />
+));
+TableFooter.displayName = "TableFooter";
+
 export {
   TableContainer,
   TableHead,
@@ -87,4 +99,5 @@ export {
   TableHeaderCell,
   TableRow,
   TableCell,
+  TableFooter,
 }

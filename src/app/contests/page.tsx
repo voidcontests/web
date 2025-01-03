@@ -10,8 +10,6 @@ import {
   TableHeaderRow,
   TableHeaderCell,
 } from "@/components/ui/table";
-import { Toggle } from "@/components/ui/toggle";
-import { Separator } from "@/components/ui/separator";
 
 interface Contest {
   title: string,
@@ -103,8 +101,9 @@ export default function ContestsPage() {
               }
             </TableBody>
           </Table>
+          {/* <TableFooter>Subscribe @ndbtea</TableFooter> */}
         </TableContainer>
       </div>
-    </div>
+    </div >
   );
 }
