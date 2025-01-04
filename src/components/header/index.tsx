@@ -17,10 +17,9 @@ const Header = () => {
     return (
         <header className={cn(
             'h-[56px] flex justify-center',
-            pathname === '/' ? 'sticky top-0' : '',
-            navitems.includes(pathname) ?
-                'bg-background border-t border-t-transparent border-b border-b-border' :
-                'bg-background-dark border-t border-t-transparent border-b border-b-transparent',
+            pathname === '/'
+                ? 'sticky top-0 bg-background-dark border-t border-t-transparent border-b border-b-transparent'
+                : 'bg-background border-t border-t-transparent border-b border-b-border',
         )}>
             <div className='flex-1 flex items-center pl-4 text-text transition-colors'>
                 <Link href="/">
