@@ -16,7 +16,7 @@ const Header = () => {
 
     return (
         <header className={cn(
-            'h-[56px] flex justify-center',
+            'h-[56px] flex justify-center mb-[20px]',
             pathname === '/'
                 ? 'sticky top-0 bg-background-dark border-t border-t-transparent border-b border-b-transparent'
                 : 'bg-background border-t border-t-transparent border-b border-b-border',

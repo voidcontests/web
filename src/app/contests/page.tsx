@@ -95,7 +95,7 @@ const publicContests: Contest[] = [
 export default function ContestsPage() {
   return (
     <div className="flex justify-center">
-      <div className="w-[1200px] flex gap-[20px] m-[40px]">
+      <div className="w-[1200px] flex gap-[20px]">
         <div className="w-full flex flex-col gap-[30px]">
           <div className="flex flex-col gap-[10px]">
             <h1 className="text-[20px] font-medium">OFFICIAL CONTESTS</h1>

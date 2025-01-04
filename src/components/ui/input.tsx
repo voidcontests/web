@@ -12,7 +12,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         type={type}
         className={cn(
           type === "file" ? "border border-dashed" : "border border-border",
-          "flex h-8 w-full rounded-[10px] bg-input-background px-3 py-1 text-base file:border-0 file:bg-transparent file:text-base file:font-medium file:text-foreground placeholder:text-input-text-placeholder focus-visible:outline-none focus-visible:border-input-border-focus disabled:cursor-not-allowed disabled:opacity-50 md:text-base",
+          "flex w-full rounded-[10px] bg-input-background px-3 py-1 text-base file:border-0 file:bg-transparent file:text-base file:font-medium file:text-foreground placeholder:text-input-text-placeholder focus-visible:outline-none focus-visible:border-input-border-focus disabled:cursor-not-allowed disabled:opacity-50 md:text-base",
           status === "error" ? "border-input-border-destructive" : "border-border",
           className
         )}

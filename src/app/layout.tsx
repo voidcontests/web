@@ -15,14 +15,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <TonConnectProvider>
         <body className='flex flex-col min-h-screen antialiased'>
-          <Notification
+          {/* <Notification
             variant="warning"
             href="https://github.com/cascadecontests/frontend/issues/new?assignees=&labels=&projects=&template=bug_report.md&title="
           >
             <Bug className="w-5 h-5" />
             <div>This is an early development build</div>
             <ChevronRight className="w-5 h-5" />
-          </Notification>
+          </Notification> */}
           <Header />
           <main className="flex-grow">
             {children}

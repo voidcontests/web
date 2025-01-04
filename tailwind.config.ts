@@ -13,6 +13,7 @@ const config: Config = {
 			fontSize: {
 				'sm': '13px',
 				'base': '16px',
+				'lg': '20px',
 			},
 			backgroundImage: {
 				'notification-default': 'var(--notification-default)',

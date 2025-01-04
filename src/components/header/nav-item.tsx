@@ -31,7 +31,7 @@ function NavItem({ className, variant, href, children, ...props }: NavItemProps)
 
     const current = new URL(href, 'http://example.com');
 
-    const isActive = pathname === current.pathname;
+    const isActive = pathname.startsWith(current.pathname);
 
     return (
         <Link href={href} className={cn(navItemVariants({ variant: isActive ? 'active' : 'default' }), className, 'relative flex flex-col justify-center h-full')} {...props}>
