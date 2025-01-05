@@ -34,11 +34,10 @@ import {
     DrawerContent,
     DrawerTrigger,
 } from "@/components/ui/drawer";
-import { cn } from "@/lib/utils";
+import { cn, itoc } from "@/lib/utils";
 import { useState } from "react";
 
 interface Problem {
-    // letter: string;
     title: string,
     statement: string,
     answer: string,
@@ -174,24 +173,10 @@ export default function CreateProblem() {
                                     {
                                         contest.problemset.map((problem, index) => (
                                             <TableRow key={index}>
-                                                <TableCell>
-                                                    {
-                                                        String.fromCharCode(65 + index)
-                                                    }
-                                                </TableCell>
-                                                <TableCell>
-                                                    {problem.title}
-                                                    {/* <Link href='/'>{problem.title}</Link> */}
-                                                </TableCell>
+                                                <TableCell>{itoc(index)}</TableCell>
+                                                <TableCell>{problem.title}</TableCell>
                                                 <TableCell>
                                                     <Badge variant='secondary'>not set</Badge>
-                                                    {/* {
-                                                        problem.difficulty === 'easy'
-                                                            ? <Badge variant='green'>Easy</Badge>
-                                                            : problem.difficulty === 'mid'
-                                                                ? <Badge variant='orange'>Mid</Badge>
-                                                                : <Badge variant='red'>Hard</Badge>
-                                                    } */}
                                                 </TableCell>
                                                 <TableCell className="w-[100px]">
                                                     <span
@@ -213,105 +198,9 @@ export default function CreateProblem() {
                             </Table>
                         </TableContainer>
                         <div className="flex justify-between">
-                            <Drawer open={open} onOpenChange={() => {
-                                if (open) {
-                                    setProblem({
-                                        title: '',
-                                        statement: '',
-                                        answer: '',
-                                    });
-                                }
-                                setOpen(prev => !prev);
-                            }}>
-                                <DrawerTrigger asChild>
-                                    <Button variant='outline'>
-                                        <Plus />ADD PROBLEM
-                                    </Button>
-                                </DrawerTrigger>
-                                <DrawerContent className="">
-                                    <div className="max-h-[90] overflow-y-auto pb-10">
-                                        <div className="flex justify-center">
-                                            <div className="w-[1200px] flex flex-col gap-[30px]">
-                                                <div className="flex flex-col gap-[10px]">
-                                                    <h1 className="text-text text-lg font-medium">Add a title</h1>
-                                                    <Input
-                                                        value={problem.title}
-                                                        placeholder="Title"
-                                                        onChange={handleProblemTitleChange}
-                                                    />
-                                                </div>
-                                                <div className="flex flex-col gap-[10px]">
-                                                    <div className="flex justify-between items-center">
-                                                        <h1 className="text-text text-lg font-medium">Add a description</h1>
-                                                        <div className="flex gap-[5px]">
-                                                            <Toggle size='sm'>
-                                                                <Heading />
-                                                            </Toggle>
-                                                            <Toggle size='sm'>
-                                                                <Bold />
-                                                            </Toggle>
-                                                            <Toggle size='sm'>
-                                                                <Italic />
-                                                            </Toggle>
-                                                            <Toggle size='sm'>
-                                                                <Code />
-                                                            </Toggle>
-                                                            <Toggle size='sm'>
-                                                                <Link2 />
-                                                            </Toggle>
-                                                            <Toggle size='sm'>
-                                                                <ListCollapse />
-                                                            </Toggle>
-                                                            <Toggle size='sm'>
-                                                                <TextQuote />
-                                                            </Toggle>
-                                                        </div>
-                                                    </div>
-                                                    <TextArea
-                                                        value={problem.statement}
-                                                        placeholder="Write a description for your contest here"
-                                                        onChange={handleProblemStatementChange}
-                                                        className="h-[400px]"
-                                                    />
-                                                    <div className="flex justify-between">
-                                                        <div className="flex gap-[10px] items-center">
-                                                            <Button variant='dashed'>
-                                                                <Paperclip /> sample.txt
-                                                            </Button>
-                                                            <div>
-                                                                with answer provided
-                                                            </div>
-                                                            <Input
-                                                                value={problem.answer}
-                                                                placeholder="here"
-                                                                onChange={handleProblemAnswerChange}
-                                                                className='w-[400px]'
-                                                            />
-                                                        </div>
-                                                        <Button
-                                                            disabled={
-                                                                !problem.title || !problem.statement || !problem.answer
-                                                            }
-                                                            onClick={() => {
-                                                                setContest(prev => ({
-                                                                    ...prev,
-                                                                    problemset: [...prev.problemset, problem],
-                                                                }));
-                                                                setProblem({
-                                                                    title: '',
-                                                                    statement: '',
-                                                                    answer: '',
-                                                                });
-                                                                setOpen(false);
-                                                            }}
-                                                        >SUBMIT PROBLEM</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </DrawerContent>
-                            </Drawer>
+                            <Button variant='outline' onClick={() => setOpen(prev => !prev)}>
+                                <Plus />ADD PROBLEM
+                            </Button>
                             <div className="flex gap-[20px]">
                                 <Button variant='dashed'>SAVE AS DRAFT</Button>
                                 <Button
@@ -342,13 +231,101 @@ export default function CreateProblem() {
                 </div>
             </div>
 
-            {/* <div className="w-[1200px] flex flex-col gap-[30px]">
-                <TextArea placeholder="hello" />
-                <div className="flex gap-[20px]">
-                    <Input placeholder="this is input" />
-                    <Button>Subscrive</Button>
-                </div>
-            </div> */}
+            {/* Section for the drawer */}
+            <Drawer open={open} onOpenChange={() => {
+                if (open) {
+                    setProblem({
+                        title: '',
+                        statement: '',
+                        answer: '',
+                    });
+                }
+                setOpen(prev => !prev);
+            }}>
+                <DrawerContent className="">
+                    <div className="max-h-[90] overflow-y-auto pb-10">
+                        <div className="flex justify-center">
+                            <div className="w-[1200px] flex flex-col gap-[30px]">
+                                <div className="flex flex-col gap-[10px]">
+                                    <h1 className="text-text text-lg font-medium">Add a title</h1>
+                                    <Input
+                                        value={problem.title}
+                                        placeholder="Title"
+                                        onChange={handleProblemTitleChange}
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-[10px]">
+                                    <div className="flex justify-between items-center">
+                                        <h1 className="text-text text-lg font-medium">Add a description</h1>
+                                        <div className="flex gap-[5px]">
+                                            <Toggle size='sm'>
+                                                <Heading />
+                                            </Toggle>
+                                            <Toggle size='sm'>
+                                                <Bold />
+                                            </Toggle>
+                                            <Toggle size='sm'>
+                                                <Italic />
+                                            </Toggle>
+                                            <Toggle size='sm'>
+                                                <Code />
+                                            </Toggle>
+                                            <Toggle size='sm'>
+                                                <Link2 />
+                                            </Toggle>
+                                            <Toggle size='sm'>
+                                                <ListCollapse />
+                                            </Toggle>
+                                            <Toggle size='sm'>
+                                                <TextQuote />
+                                            </Toggle>
+                                        </div>
+                                    </div>
+                                    <TextArea
+                                        value={problem.statement}
+                                        placeholder="Write a description for your contest here"
+                                        onChange={handleProblemStatementChange}
+                                        className="h-[400px]"
+                                    />
+                                    <div className="flex justify-between">
+                                        <div className="flex gap-[10px] items-center">
+                                            <Button variant='dashed'>
+                                                <Paperclip /> sample.txt
+                                            </Button>
+                                            <div>
+                                                with answer provided
+                                            </div>
+                                            <Input
+                                                value={problem.answer}
+                                                placeholder="here"
+                                                onChange={handleProblemAnswerChange}
+                                                className='w-[400px]'
+                                            />
+                                        </div>
+                                        <Button
+                                            disabled={
+                                                !problem.title || !problem.statement || !problem.answer
+                                            }
+                                            onClick={() => {
+                                                setContest(prev => ({
+                                                    ...prev,
+                                                    problemset: [...prev.problemset, problem],
+                                                }));
+                                                setProblem({
+                                                    title: '',
+                                                    statement: '',
+                                                    answer: '',
+                                                });
+                                                setOpen(false);
+                                            }}
+                                        >SUBMIT PROBLEM</Button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </DrawerContent>
+            </Drawer>
         </div>
     );
 }
