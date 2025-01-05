@@ -1,4 +1,7 @@
-import { Plus, Bold, Heading, Code, Italic, Link2, ListCollapse, TextQuote } from "lucide-react";
+import {
+    Plus, Paperclip, Bold, Heading, Code,
+    Italic, Link2, ListCollapse, TextQuote,
+} from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import { Link } from "@/components/ui/link";
 import {
@@ -21,6 +24,12 @@ import {
     TableHeaderCell,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import {
+    Drawer,
+    DrawerContent,
+    DrawerTrigger,
+} from "@/components/ui/drawer";
+import { cn } from "@/lib/utils";
 
 interface Problem {
     letter: string;
@@ -73,7 +82,7 @@ export default function CreateProblem() {
                     <div className="flex flex-col gap-[10px]">
                         <div className="flex justify-between items-center">
                             <h1 className="text-text text-lg font-medium">Add a description</h1>
-                            <div>
+                            <div className="flex gap-[5px]">
                                 <Toggle size='sm'>
                                     <Heading />
                                 </Toggle>
@@ -137,7 +146,75 @@ export default function CreateProblem() {
                             </Table>
                         </TableContainer>
                         <div className="flex justify-between">
-                            <Button variant='outline'><Plus /> ADD PROBLEM</Button>
+                            <Drawer>
+                                <DrawerTrigger asChild>
+                                    <Button>
+                                        <Plus />ADD PROBLEM
+                                    </Button>
+                                </DrawerTrigger>
+                                <DrawerContent className="">
+                                    <div className="max-h-[90] overflow-y-auto pb-10">
+                                        <div className="flex justify-center">
+                                            <div className="w-[1200px] flex flex-col gap-[30px]">
+                                                <div className="flex flex-col gap-[10px]">
+                                                    <h1 className="text-text text-lg font-medium">Add a title</h1>
+                                                    <Input placeholder="Title" />
+                                                </div>
+                                                <div className="flex flex-col gap-[10px]">
+                                                    <div className="flex justify-between items-center">
+                                                        <h1 className="text-text text-lg font-medium">Add a description</h1>
+                                                        <div className="flex gap-[5px]">
+                                                            <Toggle size='sm'>
+                                                                <Heading />
+                                                            </Toggle>
+                                                            <Toggle size='sm'>
+                                                                <Bold />
+                                                            </Toggle>
+                                                            <Toggle size='sm'>
+                                                                <Italic />
+                                                            </Toggle>
+                                                            <Toggle size='sm'>
+                                                                <Code />
+                                                            </Toggle>
+                                                            <Toggle size='sm'>
+                                                                <Link2 />
+                                                            </Toggle>
+                                                            <Toggle size='sm'>
+                                                                <ListCollapse />
+                                                            </Toggle>
+                                                            <Toggle size='sm'>
+                                                                <TextQuote />
+                                                            </Toggle>
+                                                        </div>
+                                                    </div>
+                                                    <TextArea
+                                                        placeholder="Write a description for your contest here"
+                                                        className="h-[400px]"
+                                                    />
+                                                    <div className="flex justify-between">
+                                                        <div className="flex gap-[10px] items-center">
+                                                            <Button variant='dashed'>
+                                                                <Paperclip /> sample.txt
+                                                            </Button>
+                                                            <div>
+                                                                with answer
+                                                            </div>
+                                                            <Input
+                                                                placeholder="Answer"
+                                                                className={cn(
+                                                                    // 'w-0 flex-grow',
+                                                                    'w-[400px]'
+                                                                )}
+                                                            />
+                                                        </div>
+                                                        <Button>SUBMIT PROBLEM</Button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </DrawerContent>
+                            </Drawer>
                             <div className="flex gap-[20px]">
                                 <Button variant='dashed'>SAVE AS DRAFT</Button>
                                 <Button>SUBMIT CONTEST</Button>
