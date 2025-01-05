@@ -3,7 +3,6 @@
 import {
     Plus, Paperclip, Bold, Heading, Code,
     Italic, Link2, ListCollapse, TextQuote,
-    Trash,
 } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import { Link } from "@/components/ui/link";
@@ -242,84 +241,82 @@ export default function CreateProblem() {
                 }
                 setOpen(prev => !prev);
             }}>
-                <DrawerContent className="">
-                    <div className="max-h-[90] overflow-y-auto pb-10">
-                        <div className="flex justify-center">
-                            <div className="w-[1200px] flex flex-col gap-[30px]">
-                                <div className="flex flex-col gap-[10px]">
-                                    <h1 className="text-text text-lg font-medium">Add a title</h1>
-                                    <Input
-                                        value={problem.title}
-                                        placeholder="Title"
-                                        onChange={handleProblemTitleChange}
-                                    />
+                <DrawerContent>
+                    <div className="flex justify-center">
+                        <div className="w-[1200px] flex flex-col gap-[30px]">
+                            <div className="flex flex-col gap-[10px]">
+                                <h1 className="text-text text-lg font-medium">Add a title</h1>
+                                <Input
+                                    value={problem.title}
+                                    placeholder="Title"
+                                    onChange={handleProblemTitleChange}
+                                />
+                            </div>
+                            <div className="flex flex-col gap-[10px]">
+                                <div className="flex justify-between items-center">
+                                    <h1 className="text-text text-lg font-medium">Add a description</h1>
+                                    <div className="flex gap-[5px]">
+                                        <Toggle size='sm'>
+                                            <Heading />
+                                        </Toggle>
+                                        <Toggle size='sm'>
+                                            <Bold />
+                                        </Toggle>
+                                        <Toggle size='sm'>
+                                            <Italic />
+                                        </Toggle>
+                                        <Toggle size='sm'>
+                                            <Code />
+                                        </Toggle>
+                                        <Toggle size='sm'>
+                                            <Link2 />
+                                        </Toggle>
+                                        <Toggle size='sm'>
+                                            <ListCollapse />
+                                        </Toggle>
+                                        <Toggle size='sm'>
+                                            <TextQuote />
+                                        </Toggle>
+                                    </div>
                                 </div>
-                                <div className="flex flex-col gap-[10px]">
-                                    <div className="flex justify-between items-center">
-                                        <h1 className="text-text text-lg font-medium">Add a description</h1>
-                                        <div className="flex gap-[5px]">
-                                            <Toggle size='sm'>
-                                                <Heading />
-                                            </Toggle>
-                                            <Toggle size='sm'>
-                                                <Bold />
-                                            </Toggle>
-                                            <Toggle size='sm'>
-                                                <Italic />
-                                            </Toggle>
-                                            <Toggle size='sm'>
-                                                <Code />
-                                            </Toggle>
-                                            <Toggle size='sm'>
-                                                <Link2 />
-                                            </Toggle>
-                                            <Toggle size='sm'>
-                                                <ListCollapse />
-                                            </Toggle>
-                                            <Toggle size='sm'>
-                                                <TextQuote />
-                                            </Toggle>
+                                <TextArea
+                                    value={problem.statement}
+                                    placeholder="Write a description for your contest here"
+                                    onChange={handleProblemStatementChange}
+                                    className="h-[400px]"
+                                />
+                                <div className="flex justify-between">
+                                    <div className="flex gap-[10px] items-center">
+                                        <Button variant='dashed'>
+                                            <Paperclip /> sample.txt
+                                        </Button>
+                                        <div>
+                                            with answer provided
                                         </div>
+                                        <Input
+                                            value={problem.answer}
+                                            placeholder="here"
+                                            onChange={handleProblemAnswerChange}
+                                            className='w-[400px]'
+                                        />
                                     </div>
-                                    <TextArea
-                                        value={problem.statement}
-                                        placeholder="Write a description for your contest here"
-                                        onChange={handleProblemStatementChange}
-                                        className="h-[400px]"
-                                    />
-                                    <div className="flex justify-between">
-                                        <div className="flex gap-[10px] items-center">
-                                            <Button variant='dashed'>
-                                                <Paperclip /> sample.txt
-                                            </Button>
-                                            <div>
-                                                with answer provided
-                                            </div>
-                                            <Input
-                                                value={problem.answer}
-                                                placeholder="here"
-                                                onChange={handleProblemAnswerChange}
-                                                className='w-[400px]'
-                                            />
-                                        </div>
-                                        <Button
-                                            disabled={
-                                                !problem.title || !problem.statement || !problem.answer
-                                            }
-                                            onClick={() => {
-                                                setContest(prev => ({
-                                                    ...prev,
-                                                    problemset: [...prev.problemset, problem],
-                                                }));
-                                                setProblem({
-                                                    title: '',
-                                                    statement: '',
-                                                    answer: '',
-                                                });
-                                                setOpen(false);
-                                            }}
-                                        >SUBMIT PROBLEM</Button>
-                                    </div>
+                                    <Button
+                                        disabled={
+                                            !problem.title || !problem.statement || !problem.answer
+                                        }
+                                        onClick={() => {
+                                            setContest(prev => ({
+                                                ...prev,
+                                                problemset: [...prev.problemset, problem],
+                                            }));
+                                            setProblem({
+                                                title: '',
+                                                statement: '',
+                                                answer: '',
+                                            });
+                                            setOpen(false);
+                                        }}
+                                    >SUBMIT PROBLEM</Button>
                                 </div>
                             </div>
                         </div>
