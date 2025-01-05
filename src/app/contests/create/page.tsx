@@ -143,7 +143,6 @@ export default function CreateProblem() {
                             value={contest.description}
                             placeholder="Write a description for your contest here"
                             onChange={handleContestDescriptionChange}
-                            className="h-[200px]"
                         />
                     </div>
                     <div className="flex flex-col gap-[20px]">
