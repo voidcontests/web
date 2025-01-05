@@ -90,6 +90,18 @@ const TableFooter = React.forwardRef<HTMLTableSectionElement, React.HTMLAttribut
 ));
 TableFooter.displayName = "TableFooter";
 
+const TableCaption = React.forwardRef<
+  HTMLTableCaptionElement,
+  React.HTMLAttributes<HTMLTableCaptionElement>
+>(({ className, ...props }, ref) => (
+  <caption
+    ref={ref}
+    className={cn("my-2 text-base text-text-muted", className)}
+    {...props}
+  />
+))
+TableCaption.displayName = "TableCaption"
+
 export {
   TableContainer,
   TableHead,
@@ -100,4 +112,5 @@ export {
   TableRow,
   TableCell,
   TableFooter,
+  TableCaption,
 }

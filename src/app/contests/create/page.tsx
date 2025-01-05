@@ -22,6 +22,8 @@ import {
     TableCell,
     TableHeaderRow,
     TableHeaderCell,
+    TableFooter,
+    TableCaption,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import {
@@ -38,36 +40,36 @@ interface Problem {
 }
 
 const problemset: Problem[] = [
-    {
-        letter: 'A',
-        name: 'Fibonacci Rotation',
-        difficulty: 'easy',
-    },
-    {
-        letter: 'B',
-        name: 'Toilet Paper',
-        difficulty: 'easy',
-    },
-    {
-        letter: 'C',
-        name: 'Corporation War',
-        difficulty: 'easy',
-    },
-    {
-        letter: 'D',
-        name: 'Cristmas Tree',
-        difficulty: 'mid',
-    },
-    {
-        letter: 'E',
-        name: 'Procrastinatioooooooon',
-        difficulty: 'hard',
-    },
-    {
-        letter: 'F',
-        name: 'I have 3yrs comercial expirience, I swear',
-        difficulty: 'hard',
-    },
+    // {
+    //     letter: 'A',
+    //     name: 'Fibonacci Rotation',
+    //     difficulty: 'easy',
+    // },
+    // {
+    //     letter: 'B',
+    //     name: 'Toilet Paper',
+    //     difficulty: 'easy',
+    // },
+    // {
+    //     letter: 'C',
+    //     name: 'Corporation War',
+    //     difficulty: 'easy',
+    // },
+    // {
+    //     letter: 'D',
+    //     name: 'Cristmas Tree',
+    //     difficulty: 'mid',
+    // },
+    // {
+    //     letter: 'E',
+    //     name: 'Procrastinatioooooooon',
+    //     difficulty: 'hard',
+    // },
+    // {
+    //     letter: 'F',
+    //     name: 'I have 3yrs comercial expirience, I swear',
+    //     difficulty: 'hard',
+    // },
 ];
 
 export default function CreateProblem() {
@@ -112,9 +114,16 @@ export default function CreateProblem() {
                         <TableContainer>
                             <TableHead className="gap-1">
                                 <span>PROBLEMSET</span>
-                                <span className="font-regular text-text-muted">- 5 problems</span>
+                                {
+                                    problemset.length !== 0 &&
+                                    <span className="font-regular text-text-muted">{`- ${problemset.length} problems`}</span>
+                                }
                             </TableHead>
                             <Table>
+                                {
+                                    problemset.length === 0 &&
+                                    <TableCaption>No problems yet</TableCaption>
+                                }
                                 <TableHeaderRow>
                                     <TableRow>
                                         <TableHeaderCell>#</TableHeaderCell>
@@ -148,7 +157,7 @@ export default function CreateProblem() {
                         <div className="flex justify-between">
                             <Drawer>
                                 <DrawerTrigger asChild>
-                                    <Button>
+                                    <Button variant='outline'>
                                         <Plus />ADD PROBLEM
                                     </Button>
                                 </DrawerTrigger>
@@ -197,14 +206,11 @@ export default function CreateProblem() {
                                                                 <Paperclip /> sample.txt
                                                             </Button>
                                                             <div>
-                                                                with answer
+                                                                with answer provided
                                                             </div>
                                                             <Input
-                                                                placeholder="Answer"
-                                                                className={cn(
-                                                                    // 'w-0 flex-grow',
-                                                                    'w-[400px]'
-                                                                )}
+                                                                placeholder="here"
+                                                                className='w-[400px]'
                                                             />
                                                         </div>
                                                         <Button>SUBMIT PROBLEM</Button>
@@ -217,7 +223,11 @@ export default function CreateProblem() {
                             </Drawer>
                             <div className="flex gap-[20px]">
                                 <Button variant='dashed'>SAVE AS DRAFT</Button>
-                                <Button>SUBMIT CONTEST</Button>
+                                <Button
+                                    disabled={problemset.length === 0}
+                                >
+                                    SUBMIT CONTEST
+                                </Button>
                             </div>
                         </div>
                     </div>
