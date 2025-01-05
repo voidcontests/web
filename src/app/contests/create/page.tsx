@@ -1,6 +1,9 @@
+"use client";
+
 import {
     Plus, Paperclip, Bold, Heading, Code,
     Italic, Link2, ListCollapse, TextQuote,
+    Trash,
 } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import { Link } from "@/components/ui/link";
@@ -32,54 +35,84 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 interface Problem {
-    letter: string;
-    name: string,
-    difficulty: 'easy' | 'mid' | 'hard',
+    // letter: string;
+    title: string,
+    statement: string,
+    answer: string,
+    // difficulty: 'easy' | 'mid' | 'hard',
 }
 
-const problemset: Problem[] = [
-    // {
-    //     letter: 'A',
-    //     name: 'Fibonacci Rotation',
-    //     difficulty: 'easy',
-    // },
-    // {
-    //     letter: 'B',
-    //     name: 'Toilet Paper',
-    //     difficulty: 'easy',
-    // },
-    // {
-    //     letter: 'C',
-    //     name: 'Corporation War',
-    //     difficulty: 'easy',
-    // },
-    // {
-    //     letter: 'D',
-    //     name: 'Cristmas Tree',
-    //     difficulty: 'mid',
-    // },
-    // {
-    //     letter: 'E',
-    //     name: 'Procrastinatioooooooon',
-    //     difficulty: 'hard',
-    // },
-    // {
-    //     letter: 'F',
-    //     name: 'I have 3yrs comercial expirience, I swear',
-    //     difficulty: 'hard',
-    // },
-];
+interface Contest {
+    title: string,
+    description?: string,
+    problemset: Problem[],
+}
 
 export default function CreateProblem() {
+    const [contest, setContest] = useState<Contest>({
+        title: '',
+        description: '',
+        problemset: [],
+    });
+
+    const [problem, setProblem] = useState<Problem>({
+        title: '',
+        statement: '',
+        answer: '',
+    });
+
+    const handleContestTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setContest(prev => ({
+            ...prev,
+            title: e.target.value,
+        }));
+    }
+
+    const handleContestDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setContest(prev => ({
+            ...prev,
+            description: e.target.value,
+        }));
+    }
+
+    const handleProblemTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setProblem(prev => ({
+            ...prev,
+            title: e.target.value,
+        }));
+    }
+
+    const handleProblemStatementChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setProblem(prev => ({
+            ...prev,
+            statement: e.target.value,
+        }));
+    }
+
+
+    const handleProblemAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setProblem(prev => ({
+            ...prev,
+            answer: e.target.value,
+        }));
+    }
+
+    const [open, setOpen] = useState(false);
+
     return (
         <div className="flex justify-center">
             <div className="w-[1200px] grid grid-cols-10 gap-5">
                 <div className="col-span-7 flex flex-col gap-[30px]">
                     <div className="flex flex-col gap-[10px]">
                         <h1 className="text-text text-lg font-medium">Add a title</h1>
-                        <Input placeholder="Title" />
+                        <Input
+                            value={contest.title}
+                            placeholder="Title"
+                            onChange={handleContestTitleChange}
+                        />
                     </div>
                     <div className="flex flex-col gap-[10px]">
                         <div className="flex justify-between items-center">
@@ -108,45 +141,70 @@ export default function CreateProblem() {
                                 </Toggle>
                             </div>
                         </div>
-                        <TextArea placeholder="Write a description for your contest here" className="h-[200px]" />
+                        <TextArea
+                            value={contest.description}
+                            placeholder="Write a description for your contest here"
+                            onChange={handleContestDescriptionChange}
+                            className="h-[200px]"
+                        />
                     </div>
                     <div className="flex flex-col gap-[20px]">
                         <TableContainer>
                             <TableHead className="gap-1">
                                 <span>PROBLEMSET</span>
                                 {
-                                    problemset.length !== 0 &&
-                                    <span className="font-regular text-text-muted">{`- ${problemset.length} problems`}</span>
+                                    contest.problemset.length !== 0 &&
+                                    <span className="font-regular text-text-muted">{`- ${contest.problemset.length} problems`}</span>
                                 }
                             </TableHead>
                             <Table>
                                 {
-                                    problemset.length === 0 &&
+                                    contest.problemset.length === 0 &&
                                     <TableCaption>No problems yet</TableCaption>
                                 }
                                 <TableHeaderRow>
                                     <TableRow>
-                                        <TableHeaderCell>#</TableHeaderCell>
-                                        <TableHeaderCell>Name</TableHeaderCell>
-                                        <TableHeaderCell>Difficulty</TableHeaderCell>
+                                        <TableHeaderCell className="w-[6%]">#</TableHeaderCell>
+                                        <TableHeaderCell className="w-[50%]">Name</TableHeaderCell>
+                                        <TableHeaderCell className="w-[30%]">Difficulty</TableHeaderCell>
+                                        <TableHeaderCell></TableHeaderCell>
                                     </TableRow>
                                 </TableHeaderRow>
                                 <TableBody>
                                     {
-                                        problemset.map((problem, index) => (
+                                        contest.problemset.map((problem, index) => (
                                             <TableRow key={index}>
-                                                <TableCell>{problem.letter}</TableCell>
-                                                <TableCell>
-                                                    <Link href='/'>{problem.name}</Link>
-                                                </TableCell>
                                                 <TableCell>
                                                     {
+                                                        String.fromCharCode(65 + index)
+                                                    }
+                                                </TableCell>
+                                                <TableCell>
+                                                    {problem.title}
+                                                    {/* <Link href='/'>{problem.title}</Link> */}
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Badge variant='secondary'>not set</Badge>
+                                                    {/* {
                                                         problem.difficulty === 'easy'
                                                             ? <Badge variant='green'>Easy</Badge>
                                                             : problem.difficulty === 'mid'
                                                                 ? <Badge variant='orange'>Mid</Badge>
                                                                 : <Badge variant='red'>Hard</Badge>
-                                                    }
+                                                    } */}
+                                                </TableCell>
+                                                <TableCell className="w-[100px]">
+                                                    <span
+                                                        className="text-base text-text-link font-medium transition-colors hover:underline hover:cursor-pointer underline-offset-2"
+                                                        onClick={() => {
+                                                            setContest(prev => ({
+                                                                ...prev,
+                                                                problemset: prev.problemset.filter((_, i) => i !== index),
+                                                            }));
+                                                        }}
+                                                    >
+                                                        rm -f .
+                                                    </span>
                                                 </TableCell>
                                             </TableRow>
                                         ))
@@ -155,7 +213,16 @@ export default function CreateProblem() {
                             </Table>
                         </TableContainer>
                         <div className="flex justify-between">
-                            <Drawer>
+                            <Drawer open={open} onOpenChange={() => {
+                                if (open) {
+                                    setProblem({
+                                        title: '',
+                                        statement: '',
+                                        answer: '',
+                                    });
+                                }
+                                setOpen(prev => !prev);
+                            }}>
                                 <DrawerTrigger asChild>
                                     <Button variant='outline'>
                                         <Plus />ADD PROBLEM
@@ -167,7 +234,11 @@ export default function CreateProblem() {
                                             <div className="w-[1200px] flex flex-col gap-[30px]">
                                                 <div className="flex flex-col gap-[10px]">
                                                     <h1 className="text-text text-lg font-medium">Add a title</h1>
-                                                    <Input placeholder="Title" />
+                                                    <Input
+                                                        value={problem.title}
+                                                        placeholder="Title"
+                                                        onChange={handleProblemTitleChange}
+                                                    />
                                                 </div>
                                                 <div className="flex flex-col gap-[10px]">
                                                     <div className="flex justify-between items-center">
@@ -197,7 +268,9 @@ export default function CreateProblem() {
                                                         </div>
                                                     </div>
                                                     <TextArea
+                                                        value={problem.statement}
                                                         placeholder="Write a description for your contest here"
+                                                        onChange={handleProblemStatementChange}
                                                         className="h-[400px]"
                                                     />
                                                     <div className="flex justify-between">
@@ -209,11 +282,29 @@ export default function CreateProblem() {
                                                                 with answer provided
                                                             </div>
                                                             <Input
+                                                                value={problem.answer}
                                                                 placeholder="here"
+                                                                onChange={handleProblemAnswerChange}
                                                                 className='w-[400px]'
                                                             />
                                                         </div>
-                                                        <Button>SUBMIT PROBLEM</Button>
+                                                        <Button
+                                                            disabled={
+                                                                !problem.title || !problem.statement || !problem.answer
+                                                            }
+                                                            onClick={() => {
+                                                                setContest(prev => ({
+                                                                    ...prev,
+                                                                    problemset: [...prev.problemset, problem],
+                                                                }));
+                                                                setProblem({
+                                                                    title: '',
+                                                                    statement: '',
+                                                                    answer: '',
+                                                                });
+                                                                setOpen(false);
+                                                            }}
+                                                        >SUBMIT PROBLEM</Button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -224,7 +315,7 @@ export default function CreateProblem() {
                             <div className="flex gap-[20px]">
                                 <Button variant='dashed'>SAVE AS DRAFT</Button>
                                 <Button
-                                    disabled={problemset.length === 0}
+                                    disabled={contest.problemset.length === 0 || contest.title === ''}
                                 >
                                     SUBMIT CONTEST
                                 </Button>
@@ -237,22 +328,15 @@ export default function CreateProblem() {
                         <WidgetContent>
                             <div className="flex justify-between items-center">
                                 <WidgetTitle>TIME SETTINGS</WidgetTitle>
-                                <Link href='/' size="large">CHANGE</Link>
+                                <Link href='/' size="large">SET</Link>
                             </div>
-                            <div>
-                                Start - 31 Dec, 11 PM
-                            </div>
-                            <div>
-                                Duration - 3 hours
-                            </div>
+                            <div>Not set yet</div>
                             <Separator />
                             <div className="flex justify-between items-center">
                                 <WidgetTitle>PARTICIPANTS</WidgetTitle>
-                                <Link href='/' size="large">CHANGE</Link>
+                                <Link href='/' size="large">SET</Link>
                             </div>
-                            <div>
-                                800 slots
-                            </div>
+                            <div>Not set yet</div>
                         </WidgetContent>
                     </Widget>
                 </div>
