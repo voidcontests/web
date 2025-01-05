@@ -1,13 +1,12 @@
+import { TonConnectProvider } from "@/components/ton-connect/provider";
+import { Footer } from "@/components/footer";
 import Header from "@/components/header";
 import type { Metadata } from "next";
 import "./globals.css";
-import { TonConnectProvider } from "@/components/ton-connect/provider";
-import { Footer } from "@/components/footer";
-import { Notification } from "@/components/notification";
-import { Bug, ChevronRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "VOID",
+  title: "the void*",
+  description: 'avoid a void in your head'
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
