@@ -282,7 +282,7 @@ export default function CreateProblem() {
                                     value={problem.statement}
                                     placeholder="Write a description for your contest here"
                                     onChange={handleProblemStatementChange}
-                                    className="h-[400px]"
+                                    className="h-[400px] resize-none"
                                 />
                                 <div className="flex justify-between">
                                     <div className="flex gap-[10px] items-center">
