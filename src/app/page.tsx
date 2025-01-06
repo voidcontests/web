@@ -1,13 +1,24 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
+import Editor from "@/components/editor";
+import Markdown from 'react-markdown';
+import { useState } from 'react';
+import Link from "next/link";
+import React from "react";
 import {
   Widget,
   WidgetContent,
   WidgetTitle,
   WidgetFooter,
 } from "@/components/ui/widget";
-import Link from "next/link";
+
+const DEFAULT_MD = `### Ima third header
+Here is a link for [GitHub](https://github.com)!`;
 
 export default function Home() {
+  const [markdown, setMarkdown] = useState(DEFAULT_MD);
+
   return (
     <div className="flex justify-center">
       <div className="w-[1200px] flex flex-col gap-[20px]">
@@ -27,6 +38,12 @@ export default function Home() {
             </Button>
           </WidgetFooter>
         </Widget>
+        <Editor value={markdown} onChange={(e) => setMarkdown(e.target.value)}>
+          Add a description
+        </Editor>
+        <Markdown className={'prose'}>
+          {markdown}
+        </Markdown>
       </div>
     </div>
   );
