@@ -10,7 +10,7 @@ const notificationVariants = cva(
             variant: {
                 default: "bg-notification-default",
                 warning: "bg-notification-warning",
-                alert: "bg-notification-alert text-text",
+                alert: "bg-notification-alert",
             },
         },
         defaultVariants: {
