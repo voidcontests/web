@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import Editor from "@/components/editor";
-import Markdown from 'react-markdown';
 import { useState } from 'react';
 import Link from "next/link";
 import React from "react";
@@ -12,12 +11,26 @@ import {
   WidgetTitle,
   WidgetFooter,
 } from "@/components/ui/widget";
+import { marked } from "marked";
+import dompurify from "dompurify";
+import Preview from "@/components/preview";
 
-const DEFAULT_MD = `### Ima third header
-Here is a link for [GitHub](https://github.com)!`;
+const DEFAULT_MD = `This is an \`inline code block\`
+
+And a link [here](https://github.com/voidcontests)`;
 
 export default function Home() {
   const [markdown, setMarkdown] = useState(DEFAULT_MD);
+
+  const parsed = marked.parse(markdown);
+  let sanitized: string = '';
+  if (parsed instanceof Promise) {
+    parsed.then((val) => {
+      sanitized = dompurify.sanitize(val);
+    });
+  } else {
+    sanitized = dompurify.sanitize(parsed);
+  }
 
   return (
     <div className="flex justify-center">
@@ -41,9 +54,7 @@ export default function Home() {
         <Editor value={markdown} onChange={(e) => setMarkdown(e.target.value)}>
           Add a description
         </Editor>
-        <Markdown className={'prose'}>
-          {markdown}
-        </Markdown>
+        <Preview markdown={sanitized} />
       </div>
     </div>
   );
