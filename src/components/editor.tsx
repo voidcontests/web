@@ -126,7 +126,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<"texta
                 <h1 className="text-text text-lg font-medium">
                     {children}
                 </h1>
-                <div className="flex gap-[5px]">
+                <div className="flex items-center gap-[5px]">
                     <Button variant='ghost' size='icon' onClick={() => apply('heading')}>
                         <Heading />
                     </Button>
@@ -145,7 +145,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<"texta
                     <Button variant='ghost' size='icon' onClick={() => apply('quote')}>
                         <TextQuote />
                     </Button>
-                    <Separator vertical />
+                    <Separator vertical className="h-5" />
                     <Button variant='ghost' size='icon' disabled>
                         <List />
                     </Button>

@@ -6,16 +6,15 @@ export interface SeparatorProps extends React.HTMLAttributes<HTMLHRElement> {
 }
 
 const Separator = React.forwardRef<HTMLHRElement, SeparatorProps>(({ className, vertical = false, ...props }, ref) => (
-  <div>
-    <hr
-      ref={ref}
-      className={cn(
-        'bg-border',
-        vertical ? 'h-full w-[1px]' : 'w-full h-[1px]',
-      )}
-      {...props}
-    />
-  </div>
+  <hr
+    ref={ref}
+    className={cn(
+      'bg-border',
+      vertical ? 'h-full w-[1px]' : 'w-full h-[1px]',
+      className,
+    )}
+    {...props}
+  />
 ));
 Separator.displayName = "Separator";
 
