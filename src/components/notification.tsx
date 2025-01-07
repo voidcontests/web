@@ -4,14 +4,13 @@ import * as React from "react";
 import Link from "next/link";
 
 const notificationVariants = cva(
-    "h-[35px] w-full flex justify-center items-center gap-2 font-medium text-md text-notification-text",
+    "h-[35px] w-full flex justify-center items-center gap-2 font-regular text-md text-notification-text",
     {
         variants: {
             variant: {
-                default:
-                    "bg-notification-default",
-                warning:
-                    "bg-notification-warning",
+                default: "bg-notification-default",
+                warning: "bg-notification-warning",
+                alert: "bg-notification-alert text-text",
             },
         },
         defaultVariants: {

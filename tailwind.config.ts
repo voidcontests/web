@@ -18,6 +18,7 @@ const config: Config = {
 			backgroundImage: {
 				'notification-default': 'var(--notification-default)',
 				'notification-warning': 'var(--notification-warning)',
+				'notification-alert': 'var(--notification-alert)',
 			},
 			colors: {
 				ton: 'hsl(var(--ton))',
