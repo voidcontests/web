@@ -1,14 +1,17 @@
-import { Heading, Bold, Italic, Code, Link2, ListCollapse, TextQuote } from "lucide-react";
+import { Heading, Bold, Italic, Code, Link2, TextQuote, List, ListOrdered, ListChecks } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import { TextArea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Separator } from "./ui/separator";
 
-type StyleKind = 'bold' | 'italic' | 'code' | 'heading' | 'link';
+type StyleKind = 'bold' | 'italic' | 'code' | 'heading' | 'link' | 'quote';
 
 const ktoch = {
     'bold': '**',
     'italic': '*',
     'code': '`',
+    'heading': '### ',
+    'quote': '> ',
 }
 
 const insert = (s: string, sub: string, idx: number): string => s.slice(0, idx) + sub + s.slice(idx);
@@ -68,6 +71,12 @@ const Editor = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<"texta
         }, 0);
     }
 
+    const selectLineFrom = (begin: number) => {
+        if (!internalValue) return;
+        const end = internalValue.toString().indexOf('\n', begin);
+        select(begin, end);
+    }
+
 
     const apply = (style: StyleKind) => {
         if (!textAreaRef.current) return;
@@ -76,23 +85,28 @@ const Editor = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<"texta
         let selectionEnd = textAreaRef.current.selectionEnd;
 
         let val: string = internalValue?.toString() ?? '';
+        let chars;
         switch (style) {
             case 'bold':
             case 'italic':
             case 'code':
-                let chars = ktoch[style];
+                chars = ktoch[style];
                 val = surround(val, chars, selectionStart, selectionEnd);
 
                 setInternalValue(val);
                 select(selectionStart + chars.length, selectionEnd + chars.length);
                 break;
             case 'heading':
+            case 'quote':
+                chars = ktoch[style];
                 let linestart = getLineStartIndex(val, selectionStart);
                 if (linestart == -1) return;
 
-                val = insert(val, '### ', linestart);
+                val = insert(val, chars, linestart);
                 setInternalValue(val);
-                moveCursor(linestart + 4);
+
+                if (style === 'heading') selectLineFrom(linestart + 4);
+                else selectLineFrom(linestart + 2)
                 break;
             case 'link':
                 val = insert(val, '[', selectionStart);
@@ -128,11 +142,18 @@ const Editor = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<"texta
                     <Button variant='ghost' size='icon' onClick={() => apply('link')}>
                         <Link2 />
                     </Button>
-                    <Button variant='ghost' size='icon' disabled>
+                    <Button variant='ghost' size='icon' onClick={() => apply('quote')}>
                         <TextQuote />
                     </Button>
+                    <Separator vertical />
                     <Button variant='ghost' size='icon' disabled>
-                        <ListCollapse />
+                        <List />
+                    </Button>
+                    <Button variant='ghost' size='icon' disabled>
+                        <ListOrdered />
+                    </Button>
+                    <Button variant='ghost' size='icon' disabled>
+                        <ListChecks />
                     </Button>
                 </div>
             </div>
