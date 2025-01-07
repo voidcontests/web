@@ -3,16 +3,22 @@ import React, { useState, useEffect, useRef } from "react";
 import { TextArea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-type Kind = 'bold' | 'italic' | 'code' | 'heading';
+type StyleKind = 'bold' | 'italic' | 'code' | 'heading' | 'link';
 
 const ktoch = {
     'bold': '**',
     'italic': '*',
     'code': '`',
-    'heading': '### ',
 }
 
 const insert = (s: string, sub: string, idx: number): string => s.slice(0, idx) + sub + s.slice(idx);
+
+const surround = (s: string, sub: string, begin: number, end: number): string => {
+    s = insert(s, sub, begin);
+    s = insert(s, sub, end + sub.length);
+
+    return s;
+}
 
 const getLineStartIndex = (text: string, index: number): number => {
     const lines = text.split('\n');
@@ -46,40 +52,57 @@ const Editor = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<"texta
         if (onChange) onChange(e);
     };
 
-    const apply = (change: Kind) => {
-        if (textAreaRef.current) {
-            let sstart = textAreaRef.current.selectionStart;
-            let send = textAreaRef.current.selectionEnd;
+    const moveCursor = (idx: number) => {
+        setTimeout(() => {
+            if (!textAreaRef.current) return;
+            textAreaRef.current.focus();
+            textAreaRef.current.setSelectionRange(idx, idx);
+        }, 0);
+    }
 
-            let tosstart = 0, tosend = 0;
+    const select = (begin: number, end: number) => {
+        setTimeout(() => {
+            if (!textAreaRef.current) return;
+            textAreaRef.current.focus();
+            textAreaRef.current.setSelectionRange(begin, end);
+        }, 0);
+    }
 
-            let updated: string = internalValue?.toString() ?? '';
-            let chars = ktoch[change];
-            if (['bold', 'italic', 'code'].includes(change)) {
-                if (sstart === send) return;
 
-                updated = insert(updated, chars, sstart);
-                updated = insert(updated, chars, send + chars.length);
+    const apply = (style: StyleKind) => {
+        if (!textAreaRef.current) return;
 
-                tosstart += chars.length;
-                tosend += chars.length;
-            }
-            if (change === 'heading') {
-                let linestart = getLineStartIndex(updated, sstart);
-                if (linestart === -1) return;
+        let selectionStart = textAreaRef.current.selectionStart;
+        let selectionEnd = textAreaRef.current.selectionEnd;
 
-                updated = insert(updated, chars, linestart);
+        let val: string = internalValue?.toString() ?? '';
+        switch (style) {
+            case 'bold':
+            case 'italic':
+            case 'code':
+                let chars = ktoch[style];
+                val = surround(val, chars, selectionStart, selectionEnd);
 
-                tosstart += chars.length;
-                tosend += chars.length;
-            }
+                setInternalValue(val);
+                select(selectionStart + chars.length, selectionEnd + chars.length);
+                break;
+            case 'heading':
+                let linestart = getLineStartIndex(val, selectionStart);
+                if (linestart == -1) return;
 
-            setInternalValue(updated);
-            setTimeout(() => {
-                textAreaRef.current?.focus();
-                textAreaRef.current?.setSelectionRange(tosstart, tosend);
-            }, 0);
-            // NOTE: without timeout selection  doesn't select AT ALL.
+                val = insert(val, '### ', linestart);
+                setInternalValue(val);
+                moveCursor(linestart + 4);
+                break;
+            case 'link':
+                val = insert(val, '[', selectionStart);
+                val = insert(val, '](url)', selectionEnd + 1);
+
+                setInternalValue(val);
+                select(selectionEnd + 3, selectionEnd + 6);
+                break;
+            default:
+                console.log('unknown styles');
         }
     }
 
@@ -102,14 +125,14 @@ const Editor = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<"texta
                     <Button variant='ghost' size='icon' onClick={() => apply('code')}>
                         <Code />
                     </Button>
-                    <Button variant='ghost' size='icon' disabled>
+                    <Button variant='ghost' size='icon' onClick={() => apply('link')}>
                         <Link2 />
                     </Button>
                     <Button variant='ghost' size='icon' disabled>
-                        <ListCollapse />
+                        <TextQuote />
                     </Button>
                     <Button variant='ghost' size='icon' disabled>
-                        <TextQuote />
+                        <ListCollapse />
                     </Button>
                 </div>
             </div>
