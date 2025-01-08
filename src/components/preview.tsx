@@ -14,6 +14,7 @@ const Preview = React.forwardRef<HTMLDivElement, PreviewProps>(({ markdown, clas
             'prose-code:bg-background-muted prose-code:p-1 prose-code:rounded-lg',
             'prose-a:text-text-link',
             'prose-hr:border-border prose-hr:w-full',
+            'prose-strong:font-bold',
             className,
         )} dangerouslySetInnerHTML={{ __html: markdown }}
         {...props}
