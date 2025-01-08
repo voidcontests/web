@@ -45,6 +45,7 @@ export default function Home() {
         <Editor
           markdown={markdown}
           setMarkdown={setMarkdown}
+          className="h-[150px]"
         >
           Add a description
         </Editor>
