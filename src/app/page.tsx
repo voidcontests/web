@@ -1,11 +1,10 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import Editor from "@/components/editor";
 import Preview from "@/components/preview";
-import sanitize from "sanitize-html";
+import Editor from "@/components/editor";
+import { parseMD } from "@/lib/utils";
 import { useState } from 'react';
-import { marked } from "marked";
 import Link from "next/link";
 import React from "react";
 import {
@@ -22,15 +21,7 @@ And a link [here](https://github.com/voidcontests)`;
 export default function Home() {
   const [markdown, setMarkdown] = useState(DEFAULT_MD);
 
-  const parsed = marked.parse(markdown);
-  let sanitized: string = '';
-  if (parsed instanceof Promise) {
-    parsed.then((val) => {
-      sanitized = sanitize(val);
-    });
-  } else {
-    sanitized = sanitize(parsed);
-  }
+  const parsed = parseMD(markdown);
 
   return (
     <div className="flex justify-center">
@@ -51,10 +42,13 @@ export default function Home() {
             </Button>
           </WidgetFooter>
         </Widget>
-        <Editor value={markdown} onChange={(e) => setMarkdown(e.target.value)}>
+        <Editor
+          markdown={markdown}
+          setMarkdown={setMarkdown}
+        >
           Add a description
         </Editor>
-        <Preview markdown={sanitized} />
+        <Preview markdown={parsed} />
       </div>
     </div>
   );

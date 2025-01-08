@@ -63,6 +63,13 @@ export default function CreateProblem() {
         }));
     }
 
+    const setContestDescription = (s: string): void => {
+        setContest(prev => ({
+            ...prev,
+            description: s,
+        }));
+    }
+
     const handleProblemTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setProblem(prev => ({
             ...prev,
@@ -74,6 +81,13 @@ export default function CreateProblem() {
         setProblem(prev => ({
             ...prev,
             statement: e.target.value,
+        }));
+    }
+
+    const setProblemStatement = (s: string): void => {
+        setProblem(prev => ({
+            ...prev,
+            statement: s,
         }));
     }
 
@@ -100,8 +114,8 @@ export default function CreateProblem() {
                         />
                     </div>
                     <Editor
-                        value={contest.description ?? ''}
-                        onChange={handleContestDescriptionChange}
+                        markdown={contest.description ?? ''}
+                        setMarkdown={setContestDescription}
                     >
                         Add a description
                     </Editor>
@@ -213,9 +227,10 @@ export default function CreateProblem() {
                             </div>
                             <div className="flex flex-col gap-[10px]">
                                 <Editor
-                                    value={problem.statement}
-                                    placeholder="Write a problem's statement here"
+                                    markdown={problem.statement}
+                                    setMarkdown={setProblemStatement}
                                     onChange={handleProblemStatementChange}
+                                    placeholder="Write a problem's statement here"
                                     className="h-[400px] resize-none"
                                 >
                                     Add a statement

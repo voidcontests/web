@@ -4,11 +4,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { TextArea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Separator } from "./ui/separator";
-import { marked } from "marked";
-import dompurify from "dompurify";
-import Preview from "./preview";
-import insane from 'insane';
-import sanitize from "sanitize-html";
+import Preview from "@/components/preview";
+import { parseMD } from "@/lib/utils";
+import * as strings from '@/lib/strings';
 
 type StyleKind = 'bold' | 'italic' | 'code' | 'heading' | 'link' | 'quote';
 
@@ -20,50 +18,28 @@ const ktoch = {
     'quote': '> ',
 }
 
-const insert = (s: string, sub: string, idx: number): string => s.slice(0, idx) + sub + s.slice(idx);
-
-const surround = (s: string, sub: string, begin: number, end: number): string => {
-    s = insert(s, sub, begin);
-    s = insert(s, sub, end + sub.length);
-
-    return s;
+interface EditorProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+    markdown: string,
+    setMarkdown: (s: string) => void;
 }
 
-const getLineStartIndex = (text: string, index: number): number => {
-    const lines = text.split('\n');
-
-    let cur = 0;
-
-    for (let i = 0; i < lines.length; i++) {
-        const lineLength = lines[i].length + 1;
-
-        if (cur + lineLength > index) {
-            return cur;
-        }
-
-        cur += lineLength;
-    }
-
-    return -1;
-}
-
-const tos = (value: string | number | readonly string[] | undefined): string => {
-    return Array.isArray(value) ? value.join('\n') : value === undefined ? '' : value.toString(0);
-}
-
-const Editor = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<"textarea">>(({ value, onChange, className, children, ...props }) => {
-    const [internalValue, setInternalValue] = useState<string>(tos(value));
+const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, setMarkdown, children, className, ...props }) => {
+    const [internalValue, setInternalValue] = useState<string>(markdown);
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        setInternalValue(tos(value));
-    }, [value]);
+        setInternalValue(markdown);
+    }, [markdown]);
+
+    useEffect(() => {
+        setMarkdown(internalValue);
+    }, [internalValue]);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const newValue = e.target.value;
         setInternalValue(newValue);
-        if (onChange) onChange(e);
+        setMarkdown(newValue);
     };
 
     const moveCursor = (idx: number) => {
@@ -89,7 +65,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<"texta
     }
 
 
-    const apply = (style: StyleKind) => {
+    const applyStyle = (style: StyleKind) => {
         if (!textAreaRef.current) return;
 
         let selectionStart = textAreaRef.current.selectionStart;
@@ -102,7 +78,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<"texta
             case 'italic':
             case 'code':
                 chars = ktoch[style];
-                val = surround(val, chars, selectionStart, selectionEnd);
+                val = strings.surround(val, chars, selectionStart, selectionEnd);
 
                 setInternalValue(val);
                 select(selectionStart + chars.length, selectionEnd + chars.length);
@@ -110,18 +86,18 @@ const Editor = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<"texta
             case 'heading':
             case 'quote':
                 chars = ktoch[style];
-                let linestart = getLineStartIndex(val, selectionStart);
+                let linestart = strings.getLineStartIndex(val, selectionStart);
                 if (linestart == -1) return;
 
-                val = insert(val, chars, linestart);
+                val = strings.insert(val, chars, linestart);
                 setInternalValue(val);
 
                 if (style === 'heading') selectLineFrom(linestart + 4);
                 else selectLineFrom(linestart + 2)
                 break;
             case 'link':
-                val = insert(val, '[', selectionStart);
-                val = insert(val, '](url)', selectionEnd + 1);
+                val = strings.insert(val, '[', selectionStart);
+                val = strings.insert(val, '](url)', selectionEnd + 1);
 
                 setInternalValue(val);
                 select(selectionEnd + 3, selectionEnd + 6);
@@ -131,15 +107,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<"texta
         }
     }
 
-    const parsed = marked.parse(internalValue);
-    let sanitized: string = '';
-    if (parsed instanceof Promise) {
-        parsed.then((val) => {
-            sanitized = sanitize(val);
-        });
-    } else {
-        sanitized = sanitize(parsed);
-    }
+    const parsed = parseMD(internalValue);
 
     return (
         <div className="flex flex-col gap-[10px]">
@@ -148,22 +116,22 @@ const Editor = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<"texta
                     {children}
                 </h1>
                 <div className="flex items-center gap-[5px]">
-                    <Button variant='ghost' size='icon' onClick={() => apply('heading')}>
+                    <Button variant='ghost' size='icon' onClick={() => applyStyle('heading')}>
                         <Heading />
                     </Button>
-                    <Button variant='ghost' size='icon' onClick={() => apply('bold')}>
+                    <Button variant='ghost' size='icon' onClick={() => applyStyle('bold')}>
                         <Bold />
                     </Button>
-                    <Button variant='ghost' size='icon' onClick={() => apply('italic')}>
+                    <Button variant='ghost' size='icon' onClick={() => applyStyle('italic')}>
                         <Italic />
                     </Button>
-                    <Button variant='ghost' size='icon' onClick={() => apply('code')}>
+                    <Button variant='ghost' size='icon' onClick={() => applyStyle('code')}>
                         <Code />
                     </Button>
-                    <Button variant='ghost' size='icon' onClick={() => apply('link')}>
+                    <Button variant='ghost' size='icon' onClick={() => applyStyle('link')}>
                         <Link2 />
                     </Button>
-                    <Button variant='ghost' size='icon' onClick={() => apply('quote')}>
+                    <Button variant='ghost' size='icon' onClick={() => applyStyle('quote')}>
                         <TextQuote />
                     </Button>
                     <Separator vertical className="h-5" />
@@ -198,7 +166,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<"texta
                 <DrawerContent className="min-h-[60vh]">
                     <div className="flex justify-center">
                         <div className="w-[1200px] flex flex-col gap-[30px]">
-                            <Preview markdown={sanitized} />
+                            <Preview markdown={parsed} />
                         </div>
                     </div>
                 </DrawerContent>
