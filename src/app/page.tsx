@@ -22,7 +22,32 @@ Let's define a **boolean** function \`isPrefixAndSuffix\` that takes two strings
 
 For example, \`isPrefixAndSuffix("aba", "ababa")\` is \`true\` because \`"aba"\` is a prefix of \`"ababa"\` and also a suffix, but \`isPrefixAndSuffix("abc", "abcd")\` is \`false\`.
 
-Return an integer denoting the **number** of index pairs \`(i, j)\` such that \`i < j\`, and \`isPrefixAndSuffix(words[i], words[j])\` is \`true\`.`;
+Return an integer denoting the **number** of index pairs \`(i, j)\` such that \`i < j\`, and \`isPrefixAndSuffix(words[i], words[j])\` is \`true\`.
+
+## Solution
+---
+### First **dumb** approach
+\`\`\`python
+class Solution:
+  def countPrefixSuffixPairs(self, words: List[str]) -> int:
+    ans = 0
+    for i in range(len(words)):
+      for j in range(i + 1, len(words)):
+        if self.isPrefixAndSuffix(words[i], words[j]):
+          ans += 1
+    return ans
+        
+    def isPrefixAndSuffix(self, s1: str, s2: str) -> bool:
+      if len(s1) > len(s2): return False
+
+      for i in range(len(s1)):
+        if s1[i] != s2[i]: return False
+
+      for i in range(len(s1)):
+        if s1[i] != s2[len(s2) - len(s1) + i]: return False
+      
+      return True
+\`\`\``;
 
 export default function Home() {
   const [markdown, setMarkdown] = useState(DEFAULT_MD);
