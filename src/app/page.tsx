@@ -14,9 +14,16 @@ import {
   WidgetFooter,
 } from "@/components/ui/widget";
 
-const DEFAULT_MD = `This is an \`inline code block\`
+const DEFAULT_MD = `## 3042/ Count Prefix and Suffix Pairs. Part I
 
-And a link [here](https://github.com/voidcontests)`;
+You are given a **0-indexed** string array \`words\`.
+
+Let's define a **boolean** function \`isPrefixAndSuffix\` that takes two strings, \`str1\` and \`str2\`:
+- \`isPrefixAndSuffix(str1, str2)\` returns \`true\` if \`str1\` is **both** a [prefix](/prefix) and a [suffix](/suffix) of \`str2\`, and \`false\` otherwise.
+
+For example, \`isPrefixAndSuffix("aba", "ababa")\` is \`true\` because \`"aba"\` is a prefix of \`"ababa"\` and also a suffix, but \`isPrefixAndSuffix("abc", "abcd")\` is \`false\`.
+
+Return an integer denoting the **number** of index pairs \`(i, j)\` such that \`i < j\`, and \`isPrefixAndSuffix(words[i], words[j])\` is \`true\`.`;
 
 export default function Home() {
   const [markdown, setMarkdown] = useState(DEFAULT_MD);
@@ -45,7 +52,7 @@ export default function Home() {
         <Editor
           markdown={markdown}
           setMarkdown={setMarkdown}
-          className="h-[150px]"
+          className="h-[300px]"
         >
           Add a description
         </Editor>

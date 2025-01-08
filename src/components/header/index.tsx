@@ -12,8 +12,6 @@ import { NavItem } from './nav-item';
 const Header = () => {
     const pathname = usePathname();
 
-    const navitems: string[] = ['/contests', '/problems'];
-
     return (
         <header className={cn(
             'h-[56px] flex justify-center mb-[20px]',
@@ -21,9 +19,12 @@ const Header = () => {
                 ? 'sticky top-0 bg-background-dark border-t border-t-transparent border-b border-b-transparent'
                 : 'bg-background border-t border-t-transparent border-b border-b-border',
         )}>
-            <div className='flex-1 flex items-center pl-4 text-text transition-colors'>
-                <Link href="/">
-                    <Icons.logo className='h-7 w-7' />
+            <div className='flex-1 flex items-center pl-4'>
+                <Link href="/" className={cn(
+                    'text-base text-text-muted hover:text-text font-semibold transition-colors',
+                    pathname === '/' ? 'text-text' : 'text-text-muted',
+                )} >
+                    VOID
                 </Link>
             </div>
             <div className='w-[1200px] flex gap-[30px] items-center'>
