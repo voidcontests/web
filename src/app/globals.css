@@ -86,16 +86,96 @@ body {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
     --radius: 0.5rem;
+
+    /* UI ELEMENTS */
+    --text-primary: var(--white-600);
+    --text-bright: var(--white-main);
+    --text-primary-inverse: var(--black-main);
+    --text-primary-on-color: var(--white-main);
+    --text-secondary: var(--white-500);
+    --text-muted: var(--white-400);
+    --text-disabled: var(--white-300);
+    --text-critical: var(--red-main);
+    --text-caution: var(--orange-main);
+    --text-success: var(--green-main);
+    --text-link: var(--blue-main);
+
+    --background-primary: var(--black-main);
+    --background-primary-inverse: var(--white-main);
+    --background-secondary: var(--white-100);
+    --background-secondary-subdued: var(--white-200);
+    --background-disabled: var(--white-200);
+    --background-success-subdued: var(--green-300);
+    --background-link-subdued: var(--blue-300);
+    --background-caution-subdued: var(--orange-300);
+    --background-critical-subdued: var(--red-300);
+    --background-critical: var(--red-main);
+
+    --border-primary: 0 0% 13%;
+    --border-critical: var(--red-main);
+    --border-active: var(--blue-main);
+
+    --icon-primary: var(--white-600);
+
+    /* COLOR KIT */
+    --black-main: 240, 10%, 4%, 1;
+    --black-600: 240, 10%, 4%, 0.88;
+    --black-500: 240, 10%, 4%, 0.6;
+    --black-400: 240, 10%, 4%, 0.4;
+    --black-300: 240, 10%, 4%, 0.12;
+    --black-200: 240, 10%, 4%, 0.08;
+    --black-100: 240, 10%, 4%, 0.04;
+
+    --white-main: 0, 0%, 100%, 1;
+    --white-600: 0, 0%, 100%, 0.88;
+    --white-500: 0, 0%, 100%, 0.6;
+    --white-400: 0, 0%, 100%, 0.4;
+    --white-300: 0, 0%, 100%, 0.12;
+    --white-200: 0, 0%, 100%, 0.08;
+    --white-100: 0, 0%, 100%, 0.04;
+
+    --blue-main: 215, 100%, 65%, 1;
+    --blue-600: 215, 100%, 65%, 0.88;
+    --blue-500: 215, 100%, 65%, 0.6;
+    --blue-400: 215, 100%, 65%, 0.4;
+    --blue-300: 215, 100%, 65%, 0.16;
+    --blue-200: 215, 100%, 65%, 0.08;
+    --blue-100: 215, 100%, 65%, 0.04;
+    --blue-ton: 206, 100%, 56%, 1;
+
+    --red-main: 0, 96%, 61%, 1;
+    --red-600: 0, 96%, 61%, 0.88;
+    --red-500: 0, 96%, 61%, 0.6;
+    --red-400: 0, 96%, 61%, 0.4;
+    --red-300: 0, 96%, 61%, 0.16;
+    --red-200: 0, 96%, 61%, 0.08;
+    --red-100: 0, 96%, 61%, 0.04;
+
+    --green-main: 140, 61%, 43%, 1;
+    --green-600: 140, 61%, 43%, 0.88;
+    --green-500: 140, 61%, 43%, 0.6;
+    --green-400: 140, 61%, 43%, 0.4;
+    --green-300: 140, 61%, 43%, 0.16;
+    --green-200: 140, 61%, 43%, 0.08;
+    --green-100: 140, 61%, 43%, 0.04;
+
+    --orange-main: 27, 94%, 60%, 1;
+    --orange-600: 27, 94%, 60%, 0.88;
+    --orange-500: 27, 94%, 60%, 0.6;
+    --orange-400: 27, 94%, 60%, 0.4;
+    --orange-300: 27, 94%, 60%, 0.16;
+    --orange-200: 27, 94%, 60%, 0.08;
+    --orange-100: 27, 94%, 60%, 0.04;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border-primary;
   }
 
   body {
-    @apply bg-background-dark text-text;
+    @apply bg-background-primary text-text-primary;
   }
 }
 
