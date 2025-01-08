@@ -2,7 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import Editor from "@/components/editor";
+import Preview from "@/components/preview";
+import sanitize from "sanitize-html";
 import { useState } from 'react';
+import { marked } from "marked";
 import Link from "next/link";
 import React from "react";
 import {
@@ -11,9 +14,6 @@ import {
   WidgetTitle,
   WidgetFooter,
 } from "@/components/ui/widget";
-import { marked } from "marked";
-import dompurify from "dompurify";
-import Preview from "@/components/preview";
 
 const DEFAULT_MD = `This is an \`inline code block\`
 
@@ -26,10 +26,10 @@ export default function Home() {
   let sanitized: string = '';
   if (parsed instanceof Promise) {
     parsed.then((val) => {
-      sanitized = dompurify.sanitize(val);
+      sanitized = sanitize(val);
     });
   } else {
-    sanitized = dompurify.sanitize(parsed);
+    sanitized = sanitize(parsed);
   }
 
   return (

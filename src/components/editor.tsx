@@ -7,6 +7,8 @@ import { Separator } from "./ui/separator";
 import { marked } from "marked";
 import dompurify from "dompurify";
 import Preview from "./preview";
+import insane from 'insane';
+import sanitize from "sanitize-html";
 
 type StyleKind = 'bold' | 'italic' | 'code' | 'heading' | 'link' | 'quote';
 
@@ -133,10 +135,10 @@ const Editor = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<"texta
     let sanitized: string = '';
     if (parsed instanceof Promise) {
         parsed.then((val) => {
-            sanitized = dompurify.sanitize(val);
+            sanitized = sanitize(val);
         });
     } else {
-        sanitized = dompurify.sanitize(parsed);
+        sanitized = sanitize(parsed);
     }
 
     return (
