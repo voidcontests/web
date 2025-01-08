@@ -25,7 +25,7 @@ export const TonConnectProvider = ({ children }: { children: React.ReactNode }) 
                 }
             >
                 {children}
-            </TonConnectUIProvider >
+            </TonConnectUIProvider>
         </TonProofContext.Provider>
     );
 }

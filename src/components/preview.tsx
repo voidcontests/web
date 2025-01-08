@@ -29,7 +29,7 @@ const Preview = React.forwardRef<HTMLDivElement, PreviewProps>(({ markdown, clas
             )} dangerouslySetInnerHTML={{ __html: parsed }}
             {...props}
         />
-    )
+    );
 });
 
 export default Preview;

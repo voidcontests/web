@@ -122,7 +122,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
 
     return (
         <div className="flex flex-col gap-[10px]">
-            < div className="flex justify-between items-center" >
+            <div className="flex justify-between items-center">
                 <h1 className="text-text text-lg font-medium">
                     {children}
                 </h1>
@@ -156,7 +156,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                         <ListChecks />
                     </Button>
                 </div>
-            </div >
+            </div>
             <TextArea
                 className={className}
                 value={internalValue}
@@ -183,7 +183,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                     </div>
                 </DrawerContent>
             </Drawer>
-        </div >
+        </div>
     )
 });
 

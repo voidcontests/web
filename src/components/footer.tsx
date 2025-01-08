@@ -13,6 +13,6 @@ export const Footer = () => {
                     <Link href="mailto:artfa63@gmail.com" className='hover:text-text transition duration-300'>Email</Link>
                 </div>
             </div>
-        </footer >
+        </footer>
     );
 }
