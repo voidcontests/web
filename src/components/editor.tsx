@@ -22,7 +22,7 @@ interface EditorProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> 
     setMarkdown: (s: string) => void;
 }
 
-const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, setMarkdown, children, className, ...props }) => {
+const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, setMarkdown, children, className, ...props }, ref) => {
     const [internalValue, setInternalValue] = useState<string>(markdown);
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
     const [open, setOpen] = useState(false);
