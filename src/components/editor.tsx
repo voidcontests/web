@@ -42,6 +42,21 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
         setMarkdown(newValue);
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if ((!e.ctrlKey && !e.metaKey) || !e.key) return;
+
+        switch (e.key) {
+            case 'b':
+                e.preventDefault();
+                applyStyle('bold');
+                break;
+            case 'i':
+                e.preventDefault();
+                applyStyle('italic');
+                break;
+        }
+    };
+
     const moveCursor = (idx: number) => {
         setTimeout(() => {
             if (!textAreaRef.current) return;
@@ -111,7 +126,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
 
     return (
         <div className="flex flex-col gap-[10px]">
-            <div className="flex justify-between items-center">
+            < div className="flex justify-between items-center" >
                 <h1 className="text-text text-lg font-medium">
                     {children}
                 </h1>
@@ -145,12 +160,13 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                         <ListChecks />
                     </Button>
                 </div>
-            </div>
+            </div >
             <TextArea
                 className={className}
                 value={internalValue}
                 placeholder="Write a description for your contest here"
                 onChange={handleChange}
+                onKeyDown={handleKeyDown}
                 ref={textAreaRef}
                 {...props}
             />
@@ -171,7 +187,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                     </div>
                 </DrawerContent>
             </Drawer>
-        </div>
+        </div >
     )
 });
 
