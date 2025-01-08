@@ -114,6 +114,7 @@ export default function CreateProblem() {
                         />
                     </div>
                     <Editor
+                        placeholder="Write a contest's description"
                         markdown={contest.description ?? ''}
                         setMarkdown={setContestDescription}
                     >
@@ -229,7 +230,6 @@ export default function CreateProblem() {
                                 <Editor
                                     markdown={problem.statement}
                                     setMarkdown={setProblemStatement}
-                                    onChange={handleProblemStatementChange}
                                     placeholder="Write a problem's statement here"
                                     className="h-[400px] resize-none"
                                 >

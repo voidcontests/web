@@ -160,7 +160,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
             <TextArea
                 className={className}
                 value={internalValue}
-                placeholder="Write a description for your contest here"
+                placeholder={props.placeholder}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 ref={textAreaRef}

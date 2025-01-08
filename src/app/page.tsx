@@ -72,6 +72,7 @@ export default function Home() {
           </WidgetFooter>
         </Widget>
         <Editor
+          placeholder="Write something"
           markdown={markdown}
           setMarkdown={setMarkdown}
           className="h-[300px]"
