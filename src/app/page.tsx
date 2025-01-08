@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import Preview from "@/components/preview";
 import Editor from "@/components/editor";
-import { parseMD } from "@/lib/utils";
 import { useState } from 'react';
 import Link from "next/link";
 import React from "react";
@@ -27,8 +26,6 @@ Return an integer denoting the **number** of index pairs \`(i, j)\` such that \`
 
 export default function Home() {
   const [markdown, setMarkdown] = useState(DEFAULT_MD);
-
-  const parsed = parseMD(markdown);
 
   return (
     <div className="flex justify-center">
@@ -56,7 +53,7 @@ export default function Home() {
         >
           Add a description
         </Editor>
-        <Preview markdown={parsed} />
+        <Preview markdown={markdown} />
       </div>
     </div>
   );

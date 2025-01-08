@@ -98,3 +98,8 @@ body {
     @apply bg-background-dark text-text;
   }
 }
+
+.codeblock>pre {
+  background-color: transparent;
+  padding: 0;
+}

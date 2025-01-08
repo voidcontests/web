@@ -5,7 +5,6 @@ import { TextArea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Separator } from "./ui/separator";
 import Preview from "@/components/preview";
-import { parseMD } from "@/lib/utils";
 import * as strings from '@/lib/strings';
 
 type StyleKind = 'bold' | 'italic' | 'code' | 'heading' | 'link' | 'quote';
@@ -79,7 +78,6 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
         select(begin, end);
     }
 
-
     const applyStyle = (style: StyleKind) => {
         if (!textAreaRef.current) return;
 
@@ -121,8 +119,6 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                 console.log('unknown styles');
         }
     }
-
-    const parsed = parseMD(internalValue);
 
     return (
         <div className="flex flex-col gap-[10px]">
@@ -182,7 +178,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                 <DrawerContent className="min-h-[60vh]">
                     <div className="flex justify-center">
                         <div className="w-[1200px] flex flex-col gap-[30px]">
-                            <Preview markdown={parsed} />
+                            <Preview markdown={internalValue} />
                         </div>
                     </div>
                 </DrawerContent>
