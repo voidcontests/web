@@ -25,7 +25,6 @@ export const parse = (md: string): string => {
     );
 
     const parsed = marked.parse(md);
-    console.log(parsed);
     if (parsed instanceof Promise) {
         parsed.then((val) => {
             return sanitize(val, sanitizeOpts);

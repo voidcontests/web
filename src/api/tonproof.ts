@@ -26,7 +26,8 @@ export const check = async (proof: TonProofItemReplySuccess['proof'], account: A
 
         return data.token;
     } catch (e) {
-        console.log(e);
+        console.error(e);
+        return;
     }
 }
 

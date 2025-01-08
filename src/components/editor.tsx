@@ -116,7 +116,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                 select(selectionEnd + 3, selectionEnd + 6);
                 break;
             default:
-                console.log('unknown styles');
+                throw new Error('ERROR: trying to apply unknown style');
         }
     }
 
