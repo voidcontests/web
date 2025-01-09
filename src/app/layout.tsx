@@ -1,6 +1,6 @@
 import { TonConnectProvider } from "@/components/ton-connect/provider";
 import { Notification } from "@/components/notification";
-import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ThemeProvider, useTheme } from "@/contexts/ThemeContext";
 import { Bug, ChevronRight } from "lucide-react";
 import { Footer } from "@/components/footer";
 import Header from "@/components/header";
@@ -38,6 +38,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           </body>
         </TonConnectProvider>
       </ThemeProvider>
-    </html>
+    </html >
   );
 }

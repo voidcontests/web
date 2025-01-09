@@ -54,13 +54,12 @@ class Solution:
 export default function Home() {
   const [markdown, setMarkdown] = useState(DEFAULT_MD);
 
-  const { theme, setTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <div className="flex justify-center">
       <div className="w-[1200px] flex flex-col gap-[20px]">
-        <Button onClick={() => setTheme('light')}>USE LIGHT</Button>
-        <Button onClick={() => setTheme('dark')}>THI WANA MALE DARK</Button>
+        <Button onClick={() => toggleTheme()}>TOGGLE</Button>
         {theme}
         <Widget className="w-[380px]">
           <WidgetContent>
@@ -88,6 +87,6 @@ export default function Home() {
         </Editor>
         <Preview markdown={markdown} />
       </div>
-    </div>
+    </div >
   );
 }
