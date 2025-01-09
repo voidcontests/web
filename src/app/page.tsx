@@ -13,6 +13,7 @@ import {
   WidgetFooter,
 } from "@/components/ui/widget";
 import { Toggle } from "@/components/ui/toggle";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const DEFAULT_MD = `## 3042/ Count Prefix and Suffix Pairs. Part I
 
@@ -53,9 +54,14 @@ class Solution:
 export default function Home() {
   const [markdown, setMarkdown] = useState(DEFAULT_MD);
 
+  const { theme, setTheme } = useTheme();
+
   return (
     <div className="flex justify-center">
       <div className="w-[1200px] flex flex-col gap-[20px]">
+        <Button onClick={() => setTheme('light')}>USE LIGHT</Button>
+        <Button onClick={() => setTheme('dark')}>THI WANA MALE DARK</Button>
+        {theme}
         <Widget className="w-[380px]">
           <WidgetContent>
             <WidgetTitle>HOST</WidgetTitle>
