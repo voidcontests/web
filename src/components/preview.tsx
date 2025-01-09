@@ -16,8 +16,7 @@ const Preview = React.forwardRef<HTMLDivElement, PreviewProps>(({ markdown, clas
         <div
             ref={ref}
             className={cn(
-                'prose',
-                'prose-invert', // for dark theme
+                'prose dark:prose-invert',
                 'prose-headings:font-normal',
                 'prose-code:bg-background-secondary prose-code:border prose-code:p-1 prose-code:rounded-lg',
                 'prose-a:text-text-link prose-a:no-underline hover:prose-a:underline underline-offset-2 prose-a:font-normal',
