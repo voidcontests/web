@@ -29,7 +29,7 @@ if [ "$1" == "deploy" ]; then
 	git pull
 
 	echo "Downloading new dependencies..."
-	npm i
+	npm i > /dev/null
 
 	echo "Building project..."
 	npm run build > /dev/null
