@@ -106,7 +106,7 @@ export default function CreateProblem() {
             <div className="w-[1200px] grid grid-cols-10 gap-5">
                 <div className="col-span-7 flex flex-col gap-[30px]">
                     <div className="flex flex-col gap-[10px]">
-                        <h1 className="text-text text-lg font-medium">Add a title</h1>
+                        <h1 className="text-text-bright text-lg font-medium">Add a title</h1>
                         <Input
                             value={contest.title}
                             placeholder="Title"
@@ -219,7 +219,7 @@ export default function CreateProblem() {
                     <div className="flex justify-center">
                         <div className="w-[1200px] flex flex-col gap-[30px]">
                             <div className="flex flex-col gap-[10px]">
-                                <h1 className="text-text text-lg font-medium">Add a title</h1>
+                                <h1 className="text-text-bright text-lg font-medium">Add a title</h1>
                                 <Input
                                     value={problem.title}
                                     placeholder="Title"

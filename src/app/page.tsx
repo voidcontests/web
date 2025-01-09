@@ -12,6 +12,7 @@ import {
   WidgetTitle,
   WidgetFooter,
 } from "@/components/ui/widget";
+import { Toggle } from "@/components/ui/toggle";
 
 const DEFAULT_MD = `## 3042/ Count Prefix and Suffix Pairs. Part I
 

@@ -7,16 +7,16 @@ import * as React from "react";
 import Link from "next/link";
 
 const navItemVariants = cva(
-    "text-base font-medium hover:text-text transition-colors",
+    "text-base font-medium hover:text-text-primary transition-colors",
     {
         variants: {
-            variant: {
+            state: {
                 default: "text-text-muted",
-                active: "text-text",
+                active: "text-text-primary",
             },
         },
         defaultVariants: {
-            variant: "default",
+            state: "default",
         },
     }
 );
@@ -26,7 +26,7 @@ export interface NavItemProps extends React.AnchorHTMLAttributes<HTMLAnchorEleme
     href: string;
 }
 
-function NavItem({ className, variant, href, children, ...props }: NavItemProps) {
+function NavItem({ className, state, href, children, ...props }: NavItemProps) {
     const pathname = usePathname();
 
     const current = new URL(href, 'http://example.com');
@@ -34,13 +34,13 @@ function NavItem({ className, variant, href, children, ...props }: NavItemProps)
     const isActive = pathname.startsWith(current.pathname);
 
     return (
-        <Link href={href} className={cn(navItemVariants({ variant: isActive ? 'active' : 'default' }), className, 'relative flex flex-col justify-center h-full')} {...props}>
+        <Link href={href} className={cn(navItemVariants({ state: isActive ? 'active' : 'default' }), className, 'relative flex flex-col justify-center h-full')} {...props}>
             <span className="flex-grow flex items-center justify-center">
                 {children}
             </span>
             <div className={cn(
                 "absolute bottom-0 left-0 h-[3px] rounded-t-[3px] transition-all duration-300 ease-in-out",
-                isActive ? 'w-full bg-blue-500' : 'w-0 bg-transparent'
+                isActive ? 'w-full bg-blue-main' : 'w-0 bg-transparent'
             )} />
         </Link>
     );

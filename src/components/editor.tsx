@@ -123,7 +123,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
     return (
         <div className="flex flex-col gap-[10px]">
             <div className="flex justify-between items-center">
-                <h1 className="text-text text-lg font-medium">
+                <h1 className="text-text-primary text-lg font-medium">
                     {children}
                 </h1>
                 <div className="flex items-center gap-[5px]">
