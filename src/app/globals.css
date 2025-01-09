@@ -19,35 +19,35 @@ body {
     --radius: 0.5rem;
 
     /* ELEMENTS */
-    --text-primary: var(--white-600);
-    --text-bright: var(--white-main);
-    --text-primary-inverse: var(--black-main);
+    --text-primary: var(--black-600);
+    --text-bright: var(--black-main);
+    --text-primary-inverse: var(--white-main);
     --text-primary-on-color: var(--white-main);
-    --text-secondary: var(--white-500);
-    --text-muted: var(--white-400);
-    --text-disabled: var(--white-300);
+    --text-secondary: var(--black-500);
+    --text-muted: var(--black-400);
+    --text-disabled: var(--black-300);
     --text-critical: var(--red-main);
     --text-caution: var(--orange-main);
     --text-success: var(--green-main);
     --text-link: var(--blue-main);
 
-    --background-primary: var(--black-main);
-    --background-primary-inverse: var(--white-main);
-    --background-secondary: var(--white-100);
-    --background-secondary-subdued: var(--white-200);
-    --background-disabled: var(--white-200);
+    --background-primary: var(--white-main);
+    --background-primary-inverse: var(--black-main);
+    --background-secondary: var(--black-100);
+    --background-secondary-subdued: var(--black-200);
+    --background-disabled: var(--black-200);
     --background-success-subdued: var(--green-300);
     --background-link-subdued: var(--blue-300);
     --background-caution-subdued: var(--orange-300);
     --background-critical-subdued: var(--red-300);
     --background-critical: var(--red-main);
-    --background-popover: 240 5% 7.8%;
+    --background-popover: 0 0% 96.1%;
 
-    --border-primary: 0 0% 15%;
+    --border-primary: 0 0% 90%;
     --border-critical: var(--red-main);
     --border-active: var(--blue-main);
 
-    --icon-primary: var(--white-600);
+    --icon-primary: var(--black-600);
 
     --notification-text: 0 0% 100%;
     --notification-default: linear-gradient(to right, hsl(208, 89%, 59%), hsl(191, 100%, 62%));
@@ -103,6 +103,38 @@ body {
     --orange-300: 27, 94%, 60%, 0.16;
     --orange-200: 27, 94%, 60%, 0.08;
     --orange-100: 27, 94%, 60%, 0.04;
+  }
+
+  .dark {
+    --text-primary: var(--white-600);
+    --text-bright: var(--white-main);
+    --text-primary-inverse: var(--black-main);
+    --text-primary-on-color: var(--white-main);
+    --text-secondary: var(--white-500);
+    --text-muted: var(--white-400);
+    --text-disabled: var(--white-300);
+    --text-critical: var(--red-main);
+    --text-caution: var(--orange-main);
+    --text-success: var(--green-main);
+    --text-link: var(--blue-main);
+
+    --background-primary: var(--black-main);
+    --background-primary-inverse: var(--white-main);
+    --background-secondary: var(--white-100);
+    --background-secondary-subdued: var(--white-200);
+    --background-disabled: var(--white-200);
+    --background-success-subdued: var(--green-300);
+    --background-link-subdued: var(--blue-300);
+    --background-caution-subdued: var(--orange-300);
+    --background-critical-subdued: var(--red-300);
+    --background-critical: var(--red-main);
+    --background-popover: 240 5% 7.8%;
+
+    --border-primary: 0 0% 15%;
+    --border-critical: var(--red-main);
+    --border-active: var(--blue-main);
+
+    --icon-primary: var(--white-600);
   }
 }
 

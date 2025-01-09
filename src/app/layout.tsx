@@ -16,9 +16,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <TonConnectProvider>
         {/* NOTE: there is some weird micro-scroll with 'min-h-screen' */}
-        <body className='flex flex-col min-h-[99vh] antialiased'>
+        <body className='flex flex-col min-h-[99vh] antialiased dark'>
           <Notification
-            variant="alert"
+            variant="default"
             href="https://github.com/cascadecontests/frontend/issues/new?assignees=&labels=&projects=&template=bug_report.md&title="
           >
             <Bug className="w-5 h-5" />
