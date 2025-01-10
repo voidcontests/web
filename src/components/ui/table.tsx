@@ -4,7 +4,7 @@ import * as React from "react";
 const TableContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className="bg-background border rounded-[10px] relative w-full overflow-auto"
+    className="bg-background-secondary border rounded-[10px] relative w-full overflow-auto"
     {...props}
   />
 ));
@@ -38,7 +38,7 @@ const TableBody = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes
 TableBody.displayName = "TableBody";
 
 const TableHeaderRow = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
-  <thead ref={ref} className={cn("h-[30px] bg-background-muted [&_tr]:border-b [&_tr]:border-t", className)} {...props} />
+  <thead ref={ref} className={cn("h-[30px] bg-background-secondary [&_tr]:border-b [&_tr]:border-t", className)} {...props} />
 ));
 TableHeaderRow.displayName = "TableHeaderRow";
 
@@ -58,7 +58,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
   <tr
     ref={ref}
     className={cn(
-      "h-[40px] border-b transition-colors data-[state=selected]:bg-muted",
+      "h-[40px] border-b transition-colors",
       className,
     )}
     {...props}
@@ -82,13 +82,25 @@ const TableFooter = React.forwardRef<HTMLTableSectionElement, React.HTMLAttribut
   <tfoot
     ref={ref}
     className={cn(
-      "h-[40px] w-full flex items-center justify-center bg-transparent font-regular text-sm text-text border-t [&>tr]:last:border-b-0",
+      "h-[40px] w-full flex items-center justify-center bg-transparent font-regular text-sm text-text-primary border-t [&>tr]:last:border-b-0",
       className
     )}
     {...props}
   />
 ));
 TableFooter.displayName = "TableFooter";
+
+const TableCaption = React.forwardRef<
+  HTMLTableCaptionElement,
+  React.HTMLAttributes<HTMLTableCaptionElement>
+>(({ className, ...props }, ref) => (
+  <caption
+    ref={ref}
+    className={cn("my-2 text-base text-text-secondary", className)}
+    {...props}
+  />
+))
+TableCaption.displayName = "TableCaption"
 
 export {
   TableContainer,
@@ -100,4 +112,5 @@ export {
   TableRow,
   TableCell,
   TableFooter,
+  TableCaption,
 }
