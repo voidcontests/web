@@ -7,15 +7,13 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-button-background-primary text-button-text-primary",
-        secondary:
-          "bg-button-background-secondary text-button-text-secondary",
-        outline: "border text-button-text-secondary",
-        blue: "bg-badge-background-blue text-badge-text-blue",
-        green: "bg-badge-background-green text-badge-text-green",
-        orange: "bg-badge-background-orange text-badge-text-orange",
-        red: "bg-badge-background-red text-badge-text-red",
+        default: "bg-background-primary-inverse text-text-primary-inverse",
+        secondary: "bg-background-secondary text-text-primary",
+        outline: "border text-text-primary",
+        blue: "bg-background-link-subdued text-text-link",
+        green: "bg-background-success-subdued text-text-success",
+        orange: "bg-background-caution-subdued text-text-caution",
+        red: "bg-background-critical-subdued text-text-critical",
       },
     },
     defaultVariants: {

@@ -38,7 +38,7 @@ const TonConnectButton = () => {
 
     if (!wallet || !tonConnectUI.account) {
         return (
-            <Button onClick={() => tonConnectUI.openModal()} className="text-white font-medium bg-ton hover:bg-ton/90">
+            <Button onClick={() => tonConnectUI.openModal()} className="text-text-primary-on-color font-medium bg-blue-ton hover:bg-blue-ton/90">
                 CONNECT WALLET
             </Button>
         );
@@ -63,7 +63,7 @@ const TonConnectButton = () => {
         //         </DropdownMenuItem>
         //         <DropdownMenuItem
         //             onClick={handleLogOut}
-        //             className="text-red-500 focus:bg-red-500/10 focus:text-red-500"
+        //             className="text-text-critical focus:bg-background-critical-subdued"
         //         >
         //             <LogOut /> Log Out
         //         </DropdownMenuItem>

@@ -1,20 +1,16 @@
-"use client";
+'use client';
 
-import {
-    Plus, Paperclip, Bold, Heading, Code,
-    Italic, Link2, ListCollapse, TextQuote,
-} from "lucide-react";
-import { Toggle } from "@/components/ui/toggle";
-import { Link } from "@/components/ui/link";
-import {
-    Widget,
-    WidgetContent,
-    WidgetTitle,
-} from "@/components/ui/widget";
+import { Widget, WidgetContent, WidgetTitle } from "@/components/ui/widget";
+import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { Plus, Paperclip } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { TextArea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "@/components/ui/link";
+import Editor from "@/components/editor";
+import { itoc } from "@/lib/utils";
+import { useState } from "react";
 import {
     TableContainer,
     TableHead,
@@ -24,17 +20,8 @@ import {
     TableCell,
     TableHeaderRow,
     TableHeaderCell,
-    TableFooter,
     TableCaption,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import {
-    Drawer,
-    DrawerContent,
-    DrawerTrigger,
-} from "@/components/ui/drawer";
-import { cn, itoc } from "@/lib/utils";
-import { useState } from "react";
 
 interface Problem {
     title: string,
@@ -76,6 +63,13 @@ export default function CreateProblem() {
         }));
     }
 
+    const setContestDescription = (s: string): void => {
+        setContest(prev => ({
+            ...prev,
+            description: s,
+        }));
+    }
+
     const handleProblemTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setProblem(prev => ({
             ...prev,
@@ -87,6 +81,13 @@ export default function CreateProblem() {
         setProblem(prev => ({
             ...prev,
             statement: e.target.value,
+        }));
+    }
+
+    const setProblemStatement = (s: string): void => {
+        setProblem(prev => ({
+            ...prev,
+            statement: s,
         }));
     }
 
@@ -105,46 +106,20 @@ export default function CreateProblem() {
             <div className="w-[1200px] grid grid-cols-10 gap-5">
                 <div className="col-span-7 flex flex-col gap-[30px]">
                     <div className="flex flex-col gap-[10px]">
-                        <h1 className="text-text text-lg font-medium">Add a title</h1>
+                        <h1 className="text-text-bright text-lg font-medium">Add a title</h1>
                         <Input
                             value={contest.title}
                             placeholder="Title"
                             onChange={handleContestTitleChange}
                         />
                     </div>
-                    <div className="flex flex-col gap-[10px]">
-                        <div className="flex justify-between items-center">
-                            <h1 className="text-text text-lg font-medium">Add a description</h1>
-                            <div className="flex gap-[5px]">
-                                <Toggle size='sm'>
-                                    <Heading />
-                                </Toggle>
-                                <Toggle size='sm'>
-                                    <Bold />
-                                </Toggle>
-                                <Toggle size='sm'>
-                                    <Italic />
-                                </Toggle>
-                                <Toggle size='sm'>
-                                    <Code />
-                                </Toggle>
-                                <Toggle size='sm'>
-                                    <Link2 />
-                                </Toggle>
-                                <Toggle size='sm'>
-                                    <ListCollapse />
-                                </Toggle>
-                                <Toggle size='sm'>
-                                    <TextQuote />
-                                </Toggle>
-                            </div>
-                        </div>
-                        <TextArea
-                            value={contest.description}
-                            placeholder="Write a description for your contest here"
-                            onChange={handleContestDescriptionChange}
-                        />
-                    </div>
+                    <Editor
+                        placeholder="Write a contest's description"
+                        markdown={contest.description ?? ''}
+                        setMarkdown={setContestDescription}
+                    >
+                        Add a description
+                    </Editor>
                     <div className="flex flex-col gap-[20px]">
                         <TableContainer>
                             <TableHead className="gap-1">
@@ -244,7 +219,7 @@ export default function CreateProblem() {
                     <div className="flex justify-center">
                         <div className="w-[1200px] flex flex-col gap-[30px]">
                             <div className="flex flex-col gap-[10px]">
-                                <h1 className="text-text text-lg font-medium">Add a title</h1>
+                                <h1 className="text-text-bright text-lg font-medium">Add a title</h1>
                                 <Input
                                     value={problem.title}
                                     placeholder="Title"
@@ -252,38 +227,14 @@ export default function CreateProblem() {
                                 />
                             </div>
                             <div className="flex flex-col gap-[10px]">
-                                <div className="flex justify-between items-center">
-                                    <h1 className="text-text text-lg font-medium">Add a description</h1>
-                                    <div className="flex gap-[5px]">
-                                        <Toggle size='sm'>
-                                            <Heading />
-                                        </Toggle>
-                                        <Toggle size='sm'>
-                                            <Bold />
-                                        </Toggle>
-                                        <Toggle size='sm'>
-                                            <Italic />
-                                        </Toggle>
-                                        <Toggle size='sm'>
-                                            <Code />
-                                        </Toggle>
-                                        <Toggle size='sm'>
-                                            <Link2 />
-                                        </Toggle>
-                                        <Toggle size='sm'>
-                                            <ListCollapse />
-                                        </Toggle>
-                                        <Toggle size='sm'>
-                                            <TextQuote />
-                                        </Toggle>
-                                    </div>
-                                </div>
-                                <TextArea
-                                    value={problem.statement}
-                                    placeholder="Write a description for your contest here"
-                                    onChange={handleProblemStatementChange}
+                                <Editor
+                                    markdown={problem.statement}
+                                    setMarkdown={setProblemStatement}
+                                    placeholder="Write a problem's statement here"
                                     className="h-[400px] resize-none"
-                                />
+                                >
+                                    Add a statement
+                                </Editor>
                                 <div className="flex justify-between">
                                     <div className="flex gap-[10px] items-center">
                                         <Button variant='dashed'>

@@ -28,6 +28,9 @@ if [ "$1" == "deploy" ]; then
 	echo "Pulling latest changes..."
 	git pull
 
+	echo "Downloading new dependencies..."
+	npm i > /dev/null
+
 	echo "Building project..."
 	npm run build > /dev/null
 
