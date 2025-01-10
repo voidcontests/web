@@ -4,22 +4,17 @@ import { cn } from "@/lib/utils";
 import * as React from "react";
 
 const buttonVariants = cva(
-  "text-base font-regular inline-flex items-center justify-center gap-[10px] whitespace-nowrap rounded-[10px] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:bg-button-background-muted disabled:text-button-text-muted [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "text-base font-regular inline-flex items-center justify-center gap-[10px] whitespace-nowrap rounded-[10px] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:opacity-90 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default:
-          "bg-button-background-primary text-button-text-primary hover:bg-button-background-primary/90",
-        secondary:
-          "bg-button-background-secondary text-button-text-secondary hover:bg-button-background-secondary/90",
-        destructive:
-          "bg-button-background-destructive text-button-text-destructive hover:bg-button-background-destructive/90",
-        link: "bg-button-background-link text-button-text-link font-medium hover:bg-button-background-link/90",
-        outline:
-          "border border-border bg-transparent hover:bg-border",
-        dashed:
-          "border border-border border-dashed bg-transparent hover:bg-border",
-        ghost: "hover:bg-border disabled:bg-transparent",
+        default: "bg-background-primary-inverse text-text-primary-inverse",
+        secondary: "bg-background-secondary text-text-primary",
+        destructive: "bg-background-critical text-text-primary-on-color-text",
+        link: "text-text-link bg-background-link-subdued font-medium",
+        outline: "border bg-transparent hover:bg-background-secondary text-text-primary",
+        dashed: "border border-dashed bg-transparent hover:bg-background-secondary text-text-primary",
+        ghost: "bg-transparent text-text-primary hover:bg-background-secondary",
       },
       size: {
         sm: "h-8 rounded-md px-3 text-xs",

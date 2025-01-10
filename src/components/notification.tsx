@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 
 const notificationVariants = cva(
-    "h-[35px] w-full flex justify-center items-center gap-2 font-regular text-md text-notification-text",
+    "h-[35px] w-full flex justify-center items-center gap-2 font-regular text-md text-text-primary-on-color",
     {
         variants: {
             variant: {
