@@ -30,7 +30,7 @@ const TonConnectButton = () => {
 
     if (!isConnectionRestored) {
         return (
-            <Button variant="secondary" className="font-medium" disabled>
+            <Button variant="secondary" disabled>
                 <Icons.loader className="animate-spin" /> LOADING
             </Button>
         );
@@ -38,37 +38,18 @@ const TonConnectButton = () => {
 
     if (!wallet || !tonConnectUI.account) {
         return (
-            <Button onClick={() => tonConnectUI.openModal()} className="text-text-primary-on-color font-medium bg-blue-ton hover:bg-blue-ton/90">
+            <Button onClick={() => tonConnectUI.openModal()} className="text-text-primary-on-color bg-blue-ton hover:bg-blue-ton/90">
                 CONNECT WALLET
             </Button>
         );
     }
 
 
+    // TODO: add dropdown menu with copying address, disconnecting account, etc.
     return (
-        <Button className="font-medium" onClick={handleLogOut}>
+        <Button onClick={handleLogOut}>
             {enshortAdress(address)} <Icons.chevronDown />
         </Button>
-        // <DropdownMenu>
-        //     <DropdownMenuTrigger>
-        //         <Button className="font-medium">
-        //             {enshortAdress(address)} <Icons.chevronDown />
-        //         </Button>
-        //     </DropdownMenuTrigger>
-        //     <DropdownMenuContent>
-        //         <DropdownMenuItem
-        //             onClick={handleCopyAddress}
-        //         >
-        //             <Copy /> Copy Address
-        //         </DropdownMenuItem>
-        //         <DropdownMenuItem
-        //             onClick={handleLogOut}
-        //             className="text-text-critical focus:bg-background-critical-subdued"
-        //         >
-        //             <LogOut /> Log Out
-        //         </DropdownMenuItem>
-        //     </DropdownMenuContent>
-        // </DropdownMenu>
     );
 }
 
