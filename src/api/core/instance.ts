@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN;
+
 const instance = axios.create({
-    baseURL: "http://localhost:6969/api",
+    baseURL: DOMAIN + "/api",
 });
 
 export default instance;
