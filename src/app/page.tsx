@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Link } from "@/components/ui/link";
+import NextLink from "next/link";
 import React from "react";
 import {
   Widget,
@@ -27,14 +28,14 @@ export default function Home() {
           </p>
           <div className="flex gap-[20px]">
             <Button className="min-w-[150px]" asChild>
-              <Link href="/contests">
+              <NextLink href="/contests">
                 EXPLORE
-              </Link>
+              </NextLink>
             </Button>
             <Button variant="outline" className="min-w-[150px]" asChild>
-              <Link href="/contests/create">
+              <NextLink href="/contests/create">
                 CREATE
-              </Link>
+              </NextLink>
             </Button>
           </div>
         </div>
@@ -51,7 +52,7 @@ export default function Home() {
                 </p>
               </WidgetContent>
               <WidgetFooter className="pt-[20px]">
-                <Link href='/contests/create' className="font-medium text-text-link">
+                <Link href='/contests/create' size="large">
                   EXPLORE
                 </Link>
               </WidgetFooter>
@@ -66,7 +67,7 @@ export default function Home() {
                 </p>
               </WidgetContent>
               <WidgetFooter className="pt-[20px]">
-                <Link href='/contests/create' className="font-medium text-text-link">
+                <Link href='/contests/create' size="large">
                   CREATE CONTEST
                 </Link>
               </WidgetFooter>
@@ -81,7 +82,7 @@ export default function Home() {
                 </p>
               </WidgetContent>
               <WidgetFooter className="pt-[20px]">
-                <Link href='/contests/create' className="font-medium text-text-link">
+                <Link href='/contests/create' size="large">
                   GO TO TRAININGS
                 </Link>
               </WidgetFooter>
