@@ -27,7 +27,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
               href="https://github.com/cascadecontests/frontend/issues/new?assignees=&labels=&projects=&template=bug_report.md&title="
             >
               <Bug className="w-5 h-5" />
-              <div>This is an early development build. Report bugs here</div>
+              <div>This is an early dev build. Report bugs here</div>
               <ChevronRight className="w-5 h-5" />
             </Notification>
             <Header />

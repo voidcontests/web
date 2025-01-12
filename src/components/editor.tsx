@@ -205,8 +205,9 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                             toggle_buttons.map((toggle) => (
                                 <>
                                     {
-                                        toggle.separatorBefore ??
-                                        <Separator vertical className="h-5" />
+                                        toggle.separatorBefore
+                                            ? <Separator vertical className="h-5" />
+                                            : <></>
                                     }
                                     <Tooltip>
                                         <TooltipTrigger asChild>
