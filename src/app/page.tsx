@@ -52,7 +52,7 @@ export default function Home() {
                 </p>
               </WidgetContent>
               <WidgetFooter className="pt-[20px]">
-                <Link href='/contests/create' size="large">
+                <Link href='/contests' size="large">
                   EXPLORE
                 </Link>
               </WidgetFooter>
@@ -68,7 +68,7 @@ export default function Home() {
               </WidgetContent>
               <WidgetFooter className="pt-[20px]">
                 <Link href='/contests/create' size="large">
-                  CREATE CONTEST
+                  CREATE
                 </Link>
               </WidgetFooter>
             </Widget>
@@ -82,8 +82,8 @@ export default function Home() {
                 </p>
               </WidgetContent>
               <WidgetFooter className="pt-[20px]">
-                <Link href='/contests/create' size="large">
-                  GO TO TRAININGS
+                <Link href='/contests?filters=training' size="large">
+                  TRAININGS
                 </Link>
               </WidgetFooter>
             </Widget>
