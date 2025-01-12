@@ -30,7 +30,7 @@ export default function ContestsPage() {
             try {
                 const result = await Api.contests.getContests();
                 console.log(result);
-                setContests(result?.contests || []);
+                setContests(result?.data || []);
             } catch (error) {
                 console.error("Error fetching contests:", error);
                 setContests([]);

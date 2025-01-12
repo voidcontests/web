@@ -1,8 +1,7 @@
 import instance from "./core/instance";
 
 interface Problems {
-    amount: number;
-    problems: Problem[];
+    data: Problem[];
 }
 
 interface Problem {
@@ -21,7 +20,7 @@ export const getProblems = async (): Promise<Problems | undefined> => {
     try {
         const { data } = await instance.get('/problems');
 
-        return { amount: data.amount, problems: data.problems };
+        return data;
     } catch (e) {
         console.error(e);
         return;
