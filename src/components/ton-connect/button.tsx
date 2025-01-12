@@ -1,13 +1,12 @@
-import React from "react";
+import { Button } from "@/components/ui/button";
+import { LoaderCircle, LogOut } from "lucide-react";
 import {
     useIsConnectionRestored,
     useTonConnectUI,
     useTonAddress,
     useTonWallet
 } from "@tonconnect/ui-react";
-
-import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/icons";
+import React from "react";
 
 const TonConnectButton = () => {
     const isConnectionRestored = useIsConnectionRestored();
@@ -31,7 +30,7 @@ const TonConnectButton = () => {
     if (!isConnectionRestored) {
         return (
             <Button variant="secondary" disabled>
-                <Icons.loader className="animate-spin" /> LOADING
+                <LoaderCircle className="animate-spin" /> LOADING
             </Button>
         );
     }
@@ -48,7 +47,7 @@ const TonConnectButton = () => {
     // TODO: add dropdown menu with copying address, disconnecting account, etc.
     return (
         <Button onClick={handleLogOut}>
-            {enshortAdress(address)} <Icons.chevronDown />
+            {enshortAdress(address)} <LogOut />
         </Button>
     );
 }

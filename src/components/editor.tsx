@@ -6,6 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "./ui/separator";
 import Preview from "@/components/preview";
 import * as strings from '@/lib/strings';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 type StyleKind = 'bold' | 'italic' | 'code' | 'heading' | 'link' | 'quote';
 
@@ -120,70 +126,131 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
         }
     }
 
+    const toggle_buttons = [
+        {
+            icon: <Heading />,
+            tooltip: 'Heading',
+            onClick: () => applyStyle('heading'),
+            disabled: false,
+            separatorBefore: false,
+        },
+        {
+            icon: <Bold />,
+            tooltip: 'Bold',
+            onClick: () => applyStyle('bold'),
+            disabled: false,
+            separatorBefore: false,
+        },
+        {
+            icon: <Italic />,
+            tooltip: 'Italic',
+            onClick: () => applyStyle('italic'),
+            disabled: false,
+            separatorBefore: false,
+        },
+        {
+            icon: <Code />,
+            tooltip: 'Code',
+            onClick: () => applyStyle('code'),
+            disabled: false,
+            separatorBefore: false,
+        },
+        {
+            icon: <Link2 />,
+            tooltip: 'Link',
+            onClick: () => applyStyle('link'),
+            disabled: false,
+            separatorBefore: false,
+        },
+        {
+            icon: <TextQuote />,
+            tooltip: 'Quote',
+            onClick: () => applyStyle('quote'),
+            disabled: false,
+            separatorBefore: false,
+        },
+        {
+            icon: <List />,
+            tooltip: 'List',
+            onClick: () => { },
+            disabled: true,
+            separatorBefore: true,
+        },
+        {
+            icon: <ListOrdered />,
+            tooltip: 'Ordered list',
+            onClick: () => { },
+            disabled: true,
+            separatorBefore: false,
+        },
+        {
+            icon: <ListChecks />,
+            tooltip: 'Checkbox list',
+            onClick: () => { },
+            disabled: true,
+            separatorBefore: false,
+        },
+    ]
+
     return (
-        <div className="flex flex-col gap-[10px]">
-            <div className="flex justify-between items-center">
-                <h1 className="text-text-primary text-lg font-medium">
-                    {children}
-                </h1>
-                <div className="flex items-center gap-[5px]">
-                    <Button variant='ghost' size='icon' onClick={() => applyStyle('heading')}>
-                        <Heading />
-                    </Button>
-                    <Button variant='ghost' size='icon' onClick={() => applyStyle('bold')}>
-                        <Bold />
-                    </Button>
-                    <Button variant='ghost' size='icon' onClick={() => applyStyle('italic')}>
-                        <Italic />
-                    </Button>
-                    <Button variant='ghost' size='icon' onClick={() => applyStyle('code')}>
-                        <Code />
-                    </Button>
-                    <Button variant='ghost' size='icon' onClick={() => applyStyle('link')}>
-                        <Link2 />
-                    </Button>
-                    <Button variant='ghost' size='icon' onClick={() => applyStyle('quote')}>
-                        <TextQuote />
-                    </Button>
-                    <Separator vertical className="h-5" />
-                    <Button variant='ghost' size='icon' disabled>
-                        <List />
-                    </Button>
-                    <Button variant='ghost' size='icon' disabled>
-                        <ListOrdered />
-                    </Button>
-                    <Button variant='ghost' size='icon' disabled>
-                        <ListChecks />
-                    </Button>
-                </div>
-            </div>
-            <TextArea
-                className={className}
-                value={internalValue}
-                placeholder={props.placeholder}
-                onChange={handleChange}
-                onKeyDown={handleKeyDown}
-                ref={textAreaRef}
-                {...props}
-            />
-            <div className="flex justify-end">
-                <span
-                    className="text-text-link font-medium hover:cursor-pointer hover:underline hover:underline-offset-2"
-                    onClick={() => setOpen(prev => !prev)}
-                >
-                    PREVIEW
-                </span>
-            </div>
-            <Drawer open={open} onOpenChange={() => { setOpen(prev => !prev) }}>
-                <DrawerContent className="min-h-[60vh]">
-                    <div className="flex justify-center">
-                        <div className="w-[1200px] flex flex-col gap-[30px]">
-                            <Preview markdown={internalValue} />
-                        </div>
+        <TooltipProvider>
+
+            <div className="flex flex-col gap-[10px]">
+                <div className="flex justify-between items-center">
+                    <h1 className="text-text-primary text-lg font-medium">
+                        {children}
+                    </h1>
+                    <div className="flex items-center gap-[5px]">
+                        {
+                            toggle_buttons.map((toggle) => (
+                                <>
+                                    {
+                                        toggle.separatorBefore ??
+                                        <Separator vertical className="h-5" />
+                                    }
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                            <Button variant='ghost' size='icon' onClick={toggle.onClick} disabled={toggle.disabled}>
+                                                {toggle.icon}
+                                            </Button>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            {toggle.tooltip}
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </>
+                            ))
+                        }
                     </div>
-                </DrawerContent>
-            </Drawer>
-        </div>
+                </div>
+                <TextArea
+                    className={className}
+                    value={internalValue}
+                    placeholder={props.placeholder}
+                    onChange={handleChange}
+                    onKeyDown={handleKeyDown}
+                    ref={textAreaRef}
+                    {...props}
+                />
+                <div className="flex justify-end">
+                    <span
+                        className="text-text-link font-medium hover:cursor-pointer hover:underline hover:underline-offset-2"
+                        onClick={() => setOpen(prev => !prev)}
+                    >
+                        PREVIEW
+                    </span>
+                </div>
+                <Drawer open={open} onOpenChange={() => { setOpen(prev => !prev) }}>
+                    <DrawerContent className="min-h-[60vh]">
+                        <div className="flex justify-center">
+                            <div className="w-[1200px] flex flex-col gap-[30px]">
+                                <Preview markdown={internalValue} />
+                            </div>
+                        </div>
+                    </DrawerContent>
+                </Drawer>
+            </div>
+        </TooltipProvider >
     )
 });
 
