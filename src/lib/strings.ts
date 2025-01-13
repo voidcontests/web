@@ -25,3 +25,7 @@ export const getLineStartIndex = (text: string, index: number): number => {
     return -1;
 }
 
+export const capitalize = (word: string): string => {
+    if (!word) return '';
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+}
