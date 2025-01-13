@@ -1,5 +1,6 @@
 'use client';
 
+import * as Api from '@/api';
 import { Widget, WidgetContent, WidgetTitle } from "@/components/ui/widget";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
@@ -22,18 +23,12 @@ import {
     TableHeaderCell,
     TableCaption,
 } from "@/components/ui/table";
-
-interface Problem {
-    title: string,
-    statement: string,
-    answer: string,
-    // difficulty: 'easy' | 'mid' | 'hard',
-}
+import type { CreateProblemRequest } from '@/api/dto/dto';
 
 interface Contest {
     title: string,
     description?: string,
-    problemset: Problem[],
+    problemset: CreateProblemRequest[],
 }
 
 export default function CreateProblem() {
@@ -43,10 +38,12 @@ export default function CreateProblem() {
         problemset: [],
     });
 
-    const [problem, setProblem] = useState<Problem>({
+    const [problem, setProblem] = useState<CreateProblemRequest>({
         title: '',
         statement: '',
-        answer: '',
+        answer: '4',
+        input: '2\n2',
+        difficulty: 'easy',
     });
 
     const handleContestTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,6 +94,21 @@ export default function CreateProblem() {
             ...prev,
             answer: e.target.value,
         }));
+    }
+
+    const submitContest = (is_draft: boolean) => {
+        let now = new Date();
+        let date = new Date(now);
+        date.setDate(now.getDate() + 2);
+
+        Api.contests.create({
+            title: contest.title,
+            description: contest.description ?? "", // TODO: Fix undefined in the description
+            problems: contest.problemset,
+            starting_at: date.toISOString(),
+            duration_mins: 300,
+            is_draft: is_draft,
+        });
     }
 
     const [open, setOpen] = useState(false);
@@ -175,9 +187,13 @@ export default function CreateProblem() {
                                 <Plus />ADD PROBLEM
                             </Button>
                             <div className="flex gap-[20px]">
-                                <Button variant='dashed'>SAVE AS DRAFT</Button>
+                                <Button
+                                    variant='dashed'
+                                    onClick={() => submitContest(true)}
+                                >SAVE AS DRAFT</Button>
                                 <Button
                                     disabled={contest.problemset.length === 0 || contest.title === ''}
+                                    onClick={() => submitContest(false)}
                                 >
                                     SUBMIT CONTEST
                                 </Button>
@@ -211,6 +227,8 @@ export default function CreateProblem() {
                         title: '',
                         statement: '',
                         answer: '',
+                        difficulty: '',
+                        input: '',
                     });
                 }
                 setOpen(prev => !prev);
@@ -263,6 +281,8 @@ export default function CreateProblem() {
                                                 title: '',
                                                 statement: '',
                                                 answer: '',
+                                                difficulty: '',
+                                                input: '',
                                             });
                                             setOpen(false);
                                         }}

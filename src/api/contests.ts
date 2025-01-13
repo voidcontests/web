@@ -1,5 +1,6 @@
 import type { Contest } from "@/models/contest";
 import instance from "./core/instance";
+import { ContestResponse, CreateContestRequest, CreateProblemRequest } from "./dto/dto";
 
 export interface Contests {
     data: Contest[];
@@ -8,6 +9,17 @@ export interface Contests {
 export const getContests = async (): Promise<Contests | undefined> => {
     try {
         const { data } = await instance.get('/contests');
+
+        return data;
+    } catch (e) {
+        console.error(e);
+        return undefined;
+    }
+}
+
+export const create = async (contest: CreateContestRequest): Promise<ContestResponse | undefined> => {
+    try {
+        const { data } = await instance.post("/contests", contest);
 
         return data;
     } catch (e) {
