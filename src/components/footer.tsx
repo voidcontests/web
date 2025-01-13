@@ -7,6 +7,7 @@ import Link from 'next/link';
 const GIT_COMMIT = process.env.NEXT_PUBLIC_BUILD_COMMIT;
 const BUILD_TIME = process.env.NEXT_PUBLIC_BUILD_TIME;
 
+// TODO: Move format date to utils
 const formatDateTime = (date: Date): string => {
     const day = String(date.getDate()).padStart(2, '0');
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -49,8 +50,8 @@ export const Footer = () => {
                     <div>
                         <Separator vertical />
                     </div>
-                    <Link href="https://github.com/cascadecontests/frontend/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=" className='hover:text-text-primary transition-colors'>Bug Report</Link>
-                    <Link href="https://github.com/cascadecontests" className='hover:text-text-primary transition-colors'>GitHub</Link>
+                    <Link href="https://github.com/voidcontests/frontend/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=" className='hover:text-text-primary transition-colors'>Bug Report</Link>
+                    <Link href="https://github.com/voidcontests" className='hover:text-text-primary transition-colors'>GitHub</Link>
                     <Link href="mailto:artfa63@gmail.com" className='hover:text-text-primary transition-colors'>Email</Link>
                 </div>
             </div>
