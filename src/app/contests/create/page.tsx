@@ -24,6 +24,9 @@ import {
     TableCaption,
 } from "@/components/ui/table";
 import type { CreateProblemRequest } from '@/api/dto/dto';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+import { useTonWallet } from '@tonconnect/ui-react';
 
 interface Contest {
     title: string,
@@ -32,6 +35,9 @@ interface Contest {
 }
 
 export default function CreateProblem() {
+    const router = useRouter();
+    const wallet = useTonWallet();
+
     const [contest, setContest] = useState<Contest>({
         title: '',
         description: '',
@@ -96,19 +102,37 @@ export default function CreateProblem() {
         }));
     }
 
-    const submitContest = (is_draft: boolean) => {
+    const submitContest = async (is_draft: boolean) => {
+        if (wallet === null) {
+            toast.error('Connect wallet first');
+            return;
+        }
+
         let now = new Date();
         let date = new Date(now);
         date.setDate(now.getDate() + 2);
 
-        Api.contests.create({
-            title: contest.title,
-            description: contest.description ?? "", // TODO: Fix undefined in the description
-            problems: contest.problemset,
-            starting_at: date.toISOString(),
-            duration_mins: 300,
-            is_draft: is_draft,
-        });
+        try {
+            const c = await Api.contests.create({
+                title: contest.title,
+                description: contest.description ?? "", // TODO: Fix undefined in the description
+                problems: contest.problemset,
+                starting_at: date.toISOString(),
+                duration_mins: 300,
+                is_draft: is_draft,
+            });
+
+            if (c === undefined) {
+                throw new Error('contest is undefined');
+            }
+            toast.success("Contest created!");
+
+            setTimeout(() => {
+                router.push(`/contests/${c?.id}`);
+            }, 3000);
+        } catch (e) {
+            toast.error("Something went wrong");
+        }
     }
 
     const [open, setOpen] = useState(false);

@@ -30,6 +30,7 @@
     "react-dom": "^18",
     "react-router-dom": "^7.1.1",
     "sanitize-html": "^2.14.0",
+    "sonner": "^1.7.1",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.2"

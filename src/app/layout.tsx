@@ -6,6 +6,7 @@ import { Footer } from "@/components/footer";
 import Header from "@/components/header";
 import { cookies } from "next/headers";
 import type { Metadata } from "next";
+import { Toaster } from 'sonner';
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -34,6 +35,12 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             <main className="flex-grow">
               {children}
             </main>
+            <Toaster closeButton richColors theme={theme} position="bottom-right" toastOptions={{
+              duration: 3000,
+              style: {
+                borderRadius: "15px",
+              }
+            }} />
             <Footer />
           </body>
         </TonConnectProvider>
