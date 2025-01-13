@@ -21,6 +21,21 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import { format_date } from '@/lib/utils';
+
+const format_duration = (duration_mins: number): string => {
+    if (duration_mins < 0) {
+        return "00:00";
+    }
+
+    const hours = Math.floor(duration_mins / 60);
+    const minutes = duration_mins % 60;
+
+    const formattedHours = String(hours).padStart(2, '0');
+    const formattedMinutes = String(minutes).padStart(2, '0');
+
+    return `${formattedHours}:${formattedMinutes}`;
+}
 
 export default function ContestsPage() {
     const [contests, setContests] = useState<Contest[] | undefined>();
@@ -134,13 +149,13 @@ export default function ContestsPage() {
                                                     </Link>
                                                 </TableCell>
                                                 <TableCell>
-                                                    <Link href={`https://tonscan.org/address/${contest.creator_address}`}>{`host`}</Link>
+                                                    <Link href={`https://tonscan.org/address/${contest.creator_address}`}>{`address`}</Link>
                                                 </TableCell>
                                                 <TableCell>
                                                     <Badge variant="secondary">Training</Badge>
                                                 </TableCell>
-                                                <TableCell>{new Date(contest.starting_at).toISOString()}</TableCell>
-                                                <TableCell>{contest.duration_mins}mins</TableCell>
+                                                <TableCell>{format_date(new Date(contest.starting_at))}</TableCell>
+                                                <TableCell>{format_duration(contest.duration_mins)}</TableCell>
                                             </TableRow>
                                         ))
                                         : <></>

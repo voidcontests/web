@@ -12,19 +12,22 @@ import {
     TableHeaderRow,
     TableHeaderCell,
 } from "@/components/ui/table";
+import Timer from '@/components/timer';
 import { ContestDetailedResponse } from "@/api/dto/dto";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import * as Api from '@/api';
 import { toast } from "sonner";
-import { itoc } from "@/lib/utils";
+import { format_duration, itoc } from "@/lib/utils";
 import { capitalize } from "@/lib/strings";
+import { format_date } from '@/lib/utils';
 import {
     Widget,
     WidgetContent,
     WidgetTitle,
     WidgetFooter,
 } from "@/components/ui/widget";
+import Preview from "@/components/preview";
 
 type DifficultyColorMap = {
     [key: string]: 'green' | 'orange' | 'red' | 'secondary';
@@ -36,21 +39,6 @@ const difficultyToBadgeType: DifficultyColorMap = {
     'hard': 'red',
     'beginner': 'secondary',
 }
-
-const formatDate = (date: Date): string => {
-    const options: Intl.DateTimeFormatOptions = {
-        day: '2-digit',
-        month: 'short',
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true
-    };
-
-    const formattedDate = date.toLocaleString('en-US', options);
-
-    return formattedDate;
-}
-
 
 export default function ContestPage() {
     const { id } = useParams();
@@ -80,93 +68,39 @@ export default function ContestPage() {
 
     return (
         <div className="flex justify-center">
-            <div className="w-[1200px] grid grid-cols-12 gap-[20px]">
-                <div className="col-span-9 flex flex-col gap-[20px]">
-                    <div className="flex flex-col gap-[10px]">
-                        <h1 className="text-text-bright text-[32px] font-medium">
-                            {contest.title}
-                        </h1>
-                        <p className="text-text-primary text-base">
-                            {contest.description}
-                        </p>
-                    </div>
-                    <TableContainer>
-                        <TableHead>
-                            PROBLEMSET
-                        </TableHead>
-                        <Table>
-                            <TableHeaderRow>
-                                <TableRow>
-                                    <TableHeaderCell className='w-[5%]'>#</TableHeaderCell>
-                                    <TableHeaderCell className='w-[70%]'>Title</TableHeaderCell>
-                                    <TableHeaderCell className='w-[25%]'>Difficulty</TableHeaderCell>
-                                </TableRow>
-                            </TableHeaderRow>
-                            <TableBody>
-                                {
-                                    contest.problemset.map((problem, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell>{itoc(index)}</TableCell>
-                                            <TableCell>
-                                                <Link href={`/contests/${contest.id}/problem/${itoc(index)}`}>
-                                                    {problem.title}
-                                                </Link>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Badge variant={difficultyToBadgeType[problem.difficulty]}>{capitalize(problem.difficulty)}</Badge>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))
-                                }
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </div>
-                <div className="col-span-3">
-                    <div className="flex flex-col gap-[20px]">
-                        <Widget className="flex-1">
-                            <WidgetContent>
-                                <WidgetTitle className="text-text-bright">
-                                    ABOUT
-                                </WidgetTitle>
-                                <div className="flex">
-                                    <div className="flex-1 text-text-secondary">
-                                        Start
-                                    </div>
-                                    <div className="flex-1">
-                                        {formatDate(new Date(contest.starting_at))}
-                                    </div>
-                                </div>
-                                <div className="flex">
-                                    <div className="flex-1 text-text-secondary">
-                                        Duration
-                                    </div>
-                                    <div className="flex-1">
-                                        {contest.duration_mins}mins
-                                    </div>
-                                </div>
-                            </WidgetContent>
-                        </Widget>
+            <div className="w-[1200px] flex flex-col">
+                <div className="grid grid-cols-12 gap-[20px]">
+                    <div className="col-span-9 flex flex-col gap-[20px]">
+                        <div className="flex flex-col">
+                            <h1 className="text-text-bright text-[32px] font-medium">
+                                {contest.title}
+                            </h1>
+                            <Preview markdown={contest.description} />
+                        </div>
                         <TableContainer>
                             <TableHead>
-                                SETTERS
+                                PROBLEMSET
                             </TableHead>
                             <Table>
                                 <TableHeaderRow>
                                     <TableRow>
-                                        <TableHeaderCell className='w-[15%]'>#</TableHeaderCell>
-                                        <TableHeaderCell>Writer</TableHeaderCell>
+                                        <TableHeaderCell className='w-[5%]'>#</TableHeaderCell>
+                                        <TableHeaderCell className='w-[70%]'>Title</TableHeaderCell>
+                                        <TableHeaderCell className='w-[25%]'>Difficulty</TableHeaderCell>
                                     </TableRow>
                                 </TableHeaderRow>
                                 <TableBody>
                                     {
-                                        setters.map((setter, index) => (
+                                        contest.problemset.map((problem, index) => (
                                             <TableRow key={index}>
-                                                <TableCell>{`${index + 1}/`}</TableCell>
+                                                <TableCell>{itoc(index)}</TableCell>
                                                 <TableCell>
-                                                    <Link href={`https://tonscan.org/address/${setter}`}>
-                                                        address
+                                                    <Link href={`/contests/${contest.id}/problem/${itoc(index)}`}>
+                                                        {problem.title}
                                                     </Link>
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Badge variant={difficultyToBadgeType[problem.difficulty]}>{capitalize(problem.difficulty)}</Badge>
                                                 </TableCell>
                                             </TableRow>
                                         ))
@@ -175,6 +109,63 @@ export default function ContestPage() {
                             </Table>
                         </TableContainer>
                     </div>
+                    <div className="col-span-3">
+                        <div className="flex flex-col gap-[20px]">
+                            <Widget className="flex-1">
+                                <WidgetContent>
+                                    <WidgetTitle className="text-text-bright">
+                                        ABOUT
+                                    </WidgetTitle>
+                                    <div className="flex">
+                                        <div className="flex-1 text-text-secondary">
+                                            Start
+                                        </div>
+                                        <div className="flex-1">
+                                            {format_date(new Date(contest.starting_at))}
+                                        </div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="flex-1 text-text-secondary">
+                                            Duration
+                                        </div>
+                                        <div className="flex-1">
+                                            {format_duration(contest.duration_mins)}
+                                        </div>
+                                    </div>
+                                </WidgetContent>
+                            </Widget>
+                            <TableContainer>
+                                <TableHead>
+                                    SETTERS
+                                </TableHead>
+                                <Table>
+                                    <TableHeaderRow>
+                                        <TableRow>
+                                            <TableHeaderCell className='w-[15%]'>#</TableHeaderCell>
+                                            <TableHeaderCell>Writer</TableHeaderCell>
+                                        </TableRow>
+                                    </TableHeaderRow>
+                                    <TableBody>
+                                        {
+                                            setters.map((setter, index) => (
+                                                <TableRow key={index}>
+                                                    <TableCell>{`${index + 1}/`}</TableCell>
+                                                    <TableCell>
+                                                        <Link href={`https://tonscan.org/address/${setter}`}>
+                                                            address
+                                                        </Link>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))
+                                        }
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex flex-col items-center mt-[50px]">
+                    <Timer target={new Date(contest.starting_at)} />
                 </div>
             </div>
         </div>
