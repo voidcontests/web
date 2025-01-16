@@ -7,12 +7,15 @@ import {
     useTonWallet
 } from "@tonconnect/ui-react";
 import React from "react";
+import { useTonProof } from "@/hooks/useTonProof";
 
 const TonConnectButton = () => {
     const isConnectionRestored = useIsConnectionRestored();
     const [tonConnectUI] = useTonConnectUI();
     const address = useTonAddress();
     const wallet = useTonWallet();
+
+    useTonProof();
 
     const handleCopyAddress = () => {
         navigator.clipboard.writeText(address);

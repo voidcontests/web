@@ -1,18 +1,14 @@
 "use client";
 
+import { TonConnectButton } from '../ton-connect/button';
 import { usePathname } from 'next/navigation';
+import { NavItem } from './nav-item';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import React from 'react';
 
-import { TonConnectButton } from '../ton-connect/button';
-import { Icons } from '@/components/icons';
-import { NavItem } from './nav-item';
-import { useTonProof } from '@/hooks/useTonProof';
-
 const Header = () => {
     const pathname = usePathname();
-    useTonProof();
 
     return (
         <header className={cn(

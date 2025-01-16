@@ -1,6 +1,6 @@
 import { TonConnectProvider } from "@/components/ton-connect/provider";
 import { Notification } from "@/components/notification";
-import { ThemeProvider, useTheme } from "@/contexts/ThemeContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import { Bug, ChevronRight } from "lucide-react";
 import { Footer } from "@/components/footer";
 import Header from "@/components/header";
@@ -25,7 +25,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             {/* NOTE: there is some weird micro-scroll with 'min-h-screen' */}
             <Notification
               variant="default"
-              href="https://github.com/cascadecontests/frontend/issues/new?assignees=&labels=&projects=&template=bug_report.md&title="
+              href="https://github.com/voidcontests/frontend/issues/new?assignees=&labels=&projects=&template=bug_report.md&title="
             >
               <Bug className="w-5 h-5" />
               <div>This is an early dev build. Report bugs here</div>
@@ -45,6 +45,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           </body>
         </TonConnectProvider>
       </ThemeProvider>
-    </html >
+    </html>
   );
 }
