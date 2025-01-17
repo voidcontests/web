@@ -5,9 +5,6 @@ import { Separator } from './ui/separator';
 import Link from 'next/link';
 import { format_date } from '@/lib/utils';
 
-const GIT_COMMIT = process.env.NEXT_PUBLIC_BUILD_COMMIT;
-const BUILD_TIME = process.env.NEXT_PUBLIC_BUILD_TIME;
-
 export const Footer = () => {
     const { theme, toggleTheme } = useTheme();
 
@@ -18,18 +15,6 @@ export const Footer = () => {
                     Built by <Link href="https://github.com/jus1d" className='hover:text-text-primary transition-colors'>@ndbtea</Link>
                 </span>
                 <div className='flex gap-4'>
-                    <span>
-                        Built from <Link
-                            href={`https://github.com/voidcontests/frontend/commit/${GIT_COMMIT}`}
-                            className='hover:text-text-primary transition-colors hover:cursor-pointer'
-                        >
-
-                            {GIT_COMMIT}
-                        </Link> on {format_date(new Date(BUILD_TIME ?? ''))}
-                    </span>
-                    <div>
-                        <Separator vertical />
-                    </div>
                     <span
                         className='hover:text-text-primary transition-colors hover:cursor-pointer'
                         onClick={() => toggleTheme()}

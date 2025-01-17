@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN;
+const DOMAIN = 'https://void.ndbtea.tech';
 
 const instance = axios.create({
     baseURL: DOMAIN + "/api",
