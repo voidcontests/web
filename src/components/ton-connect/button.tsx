@@ -15,8 +15,6 @@ const TonConnectButton = () => {
     const address = useTonAddress();
     const wallet = useTonWallet();
 
-    useTonProof();
-
     const handleCopyAddress = () => {
         navigator.clipboard.writeText(address);
     }
