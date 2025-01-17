@@ -30,7 +30,7 @@ export interface ContestDetailedResponse {
     id: string;
     title: string;
     description: string;
-    problemset: ProblemResponse[],
+    problems: ProblemResponse[],
     creator_address: string;
     starting_at: Date;
     duration_mins: number;

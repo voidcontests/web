@@ -64,7 +64,7 @@ export default function ContestPage() {
         <div>Loading data</div>
     );
 
-    const setters = Array.from(new Set(contest.problemset.map(problem => problem.writer_address)));
+    const setters = Array.from(new Set(contest.problems.map(problem => problem.writer_address)));
 
     return (
         <div className="flex justify-center">
@@ -91,7 +91,7 @@ export default function ContestPage() {
                                 </TableHeaderRow>
                                 <TableBody>
                                     {
-                                        contest.problemset.map((problem, index) => (
+                                        contest.problems.map((problem, index) => (
                                             <TableRow key={index}>
                                                 <TableCell>{itoc(index)}</TableCell>
                                                 <TableCell>
