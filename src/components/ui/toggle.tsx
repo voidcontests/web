@@ -16,9 +16,9 @@ const toggleVariants = cva(
         outline: "border bg-transparent",
       },
       size: {
-        sm: "h-8 min-w-8 px-1.5",
-        default: "h-9 min-w-9 px-2",
-        lg: "h-10 min-w-10 px-2.5",
+        sm: "h-7 px-3 min-w-20 text-xs",
+        default: "h-8 px-4 min-w-24 text-sm",
+        lg: "h-9 px-5 min-w-28 text-base",
       },
     },
     defaultVariants: {

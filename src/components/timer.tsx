@@ -46,10 +46,10 @@ const Timer: React.FC<TimerProps> = ({ target }) => {
 
     return (
         <div className='flex flex-col items-center'>
-            <div className="text-text-secondary text-[20px]">
+            <div className="text-text-secondary text-lg">
                 STARTING IN
             </div>
-            <div className="text-text-primary text-[32px] font-medium">
+            <div className="text-text-primary text-4xl font-medium">
                 {timeLeft}
             </div>
         </div>

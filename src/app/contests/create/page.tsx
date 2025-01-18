@@ -8,7 +8,7 @@ import { useTonWallet } from '@tonconnect/ui-react';
 import { Button } from "@/components/ui/button";
 import { Plus, Paperclip } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+import { Tag } from "@/components/ui/tag";
 import { Link } from "@/components/ui/link";
 import { useRouter } from 'next/navigation';
 import Editor from "@/components/editor";
@@ -145,8 +145,8 @@ export default function CreateContestPage() {
     return (
         <div className="flex justify-center">
             <div className="w-[1200px] grid grid-cols-12 gap-5">
-                <div className="col-span-9 flex flex-col gap-[30px]">
-                    <div className="flex flex-col gap-[10px]">
+                <div className="col-span-9 flex flex-col gap-8">
+                    <div className="flex flex-col gap-2">
                         <h1 className="text-text-bright text-lg font-medium">Add a title</h1>
                         <Input
                             value={contest.title}
@@ -161,13 +161,13 @@ export default function CreateContestPage() {
                     >
                         Add a description
                     </Editor>
-                    <div className="flex flex-col gap-[20px]">
+                    <div className="flex flex-col gap-5">
                         <TableContainer>
                             <TableHead className="gap-1">
                                 <span>PROBLEMSET</span>
                                 {
                                     contest.problems.length !== 0 &&
-                                    <span className="font-regular text-text-muted">{`- ${contest.problems.length} problems`}</span>
+                                    <span className="font-normal text-text-muted">{`- ${contest.problems.length} problems`}</span>
                                 }
                             </TableHead>
                             <Table>
@@ -190,11 +190,11 @@ export default function CreateContestPage() {
                                                 <TableCell>{itoc(index)}</TableCell>
                                                 <TableCell>{problem.title}</TableCell>
                                                 <TableCell>
-                                                    <Badge
+                                                    <Tag
                                                         variant={difficultyToBadgeType[problem.difficulty]}
                                                     >
                                                         {capitalize(problem.difficulty)}
-                                                    </Badge>
+                                                    </Tag>
                                                 </TableCell>
                                                 <TableCell className="w-[100px]">
                                                     <span
@@ -219,7 +219,7 @@ export default function CreateContestPage() {
                             <Button variant='outline' onClick={() => setOpen(prev => !prev)}>
                                 <Plus />ADD PROBLEM
                             </Button>
-                            <div className="flex gap-[20px]">
+                            <div className="flex gap-5">
                                 <Button
                                     variant='dashed'
                                     onClick={() => submitContest(true)}
@@ -273,8 +273,8 @@ export default function CreateContestPage() {
                 <DrawerContent>
                     <div className="flex justify-center">
                         <div className="w-[1200px] grid grid-cols-12 gap-5">
-                            <div className="col-span-9 flex flex-col gap-[30px]">
-                                <div className="flex flex-col gap-[10px]">
+                            <div className="col-span-9 flex flex-col gap-8">
+                                <div className="flex flex-col gap-2">
                                     <h1 className="text-text-bright text-lg font-medium">Add a title</h1>
                                     <Input
                                         value={problem.title}
@@ -282,7 +282,7 @@ export default function CreateContestPage() {
                                         onChange={handleProblemTitleChange}
                                     />
                                 </div>
-                                <div className="flex flex-col gap-[10px]">
+                                <div className="flex flex-col gap-2">
                                     <Editor
                                         markdown={problem.statement}
                                         setMarkdown={setProblemStatement}
@@ -292,7 +292,7 @@ export default function CreateContestPage() {
                                         Add a statement
                                     </Editor>
                                     <div className="flex justify-between">
-                                        <div className="flex gap-[10px] items-center">
+                                        <div className="flex gap-2 items-center">
                                             <Button variant='dashed'>
                                                 <Paperclip /> sample.txt
                                             </Button>
@@ -330,7 +330,7 @@ export default function CreateContestPage() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-span-3 flex flex-col gap-[30px]">
+                            <div className="col-span-3 flex flex-col gap-8">
                                 <Widget>
                                     <WidgetContent>
                                         <div className="flex justify-between items-center">

@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import { truncate_address } from '@/lib/strings';
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Tag } from "@/components/ui/tag";
 import { Link } from "@/components/ui/link";
 import { format_date, format_duration } from '@/lib/utils';
 import {
@@ -26,15 +26,15 @@ export default async function ContestsPage() {
 
     return (
         <div className="flex justify-center">
-            <div className="w-[1200px] flex gap-[20px]">
-                <div className="w-full flex flex-col gap-[30px]">
-                    <div className="flex flex-col gap-[10px]">
-                        <h1 className="text-[20px] font-medium">OFFICIAL CONTESTS</h1>
-                        <div className="flex gap-[30px]">
+            <div className="w-[1200px] flex gap-5">
+                <div className="w-full flex flex-col gap-7">
+                    <div className="flex flex-col gap-2.5">
+                        <h1 className="text-xl font-medium">OFFICIAL CONTESTS</h1>
+                        <div className="flex gap-7">
                             <Card className="w-[300px]">
                                 <CardContent>
                                     <div>
-                                        <Badge variant="green">Onboarding</Badge>
+                                        <Tag variant="green">Onboarding</Tag>
                                     </div>
                                     <CardTitle>
                                         Introduction
@@ -53,7 +53,7 @@ export default async function ContestsPage() {
                                         Hosted by <Link href='https://github.com/jus1d'>@ndbtea</Link>
                                     </div>
                                 </CardContent>
-                                <CardFooter className="pt-[20px]">
+                                <CardFooter className="pt-5">
                                     <Link href="/hui" size="large">LEADERBOARD</Link>
                                 </CardFooter>
                             </Card>
@@ -61,7 +61,7 @@ export default async function ContestsPage() {
                             <Card className="w-[300px]">
                                 <CardContent>
                                     <div>
-                                        <Badge>Starting soon</Badge>
+                                        <Tag>Starting soon</Tag>
                                     </div>
                                     <CardTitle>
                                         The Void Round 297
@@ -80,7 +80,7 @@ export default async function ContestsPage() {
                                         Hosted by <Link href='https://github.com/jus1d'>@ndbtea</Link>
                                     </div>
                                 </CardContent>
-                                <CardFooter className="pt-[20px]">
+                                <CardFooter className="pt-5">
                                     <Button variant="link" className="w-full">APPLY</Button>
                                 </CardFooter>
                             </Card>
@@ -123,7 +123,7 @@ export default async function ContestsPage() {
                                                     </Link>
                                                 </TableCell>
                                                 <TableCell>
-                                                    <Badge variant="secondary">Training</Badge>
+                                                    <Tag variant="secondary">Training</Tag>
                                                 </TableCell>
                                                 <TableCell>{format_date(new Date(contest.starting_at))}</TableCell>
                                                 <TableCell>{format_duration(contest.duration_mins)}</TableCell>

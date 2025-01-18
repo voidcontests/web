@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { TonConnectButton } from '../ton-connect/button';
 import { usePathname } from 'next/navigation';
@@ -12,20 +12,20 @@ const Header = () => {
 
     return (
         <header className={cn(
-            'h-[56px] flex justify-center mb-[20px]',
+            'h-14 flex justify-center mb-5',
             pathname === '/'
                 ? 'sticky top-0 bg-background-primary border-t border-t-transparent border-b border-b-transparent'
                 : 'bg-background-secondary border-t border-t-transparent border-b border-b-border',
         )}>
             <div className='flex-1 flex items-center pl-4'>
                 <Link href="/" className={cn(
-                    'text-base text-text-muted hover:text-text-primary font-semibold transition-colors',
+                    'text-sm text-text-muted hover:text-text-primary font-semibold transition-colors',
                     pathname === '/' ? 'text-text-primary' : 'text-text-muted',
                 )} >
                     VOID
                 </Link>
             </div>
-            <div className='w-[1200px] flex gap-[30px] items-center'>
+            <div className='w-[1200px] flex gap-8 items-center'>
                 <NavItem href='/contests'>
                     CONTESTS
                 </NavItem>

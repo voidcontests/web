@@ -5,8 +5,8 @@ const Widget = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElem
   <div
     ref={ref}
     className={cn(
-      "rounded-[15px] border bg-background-secondary text-text-primary text-base",
-      "flex flex-col justify-between p-[20px]",
+      "rounded-2xl border bg-background-secondary text-text-primary text-sm",
+      "flex flex-col justify-between p-5",
       className
     )}
     {...props}
@@ -15,14 +15,14 @@ const Widget = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElem
 Widget.displayName = "Widget";
 
 const WidgetContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("flex flex-col gap-[10px]", className)} {...props} />
+  <div ref={ref} className={cn("flex flex-col gap-2", className)} {...props} />
 ));
 WidgetContent.displayName = "WidgetContent";
 
 const WidgetTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("font-medium text-text-secondary leading-none", className)}
+    className={cn("font-medium text-text-secondary", className)}
     {...props}
   />
 ));

@@ -10,11 +10,6 @@ const config: Config = {
 	theme: {
 		extend: {
 			// TODO: change font sizes to rem
-			fontSize: {
-				'sm': '13px',
-				'base': '16px',
-				'lg': '20px',
-			},
 			backgroundImage: {
 				'notification-default': 'var(--notification-default)',
 				'notification-warning': 'var(--notification-warning)',
