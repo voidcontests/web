@@ -58,7 +58,7 @@ const config: Config = {
 				},
 				// COLOR KIT
 				black: {
-					main: 'hsla(var(--black-main))',
+					main: 'hsl(var(--black-main))',
 					600: 'hsla(var(--black-600))',
 					500: 'hsla(var(--black-500))',
 					400: 'hsla(var(--black-400))',

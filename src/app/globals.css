@@ -55,7 +55,7 @@ body {
     --notification-alert: linear-gradient(90deg, hsla(357, 72%, 16%, 1) 0%, hsla(359, 64%, 30%, 1) 100%);
 
     /* COLOR KIT */
-    --black-main: 240, 10%, 4%, 1;
+    --black-main: 240 10% 4%;
     --black-600: 240, 10%, 4%, 0.88;
     --black-500: 240, 10%, 4%, 0.6;
     --black-400: 240, 10%, 4%, 0.4;

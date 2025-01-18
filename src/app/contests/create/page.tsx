@@ -28,6 +28,16 @@ import {
     TableCaption,
 } from "@/components/ui/table";
 
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import { capitalize } from "@/lib/strings";
+
 export default function CreateContestPage() {
     const router = useRouter();
     const wallet = useTonWallet();
@@ -45,7 +55,7 @@ export default function CreateContestPage() {
         statement: '',
         answer: '',
         input: '',
-        difficulty: 'mid',
+        difficulty: '',
     });
 
     const handleContestTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,6 +95,10 @@ export default function CreateContestPage() {
     }
 
     const submitContest = async (is_draft: boolean) => {
+        if (is_draft) {
+            toast.warning('Saving as draft is unavailable yet');
+            return;
+        }
         if (wallet === null) {
             toast.error('Connect wallet first');
             return;
@@ -117,6 +131,16 @@ export default function CreateContestPage() {
     }
 
     const [open, setOpen] = useState(false);
+
+    type DifficultyColorMap = {
+        [key: string]: 'green' | 'orange' | 'red';
+    };
+
+    const difficultyToBadgeType: DifficultyColorMap = {
+        'easy': 'green',
+        'mid': 'orange',
+        'hard': 'red',
+    }
 
     return (
         <div className="flex justify-center">
@@ -166,7 +190,11 @@ export default function CreateContestPage() {
                                                 <TableCell>{itoc(index)}</TableCell>
                                                 <TableCell>{problem.title}</TableCell>
                                                 <TableCell>
-                                                    <Badge variant='secondary'>not set</Badge>
+                                                    <Badge
+                                                        variant={difficultyToBadgeType[problem.difficulty]}
+                                                    >
+                                                        {capitalize(problem.difficulty)}
+                                                    </Badge>
                                                 </TableCell>
                                                 <TableCell className="w-[100px]">
                                                     <span
@@ -211,7 +239,11 @@ export default function CreateContestPage() {
                         <WidgetContent>
                             <div className="flex justify-between items-center">
                                 <WidgetTitle>TIME SETTINGS</WidgetTitle>
-                                <Link href='/' size="large">SET</Link>
+                                <span
+                                    className="text-text-link hover:underline underline-offset-2 hover:cursor-pointer font-medium"
+                                >
+                                    SET
+                                </span>
                             </div>
                             <div>Not set yet</div>
                             <Separator />
@@ -276,7 +308,7 @@ export default function CreateContestPage() {
                                         </div>
                                         <Button
                                             disabled={
-                                                !problem.title || !problem.statement || !problem.answer
+                                                !problem.title || !problem.statement || !problem.answer || !problem.difficulty
                                             }
                                             onClick={() => {
                                                 setContest(prev => ({
@@ -303,9 +335,30 @@ export default function CreateContestPage() {
                                     <WidgetContent>
                                         <div className="flex justify-between items-center">
                                             <WidgetTitle>DIFFICULTY</WidgetTitle>
-                                            <Link href='/' size="large">SET</Link>
                                         </div>
-                                        <div>Not set yet</div>
+                                        <Select value={problem.difficulty} onValueChange={(val) => {
+                                            setProblem(prev => ({
+                                                ...prev,
+                                                difficulty: val,
+                                            }))
+                                        }}>
+                                            <SelectTrigger className="w-[180px]">
+                                                <SelectValue placeholder="Select difficulty" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectGroup>
+                                                    <SelectItem value="easy">
+                                                        Easy
+                                                    </SelectItem>
+                                                    <SelectItem value="mid">
+                                                        Medium
+                                                    </SelectItem>
+                                                    <SelectItem value="hard">
+                                                        Hard
+                                                    </SelectItem>
+                                                </SelectGroup>
+                                            </SelectContent>
+                                        </Select>
                                     </WidgetContent>
                                 </Widget>
                             </div>
@@ -313,6 +366,6 @@ export default function CreateContestPage() {
                     </div>
                 </DrawerContent>
             </Drawer>
-        </div>
+        </div >
     );
 }
