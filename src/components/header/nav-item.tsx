@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { cva, type VariantProps } from "class-variance-authority";
 import { usePathname } from 'next/navigation';
@@ -7,7 +7,7 @@ import * as React from "react";
 import Link from "next/link";
 
 const navItemVariants = cva(
-    "text-base font-medium hover:text-text-primary transition-colors",
+    "text-sm font-semibold hover:text-text-primary transition-colors",
     {
         variants: {
             state: {
@@ -28,9 +28,7 @@ export interface NavItemProps extends React.AnchorHTMLAttributes<HTMLAnchorEleme
 
 function NavItem({ className, state, href, children, ...props }: NavItemProps) {
     const pathname = usePathname();
-
     const current = new URL(href, 'http://example.com');
-
     const isActive = pathname.startsWith(current.pathname);
 
     return (

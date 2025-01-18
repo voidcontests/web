@@ -6,14 +6,20 @@ const Container = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivE
     <div ref={ref} className={cn("flex flex-col w-fit py-6 px-6 gap-5 rounded-2xl border border-dashed border-purple-500", className)} {...props} />
 ));
 
+const Title = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(({ className, ...props }, ref) => (
+    <h1 ref={ref} className={cn("text-purple-500", className)} {...props} />
+));
+
 export default function UIKitPage() {
     return <div className="mx-6 flex gap-5">
         <div>
-            Button
+            <Title>
+                Button
+            </Title>
             <Container>
-                <Button className="w-fit" size="sm">Small</Button>
-                <Button className="w-fit" size="default">Default</Button>
-                <Button className="w-fit" size="lg">Large</Button>
+                <Button className="w-fit" size="sm">SMALL</Button>
+                <Button className="w-fit" size="default">DEFAULT</Button>
+                <Button className="w-fit" size="lg">LARGE</Button>
             </Container>
         </div>
     </div>
