@@ -21,8 +21,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     <html lang="en">
       <ThemeProvider>
         <TonConnectProvider>
-          <body className={`flex flex-col min-h-[99vh] antialiased ${theme}`}>
-            {/* NOTE: there is some weird micro-scroll with 'min-h-screen' */}
+          <body className={`flex flex-col min-h-dvh antialiased ${theme}`}>
             {/* <Notification
               variant="default"
               href="https://github.com/voidcontests/frontend/issues/new?assignees=&labels=&projects=&template=bug_report.md&title="
