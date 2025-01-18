@@ -195,13 +195,12 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
 
     return (
         <TooltipProvider>
-
-            <div className="flex flex-col gap-[10px]">
+            <div className="flex flex-col gap-2">
                 <div className="flex justify-between items-center">
-                    <h1 className="text-text-primary text-lg font-medium">
+                    <h1 className="text-text-primary text-xl font-medium">
                         {children}
                     </h1>
-                    <div className="flex items-center gap-[5px]">
+                    <div className="flex items-center gap-1">
                         {
                             toggle_buttons.map((toggle) => (
                                 <>
@@ -252,7 +251,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                 <Drawer open={open} onOpenChange={() => { setOpen(prev => !prev) }}>
                     <DrawerContent className="min-h-[60vh]">
                         <div className="flex justify-center">
-                            <div className="w-[1200px] flex flex-col gap-[30px]">
+                            <div className="w-[1200px] flex flex-col">
                                 <Preview markdown={internalValue} />
                             </div>
                         </div>

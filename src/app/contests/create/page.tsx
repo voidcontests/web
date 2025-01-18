@@ -8,7 +8,7 @@ import { useTonWallet } from '@tonconnect/ui-react';
 import { Button } from "@/components/ui/button";
 import { Plus, Paperclip } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+import { Tag } from "@/components/ui/tag";
 import { Link } from "@/components/ui/link";
 import { useRouter } from 'next/navigation';
 import Editor from "@/components/editor";
@@ -190,11 +190,11 @@ export default function CreateContestPage() {
                                                 <TableCell>{itoc(index)}</TableCell>
                                                 <TableCell>{problem.title}</TableCell>
                                                 <TableCell>
-                                                    <Badge
+                                                    <Tag
                                                         variant={difficultyToBadgeType[problem.difficulty]}
                                                     >
                                                         {capitalize(problem.difficulty)}
-                                                    </Badge>
+                                                    </Tag>
                                                 </TableCell>
                                                 <TableCell className="w-[100px]">
                                                     <span

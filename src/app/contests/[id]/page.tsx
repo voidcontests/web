@@ -3,7 +3,7 @@
 import { capitalize, truncate_address } from "@/lib/strings";
 import { ContestDetailed } from "@/api/dto/response";
 import { format_duration, itoc } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
+import { Tag } from "@/components/ui/tag";
 import { Link } from "@/components/ui/link";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -98,7 +98,7 @@ export default function ContestPage() {
                                                     </Link>
                                                 </TableCell>
                                                 <TableCell>
-                                                    <Badge variant={difficultyToBadgeType[problem.difficulty]}>{capitalize(problem.difficulty)}</Badge>
+                                                    <Tag variant={difficultyToBadgeType[problem.difficulty]}>{capitalize(problem.difficulty)}</Tag>
                                                 </TableCell>
                                             </TableRow>
                                         ))

@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import { truncate_address } from '@/lib/strings';
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Tag } from "@/components/ui/tag";
 import { Link } from "@/components/ui/link";
 import { format_date, format_duration } from '@/lib/utils';
 import {
@@ -34,7 +34,7 @@ export default async function ContestsPage() {
                             <Card className="w-[300px]">
                                 <CardContent>
                                     <div>
-                                        <Badge variant="green">Onboarding</Badge>
+                                        <Tag variant="green">Onboarding</Tag>
                                     </div>
                                     <CardTitle>
                                         Introduction
@@ -61,7 +61,7 @@ export default async function ContestsPage() {
                             <Card className="w-[300px]">
                                 <CardContent>
                                     <div>
-                                        <Badge>Starting soon</Badge>
+                                        <Tag>Starting soon</Tag>
                                     </div>
                                     <CardTitle>
                                         The Void Round 297
@@ -123,7 +123,7 @@ export default async function ContestsPage() {
                                                     </Link>
                                                 </TableCell>
                                                 <TableCell>
-                                                    <Badge variant="secondary">Training</Badge>
+                                                    <Tag variant="secondary">Training</Tag>
                                                 </TableCell>
                                                 <TableCell>{format_date(new Date(contest.starting_at))}</TableCell>
                                                 <TableCell>{format_duration(contest.duration_mins)}</TableCell>
