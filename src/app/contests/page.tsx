@@ -1,4 +1,4 @@
-import * as Api from '@/api';
+import * as API from '@/api';
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/components/ui/link";
 import {
@@ -34,7 +34,7 @@ const format_duration = (duration_mins: number): string => {
 }
 
 export default async function ContestsPage() {
-    const result = await Api.contests.getContests();
+    const result = await API.contests.fetchActive();
     const contests = result?.data;
 
     return (
@@ -131,7 +131,7 @@ export default async function ContestsPage() {
                                                     </Link>
                                                 </TableCell>
                                                 <TableCell>
-                                                    <Link href={`https://tonscan.org/address/${contest.creator_address}`}>{`address`}</Link>
+                                                    <Link href={`https://tonscan.org/address/${contest.creator.address}`}>{`address`}</Link>
                                                 </TableCell>
                                                 <TableCell>
                                                     <Badge variant="secondary">Training</Badge>
@@ -152,53 +152,6 @@ export default async function ContestsPage() {
                             }
                         </Table>
                     </TableContainer>
-                    {/* <TableContainer>
-                        <TableHead>
-                            PAST COMPETITIONS
-                        </TableHead>
-                        <Table>
-                            <TableHeaderRow>
-                                <TableRow>
-                                    <TableHeaderCell>#</TableHeaderCell>
-                                    <TableHeaderCell>Title</TableHeaderCell>
-                                    <TableHeaderCell>Host</TableHeaderCell>
-                                    <TableHeaderCell>Type</TableHeaderCell>
-                                    <TableHeaderCell>Participants</TableHeaderCell>
-                                    <TableHeaderCell>Prize pot</TableHeaderCell>
-                                    <TableHeaderCell>Finished</TableHeaderCell>
-                                    <TableHeaderCell></TableHeaderCell>
-                                </TableRow>
-                            </TableHeaderRow>
-                            <TableBody>
-                                {
-                                    pastContests.map((contest, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell>{`${index}/`}</TableCell>
-                                            <TableCell>{contest.title}</TableCell>
-                                            <TableCell>
-                                                <Link href={contest.host_url}>{`@${contest.host_username}`}</Link>
-                                            </TableCell>
-                                            <TableCell>
-                                                {
-                                                    contest.type == "paid" ?
-                                                        <Badge variant="green">Paid</Badge> :
-                                                        <Badge variant="secondary">Training</Badge>
-                                                }
-                                            </TableCell>
-                                            <TableCell>{contest.participants} TON</TableCell>
-                                            <TableCell>{contest.prize_pot_tons} TON</TableCell>
-                                            <TableCell>{contest.finish}</TableCell>
-                                            <TableCell>
-                                                <Link href={`/contest/${index}/scoring`} size="large">
-                                                    SCORING
-                                                </Link>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))
-                                }
-                            </TableBody>
-                        </Table>
-                    </TableContainer> */}
                 </div>
             </div>
         </div>

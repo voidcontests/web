@@ -1,6 +1,6 @@
 'use client';
 
-import * as Api from '@/api';
+import * as API from '@/api';
 import { Widget, WidgetContent, WidgetTitle } from "@/components/ui/widget";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
@@ -23,33 +23,29 @@ import {
     TableHeaderCell,
     TableCaption,
 } from "@/components/ui/table";
-import type { CreateProblemRequest } from '@/api/dto/dto';
+import { CreateContest, CreateProblem } from '@/api/dto/request';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { useTonWallet } from '@tonconnect/ui-react';
 
-interface Contest {
-    title: string,
-    description?: string,
-    problemset: CreateProblemRequest[],
-}
-
-export default function CreateProblem() {
+export default function CreateProblemPage() {
     const router = useRouter();
     const wallet = useTonWallet();
 
-    const [contest, setContest] = useState<Contest>({
+    const [contest, setContest] = useState<CreateContest>({
         title: '',
         description: '',
-        problemset: [],
+        problems: [],
+        starting_at: new Date(),
+        duration_mins: 100,
     });
 
-    const [problem, setProblem] = useState<CreateProblemRequest>({
+    const [problem, setProblem] = useState<CreateProblem>({
         title: '',
         statement: '',
-        answer: '4',
-        input: '2\n2',
-        difficulty: 'easy',
+        answer: '',
+        input: '',
+        difficulty: 'mid',
     });
 
     const handleContestTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,13 +109,12 @@ export default function CreateProblem() {
         date.setDate(now.getDate() + 2);
 
         try {
-            const c = await Api.contests.create({
+            const c = await API.contests.create({
                 title: contest.title,
-                description: contest.description ?? "", // TODO: Fix undefined in the description
-                problems: contest.problemset,
-                starting_at: date.toISOString(),
+                description: contest.description,
+                problems: contest.problems,
+                starting_at: date,
                 duration_mins: 300,
-                is_draft: is_draft,
             });
 
             if (c === undefined) {
@@ -128,7 +123,7 @@ export default function CreateProblem() {
             toast.success("Contest created!");
 
             setTimeout(() => {
-                router.push(`/contests/${c?.id}`);
+                router.push(`/contests/${c.id}`);
             }, 3000);
         } catch (e) {
             toast.error("Something went wrong");
@@ -161,13 +156,13 @@ export default function CreateProblem() {
                             <TableHead className="gap-1">
                                 <span>PROBLEMSET</span>
                                 {
-                                    contest.problemset.length !== 0 &&
-                                    <span className="font-regular text-text-muted">{`- ${contest.problemset.length} problems`}</span>
+                                    contest.problems.length !== 0 &&
+                                    <span className="font-regular text-text-muted">{`- ${contest.problems.length} problems`}</span>
                                 }
                             </TableHead>
                             <Table>
                                 {
-                                    contest.problemset.length === 0 &&
+                                    contest.problems.length === 0 &&
                                     <TableCaption>No problems yet</TableCaption>
                                 }
                                 <TableHeaderRow>
@@ -180,7 +175,7 @@ export default function CreateProblem() {
                                 </TableHeaderRow>
                                 <TableBody>
                                     {
-                                        contest.problemset.map((problem, index) => (
+                                        contest.problems.map((problem, index) => (
                                             <TableRow key={index}>
                                                 <TableCell>{itoc(index)}</TableCell>
                                                 <TableCell>{problem.title}</TableCell>
@@ -193,7 +188,7 @@ export default function CreateProblem() {
                                                         onClick={() => {
                                                             setContest(prev => ({
                                                                 ...prev,
-                                                                problemset: prev.problemset.filter((_, i) => i !== index),
+                                                                problems: prev.problems.filter((_, i) => i !== index),
                                                             }));
                                                         }}
                                                     >
@@ -216,7 +211,7 @@ export default function CreateProblem() {
                                     onClick={() => submitContest(true)}
                                 >SAVE AS DRAFT</Button>
                                 <Button
-                                    disabled={contest.problemset.length === 0 || contest.title === ''}
+                                    disabled={contest.problems.length === 0 || contest.title === ''}
                                     onClick={() => submitContest(false)}
                                 >
                                     SUBMIT CONTEST
@@ -299,7 +294,7 @@ export default function CreateProblem() {
                                         onClick={() => {
                                             setContest(prev => ({
                                                 ...prev,
-                                                problemset: [...prev.problemset, problem],
+                                                problems: [...prev.problems, problem],
                                             }));
                                             setProblem({
                                                 title: '',

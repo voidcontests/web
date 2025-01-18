@@ -13,10 +13,10 @@ import {
     TableHeaderCell,
 } from "@/components/ui/table";
 import Timer from '@/components/timer';
-import { ContestDetailedResponse } from "@/api/dto/dto";
+import { ContestDetailed } from "@/api/dto/response";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import * as Api from '@/api';
+import * as API from '@/api';
 import { toast } from "sonner";
 import { format_duration, itoc } from "@/lib/utils";
 import { capitalize } from "@/lib/strings";
@@ -43,15 +43,14 @@ const difficultyToBadgeType: DifficultyColorMap = {
 export default function ContestPage() {
     const { id } = useParams();
 
-    const [contest, setContest] = useState<ContestDetailedResponse>();
+    const [contest, setContest] = useState<ContestDetailed>();
 
     useEffect(() => {
         async function fetchContests() {
             try {
-                const result = await Api.contests.getByID(id?.toString() ?? '');
+                const result = await API.contests.fetchByID(id.toString());
                 setContest(result);
             } catch (error) {
-                console.error("Error fetching contests:", error);
                 toast.error("Sometihng went wrong");
                 setContest(undefined);
             }
@@ -64,7 +63,7 @@ export default function ContestPage() {
         <div>Loading data</div>
     );
 
-    const setters = Array.from(new Set(contest.problems.map(problem => problem.writer_address)));
+    const setters = Array.from(new Set(contest.problems.map(problem => problem.writer.address)));
 
     return (
         <div className="flex justify-center">
