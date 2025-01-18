@@ -39,6 +39,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
               duration: 3000,
               style: {
                 borderRadius: "15px",
+                fontFamily: 'Rubik',
               }
             }} />
             <Footer />
