@@ -13,7 +13,7 @@ TableContainer.displayName = "TableContainer";
 const TableHead = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn('h-[50px] flex items-center font-medium px-[20px] border-b', className)}
+    className={cn('h-[50px] text-sm flex items-center font-medium px-[20px] border-b', className)}
     {...props}
   />
 ));

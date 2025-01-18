@@ -26,11 +26,11 @@ export default async function ContestsPage() {
 
     return (
         <div className="flex justify-center">
-            <div className="w-[1200px] flex gap-[20px]">
-                <div className="w-full flex flex-col gap-[30px]">
-                    <div className="flex flex-col gap-[10px]">
-                        <h1 className="text-[20px] font-medium">OFFICIAL CONTESTS</h1>
-                        <div className="flex gap-[30px]">
+            <div className="w-[1200px] flex gap-5">
+                <div className="w-full flex flex-col gap-7">
+                    <div className="flex flex-col gap-2.5">
+                        <h1 className="text-xl font-medium">OFFICIAL CONTESTS</h1>
+                        <div className="flex gap-7">
                             <Card className="w-[300px]">
                                 <CardContent>
                                     <div>
@@ -53,7 +53,7 @@ export default async function ContestsPage() {
                                         Hosted by <Link href='https://github.com/jus1d'>@ndbtea</Link>
                                     </div>
                                 </CardContent>
-                                <CardFooter className="pt-[20px]">
+                                <CardFooter className="pt-5">
                                     <Link href="/hui" size="large">LEADERBOARD</Link>
                                 </CardFooter>
                             </Card>
@@ -80,7 +80,7 @@ export default async function ContestsPage() {
                                         Hosted by <Link href='https://github.com/jus1d'>@ndbtea</Link>
                                     </div>
                                 </CardContent>
-                                <CardFooter className="pt-[20px]">
+                                <CardFooter className="pt-5">
                                     <Button variant="link" className="w-full">APPLY</Button>
                                 </CardFooter>
                             </Card>

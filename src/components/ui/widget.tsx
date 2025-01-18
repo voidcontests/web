@@ -22,7 +22,7 @@ WidgetContent.displayName = "WidgetContent";
 const WidgetTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("font-medium text-text-secondary leading-none", className)}
+    className={cn("font-medium text-text-secondary", className)}
     {...props}
   />
 ));

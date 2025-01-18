@@ -70,7 +70,7 @@ export default function ContestPage() {
                 <div className="grid grid-cols-12 gap-[20px]">
                     <div className="col-span-9 flex flex-col gap-[20px]">
                         <div className="flex flex-col">
-                            <h1 className="text-text-bright text-[32px] font-medium">
+                            <h1 className="text-text-bright text-4xl font-medium">
                                 {contest.title}
                             </h1>
                             <Preview markdown={contest.description} />
@@ -108,7 +108,7 @@ export default function ContestPage() {
                         </TableContainer>
                     </div>
                     <div className="col-span-3">
-                        <div className="flex flex-col gap-[20px]">
+                        <div className="flex flex-col gap-5">
                             <Widget className="flex-1">
                                 <WidgetContent>
                                     <WidgetTitle className="text-text-bright">

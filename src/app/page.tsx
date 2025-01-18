@@ -40,7 +40,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="flex flex-col gap-2.5">
-          <h3 className="font-bold text-xl">
+          <h3 className="text-xl font-bold">
             DISCOVER
           </h3>
           <div className="flex gap-5">
