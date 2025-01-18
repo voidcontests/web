@@ -12,6 +12,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { toast } from "sonner";
 
 type StyleKind = 'bold' | 'italic' | 'code' | 'heading' | 'link' | 'quote';
 
@@ -236,7 +237,14 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                 <div className="flex justify-end">
                     <span
                         className="text-text-link font-medium hover:cursor-pointer hover:underline hover:underline-offset-2"
-                        onClick={() => setOpen(prev => !prev)}
+                        onClick={() => {
+                            if (internalValue.trim().length === 0) {
+                                toast.warning('Nothing to preview');
+                                return;
+                            }
+
+                            setOpen(prev => !prev);
+                        }}
                     >
                         PREVIEW
                     </span>

@@ -291,7 +291,9 @@ export default function CreateContestPage() {
                                             });
                                             setOpen(false);
                                         }}
-                                    >SUBMIT PROBLEM</Button>
+                                    >
+                                        SUBMIT PROBLEM
+                                    </Button>
                                 </div>
                             </div>
                         </div>
