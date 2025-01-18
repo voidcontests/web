@@ -8,6 +8,7 @@ import {
 } from "@tonconnect/ui-react";
 import React from "react";
 import { useTonProof } from "@/hooks/useTonProof";
+import { truncate_address } from "@/lib/strings";
 
 const TonConnectButton = () => {
     const isConnectionRestored = useIsConnectionRestored();
@@ -21,11 +22,6 @@ const TonConnectButton = () => {
 
     const handleLogOut = () => {
         tonConnectUI.disconnect();
-    }
-
-    const enshortAdress = (address: string): string => {
-        if (address.length < 8) return address;
-        return `${address.slice(0, 4)}...${address.slice(-4)}`;
     }
 
     if (!isConnectionRestored) {
@@ -48,7 +44,7 @@ const TonConnectButton = () => {
     // TODO: add dropdown menu with copying address, disconnecting account, etc.
     return (
         <Button onClick={handleLogOut}>
-            {enshortAdress(address)} <LogOut />
+            {truncate_address(address, 4)} <LogOut />
         </Button>
     );
 }

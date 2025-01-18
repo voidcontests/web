@@ -18,6 +18,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { format_date } from '@/lib/utils';
+import { truncate_address } from '@/lib/strings';
 
 const format_duration = (duration_mins: number): string => {
     if (duration_mins < 0) {
@@ -110,8 +111,8 @@ export default async function ContestsPage() {
                                     ? <TableHeaderRow>
                                         <TableRow>
                                             <TableHeaderCell className='w-[5%]'>#</TableHeaderCell>
-                                            <TableHeaderCell className='w-[40%]'>Title</TableHeaderCell>
-                                            <TableHeaderCell className='w-[10%]'>Host</TableHeaderCell>
+                                            <TableHeaderCell className='w-[35%]'>Title</TableHeaderCell>
+                                            <TableHeaderCell className='w-[15%]'>Host</TableHeaderCell>
                                             <TableHeaderCell className='w-[10%]'>Type</TableHeaderCell>
                                             <TableHeaderCell className='w-[23%]'>Start</TableHeaderCell>
                                             <TableHeaderCell className='w-[12%]'>Duration</TableHeaderCell>
@@ -131,7 +132,9 @@ export default async function ContestsPage() {
                                                     </Link>
                                                 </TableCell>
                                                 <TableCell>
-                                                    <Link href={`https://tonscan.org/address/${contest.creator.address}`}>{`address`}</Link>
+                                                    <Link href={`https://tonscan.org/address/${contest.creator.address}`}>
+                                                        {truncate_address(contest.creator.address)}
+                                                    </Link>
                                                 </TableCell>
                                                 <TableCell>
                                                     <Badge variant="secondary">Training</Badge>

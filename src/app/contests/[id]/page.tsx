@@ -19,7 +19,7 @@ import { useState, useEffect } from "react";
 import * as API from '@/api';
 import { toast } from "sonner";
 import { format_duration, itoc } from "@/lib/utils";
-import { capitalize } from "@/lib/strings";
+import { capitalize, truncate_address } from "@/lib/strings";
 import { format_date } from '@/lib/utils';
 import {
     Widget,
@@ -151,7 +151,7 @@ export default function ContestPage() {
                                                     <TableCell>{`${index + 1}/`}</TableCell>
                                                     <TableCell>
                                                         <Link href={`https://tonscan.org/address/${setter}`}>
-                                                            address
+                                                            {truncate_address(setter)}
                                                         </Link>
                                                     </TableCell>
                                                 </TableRow>
