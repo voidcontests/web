@@ -1,6 +1,9 @@
-import * as API from '@/api';
+import { Separator } from "@/components/ui/separator";
+import { truncate_address } from '@/lib/strings';
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/components/ui/link";
+import { format_date, format_duration } from '@/lib/utils';
 import {
     TableContainer,
     TableHead,
@@ -15,24 +18,7 @@ import {
 import {
     Card, CardContent, CardTitle, CardFooter
 } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { format_date } from '@/lib/utils';
-import { truncate_address } from '@/lib/strings';
-
-const format_duration = (duration_mins: number): string => {
-    if (duration_mins < 0) {
-        return "00:00";
-    }
-
-    const hours = Math.floor(duration_mins / 60);
-    const minutes = duration_mins % 60;
-
-    const formattedHours = String(hours).padStart(2, '0');
-    const formattedMinutes = String(minutes).padStart(2, '0');
-
-    return `${formattedHours}:${formattedMinutes}`;
-}
+import * as API from '@/api';
 
 export default async function ContestsPage() {
     const result = await API.contests.fetchActive();

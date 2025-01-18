@@ -1,17 +1,21 @@
 'use client';
 
-import * as API from '@/api';
 import { Widget, WidgetContent, WidgetTitle } from "@/components/ui/widget";
+import { CreateContest, CreateProblem } from '@/api/dto/request';
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
+import { useTonWallet } from '@tonconnect/ui-react';
 import { Button } from "@/components/ui/button";
 import { Plus, Paperclip } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/components/ui/link";
+import { useRouter } from 'next/navigation';
 import Editor from "@/components/editor";
 import { itoc } from "@/lib/utils";
 import { useState } from "react";
+import { toast } from 'sonner';
+import * as API from '@/api';
 import {
     TableContainer,
     TableHead,
@@ -23,12 +27,8 @@ import {
     TableHeaderCell,
     TableCaption,
 } from "@/components/ui/table";
-import { CreateContest, CreateProblem } from '@/api/dto/request';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
-import { useTonWallet } from '@tonconnect/ui-react';
 
-export default function CreateProblemPage() {
+export default function CreateContestPage() {
     const router = useRouter();
     const wallet = useTonWallet();
 
@@ -55,13 +55,6 @@ export default function CreateProblemPage() {
         }));
     }
 
-    const handleContestDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setContest(prev => ({
-            ...prev,
-            description: e.target.value,
-        }));
-    }
-
     const setContestDescription = (s: string): void => {
         setContest(prev => ({
             ...prev,
@@ -73,13 +66,6 @@ export default function CreateProblemPage() {
         setProblem(prev => ({
             ...prev,
             title: e.target.value,
-        }));
-    }
-
-    const handleProblemStatementChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setProblem(prev => ({
-            ...prev,
-            statement: e.target.value,
         }));
     }
 

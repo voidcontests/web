@@ -1,7 +1,17 @@
 "use client";
 
+import { capitalize, truncate_address } from "@/lib/strings";
+import { ContestDetailed } from "@/api/dto/response";
+import { format_duration, itoc } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/components/ui/link";
+import { useParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import Preview from "@/components/preview";
+import { format_date } from '@/lib/utils';
+import Timer from '@/components/timer';
+import { toast } from "sonner";
+import * as API from '@/api';
 import {
     TableContainer,
     TableHead,
@@ -12,22 +22,11 @@ import {
     TableHeaderRow,
     TableHeaderCell,
 } from "@/components/ui/table";
-import Timer from '@/components/timer';
-import { ContestDetailed } from "@/api/dto/response";
-import { useParams } from "next/navigation";
-import { useState, useEffect } from "react";
-import * as API from '@/api';
-import { toast } from "sonner";
-import { format_duration, itoc } from "@/lib/utils";
-import { capitalize, truncate_address } from "@/lib/strings";
-import { format_date } from '@/lib/utils';
 import {
     Widget,
     WidgetContent,
     WidgetTitle,
-    WidgetFooter,
 } from "@/components/ui/widget";
-import Preview from "@/components/preview";
 
 type DifficultyColorMap = {
     [key: string]: 'green' | 'orange' | 'red' | 'secondary';

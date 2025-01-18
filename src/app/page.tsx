@@ -9,7 +9,7 @@ import {
   WidgetFooter,
 } from "@/components/ui/widget";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div className="flex justify-center">
       <div className="w-[1200px] flex flex-col gap-[20px]">
