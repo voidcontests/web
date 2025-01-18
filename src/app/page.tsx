@@ -27,12 +27,12 @@ export default function HomePage() {
             and <b>participating</b> in programming contests
           </p>
           <div className="flex gap-5">
-            <Button asChild>
+            <Button size="lg" asChild>
               <NextLink href="/contests">
                 EXPLORE
               </NextLink>
             </Button>
-            <Button variant="outline" asChild>
+            <Button size="lg" variant="outline" asChild>
               <NextLink href="/contests/create">
                 CREATE
               </NextLink>
