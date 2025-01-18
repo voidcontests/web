@@ -1,3 +1,5 @@
+'use client';
+
 import { Separator } from "@/components/ui/separator";
 import { truncate_address } from '@/lib/strings';
 import { Button } from "@/components/ui/button";
@@ -19,6 +21,7 @@ import {
     Card, CardContent, CardTitle, CardFooter
 } from "@/components/ui/card";
 import * as API from '@/api';
+import { toast } from "sonner";
 
 export default async function ContestsPage() {
     const result = await API.contests.fetchActive();
@@ -54,7 +57,7 @@ export default async function ContestsPage() {
                                     </div>
                                 </CardContent>
                                 <CardFooter className="pt-5">
-                                    <Link href="/hui" size="large">LEADERBOARD</Link>
+                                    <Button variant="link" className="w-full" onClick={() => { toast.warning('Not available yet') }}>LEADERBOARD</Button>
                                 </CardFooter>
                             </Card>
 
@@ -81,7 +84,7 @@ export default async function ContestsPage() {
                                     </div>
                                 </CardContent>
                                 <CardFooter className="pt-5">
-                                    <Button variant="link" className="w-full">APPLY</Button>
+                                    <Button variant="link" className="w-full" onClick={() => { toast.warning('Not available yet') }}>APPLY</Button>
                                 </CardFooter>
                             </Card>
                         </div>
