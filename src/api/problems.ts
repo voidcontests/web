@@ -1,4 +1,4 @@
-import instance from "./core/instance";
+import { unauthorized } from "./core/instance";
 
 interface Problems {
     data: Problem[];
@@ -18,7 +18,7 @@ interface Problem {
 
 export const getProblems = async (): Promise<Problems | undefined> => {
     try {
-        const { data } = await instance.get('/problems');
+        const { data } = await unauthorized.get('/problems');
 
         return data;
     } catch (e) {

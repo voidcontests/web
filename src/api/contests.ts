@@ -1,5 +1,5 @@
 import type { Contest } from "@/models/contest";
-import instance from "./core/instance";
+import { authorized, unauthorized } from "./core/instance";
 import { ContestResponse, CreateContestRequest, ContestDetailedResponse } from "./dto/dto";
 
 export interface Contests {
@@ -8,7 +8,7 @@ export interface Contests {
 
 export const getByID = async (id: number | string): Promise<ContestDetailedResponse | undefined> => {
     try {
-        const { data } = await instance.get(`/contests/${id}`);
+        const { data } = await authorized.get(`/contests/${id}`);
         return data
     } catch (e) {
         console.error(e);
@@ -18,7 +18,7 @@ export const getByID = async (id: number | string): Promise<ContestDetailedRespo
 
 export const getContests = async (): Promise<Contests | undefined> => {
     try {
-        const { data } = await instance.get('/contests');
+        const { data } = await unauthorized.get('/contests');
 
         return data;
     } catch (e) {
@@ -29,7 +29,7 @@ export const getContests = async (): Promise<Contests | undefined> => {
 
 export const create = async (contest: CreateContestRequest): Promise<ContestResponse | undefined> => {
     try {
-        const { data } = await instance.post("/contests", contest);
+        const { data } = await authorized.post("/contests", contest);
 
         return data;
     } catch (e) {

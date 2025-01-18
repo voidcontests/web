@@ -2,11 +2,11 @@ import axios from "axios";
 
 const DOMAIN = 'https://void.ndbtea.tech';
 
-const instance = axios.create({
+const authorized = axios.create({
     baseURL: DOMAIN + "/api",
 });
 
-instance.interceptors.request.use((config) => {
+authorized.interceptors.request.use((config) => {
     // TODO: Move local storage key to other place to not repeat it
     const token = localStorage.getItem("void-access-token");
 
@@ -15,4 +15,8 @@ instance.interceptors.request.use((config) => {
     return config;
 });
 
-export default instance;
+const unauthorized = axios.create({
+    baseURL: DOMAIN + "/api",
+});
+
+export { authorized, unauthorized };

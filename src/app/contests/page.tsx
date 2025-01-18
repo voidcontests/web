@@ -1,10 +1,6 @@
-'use client';
-
 import * as Api from '@/api';
-import type { Contest } from "@/models/contest";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/components/ui/link";
-import React, { useEffect, useState } from "react";
 import {
     TableContainer,
     TableHead,
@@ -37,23 +33,9 @@ const format_duration = (duration_mins: number): string => {
     return `${formattedHours}:${formattedMinutes}`;
 }
 
-export default function ContestsPage() {
-    const [contests, setContests] = useState<Contest[] | undefined>();
-
-    useEffect(() => {
-        async function fetchContests() {
-            try {
-                const result = await Api.contests.getContests();
-                console.log(result);
-                setContests(result?.data || []);
-            } catch (error) {
-                console.error("Error fetching contests:", error);
-                setContests([]);
-            }
-        }
-
-        fetchContests();
-    }, []);
+export default async function ContestsPage() {
+    const result = await Api.contests.getContests();
+    const contests = result?.data;
 
     return (
         <div className="flex justify-center">
