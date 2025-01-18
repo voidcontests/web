@@ -120,8 +120,8 @@ export default function CreateContestPage() {
 
     return (
         <div className="flex justify-center">
-            <div className="w-[1200px] grid grid-cols-10 gap-5">
-                <div className="col-span-7 flex flex-col gap-[30px]">
+            <div className="w-[1200px] grid grid-cols-12 gap-5">
+                <div className="col-span-9 flex flex-col gap-[30px]">
                     <div className="flex flex-col gap-[10px]">
                         <h1 className="text-text-bright text-lg font-medium">Add a title</h1>
                         <Input
@@ -240,61 +240,74 @@ export default function CreateContestPage() {
             }}>
                 <DrawerContent>
                     <div className="flex justify-center">
-                        <div className="w-[1200px] flex flex-col gap-[30px]">
-                            <div className="flex flex-col gap-[10px]">
-                                <h1 className="text-text-bright text-lg font-medium">Add a title</h1>
-                                <Input
-                                    value={problem.title}
-                                    placeholder="Title"
-                                    onChange={handleProblemTitleChange}
-                                />
-                            </div>
-                            <div className="flex flex-col gap-[10px]">
-                                <Editor
-                                    markdown={problem.statement}
-                                    setMarkdown={setProblemStatement}
-                                    placeholder="Write a problem's statement here"
-                                    className="h-[400px] resize-none"
-                                >
-                                    Add a statement
-                                </Editor>
-                                <div className="flex justify-between">
-                                    <div className="flex gap-[10px] items-center">
-                                        <Button variant='dashed'>
-                                            <Paperclip /> sample.txt
-                                        </Button>
-                                        <div>
-                                            with answer provided
-                                        </div>
-                                        <Input
-                                            value={problem.answer}
-                                            placeholder="here"
-                                            onChange={handleProblemAnswerChange}
-                                            className='w-[400px]'
-                                        />
-                                    </div>
-                                    <Button
-                                        disabled={
-                                            !problem.title || !problem.statement || !problem.answer
-                                        }
-                                        onClick={() => {
-                                            setContest(prev => ({
-                                                ...prev,
-                                                problems: [...prev.problems, problem],
-                                            }));
-                                            setProblem({
-                                                title: '',
-                                                statement: '',
-                                                answer: '',
-                                                difficulty: '',
-                                                input: '',
-                                            });
-                                            setOpen(false);
-                                        }}
-                                    >
-                                        SUBMIT PROBLEM
-                                    </Button>
+                        <div className="w-[1200px] grid grid-cols-12 gap-5">
+                            <div className="col-span-9 flex flex-col gap-[30px]">
+                                <div className="flex flex-col gap-[10px]">
+                                    <h1 className="text-text-bright text-lg font-medium">Add a title</h1>
+                                    <Input
+                                        value={problem.title}
+                                        placeholder="Title"
+                                        onChange={handleProblemTitleChange}
+                                    />
                                 </div>
+                                <div className="flex flex-col gap-[10px]">
+                                    <Editor
+                                        markdown={problem.statement}
+                                        setMarkdown={setProblemStatement}
+                                        placeholder="Write a problem's statement here"
+                                        className="h-[400px] resize-none"
+                                    >
+                                        Add a statement
+                                    </Editor>
+                                    <div className="flex justify-between">
+                                        <div className="flex gap-[10px] items-center">
+                                            <Button variant='dashed'>
+                                                <Paperclip /> sample.txt
+                                            </Button>
+                                            <div>
+                                                with answer provided
+                                            </div>
+                                            <Input
+                                                value={problem.answer}
+                                                placeholder="here"
+                                                onChange={handleProblemAnswerChange}
+                                                className='w-[400px]'
+                                            />
+                                        </div>
+                                        <Button
+                                            disabled={
+                                                !problem.title || !problem.statement || !problem.answer
+                                            }
+                                            onClick={() => {
+                                                setContest(prev => ({
+                                                    ...prev,
+                                                    problems: [...prev.problems, problem],
+                                                }));
+                                                setProblem({
+                                                    title: '',
+                                                    statement: '',
+                                                    answer: '',
+                                                    difficulty: '',
+                                                    input: '',
+                                                });
+                                                setOpen(false);
+                                            }}
+                                        >
+                                            SUBMIT PROBLEM
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-span-3 flex flex-col gap-[30px]">
+                                <Widget>
+                                    <WidgetContent>
+                                        <div className="flex justify-between items-center">
+                                            <WidgetTitle>DIFFICULTY</WidgetTitle>
+                                            <Link href='/' size="large">SET</Link>
+                                        </div>
+                                        <div>Not set yet</div>
+                                    </WidgetContent>
+                                </Widget>
                             </div>
                         </div>
                     </div>
