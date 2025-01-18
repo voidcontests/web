@@ -235,7 +235,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                 />
                 <div className="flex justify-end">
                     <span
-                        className="text-text-link font-medium hover:cursor-pointer hover:underline hover:underline-offset-2"
+                        className="text-sm text-text-link font-medium hover:cursor-pointer hover:underline hover:underline-offset-2"
                         onClick={() => {
                             if (internalValue.trim().length === 0) {
                                 toast.warning('Nothing to preview');
