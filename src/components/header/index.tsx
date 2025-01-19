@@ -19,15 +19,15 @@ const Header = () => {
                 ? 'sticky top-0 bg-background-primary border-t border-t-transparent border-b border-b-transparent'
                 : 'bg-background-secondary border-t border-t-transparent border-b border-b-border',
         )}>
-            <div className='flex-1 flex items-center pl-4'>
+            <div className='flex-1 flex items-center pl-4 xl:mr-8'>
                 <Link href="/" className={cn(
-                    'text-sm text-text-muted hover:text-text-primary font-semibold transition-colors',
+                    'text-sm sm:text-base text-text-muted hover:text-text-primary font-semibold transition-colors',
                     pathname === '/' ? 'text-text-primary' : 'text-text-muted',
                 )} >
                     VOID
                 </Link>
             </div>
-            <div className='w-[1200px] flex gap-8 items-center'>
+            <div className='w-[1200px] flex gap-8 items-center sm:hidden'>
                 <NavItem href='/contests'>
                     CONTESTS
                 </NavItem>

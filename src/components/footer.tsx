@@ -9,7 +9,7 @@ export const Footer = () => {
 
     return (
         <footer className='flex justify-center mt-10'>
-            <div className='h-24 w-[1200px] flex justify-between items-center text-sm text-text-muted'>
+            <div className='h-24 w-[1200px] xl:w-full xl:mx-8 flex sm:flex-col-reverse sm:gap-2 sm:justify-center justify-between items-center text-sm text-text-muted'>
                 <span>
                     Built by <Link href="https://github.com/jus1d" className='hover:text-text-primary transition-colors'>@ndbtea</Link>
                 </span>
@@ -20,7 +20,7 @@ export const Footer = () => {
                     >
                         {theme ? theme === 'dark' ? 'Light mode' : 'Dark mode' : 'Toggle color mode'}
                     </span>
-                    <div>
+                    <div className='sm:hidden'>
                         <Separator vertical />
                     </div>
                     <Link href="https://github.com/voidcontests/frontend/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=" className='hover:text-text-primary transition-colors'>Bug Report</Link>
