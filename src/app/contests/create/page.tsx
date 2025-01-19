@@ -13,7 +13,7 @@ import { Link } from "@/components/ui/link";
 import { useRouter } from 'next/navigation';
 import Editor from "@/components/editor";
 import { itoc } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from 'sonner';
 import * as API from '@/api';
 import {
@@ -141,6 +141,10 @@ export default function CreateContestPage() {
         'mid': 'orange',
         'hard': 'red',
     }
+
+    useEffect(() => {
+        document.title = 'Create :: VOID*';
+    }, []);
 
     return (
         <div className="flex justify-center">

@@ -70,6 +70,12 @@ export default function ContestPage() {
         }
     }, [wallet, isConnectionRestored]);
 
+    useEffect(() => {
+        if (contest) {
+            document.title = contest.title + ' :: VOID*';
+        }
+    }, [contest]);
+
     const handleApplyClick = async () => {
         try {
             await API.contests.apply(id.toString());

@@ -19,6 +19,11 @@ import {
     Card, CardContent, CardTitle, CardFooter
 } from "@/components/ui/card";
 import * as API from '@/api';
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: 'Contests :: VOID*',
+};
 
 export default async function ContestsPage() {
     const result = await API.contests.fetchActive();

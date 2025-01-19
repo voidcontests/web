@@ -10,7 +10,7 @@ import { Toaster } from 'sonner';
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "the void*",
+  title: 'VOID*',
   description: 'Avoid a void in your head'
 };
 
