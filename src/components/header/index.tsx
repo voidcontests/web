@@ -6,9 +6,11 @@ import { NavItem } from './nav-item';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import React from 'react';
+import { useTonProof } from '@/hooks/useTonProof';
 
 const Header = () => {
     const pathname = usePathname();
+    useTonProof();
 
     return (
         <header className={cn(

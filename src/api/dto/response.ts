@@ -20,7 +20,7 @@ export type ProblemListItem = {
     writer: User;
     title: string;
     difficulty: string;
-    status?: string;
+    status?: 'accepted' | 'tried';
 };
 
 export type ContestListItem = {

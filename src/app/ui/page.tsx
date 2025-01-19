@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Verdict } from "@/components/verdict";
 import { cn } from "@/lib/utils";
 import React from "react";
 
@@ -20,6 +21,13 @@ export default function UIKitPage() {
                 <Button className="w-fit" size="sm">SMALL</Button>
                 <Button className="w-fit" size="default">DEFAULT</Button>
                 <Button className="w-fit" size="lg">LARGE</Button>
+            </Container>
+            <Title>
+                Verdict
+            </Title>
+            <Container>
+                <Verdict verdict="OK" />
+                <Verdict verdict="WA" />
             </Container>
         </div>
     </div>

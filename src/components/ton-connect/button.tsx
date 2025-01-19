@@ -7,7 +7,6 @@ import {
     useTonWallet
 } from "@tonconnect/ui-react";
 import React from "react";
-import { useTonProof } from "@/hooks/useTonProof";
 import { truncate_address } from "@/lib/strings";
 
 const TonConnectButton = () => {

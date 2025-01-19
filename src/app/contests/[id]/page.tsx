@@ -27,6 +27,7 @@ import {
     WidgetContent,
     WidgetTitle,
 } from "@/components/ui/widget";
+import { SolvedTag } from "@/components/solved-tag";
 
 type DifficultyColorMap = {
     [key: string]: 'green' | 'orange' | 'red' | 'secondary';
@@ -96,6 +97,9 @@ export default function ContestPage() {
                                                     <Link href={`/contests/${contest.id}/problem/${itoc(index)}`}>
                                                         {problem.title}
                                                     </Link>
+                                                    {
+                                                        <SolvedTag className="ml-2" state={problem.status} />
+                                                    }
                                                 </TableCell>
                                                 <TableCell>
                                                     <Tag variant={difficultyToBadgeType[problem.difficulty]}>{capitalize(problem.difficulty)}</Tag>
