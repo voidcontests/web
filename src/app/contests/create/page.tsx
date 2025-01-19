@@ -37,6 +37,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { capitalize } from "@/lib/strings";
+import { Toggle } from "@/components/ui/toggle";
 
 export default function CreateContestPage() {
     const router = useRouter();
@@ -340,29 +341,28 @@ export default function CreateContestPage() {
                                         <div className="flex justify-between items-center">
                                             <WidgetTitle>DIFFICULTY</WidgetTitle>
                                         </div>
-                                        <Select value={problem.difficulty} onValueChange={(val) => {
-                                            setProblem(prev => ({
-                                                ...prev,
-                                                difficulty: val,
-                                            }))
-                                        }}>
-                                            <SelectTrigger className="w-[180px]">
-                                                <SelectValue placeholder="Select difficulty" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectGroup>
-                                                    <SelectItem value="easy">
-                                                        Easy
-                                                    </SelectItem>
-                                                    <SelectItem value="mid">
-                                                        Medium
-                                                    </SelectItem>
-                                                    <SelectItem value="hard">
-                                                        Hard
-                                                    </SelectItem>
-                                                </SelectGroup>
-                                            </SelectContent>
-                                        </Select>
+                                        <div className="flex flex-wrap gap-3">
+                                            <Toggle className="flex-1" pressed={problem.difficulty === 'easy'} onClick={
+                                                () => setProblem(prev => ({
+                                                    ...prev,
+                                                    difficulty: 'easy',
+                                                }))
+                                            }>
+                                                Easy
+                                            </Toggle>
+                                            <Toggle className="flex-1" pressed={problem.difficulty === 'mid'} onClick={
+                                                () => setProblem(prev => ({
+                                                    ...prev,
+                                                    difficulty: 'mid',
+                                                }))
+                                            }>Mid</Toggle>
+                                            <Toggle className="flex-1" pressed={problem.difficulty === 'hard'} onClick={
+                                                () => setProblem(prev => ({
+                                                    ...prev,
+                                                    difficulty: 'hard',
+                                                }))
+                                            }>Hard</Toggle>
+                                        </div>
                                     </WidgetContent>
                                 </Widget>
                             </div>

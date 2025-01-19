@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Toggle } from "@/components/ui/toggle";
 import { Verdict } from "@/components/verdict";
 import { cn } from "@/lib/utils";
 import React from "react";
@@ -13,22 +14,36 @@ const Title = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHead
 
 export default function UIKitPage() {
     return <div className="mx-6 flex gap-5">
-        <div>
-            <Title>
-                Button
-            </Title>
-            <Container>
-                <Button className="w-fit" size="sm">SMALL</Button>
-                <Button className="w-fit" size="default">DEFAULT</Button>
-                <Button className="w-fit" size="lg">LARGE</Button>
-            </Container>
-            <Title>
-                Verdict
-            </Title>
-            <Container>
-                <Verdict verdict="OK" />
-                <Verdict verdict="WA" />
-            </Container>
+        <div className="flex gap-5">
+            <div>
+                <Title>
+                    Button
+                </Title>
+                <Container>
+                    <Button className="w-fit" size="sm">SMALL</Button>
+                    <Button className="w-fit" size="default">DEFAULT</Button>
+                    <Button className="w-fit" size="lg">LARGE</Button>
+                </Container>
+            </div>
+            <div>
+                <Title>
+                    Verdict
+                </Title>
+                <Container>
+                    <Verdict verdict="OK" />
+                    <Verdict verdict="WA" />
+                </Container>
+            </div>
+            <div>
+                <Title>
+                    Toggle Button
+                </Title>
+                <Container>
+                    <Toggle className="w-fit" size="sm">SMALL</Toggle>
+                    <Toggle className="w-fit" size="default">SMALL</Toggle>
+                    <Toggle className="w-fit" size="lg">SMALL</Toggle>
+                </Container>
+            </div>
         </div>
     </div>
 }
