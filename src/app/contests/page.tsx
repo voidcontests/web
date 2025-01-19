@@ -103,7 +103,7 @@ export default async function ContestsPage() {
                                         <TableRow>
                                             <TableHeaderCell className='w-[5%]'>#</TableHeaderCell>
                                             <TableHeaderCell className='w-[35%]'>Title</TableHeaderCell>
-                                            <TableHeaderCell className='w-[15%]'>Host</TableHeaderCell>
+                                            <TableHeaderCell className='w-[15%]'>Host address</TableHeaderCell>
                                             <TableHeaderCell className='w-[10%]'>Type</TableHeaderCell>
                                             <TableHeaderCell className='w-[23%]'>Start</TableHeaderCell>
                                             <TableHeaderCell className='w-[12%]'>Duration</TableHeaderCell>

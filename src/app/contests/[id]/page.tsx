@@ -170,7 +170,7 @@ export default function ContestPage() {
                                     <TableHeaderRow>
                                         <TableRow>
                                             <TableHeaderCell className='w-[15%]'>#</TableHeaderCell>
-                                            <TableHeaderCell>Writer</TableHeaderCell>
+                                            <TableHeaderCell>Writer address</TableHeaderCell>
                                         </TableRow>
                                     </TableHeaderRow>
                                     <TableBody>
