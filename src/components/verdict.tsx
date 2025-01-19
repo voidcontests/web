@@ -14,12 +14,12 @@ export interface VerdictProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 type VerdictColorMap = {
-    [key: string]: 'green' | 'orange';
+    [key: string]: 'green' | 'red';
 };
 
 const verdict_color: VerdictColorMap = {
     'OK': 'green',
-    'WA': 'orange',
+    'WA': 'red',
 }
 
 type TipMap = {
