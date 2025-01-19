@@ -121,11 +121,9 @@ export default function CreateContestPage() {
             if (c === undefined) {
                 throw new Error('contest is undefined');
             }
-            toast.success("Contest created!");
 
-            setTimeout(() => {
-                router.push(`/contests/${c.id}`);
-            }, 3000);
+            toast.success("Contest created!");
+            router.push(`/contests/${c.id}`);
         } catch (e) {
             toast.error("Something went wrong");
         }
