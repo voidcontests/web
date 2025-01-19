@@ -153,6 +153,7 @@ code {
 }
 
 .codeblock>pre {
+  font-family: 'Ubuntu';
   font-size: 0.875rem;
   line-height: 1.5rem;
   background-color: transparent;
