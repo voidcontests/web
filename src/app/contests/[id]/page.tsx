@@ -31,6 +31,7 @@ import { SolvedTag } from "@/components/solved-tag";
 import { useIsConnectionRestored, useTonAddress, useTonConnectModal, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 import { Button } from "@/components/ui/button";
 import { LoaderCircle } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 type DifficultyColorMap = {
     [key: string]: 'green' | 'orange' | 'red' | 'secondary';
@@ -94,12 +95,13 @@ export default function ContestPage() {
     return (
         <div className="flex justify-center">
             <div className="w-[1200px] flex flex-col">
-                <div className="grid grid-cols-12 gap-[20px]">
-                    <div className="col-span-9 flex flex-col gap-[20px]">
-                        <div className="flex flex-col">
+                <div className="grid grid-cols-12 gap-5">
+                    <div className="col-span-9 flex flex-col gap-5">
+                        <div className="flex flex-col gap-2">
                             <h1 className="text-text-bright text-4xl font-medium">
                                 {contest.title}
                             </h1>
+                            <Separator />
                             <Preview markdown={contest.description} />
                         </div>
                         <TableContainer>
@@ -199,7 +201,7 @@ export default function ContestPage() {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col items-center mt-[50px]">
+                <div className="flex flex-col items-center mt-12">
                     <Timer target={new Date(contest.starting_at)} />
                 </div>
             </div>
