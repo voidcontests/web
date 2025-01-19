@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,491;1,491&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -148,7 +148,13 @@ body {
   }
 }
 
+code {
+  font-family: 'Ubuntu';
+}
+
 .codeblock>pre {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
   background-color: transparent;
   padding: 0;
 }
