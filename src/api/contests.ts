@@ -35,3 +35,13 @@ export const create = async (contest: CreateContest): Promise<ContestID | undefi
         return undefined;
     }
 }
+
+export const apply = async (id: number | string): Promise<number | undefined> => {
+    try {
+        const { status } = await authorized.post(`/contests/${id}/entry`);
+        return status;
+    } catch (e) {
+        console.error(e);
+        return undefined;
+    }
+}

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { capitalize, truncate_address } from "@/lib/strings";
 import { ContestDetailed } from "@/api/dto/response";
@@ -28,6 +28,9 @@ import {
     WidgetTitle,
 } from "@/components/ui/widget";
 import { SolvedTag } from "@/components/solved-tag";
+import { useIsConnectionRestored, useTonAddress, useTonConnectModal, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
+import { Button } from "@/components/ui/button";
+import { LoaderCircle } from "lucide-react";
 
 type DifficultyColorMap = {
     [key: string]: 'green' | 'orange' | 'red' | 'secondary';
@@ -41,23 +44,40 @@ const difficultyToBadgeType: DifficultyColorMap = {
 }
 
 export default function ContestPage() {
-    const { id } = useParams();
-
     const [contest, setContest] = useState<ContestDetailed>();
+    const { id } = useParams();
+    const isConnectionRestored = useIsConnectionRestored();
+    const [tonConnectUI] = useTonConnectUI();
 
-    useEffect(() => {
-        async function fetchContests() {
-            try {
-                const result = await API.contests.fetchByID(id.toString());
-                setContest(result);
-            } catch (error) {
-                toast.error("Sometihng went wrong");
-                setContest(undefined);
-            }
+    const wallet = useTonWallet();
+
+    async function fetchContest() {
+        try {
+            const result = await API.contests.fetchByID(id.toString());
+            setContest(result);
+        } catch (error) {
+            toast.error("Sometihng went wrong");
+            setContest(undefined);
         }
+    }
 
-        fetchContests();
-    }, []);
+    // TODO: This guy dont reloading on wallet connect
+    useEffect(() => {
+        if (isConnectionRestored) {
+            setTimeout(() => {
+                fetchContest();
+            }, 1);
+        }
+    }, [wallet, isConnectionRestored]);
+
+    const handleApplyClick = async () => {
+        try {
+            await API.contests.apply(id.toString());
+            fetchContest();
+        } catch (e) {
+            toast.error('Something went wrong. Try again leter');
+        }
+    }
 
     if (contest === undefined) return (
         <div>Loading data</div>
@@ -163,6 +183,13 @@ export default function ContestPage() {
                                     </TableBody>
                                 </Table>
                             </TableContainer>
+                            {
+                                !wallet
+                                    ? <Button variant="link" onClick={() => tonConnectUI.openModal()}>CONNECT WALET TO APPLY</Button>
+                                    : contest.is_participant === true
+                                        ? <span className="text-center font-medium">You are participating!</span>
+                                        : <Button variant="link" onClick={handleApplyClick}>APPLY</Button>
+                            }
                         </div>
                     </div>
                 </div>
