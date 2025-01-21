@@ -69,7 +69,7 @@ function NavItem({ className, state, href, underlineActive = true, children, ...
 
     return (
         <Link href={href} className={cn(navItemVariants({ state: isActive ? 'active' : 'default' }), className, 'relative flex flex-col justify-center h-full')} {...props}>
-            <span className="flex-grow flex items-center justify-center">
+            <span className="flex-grow flex items-center justify-center font-medium">
                 {children}
             </span>
             <div className={cn(
