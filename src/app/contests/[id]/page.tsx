@@ -94,8 +94,8 @@ export default function ContestPage() {
 
     return (
         <div className="flex justify-center">
-            <div className="w-[1200px] flex flex-col">
-                <div className="grid grid-cols-12 gap-5">
+            <div className="max-w-7xl w-full flex flex-col">
+                <div className="grid grid-cols-12 gap-5 mx-4">
                     <div className="col-span-9 flex flex-col gap-6">
                         <div className="flex flex-col gap-2">
                             <h1 className="text-text-bright text-4xl font-medium">

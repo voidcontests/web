@@ -76,7 +76,7 @@ function NavItem({ className, state, href, underlineActive = true, children, ...
                 "absolute bottom-0 left-0 h-[3px] rounded-t-[3px] transition-all duration-300 ease-in-out",
                 isActive && underlineActive ? 'w-full bg-blue-main' : 'w-0 bg-transparent'
             )} />
-        </Link >
+        </Link>
     );
 }
 

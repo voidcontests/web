@@ -251,14 +251,16 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                 <Drawer open={open} onOpenChange={() => { setOpen(prev => !prev) }}>
                     <DrawerContent className="min-h-[60vh]">
                         <div className="flex justify-center">
-                            <div className="w-[1200px] flex flex-col">
-                                <Preview markdown={internalValue} />
+                            <div className="max-w-7xl w-full flex flex-col">
+                                <div className="mx-4">
+                                    <Preview markdown={internalValue} />
+                                </div>
                             </div>
                         </div>
                     </DrawerContent>
                 </Drawer>
             </div>
-        </TooltipProvider >
+        </TooltipProvider>
     )
 });
 

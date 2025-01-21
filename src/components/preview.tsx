@@ -2,6 +2,7 @@ import { parse } from "@/lib/markdown";
 import { cn } from "@/lib/utils";
 import React from "react";
 
+// TODO: Import based on current theme (include this css files in globals)
 // import 'highlight.js/styles/github.min.css'; // LIGHT THEME
 import 'highlight.js/styles/github-dark.min.css'; // DARK THEME
 
@@ -25,7 +26,7 @@ const Preview = React.forwardRef<HTMLDivElement, PreviewProps>(({ markdown, clas
                 'prose-img:rounded',
                 'codeblock',
                 'w-full max-w-none',
-                'text-sm',
+                'text-sm mt-1',
                 className,
             )} dangerouslySetInnerHTML={{ __html: parsed }}
             {...props}
