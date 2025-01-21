@@ -28,9 +28,8 @@ import {
     WidgetTitle,
 } from "@/components/ui/widget";
 import { SolvedTag } from "@/components/solved-tag";
-import { useIsConnectionRestored, useTonAddress, useTonConnectModal, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
+import { useIsConnectionRestored, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 import { Button } from "@/components/ui/button";
-import { LoaderCircle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
 type DifficultyColorMap = {
@@ -74,7 +73,9 @@ export default function ContestPage() {
     useEffect(() => {
         if (contest) {
             document.title = contest.title + ' :: VOID*';
-        }
+        } else {
+			document.title = 'Contests :: VOID*';
+		}
     }, [contest]);
 
     const handleApplyClick = async () => {
@@ -94,11 +95,11 @@ export default function ContestPage() {
 
     return (
         <div className="flex justify-center">
-            <div className="w-[1200px] flex flex-col">
-                <div className="grid grid-cols-12 gap-5">
+            <div className="max-w-7xl w-full flex flex-col">
+                <div className="grid grid-cols-12 gap-5 mx-4">
                     <div className="col-span-9 flex flex-col gap-6">
                         <div className="flex flex-col gap-2">
-                            <h1 className="text-text-bright text-4xl font-medium">
+                            <h1 className="text-bright-text text-4xl font-medium">
                                 {contest.title}
                             </h1>
                             <Separator />
@@ -143,11 +144,11 @@ export default function ContestPage() {
                         <div className="flex flex-col gap-5">
                             <Widget className="flex-1">
                                 <WidgetContent>
-                                    <WidgetTitle className="text-text-bright">
+                                    <WidgetTitle className="text-bright-text">
                                         ABOUT
                                     </WidgetTitle>
                                     <div className="flex">
-                                        <div className="flex-1 text-text-secondary">
+                                        <div className="flex-1 text-secondary-text">
                                             Start
                                         </div>
                                         <div className="flex-1">
@@ -155,11 +156,19 @@ export default function ContestPage() {
                                         </div>
                                     </div>
                                     <div className="flex">
-                                        <div className="flex-1 text-text-secondary">
+                                        <div className="flex-1 text-secondary-text">
                                             Duration
                                         </div>
                                         <div className="flex-1">
                                             {format_duration(contest.duration_mins)}
+                                        </div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="flex-1 text-secondary-text">
+                                            Participants
+                                        </div>
+                                        <div className="flex-1">
+                                            {contest.participants}
                                         </div>
                                     </div>
                                 </WidgetContent>

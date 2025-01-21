@@ -33,6 +33,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             <main className="flex-grow">
               {children}
             </main>
+            <Footer />
             <Toaster closeButton richColors theme={theme} position="top-right" toastOptions={{
               duration: 3000,
               style: {
@@ -40,7 +41,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
                 fontFamily: 'Rubik',
               }
             }} />
-            <Footer />
           </body>
         </TonConnectProvider>
       </ThemeProvider>

@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Toggle } from "@/components/ui/toggle";
 import { Verdict } from "@/components/verdict";
 import { cn } from "@/lib/utils";
@@ -39,9 +40,17 @@ export default function UIKitPage() {
                     Toggle Button
                 </Title>
                 <Container>
-                    <Toggle className="w-fit" size="sm">SMALL</Toggle>
-                    <Toggle className="w-fit" size="default">SMALL</Toggle>
-                    <Toggle className="w-fit" size="lg">SMALL</Toggle>
+                    <Toggle className="w-fit" size="sm">SMALl</Toggle>
+                    <Toggle className="w-fit" size="default">DEFAULT</Toggle>
+                    <Toggle className="w-fit" size="lg">LARGE</Toggle>
+                </Container>
+            </div>
+            <div>
+                <Title>
+                    Input
+                </Title>
+                <Container>
+                    <Input />
                 </Container>
             </div>
         </div>

@@ -5,10 +5,10 @@ import Link from "next/link";
 export default function NotFound() {
     return (
         <div className="flex flex-col gap-4 justify-center items-center mt-[35vh]">
-            <h1 className="text-4xl text-text-primary font-semibold leading-none">
+            <h1 className="text-4xl text-primary-text font-semibold leading-none">
                 {'ERROR: {404}'}
             </h1>
-            <div className="text-xl text-text-muted">
+            <div className="text-xl text-muted-text">
                 Page you are looking for doesn't exists
             </div>
             <Link href="/">

@@ -7,12 +7,12 @@ import { cn } from "@/lib/utils"
 const toggleVariants = cva(
   cn(
     "inline-flex items-center justify-center gap-2 rounded-[10px] text-base font-regular transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
-    "text-text-secondary hover:bg-background-secondary data-[state=on]:bg-background-secondary data-[state=on]:text-text-primary"
+    "text-secondary-text hover:bg-secondary data-[state=on]:bg-secondary data-[state=on]:text-primary-text"
   ),
   {
     variants: {
       variant: {
-        default: "border bg-background-secondary text-text-primary hover:bg-background-secondary-subdued data-[state=on]:bg-background-link-subdued data-[state=on]:border-border-active",
+        default: "border bg-secondary text-primary-text hover:bg-secondary-subdued data-[state=on]:bg-link-subdued data-[state=on]:border-active-border",
         secondary: "bg-transparent",
       },
       size: {

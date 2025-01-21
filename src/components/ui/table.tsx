@@ -4,7 +4,7 @@ import * as React from "react";
 const TableContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className="bg-background-secondary border rounded-xl relative w-full overflow-auto"
+    className="bg-secondary border rounded-xl relative w-full overflow-auto"
     {...props}
   />
 ));
@@ -38,7 +38,7 @@ const TableBody = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes
 TableBody.displayName = "TableBody";
 
 const TableHeaderRow = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
-  <thead ref={ref} className={cn("h-8 bg-background-secondary [&_tr]:border-b", className)} {...props} />
+  <thead ref={ref} className={cn("h-8 bg-secondary [&_tr]:border-b", className)} {...props} />
 ));
 TableHeaderRow.displayName = "TableHeaderRow";
 
@@ -46,7 +46,7 @@ const TableHeaderCell = React.forwardRef<HTMLTableCellElement, React.ThHTMLAttri
   <th
     ref={ref}
     className={cn(
-      "first:pl-5 h-10 px-2 text-left align-middle text-sm font-medium text-text-muted [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+      "first:pl-5 h-10 px-2 text-left align-middle text-sm font-medium text-muted-text [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
       className,
     )}
     {...props}
@@ -82,7 +82,7 @@ const TableFooter = React.forwardRef<HTMLTableSectionElement, React.HTMLAttribut
   <tfoot
     ref={ref}
     className={cn(
-      "h-10 w-full flex items-center justify-center bg-transparent font-regular text-sm text-text-primary border-t [&>tr]:last:border-b-0",
+      "h-10 w-full flex items-center justify-center bg-transparent font-regular text-sm text-primary-text border-t [&>tr]:last:border-b-0",
       className
     )}
     {...props}
@@ -96,7 +96,7 @@ const TableCaption = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <caption
     ref={ref}
-    className={cn("my-2 text-sm text-text-secondary", className)}
+    className={cn("my-2 text-sm text-secondary-text", className)}
     {...props}
   />
 ))

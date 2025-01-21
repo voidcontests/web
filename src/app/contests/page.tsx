@@ -31,8 +31,8 @@ export default async function ContestsPage() {
 
     return (
         <div className="flex justify-center">
-            <div className="w-[1200px] flex gap-5">
-                <div className="w-full flex flex-col gap-7">
+            <div className="max-w-7xl w-full flex gap-5">
+                <div className="w-full flex flex-col gap-7 mx-4">
                     <div className="flex flex-col gap-2.5">
                         <h1 className="text-xl font-medium">OFFICIAL CONTESTS</h1>
                         <div className="flex gap-7">
