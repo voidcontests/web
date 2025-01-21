@@ -162,6 +162,14 @@ export default function ContestPage() {
                                             {format_duration(contest.duration_mins)}
                                         </div>
                                     </div>
+                                    <div className="flex">
+                                        <div className="flex-1 text-text-secondary">
+                                            Participants
+                                        </div>
+                                        <div className="flex-1">
+                                            {contest.participants}
+                                        </div>
+                                    </div>
                                 </WidgetContent>
                             </Widget>
                             <TableContainer>

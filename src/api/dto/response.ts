@@ -9,6 +9,7 @@ export type ContestDetailed = {
     description: string;
     starting_at: Date;
     duration_mins: number;
+    participants: number;
     is_draft?: boolean;
     is_participant?: boolean;
     problems: ProblemListItem[];
