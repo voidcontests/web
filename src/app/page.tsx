@@ -18,11 +18,11 @@ export default function HomePage() {
             <span className="font-bold sm:text-6xl md:text-6xl lg:text-6xl text-8xl leading-[90px] text-text-primary bg-gradient-to-r from-[#7b84ff] to-[#2d83ec] text-transparent bg-clip-text text-center">
               THE VOID*
             </span>
-            <span className="font-normal sm:text-2xl md:text-4xl lg:text-4xl text-6xl leading-[75px] text-text-primary text-center">
+            <span className="font-normal sm:text-2xl md:text-4xl lg:text-4xl text-6xl leading-[75px] text-text-bright text-center">
               Avoid the void in your head
             </span>
           </h1>
-          <p className="text-center text-lg sm:text-base text-text-secondary max-w-xl">
+          <p className="text-center text-lg sm:text-base text-text-primary max-w-xl">
             An open-source platform for <b>creating</b>, <b>hosting</b> and <b>participating</b> in programming contests
           </p>
           <div className="flex gap-5 sm:gap-3 sm:mt-4">
