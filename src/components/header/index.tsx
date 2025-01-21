@@ -14,29 +14,29 @@ const Header = () => {
 
     return (
         <header className={cn(
-            'h-14 flex justify-center mb-5',
+            'h-14 w-full flex-none',
             pathname === '/'
                 ? 'sticky top-0 bg-background-primary border-t border-t-transparent border-b border-b-transparent'
                 : 'bg-background-secondary border-t border-t-transparent border-b border-b-border',
         )}>
-            <div className='flex-1 flex items-center pl-4 xl:mr-8'>
-                <Link href="/" className={cn(
-                    'text-sm sm:text-base text-text-muted hover:text-text-primary font-semibold transition-colors',
-                    pathname === '/' ? 'text-text-primary' : 'text-text-muted',
-                )} >
-                    VOID
-                </Link>
-            </div>
-            <div className='w-[1200px] flex gap-8 items-center sm:hidden'>
-                <NavItem href='/contests'>
-                    CONTESTS
-                </NavItem>
-                <NavItem href='/problems'>
-                    PROBLEMS
-                </NavItem>
-            </div>
-            <div className='flex-1 flex justify-end items-center pr-4'>
-                <TonConnectButton />
+            <div className='h-full max-w-7xl mx-auto flex justify-center'>
+                <div className='w-full flex items-center mx-4'>
+                    <div className='h-full flex items-center gap-8 mr-auto'>
+                        <Link href="/" className={cn(
+                            'text-sm sm:text-base text-text-muted hover:text-text-primary font-semibold transition-colors',
+                            pathname === '/' ? 'text-text-primary' : 'text-text-muted',
+                        )}>
+                            VOID
+                        </Link>
+                        <NavItem href='/contests' className='sm:hidden'>
+                            CONTESTS
+                        </NavItem>
+                        <NavItem href='/problems' className='sm:hidden'>
+                            PROBLEMS
+                        </NavItem>
+                    </div>
+                    <TonConnectButton />
+                </div>
             </div>
         </header>
     );
