@@ -28,9 +28,8 @@ import {
     WidgetTitle,
 } from "@/components/ui/widget";
 import { SolvedTag } from "@/components/solved-tag";
-import { useIsConnectionRestored, useTonAddress, useTonConnectModal, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
+import { useIsConnectionRestored, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 import { Button } from "@/components/ui/button";
-import { LoaderCircle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
 type DifficultyColorMap = {
