@@ -12,21 +12,21 @@ import {
 export default function HomePage() {
   return (
     <div className="flex justify-center">
-      <div className="w-[1200px] md:w-full flex flex-col gap-5">
-        <div className="flex flex-col items-center w-full pt-8 gap-8">
+      <div className="max-w-7xl w-full mx-4 flex flex-col gap-5">
+        <div className="flex flex-col items-center w-full pt-8 gap-8 sm:gap-2 md:gap-4 lg:gap-6">
           <h1 className="flex flex-col items-center">
-            <span className="sm:text-6xl font-bold text-8xl leading-[90px] text-text-primary bg-gradient-to-r from-[#7b84ff] to-[#2d83ec] text-transparent bg-clip-text">
+            <span className="font-bold sm:text-6xl md:text-6xl lg:text-6xl text-8xl leading-[90px] text-text-primary bg-gradient-to-r from-[#7b84ff] to-[#2d83ec] text-transparent bg-clip-text">
               THE VOID*
             </span>
-            <span className="sm:text-2xl md:text-4xl font-normal text-6xl leading-[75px] text-text-primary text-center">
+            <span className="font-normal sm:text-3xl md:text-4xl lg:text-4xl text-6xl leading-[75px] text-text-primary text-center">
               Avoid the void in your head
             </span>
           </h1>
-          <p className="sm:text-sm text-center text-lg">
+          <p className="text-center text-lg sm:text-base text-text-secondary">
             An open-source platform for <b>creating</b>, <b>hosting</b> <br />
             and <b>participating</b> in programming contests
           </p>
-          <div className="flex gap-5 sm:gap-3">
+          <div className="flex gap-5 sm:gap-3 sm:mt-4">
             <Button size="lg" asChild>
               <NextLink href="/contests">
                 EXPLORE
@@ -39,11 +39,11 @@ export default function HomePage() {
             </Button>
           </div>
         </div>
-        <div className="flex flex-col gap-2.5 sm:mx-6 sm:mt-8 xl:mx-8">
+        <div className="flex flex-col gap-2.5 mt-8">
           <h3 className="text-xl font-bold">
             DISCOVER
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 grid-cols-3 gap-5">
+          <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-3">
             <Widget className="flex-1">
               <WidgetContent>
                 <WidgetTitle>WIN & EARN</WidgetTitle>

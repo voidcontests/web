@@ -22,7 +22,7 @@ const Header = () => {
             <div className='h-full max-w-7xl mx-auto flex justify-center'>
                 <div className='w-full flex items-center mx-4'>
                     <div className='h-full flex items-center gap-8 mr-auto'>
-                        <NavItem href='/' underlineActive={false}>
+                        <NavItem href='/' underlineActive={false} className="sm:text-base">
                             VOID
                         </NavItem>
                         <NavItem href='/contests' className='sm:hidden'>
@@ -76,7 +76,7 @@ function NavItem({ className, state, href, underlineActive = true, children, ...
                 "absolute bottom-0 left-0 h-[3px] rounded-t-[3px] transition-all duration-300 ease-in-out",
                 isActive && underlineActive ? 'w-full bg-blue-main' : 'w-0 bg-transparent'
             )} />
-        </Link>
+        </Link >
     );
 }
 
