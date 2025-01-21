@@ -98,7 +98,7 @@ export default function ContestPage() {
                 <div className="grid grid-cols-12 gap-5 mx-4">
                     <div className="col-span-9 flex flex-col gap-6">
                         <div className="flex flex-col gap-2">
-                            <h1 className="text-text-bright text-4xl font-medium">
+                            <h1 className="text-bright-text text-4xl font-medium">
                                 {contest.title}
                             </h1>
                             <Separator />
@@ -143,11 +143,11 @@ export default function ContestPage() {
                         <div className="flex flex-col gap-5">
                             <Widget className="flex-1">
                                 <WidgetContent>
-                                    <WidgetTitle className="text-text-bright">
+                                    <WidgetTitle className="text-bright-text">
                                         ABOUT
                                     </WidgetTitle>
                                     <div className="flex">
-                                        <div className="flex-1 text-text-secondary">
+                                        <div className="flex-1 text-secondary-text">
                                             Start
                                         </div>
                                         <div className="flex-1">
@@ -155,7 +155,7 @@ export default function ContestPage() {
                                         </div>
                                     </div>
                                     <div className="flex">
-                                        <div className="flex-1 text-text-secondary">
+                                        <div className="flex-1 text-secondary-text">
                                             Duration
                                         </div>
                                         <div className="flex-1">
@@ -163,7 +163,7 @@ export default function ContestPage() {
                                         </div>
                                     </div>
                                     <div className="flex">
-                                        <div className="flex-1 text-text-secondary">
+                                        <div className="flex-1 text-secondary-text">
                                             Participants
                                         </div>
                                         <div className="flex-1">

@@ -16,8 +16,8 @@ const Header = () => {
         <header className={cn(
             'h-14 w-full mb-6',
             pathname === '/'
-                ? 'sticky top-0 bg-background-primary border-t border-t-transparent border-b border-b-transparent'
-                : 'bg-background-secondary border-t border-t-transparent border-b border-b-border',
+                ? 'sticky top-0 bg-primary border-t border-t-transparent border-b border-b-transparent'
+                : 'bg-secondary border-t border-t-transparent border-b border-b-border',
         )}>
             <div className='h-full max-w-7xl mx-auto flex justify-center'>
                 <div className='w-full flex items-center mx-4'>
@@ -40,12 +40,12 @@ const Header = () => {
 };
 
 const navItemVariants = cva(
-    "text-sm font-semibold hover:text-text-primary transition-colors",
+    "text-sm font-semibold hover:text-primary-text transition-colors",
     {
         variants: {
             state: {
-                default: "text-text-muted",
-                active: "text-text-primary",
+                default: "text-muted-text",
+                active: "text-primary-text",
             },
         },
         defaultVariants: {

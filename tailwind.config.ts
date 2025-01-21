@@ -9,47 +9,61 @@ const config: Config = {
 	],
 	theme: {
 		extend: {
-			// TODO: change font sizes to rem
 			backgroundImage: {
 				'notification-default': 'var(--notification-default)',
 				'notification-warning': 'var(--notification-warning)',
 				'notification-alert': 'var(--notification-alert)',
 			},
 			colors: {
-				// UI ELEMENTS
-				text: {
-					bright: 'hsla(var(--text-bright))',
-					primary: 'hsla(var(--text-primary))',
-					'primary-inverse': 'hsla(var(--text-primary-inverse))',
-					'primary-on-color': 'hsla(var(--text-primary-on-color))',
-					secondary: 'hsla(var(--text-secondary))',
-					muted: 'hsla(var(--text-muted))',
-					disabled: 'hsla(var(--text-disabled))',
-					critical: 'hsla(var(--text-critical))',
-					caution: 'hsla(var(--text-caution))',
-					success: 'hsla(var(--text-success))',
-					link: 'hsla(var(--text-link))',
+				bright: {
+					text: 'hsla(var(--text-bright))',
 				},
-				background: {
-					primary: 'hsla(var(--background-primary))',
-					'primary-inverse': 'hsla(var(--background-primary-inverse))',
-					secondary: 'hsla(var(--background-secondary))',
-					'secondary-subdued': 'hsla(var(--background-secondary-subdued))',
-					desabled: 'hsla(var(--background-disabled))',
-					'success-subdued': 'hsla(var(--background-success-subdued))',
-					'link-subdued': 'hsla(var(--background-link-subdued))',
-					'caution-subdued': 'hsla(var(--background-caution-subdued))',
-					'critical-subdued': 'hsla(var(--background-critical-subdued))',
-					critical: 'hsla(var(--background-critical))',
-					popover: 'hsl(var(--background-popover))',
+				primary: {
+					DEFAULT: 'hsla(var(--background-primary))',
+					inverse: {
+						DEFAULT: 'hsla(var(--background-primary-inverse))',
+						text: 'hsla(var(--text-primary-inverse))',
+					},
+					border: 'hsl(var(--border-primary))',
+					icon: 'hsla(var(--icon-primary))',
+					text: 'hsla(var(--text-primary))',
+					'on-color-text': 'hsla(var(--text-primary-on-color))',
 				},
-				border: {
-					primary: 'hsl(var(--border-primary))',
-					critical: 'hsla(var(--border-critical))',
-					active: 'hsla(var(--border-active))',
+				secondary: {
+					DEFAULT: 'hsla(var(--background-secondary))',
+					subdued: 'hsla(var(--background-secondary-subdued))',
+					text: 'hsla(var(--text-secondary))',
 				},
-				icon: {
-					primary: 'hsla(var(--icon-primary))'
+				desabled: {
+					DEFAULT: 'hsla(var(--background-disabled))',
+					text: 'hsla(var(--text-disabled))',
+				},
+				muted: {
+					text: 'hsla(var(--text-muted))',
+				},
+				success: {
+					subdued: 'hsla(var(--background-success-subdued))',
+					text: 'hsla(var(--text-success))',
+				},
+				link: {
+					subdued: 'hsla(var(--background-link-subdued))',
+					text: 'hsla(var(--text-link))',
+				},
+				caution: {
+					subdued: 'hsla(var(--background-caution-subdued))',
+					text: 'hsla(var(--text-caution))',
+				},
+				critical: {
+					DEFAULT: 'hsla(var(--background-critical))',
+					subdued: 'hsla(var(--background-critical-subdued))',
+					border: 'hsla(var(--border-critical))',
+					text: 'hsla(var(--text-critical))',
+				},
+				popover: {
+					DEFAULT: 'hsl(var(--background-popover))',
+				},
+				active: {
+					border: 'hsla(var(--border-active))',
 				},
 				// COLOR KIT
 				black: {

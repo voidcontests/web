@@ -8,13 +8,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-background-primary-inverse text-text-primary-inverse",
-        secondary: "bg-background-secondary text-text-primary",
-        destructive: "bg-background-critical text-text-primary-on-color-text",
-        link: "text-text-link bg-background-link-subdued font-medium",
-        outline: "border bg-transparent hover:bg-background-secondary text-text-primary",
-        dashed: "border border-dashed bg-transparent hover:bg-background-secondary text-text-primary",
-        ghost: "bg-transparent text-text-primary hover:bg-background-secondary",
+        default: "bg-primary-inverse text-primary-inverse-text",
+        secondary: "bg-secondary text-primary-text",
+        destructive: "bg-critical text-primary-on-color-text",
+        link: "text-link-text bg-link-subdued font-medium",
+        outline: "border bg-transparent hover:bg-secondary text-primary-text",
+        dashed: "border border-dashed bg-transparent hover:bg-secondary text-primary-text",
+        ghost: "bg-transparent text-primary-text hover:bg-secondary",
       },
       size: {
         sm: "h-7 px-3 min-w-32 text-xs",

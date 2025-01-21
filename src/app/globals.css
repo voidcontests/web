@@ -140,11 +140,11 @@ body {
 
 @layer base {
   * {
-    @apply border-border-primary;
+    @apply border-primary-border;
   }
 
   body {
-    @apply bg-background-primary text-text-primary;
+    @apply bg-primary text-primary-text;
   }
 }
 

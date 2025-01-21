@@ -27,15 +27,6 @@ import {
     TableHeaderCell,
     TableCaption,
 } from "@/components/ui/table";
-
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
 import { capitalize } from "@/lib/strings";
 import { Toggle } from "@/components/ui/toggle";
 
@@ -151,7 +142,7 @@ export default function CreateContestPage() {
                 <div className="grid grid-cols-12 gap-5 mx-4">
                     <div className="col-span-9 flex flex-col gap-8">
                         <div className="flex flex-col gap-2">
-                            <h1 className="text-text-bright text-lg font-medium">Add a title</h1>
+                            <h1 className="text-bright-text text-lg font-medium">Add a title</h1>
                             <Input
                                 value={contest.title}
                                 placeholder="Title"
@@ -171,7 +162,7 @@ export default function CreateContestPage() {
                                     <span>PROBLEMSET</span>
                                     {
                                         contest.problems.length !== 0 &&
-                                        <span className="font-normal text-text-muted">{`- ${contest.problems.length} problems`}</span>
+                                        <span className="font-normal text-muted-text">{`- ${contest.problems.length} problems`}</span>
                                     }
                                 </TableHead>
                                 <Table>
@@ -202,7 +193,7 @@ export default function CreateContestPage() {
                                                     </TableCell>
                                                     <TableCell className="w-[100px]">
                                                         <span
-                                                            className="text-base text-text-link font-medium transition-colors hover:underline hover:cursor-pointer underline-offset-2"
+                                                            className="text-base text-link-text font-medium transition-colors hover:underline hover:cursor-pointer underline-offset-2"
                                                             onClick={() => {
                                                                 setContest(prev => ({
                                                                     ...prev,
@@ -244,7 +235,7 @@ export default function CreateContestPage() {
                                 <div className="flex justify-between items-center">
                                     <WidgetTitle>TIME SETTINGS</WidgetTitle>
                                     <span
-                                        className="text-text-link hover:underline underline-offset-2 hover:cursor-pointer font-medium"
+                                        className="text-link-text hover:underline underline-offset-2 hover:cursor-pointer font-medium"
                                     >
                                         SET
                                     </span>
@@ -281,7 +272,7 @@ export default function CreateContestPage() {
                             <div className="grid grid-cols-12 gap-5 mx-4">
                                 <div className="col-span-9 flex flex-col gap-8">
                                     <div className="flex flex-col gap-2">
-                                        <h1 className="text-text-bright text-lg font-medium">Add a title</h1>
+                                        <h1 className="text-bright-text text-lg font-medium">Add a title</h1>
                                         <Input
                                             value={problem.title}
                                             placeholder="Title"
