@@ -73,7 +73,9 @@ export default function ContestPage() {
     useEffect(() => {
         if (contest) {
             document.title = contest.title + ' :: VOID*';
-        }
+        } else {
+			document.title = 'Contests :: VOID*';
+		}
     }, [contest]);
 
     const handleApplyClick = async () => {
