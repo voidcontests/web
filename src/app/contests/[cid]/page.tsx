@@ -45,7 +45,7 @@ const difficultyToBadgeType: DifficultyColorMap = {
 
 export default function ContestPage() {
     const [contest, setContest] = useState<ContestDetailed>();
-    const { id } = useParams();
+    const { cid } = useParams();
     const isConnectionRestored = useIsConnectionRestored();
     const [tonConnectUI] = useTonConnectUI();
 
@@ -53,7 +53,7 @@ export default function ContestPage() {
 
     async function fetchContest() {
         try {
-            const result = await API.contests.fetchByID(id.toString());
+            const result = await API.contests.fetchByID(cid.toString());
             setContest(result);
         } catch (error) {
             toast.error("Sometihng went wrong");
@@ -74,13 +74,13 @@ export default function ContestPage() {
         if (contest) {
             document.title = contest.title + ' :: VOID*';
         } else {
-			document.title = 'Contests :: VOID*';
-		}
+            document.title = 'Contests :: VOID*';
+        }
     }, [contest]);
 
     const handleApplyClick = async () => {
         try {
-            await API.contests.apply(id.toString());
+            await API.contests.apply(cid.toString());
             fetchContest();
         } catch (e) {
             toast.error('Something went wrong. Try again leter');
@@ -123,9 +123,11 @@ export default function ContestPage() {
                                             <TableRow key={index}>
                                                 <TableCell>{itoc(index)}</TableCell>
                                                 <TableCell>
-                                                    <Link href={`/contests/${contest.id}/problem/${itoc(index)}`}>
-                                                        {problem.title}
-                                                    </Link>
+                                                    {
+                                                        !wallet
+                                                            ? <div>{problem.title}</div>
+                                                            : <Link href={`/contests/${contest.id}/problems/${problem.id}`}>{problem.title}</Link>
+                                                    }
                                                     {
                                                         <SolvedTag className="ml-2" state={problem.status} />
                                                     }

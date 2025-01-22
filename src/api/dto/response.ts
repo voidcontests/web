@@ -43,3 +43,14 @@ export type User = {
     id: number;
     address: string;
 };
+
+export type ProblemDetailed = {
+    id: number;
+    contest_id: number;
+    writer: User;
+    title: string;
+    statement: string;
+    difficulty: string;
+    status?: 'accepted' | 'tried';
+    input?: string;
+}
