@@ -43,6 +43,8 @@ export default function ProblemPage() {
     }
 
     async function submitAnswer() {
+        if (answer.trim().length === 0) return;
+
         try {
             const result = await API.problems.submit(cid.toString(), pid.toString(), answer);
 
@@ -118,16 +120,18 @@ export default function ProblemPage() {
                     <div className="col-span-9 flex flex-col gap-7">
                         <Preview markdown={problem.statement} />
                         <div className="flex items-center gap-4">
-                            <span className="text-sm font-semibold">
+                            <span className="flex-shrink-0 text-sm font-semibold">
                                 Commit yout answer:
                             </span>
                             <Input
-                                className="w-2/5"
                                 placeholder="It's gonna be a correct one"
                                 value={answer}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => setAnswer(e.target.value)}
+                                onChange={(e) => setAnswer(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') submitAnswer();
+                                }}
                             />
-                            <Button onClick={submitAnswer}>SUBMIT</Button>
+                            <Button onClick={submitAnswer} disabled={answer.trim().length === 0}>SUBMIT</Button>
                         </div>
                     </div>
                     <div className="col-span-3 flex flex-col gap-5">
