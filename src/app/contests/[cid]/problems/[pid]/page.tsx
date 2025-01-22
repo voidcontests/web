@@ -1,15 +1,16 @@
 'use client';
 
-import { capitalize, truncate_address } from "@/lib/strings";
+import { useIsConnectionRestored, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 import { ContestDetailed, ProblemDetailed } from "@/api/dto/response";
-import { format_duration, itoc } from "@/lib/utils";
-import { Tag } from "@/components/ui/tag";
+import { useState, useEffect, ChangeEvent } from "react";
+import { SolvedTag } from "@/components/solved-tag";
+import { truncate_address } from "@/lib/strings";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Link } from "@/components/ui/link";
 import { useParams } from "next/navigation";
-import { useState, useEffect, ChangeEvent } from "react";
 import Preview from "@/components/preview";
-import { format_date } from '@/lib/utils';
-import Timer from '@/components/timer';
+import { itoc } from '@/lib/utils';
 import { toast } from "sonner";
 import * as API from '@/api';
 import {
@@ -22,34 +23,12 @@ import {
     TableHeaderRow,
     TableHeaderCell,
 } from "@/components/ui/table";
-import {
-    Widget,
-    WidgetContent,
-    WidgetTitle,
-} from "@/components/ui/widget";
-import { SolvedTag } from "@/components/solved-tag";
-import { useIsConnectionRestored, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Input } from "@/components/ui/input";
-
-type DifficultyColorMap = {
-    [key: string]: 'green' | 'orange' | 'red' | 'secondary';
-};
-
-const difficultyToBadgeType: DifficultyColorMap = {
-    'easy': 'green',
-    'mid': 'orange',
-    'hard': 'red',
-    'beginner': 'secondary',
-}
 
 export default function ProblemPage() {
     const [problem, setProblem] = useState<ProblemDetailed>();
     const [contest, setContest] = useState<ContestDetailed>();
     const { cid, pid } = useParams();
     const isConnectionRestored = useIsConnectionRestored();
-    const [tonConnectUI] = useTonConnectUI();
     const [answer, setAnswer] = useState('');
     const wallet = useTonWallet();
 
