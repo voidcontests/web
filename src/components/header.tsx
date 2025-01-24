@@ -28,9 +28,6 @@ const Header = () => {
                         <NavItem href='/contests' className='sm:hidden'>
                             CONTESTS
                         </NavItem>
-                        <NavItem href='/problems' className='sm:hidden'>
-                            PROBLEMS
-                        </NavItem>
                     </div>
                     <TonConnectButton />
                 </div>

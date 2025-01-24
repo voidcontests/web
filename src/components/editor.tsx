@@ -13,6 +13,7 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 type StyleKind = 'bold' | 'italic' | 'code' | 'heading' | 'link' | 'quote';
 
@@ -235,14 +236,14 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                 />
                 <div className="flex justify-end">
                     <span
-                        className="text-sm text-link-text font-medium hover:cursor-pointer hover:underline hover:underline-offset-2"
+                        className={cn(
+                            "text-sm text-link-text font-medium",
+                            internalValue.trim().length !== 0
+                                ? "hover:cursor-pointer hover:underline hover:underline-offset-2"
+                                : "hover:cursor-default opacity-70",
+                        )}
                         onClick={() => {
-                            if (internalValue.trim().length === 0) {
-                                toast.warning('Nothing to preview');
-                                return;
-                            }
-
-                            setOpen(prev => !prev);
+                            if (internalValue.trim().length !== 0) setOpen(prev => !prev);
                         }}
                     >
                         PREVIEW

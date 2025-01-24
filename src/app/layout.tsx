@@ -34,7 +34,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
               {children}
             </main>
             <Footer />
-            <Toaster closeButton richColors theme={theme} position="top-right" toastOptions={{
+            <Toaster closeButton richColors theme={theme} position="bottom-center" toastOptions={{
               duration: 3000,
               style: {
                 borderRadius: "16px",

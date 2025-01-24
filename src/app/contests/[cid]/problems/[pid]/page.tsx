@@ -45,6 +45,16 @@ export default function ProblemPage() {
     async function submitAnswer() {
         if (answer.trim().length === 0) return;
 
+        if (contest) {
+            for (let i = 0; i < contest.problems.length; i++) {
+                const p = contest.problems[i];
+                if (pid.toString() === p.id.toString() && p.status === 'accepted') {
+                    toast.info("Solution for this problem already accepted");
+                    return;
+                }
+            }
+        }
+
         try {
             const result = await API.problems.submit(cid.toString(), pid.toString(), answer);
 
@@ -121,10 +131,9 @@ export default function ProblemPage() {
                         <Preview markdown={problem.statement} />
                         <div className="flex items-center gap-4">
                             <span className="flex-shrink-0 text-sm font-semibold">
-                                Commit yout answer:
+                                Answer:
                             </span>
                             <Input
-                                placeholder="It's gonna be a correct one"
                                 value={answer}
                                 onChange={(e) => setAnswer(e.target.value)}
                                 onKeyDown={(e) => {

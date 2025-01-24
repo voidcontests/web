@@ -218,6 +218,7 @@ export default function CreateContestPage() {
                                     <Button
                                         variant='dashed'
                                         onClick={() => submitContest(true)}
+                                        disabled
                                     >SAVE AS DRAFT</Button>
                                     <Button
                                         disabled={contest.problems.length === 0 || contest.title === ''}
