@@ -45,7 +45,7 @@ const difficultyToBadgeType: DifficultyColorMap = {
 
 export default function ContestPage() {
     const [contest, setContest] = useState<ContestDetailed>();
-    const { cid } = useParams();
+    const { cid } = useParams<{ cid: string }>();
     const isConnectionRestored = useIsConnectionRestored();
     const [tonConnectUI] = useTonConnectUI();
 
@@ -53,7 +53,7 @@ export default function ContestPage() {
 
     async function fetchContest() {
         try {
-            const result = await API.contests.fetchByID(cid.toString());
+            const result = await API.contests.fetchByID(cid);
             setContest(result);
         } catch (error) {
             toast.error("Sometihng went wrong");
@@ -80,7 +80,7 @@ export default function ContestPage() {
 
     const handleApplyClick = async () => {
         try {
-            await API.contests.apply(cid.toString());
+            await API.contests.apply(cid);
             fetchContest();
         } catch (e) {
             toast.error('Something went wrong. Try again leter');

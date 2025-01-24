@@ -27,14 +27,14 @@ import {
 export default function ProblemPage() {
     const [problem, setProblem] = useState<ProblemDetailed>();
     const [contest, setContest] = useState<ContestDetailed>();
-    const { cid, pid } = useParams();
+    const { cid, pid } = useParams<{ cid: string, pid: string }>();
     const isConnectionRestored = useIsConnectionRestored();
     const [answer, setAnswer] = useState('');
     const wallet = useTonWallet();
 
     async function fetchContest() {
         try {
-            const result = await API.contests.fetchByID(cid.toString());
+            const result = await API.contests.fetchByID(cid);
             setContest(result);
         } catch (error) {
             toast.error("Sometihng went wrong");
@@ -48,7 +48,7 @@ export default function ProblemPage() {
         if (contest) {
             for (let i = 0; i < contest.problems.length; i++) {
                 const p = contest.problems[i];
-                if (pid.toString() === p.id.toString() && p.status === 'accepted') {
+                if (pid === p.id.toString() && p.status === 'accepted') {
                     toast.info("Solution for this problem already accepted");
                     return;
                 }
@@ -56,7 +56,7 @@ export default function ProblemPage() {
         }
 
         try {
-            const result = await API.problems.submit(cid.toString(), pid.toString(), answer);
+            const result = await API.problems.submit(cid, pid, answer);
 
             if (!result) {
                 toast.error("Something went wrong. Try later");
@@ -85,7 +85,7 @@ export default function ProblemPage() {
 
     async function fetchProblem() {
         try {
-            const result = await API.problems.getByID(cid.toString(), pid.toString());
+            const result = await API.problems.getByID(cid, pid);
             setProblem(result);
         } catch (error) {
             toast.error("Sometihng went wrong");
@@ -166,7 +166,7 @@ export default function ProblemPage() {
                                                 <TableCell>
                                                     <Link
                                                         href={`/contests/${contest.id}/problems/${problem.id}`}
-                                                        className={pid.toString() === problem.id.toString() ? 'text-bright-text font-semibold' : ''}
+                                                        className={pid === problem.id.toString() ? 'text-bright-text font-semibold' : ''}
                                                     >
                                                         {problem.title}
                                                     </Link>
