@@ -68,6 +68,7 @@ export default function ProblemPage() {
                 } else {
                     toast.error(`Unknown verdict: ${verdict}`);
                 }
+                fetchContest();
                 break;
             case 429:
                 toast.warning(`You are submitting too frequently. Wait for ${data.timeout}`);
