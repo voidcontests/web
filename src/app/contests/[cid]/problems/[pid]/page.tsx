@@ -24,6 +24,7 @@ import {
     TableHeaderCell,
 } from "@/components/ui/table";
 import { authorized } from "@/api/core/instance";
+import NotFound from "@/app/not-found";
 
 export default function ProblemPage() {
     const [problem, setProblem] = useState<ProblemDetailed>();
@@ -32,6 +33,7 @@ export default function ProblemPage() {
     const isConnectionRestored = useIsConnectionRestored();
     const [answer, setAnswer] = useState('');
     const wallet = useTonWallet();
+    const [notFound, setNotFound] = useState(false);
 
     async function fetchContest() {
         try {
@@ -88,12 +90,19 @@ export default function ProblemPage() {
     }, [wallet, isConnectionRestored]);
 
     async function fetchProblem() {
-        try {
-            const result = await API.problems.getByID(cid, pid);
-            setProblem(result);
-        } catch (error) {
-            toast.error("Sometihng went wrong");
-            setProblem(undefined);
+        const { data, status } = await authorized.get(`/contests/${cid}/problems/${pid}`);
+
+        switch (status) {
+            case 200:
+                setProblem(data);
+                break;
+            case 403:
+            case 404:
+                setNotFound(true);
+                break;
+            default:
+                toast.error('Something went wrong'); // TODO: Render 500 page instead
+                setNotFound(true);
         }
     }
 
@@ -114,8 +123,10 @@ export default function ProblemPage() {
         }
     }, [problem]);
 
+    if (notFound) return <NotFound />
+
     if (problem === undefined) return (
-        <div>Loading data</div>
+        <div>Loading</div>
     );
 
     return (

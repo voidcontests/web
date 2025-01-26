@@ -31,6 +31,8 @@ import { SolvedTag } from "@/components/solved-tag";
 import { useIsConnectionRestored, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { authorized } from "@/api/core/instance";
+import NotFound from "@/app/not-found";
 
 type DifficultyColorMap = {
     [key: string]: 'green' | 'orange' | 'red' | 'secondary';
@@ -48,16 +50,23 @@ export default function ContestPage() {
     const { cid } = useParams<{ cid: string }>();
     const isConnectionRestored = useIsConnectionRestored();
     const [tonConnectUI] = useTonConnectUI();
+    const [notFound, setNotFound] = useState(false);
 
     const wallet = useTonWallet();
 
     async function fetchContest() {
-        try {
-            const result = await API.contests.fetchByID(cid);
-            setContest(result);
-        } catch (error) {
-            toast.error("Sometihng went wrong");
-            setContest(undefined);
+        const { data, status } = await authorized.get(`/contests/${cid}`);
+
+        switch (status) {
+            case 200:
+                setContest(data);
+                break;
+            case 404:
+                setNotFound(true);
+                break;
+            default:
+                toast.error('Something went wrong'); // TODO: Render 500 page instead
+                setNotFound(true);
         }
     }
 
@@ -86,6 +95,8 @@ export default function ContestPage() {
             toast.error('Something went wrong. Try again leter');
         }
     }
+
+    if (notFound) return <NotFound />
 
     if (contest === undefined) return (
         <div>Loading data</div>

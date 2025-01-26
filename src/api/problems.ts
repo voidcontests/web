@@ -28,16 +28,16 @@ export const getProblems = async (): Promise<Problems | undefined> => {
     }
 }
 
-export const getByID = async (cid: string | number, pid: string | number): Promise<ProblemDetailed | undefined> => {
-    try {
-        const { data } = await authorized.get(`/contests/${cid}/problems/${pid}`);
+// export const getByID = async (cid: string | number, pid: string | number): Promise<ProblemDetailed | undefined> => {
+//     try {
+//         const { data } = await authorized.get(`/contests/${cid}/problems/${pid}`);
 
-        return data;
-    } catch (e) {
-        console.error(e);
-        return;
-    }
-}
+//         return data;
+//     } catch (e) {
+//         console.error(e);
+//         return;
+//     }
+// }
 
 export const submit = async (cid: string | number, pid: string | number, answer: string): Promise<SubmissionListItem | undefined> => {
     try {
