@@ -117,17 +117,19 @@ export default function ProblemPage() {
     return (
         <div className="flex justify-center">
             <div className="max-w-7xl w-full flex flex-col">
-                <div className="flex justify-center items-end mx-4 mb-8">
-                    <Link href={`/contests/${cid}`} size="large" className="flex-1">
-                        BACK TO CONTEST
-                    </Link>
-                    <h1 className="text-bright-text text-xl font-medium">
-                        {problem.title}
-                    </h1>
-                    <div className="flex-1"></div>
-                </div>
                 <div className="grid grid-cols-12 gap-5 mx-4">
                     <div className="col-span-9 flex flex-col gap-7">
+                        <div className="flex justify-between items-center mb-8">
+                            <div className="flex-1">
+                                <Link href={`/contests/${cid}`} size="large">
+                                    BACK TO CONTEST
+                                </Link>
+                            </div>
+                            <h1 className="text-bright-text text-xl font-medium text-center">
+                                {problem.title}
+                            </h1>
+                            <div className="flex-1"></div>
+                        </div>
                         <Preview markdown={problem.statement} />
                         <div className="flex items-center gap-4">
                             <span className="flex-shrink-0 text-sm font-semibold">
