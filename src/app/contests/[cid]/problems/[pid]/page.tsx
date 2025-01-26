@@ -23,6 +23,7 @@ import {
     TableHeaderRow,
     TableHeaderCell,
 } from "@/components/ui/table";
+import { authorized } from "@/api/core/instance";
 
 export default function ProblemPage() {
     const [problem, setProblem] = useState<ProblemDetailed>();
@@ -55,22 +56,24 @@ export default function ProblemPage() {
             }
         }
 
-        try {
-            const result = await API.problems.submit(cid, pid, answer);
+        const { data, status } = await authorized.post(`/contests/${cid}/problems/${pid}/submissions`, { answer: answer });
 
-            if (!result) {
-                toast.error("Something went wrong. Try later");
-                return;
-            }
-
-            if (result.verdict === 'OK') {
-                toast.success('Correct! Answer accepted');
-                return;
-            } else {
-                toast.warning('Your answer is incorrect');
-            }
-        } catch (e) {
-            toast.error("Something went wrong. Try later");
+        switch (status) {
+            case 201:
+                const verdict = data.verdict;
+                if (verdict === 'OK') {
+                    toast.success('Correct! Answer accepted');
+                } else if (verdict === 'WA') {
+                    toast.warning('Your answer is incorrect');
+                } else {
+                    toast.error(`Unknown verdict: ${verdict}`);
+                }
+                break;
+            case 429:
+                toast.warning(`You are submitting too frequently. Wait for ${data.timeout}`);
+                break;
+            default:
+                toast.error('Something went wrong. Try again later');
         }
     }
 

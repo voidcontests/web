@@ -15,8 +15,19 @@ authorized.interceptors.request.use((config) => {
     return config;
 });
 
+authorized.interceptors.response.use(
+    response => response,
+    error => Promise.resolve(error.response),
+);
+
+
 const unauthorized = axios.create({
     baseURL: DOMAIN + "/api",
 });
+
+unauthorized.interceptors.response.use(
+    response => response,
+    error => Promise.resolve(error.response),
+);
 
 export { authorized, unauthorized };
