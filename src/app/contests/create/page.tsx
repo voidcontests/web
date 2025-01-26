@@ -6,7 +6,7 @@ import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
 import { useTonWallet } from '@tonconnect/ui-react';
 import { Button } from "@/components/ui/button";
-import { Plus, Paperclip } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Tag } from "@/components/ui/tag";
 import { Link } from "@/components/ui/link";
@@ -289,19 +289,19 @@ export default function CreateContestPage() {
                                         >
                                             Add a statement
                                         </Editor>
-                                        <div className="flex justify-between">
-                                            <div className="flex gap-2 items-center">
-                                                <Button variant='dashed'>
-                                                    <Paperclip /> sample.txt
+                                        <div className="flex justify-between gap-4">
+                                            <div className="flex flex-grow gap-2 items-center">
+                                                <Button variant='outline' className='flex-shrink-0' disabled>
+                                                    ATTACH
                                                 </Button>
-                                                <div>
-                                                    with answer provided
+                                                <div className='flex-shrink-0'>
+                                                    input file with answer provided
                                                 </div>
                                                 <Input
                                                     value={problem.answer}
                                                     placeholder="here"
                                                     onChange={handleProblemAnswerChange}
-                                                    className='w-[400px]'
+                                                    className="flex-grow"
                                                 />
                                             </div>
                                             <Button
