@@ -6,7 +6,7 @@ export interface Contestlist {
     data: ContestListItem[];
 }
 
-export const fetchByID = async (id: number | string): Promise<ContestDetailed | undefined> => {
+export const getContestByID = async (id: number | string): Promise<ContestDetailed | undefined> => {
     try {
         const { data } = await authorized.get(`/contests/${id}`);
         return data;
@@ -16,7 +16,7 @@ export const fetchByID = async (id: number | string): Promise<ContestDetailed | 
     }
 }
 
-export const fetchActive = async (): Promise<ContestListItem[]> => {
+export const getContests = async (): Promise<ContestListItem[]> => {
     try {
         const { data } = await unauthorized.get('/contests');
         return data.data;
@@ -26,7 +26,7 @@ export const fetchActive = async (): Promise<ContestListItem[]> => {
     }
 }
 
-export const create = async (contest: CreateContest): Promise<ContestID | undefined> => {
+export const createContest = async (contest: CreateContest): Promise<ContestID | undefined> => {
     try {
         const { data } = await authorized.post("/contests", contest);
         return data;
@@ -36,7 +36,7 @@ export const create = async (contest: CreateContest): Promise<ContestID | undefi
     }
 }
 
-export const apply = async (id: number | string): Promise<number | undefined> => {
+export const applyForContest = async (id: number | string): Promise<number | undefined> => {
     try {
         const { status } = await authorized.post(`/contests/${id}/entry`);
         return status;

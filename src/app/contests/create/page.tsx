@@ -101,7 +101,7 @@ export default function CreateContestPage() {
         date.setDate(now.getDate() + 2);
 
         try {
-            const c = await API.contests.create({
+            const c = await API.createContest({
                 title: contest.title,
                 description: contest.description,
                 problems: contest.problems,

@@ -89,7 +89,7 @@ export default function ContestPage() {
 
     const handleApplyClick = async () => {
         try {
-            await API.contests.apply(cid);
+            await API.applyForContest(cid);
             fetchContest();
         } catch (e) {
             toast.error('Something went wrong. Try again leter');

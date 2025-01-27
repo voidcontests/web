@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ContestsPage() {
-    const contests = API.contests.fetchActive();
+    const contests = API.getContests();
 
     return (
         <div className="flex justify-center">

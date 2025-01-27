@@ -37,7 +37,7 @@ export default function ProblemPage() {
 
     async function fetchContest() {
         try {
-            const result = await API.contests.fetchByID(cid);
+            const result = await API.getContestByID(cid);
             setContest(result);
         } catch (error) {
             toast.error("Sometihng went wrong");
