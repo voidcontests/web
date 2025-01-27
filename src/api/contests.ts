@@ -16,13 +16,13 @@ export const fetchByID = async (id: number | string): Promise<ContestDetailed | 
     }
 }
 
-export const fetchActive = async (): Promise<Contestlist | undefined> => {
+export const fetchActive = async (): Promise<ContestListItem[]> => {
     try {
         const { data } = await unauthorized.get('/contests');
-        return data;
+        return data.data;
     } catch (e) {
         console.error(e);
-        return undefined;
+        return [];
     }
 }
 
