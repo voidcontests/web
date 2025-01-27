@@ -34,7 +34,7 @@ const config: Config = {
 					subdued: 'hsla(var(--background-secondary-subdued))',
 					text: 'hsla(var(--text-secondary))',
 				},
-				desabled: {
+				disabled: {
 					DEFAULT: 'hsla(var(--background-disabled))',
 					text: 'hsla(var(--text-disabled))',
 				},
