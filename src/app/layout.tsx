@@ -10,7 +10,7 @@ import { Rubik } from 'next/font/google';
 
 export const metadata: Metadata = {
   title: 'VOID*',
-  description: 'Avoid a void in your head'
+  description: 'Avoid a void in your head',
 };
 
 const rubik = Rubik({
@@ -33,10 +33,10 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             </main>
             <Footer />
             <Toaster closeButton richColors theme={theme} position="bottom-center" toastOptions={{
+              className: rubik.className,
               duration: 3000,
               style: {
                 borderRadius: "16px",
-                fontFamily: 'Rubik',
               }
             }} />
           </body>
