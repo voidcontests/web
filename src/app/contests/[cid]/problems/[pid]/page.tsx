@@ -100,79 +100,77 @@ export default function ProblemPage() {
     );
 
     return (
-        <div className="flex justify-center">
-            <div className="max-w-7xl w-full flex flex-col">
-                <div className="grid grid-cols-12 gap-5 mx-4">
-                    <div className="col-span-9">
-                        <ProblemView problem={problem} />
-                    </div>
-                    <div className="col-span-3 flex flex-col gap-5">
-                        <TableContainer>
-                            <TableHead>
-                                PROBLEMSET
-                            </TableHead>
-                            <Table>
-                                <TableHeaderRow>
-                                    <TableRow>
-                                        <TableHeaderCell className='w-[5%]'>#</TableHeaderCell>
-                                        <TableHeaderCell className='w-[70%]'>Title</TableHeaderCell>
-                                    </TableRow>
-                                </TableHeaderRow>
-                                <TableBody>
-                                    {
-                                        contest &&
-                                        contest.problems.map((problem, index) => (
-                                            <TableRow key={index}>
-                                                <TableCell>
-                                                    {itoc(index)}
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Link
-                                                        href={`/contests/${contest.id}/problems/${problem.id}`}
-                                                        className={pid === problem.id.toString() ? 'text-bright-text font-semibold' : ''}
-                                                    >
-                                                        {problem.title}
-                                                    </Link>
-                                                    {
-                                                        <SolvedTag className="ml-2" state={problem.status} />
-                                                    }
-                                                </TableCell>
-                                            </TableRow>
-                                        ))
-                                    }
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        <TableContainer>
-                            <TableHead>
-                                SETTERS
-                            </TableHead>
-                            <Table>
-                                <TableHeaderRow>
-                                    <TableRow>
-                                        <TableHeaderCell className='w-[15%]'>#</TableHeaderCell>
-                                        <TableHeaderCell>Writer address</TableHeaderCell>
-                                    </TableRow>
-                                </TableHeaderRow>
-                                <TableBody>
-                                    {
-                                        [problem.writer.address].map((setter, index) => (
-                                            <TableRow key={index}>
-                                                <TableCell>{`${index + 1}/`}</TableCell>
-                                                <TableCell>
-                                                    <Link href={`https://tonscan.org/address/${setter}`}>
-                                                        {truncate_address(setter)}
-                                                    </Link>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))
-                                    }
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </div>
+        <ContentContainer>
+            <div className="grid grid-cols-12 gap-5">
+                <div className="col-span-9">
+                    <ProblemView problem={problem} />
+                </div>
+                <div className="col-span-3 flex flex-col gap-5">
+                    <TableContainer>
+                        <TableHead>
+                            PROBLEMSET
+                        </TableHead>
+                        <Table>
+                            <TableHeaderRow>
+                                <TableRow>
+                                    <TableHeaderCell className='w-[5%]'>#</TableHeaderCell>
+                                    <TableHeaderCell className='w-[70%]'>Title</TableHeaderCell>
+                                </TableRow>
+                            </TableHeaderRow>
+                            <TableBody>
+                                {
+                                    contest &&
+                                    contest.problems.map((problem, index) => (
+                                        <TableRow key={index}>
+                                            <TableCell>
+                                                {itoc(index)}
+                                            </TableCell>
+                                            <TableCell>
+                                                <Link
+                                                    href={`/contests/${contest.id}/problems/${problem.id}`}
+                                                    className={pid === problem.id.toString() ? 'text-bright-text font-semibold' : ''}
+                                                >
+                                                    {problem.title}
+                                                </Link>
+                                                {
+                                                    <SolvedTag className="ml-2" state={problem.status} />
+                                                }
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                }
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <TableContainer>
+                        <TableHead>
+                            SETTERS
+                        </TableHead>
+                        <Table>
+                            <TableHeaderRow>
+                                <TableRow>
+                                    <TableHeaderCell className='w-[15%]'>#</TableHeaderCell>
+                                    <TableHeaderCell>Writer address</TableHeaderCell>
+                                </TableRow>
+                            </TableHeaderRow>
+                            <TableBody>
+                                {
+                                    [problem.writer.address].map((setter, index) => (
+                                        <TableRow key={index}>
+                                            <TableCell>{`${index + 1}/`}</TableCell>
+                                            <TableCell>
+                                                <Link href={`https://tonscan.org/address/${setter}`}>
+                                                    {truncate_address(setter)}
+                                                </Link>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                }
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </div>
             </div>
-        </div>
+        </ContentContainer>
     );
 }
