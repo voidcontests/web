@@ -1,5 +1,5 @@
 import OfficialContests from "@/components/sections/official-contests";
-import PublicContests from "@/components/sections/public-contests";
+import { PublicContests, Loading } from "@/components/sections/public-contests";
 import { Separator } from "@/components/ui/separator";
 import { Suspense } from "react";
 import { Metadata } from "next";
@@ -18,7 +18,7 @@ export default async function ContestsPage() {
                 <div className="w-full flex flex-col gap-7 mx-4">
                     <OfficialContests />
                     <Separator />
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<Loading />}>
                         <PublicContests contests={contests} />
                     </Suspense>
                 </div>

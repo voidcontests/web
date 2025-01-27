@@ -9,7 +9,7 @@ import { format_date, format_duration } from '@/lib/utils';
 import { truncate_address } from '@/lib/strings';
 import { use } from "react";
 
-export default function PublicContests({ contests }: { contests: Promise<ContestListItem[]> }) {
+export function PublicContests({ contests }: { contests: Promise<ContestListItem[]> }) {
     const publicContests = use(contests);
 
     return (
@@ -18,18 +18,16 @@ export default function PublicContests({ contests }: { contests: Promise<Contest
                 PUBLIC COMPETITIONS
             </TableHead>
             <Table>
-                {
-                    <TableHeaderRow>
-                        <TableRow>
-                            <TableHeaderCell className='w-[2%]'>#</TableHeaderCell>
-                            <TableHeaderCell className='w-[40%]'>Title</TableHeaderCell>
-                            <TableHeaderCell>Host address</TableHeaderCell>
-                            <TableHeaderCell>Type</TableHeaderCell>
-                            <TableHeaderCell>Start</TableHeaderCell>
-                            <TableHeaderCell>Duration</TableHeaderCell>
-                        </TableRow>
-                    </TableHeaderRow>
-                }
+                <TableHeaderRow>
+                    <TableRow>
+                        <TableHeaderCell className='w-[2%]'>#</TableHeaderCell>
+                        <TableHeaderCell className='w-[40%]'>Title</TableHeaderCell>
+                        <TableHeaderCell>Host address</TableHeaderCell>
+                        <TableHeaderCell>Type</TableHeaderCell>
+                        <TableHeaderCell>Start</TableHeaderCell>
+                        <TableHeaderCell>Duration</TableHeaderCell>
+                    </TableRow>
+                </TableHeaderRow>
                 <TableBody>
                     {
                         publicContests.map((contest, index) => (
@@ -57,6 +55,19 @@ export default function PublicContests({ contests }: { contests: Promise<Contest
                 {
                     publicContests.length === 0 && <TableCaption>No public contests</TableCaption>
                 }
+            </Table>
+        </TableContainer>
+    );
+}
+
+export function Loading() {
+    return (
+        <TableContainer>
+            <TableHead>
+                PUBLIC COMPETITIONS
+            </TableHead>
+            <Table>
+                <TableCaption>Loading...</TableCaption>
             </Table>
         </TableContainer>
     );
