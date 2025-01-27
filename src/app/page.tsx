@@ -1,3 +1,5 @@
+'use server';
+
 import { Widget, WidgetContent, WidgetTitle, WidgetFooter } from "@/components/ui/widget";
 import ContentContainer from "@/components/content-container";
 import { Button } from "@/components/ui/button";
@@ -5,7 +7,7 @@ import { Link } from "@/components/ui/link";
 import NextLink from "next/link";
 import React from "react";
 
-export default function HomePage() {
+export default async function HomePage() {
   return (
     <ContentContainer>
       <div className="flex flex-col items-center w-full pt-8 gap-8 sm:gap-2 md:gap-4 lg:gap-6">
