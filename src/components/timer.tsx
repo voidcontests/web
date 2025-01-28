@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 
 interface TimerProps {
@@ -49,7 +51,7 @@ const Timer: React.FC<TimerProps> = ({ target }) => {
             <div className="text-secondary-text text-lg">
                 STARTING IN
             </div>
-            <div className="text-primary-text text-4xl font-medium">
+            <div className="text-primary-text text-4xl font-medium" suppressHydrationWarning>
                 {timeLeft}
             </div>
         </div>

@@ -2,7 +2,7 @@ import ContentContainer from "@/components/content-container";
 import ProblemView from "@/components/sections/problem-view";
 import { getContest, getProblem } from "@/actions/actions";
 import Problemset from "@/components/sections/problemset";
-import Setters from "@/components/sections/setters";
+import Setters from "@/components/sections/problem-setters";
 
 export default async function Page({ params }: { params: { cid: string, pid: string } }) {
     const problem = getProblem(params.cid, params.pid);
