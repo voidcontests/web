@@ -53,7 +53,7 @@ export default function Problemset({ contest, difficulties, currentProblemID }: 
                                 </TableCell>
                                 <TableCell>
                                     {
-                                        wallet || cdetailed.is_participant
+                                        cdetailed.is_participant || (wallet && cdetailed.is_participant)
                                             ? <Link
                                                 href={`/contests/${problem.contest_id}/problems/${problem.id}`}
                                                 className={currentProblemID?.toString() === problem.id.toString() ? 'text-primary-text' : ''}
