@@ -37,16 +37,16 @@ const TableBody = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes
 ));
 TableBody.displayName = "TableBody";
 
-const TableHeaderRow = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
+const TableHeader = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
   <thead ref={ref} className={cn("h-8 bg-secondary [&_tr]:border-b", className)} {...props} />
 ));
-TableHeaderRow.displayName = "TableHeaderRow";
+TableHeader.displayName = "TableHeader";
 
 const TableHeaderCell = React.forwardRef<HTMLTableCellElement, React.ThHTMLAttributes<HTMLTableCellElement>>(({ className, ...props }, ref) => (
   <th
     ref={ref}
     className={cn(
-      "first:pl-5 h-10 px-2 text-left align-middle text-sm font-normal text-muted-text [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+      "first:px-5 first:w-0 text-left text-sm text-muted-text font-normal align-middle",
       className,
     )}
     {...props}
@@ -70,7 +70,7 @@ const TableCell = React.forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<
   <td
     ref={ref}
     className={cn(
-      "first:pl-5 p-2 align-middle text-sm [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+      "first:px-5 first:w-0 text-left text-sm align-middle",
       className,
     )}
     {...props}
@@ -96,7 +96,7 @@ const TableCaption = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <caption
     ref={ref}
-    className={cn("my-2 text-sm text-secondary-text", className)}
+    className={cn("py-2 text-sm text-secondary-text border-t", className)}
     {...props}
   />
 ))
@@ -107,7 +107,7 @@ export {
   TableHead,
   Table,
   TableBody,
-  TableHeaderRow,
+  TableHeader,
   TableHeaderCell,
   TableRow,
   TableCell,

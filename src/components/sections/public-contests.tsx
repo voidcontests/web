@@ -5,7 +5,7 @@ import { Link } from "@/components/ui/link";
 import { Tag } from "@/components/ui/tag";
 import {
     TableContainer, TableHead, Table, TableBody, TableRow, TableCell,
-    TableHeaderRow, TableHeaderCell, TableCaption
+    TableHeader, TableHeaderCell, TableCaption
 } from "@/components/ui/table";
 import { format_date, format_duration } from '@/lib/utils';
 import { truncate_address } from '@/lib/strings';
@@ -20,16 +20,16 @@ export function PublicContests({ contests }: { contests: Promise<ContestListItem
                 PUBLIC COMPETITIONS
             </TableHead>
             <Table>
-                <TableHeaderRow>
+                <TableHeader>
                     <TableRow>
-                        <TableHeaderCell className='w-[2%]'>#</TableHeaderCell>
-                        <TableHeaderCell className='w-[40%]'>Title</TableHeaderCell>
+                        <TableHeaderCell>#</TableHeaderCell>
+                        <TableHeaderCell>Title</TableHeaderCell>
                         <TableHeaderCell>Host address</TableHeaderCell>
                         <TableHeaderCell>Type</TableHeaderCell>
                         <TableHeaderCell>Start</TableHeaderCell>
                         <TableHeaderCell>Duration</TableHeaderCell>
                     </TableRow>
-                </TableHeaderRow>
+                </TableHeader>
                 <TableBody>
                     {
                         publicContests.map((contest, index) => (
@@ -46,7 +46,9 @@ export function PublicContests({ contests }: { contests: Promise<ContestListItem
                                     </Link>
                                 </TableCell>
                                 <TableCell>
-                                    <Tag variant="secondary">Training</Tag>
+                                    {/* <Tag variant="secondary"> */}
+                                    Training
+                                    {/* </Tag> */}
                                 </TableCell>
                                 <TableCell>{format_date(new Date(contest.starting_at))}</TableCell>
                                 <TableCell>{format_duration(contest.duration_mins)}</TableCell>

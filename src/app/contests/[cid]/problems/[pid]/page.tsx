@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: { cid: string, pid: str
                     <ProblemView problem={problem} /> {/* TODO: Add suspense */}
                 </div>
                 <div className="col-span-3 flex flex-col gap-5">
-                    <Problemset contest={contest} />
+                    <Problemset contest={contest} currentProblemID={params.pid} />
                     <Setters problem={problem} />
                 </div>
             </div>

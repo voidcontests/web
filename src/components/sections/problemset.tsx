@@ -5,7 +5,8 @@ import { Link } from "@/components/ui/link";
 import { itoc } from '@/lib/utils';
 import {
     TableContainer, TableHead, Table, TableBody,
-    TableRow, TableCell, TableHeaderRow, TableHeaderCell,
+    TableRow, TableCell, TableHeader, TableHeaderCell,
+    TableCaption,
 } from "@/components/ui/table";
 import { ContestDetailed, ProblemListItem } from "@/api/dto/response";
 import { use } from "react";
@@ -23,7 +24,7 @@ const difficultyToBadgeType: DifficultyColorMap = {
     'hard': 'red',
 }
 
-export default function Problemset({ contest, difficulties }: { contest: Promise<ContestDetailed>, difficulties?: boolean }) {
+export default function Problemset({ contest, difficulties, currentProblemID }: { contest: Promise<ContestDetailed>, difficulties?: boolean, currentProblemID?: string | number }) {
     const cdetailed = use(contest);
     const problemset = cdetailed.problems;
 
@@ -35,13 +36,15 @@ export default function Problemset({ contest, difficulties }: { contest: Promise
                 PROBLEMSET
             </TableHead>
             <Table>
-                <TableHeaderRow>
+                <TableHeader>
                     <TableRow>
-                        <TableHeaderCell className='w-[41px]'>#</TableHeaderCell>
+                        <TableHeaderCell>#</TableHeaderCell>
                         <TableHeaderCell>Title</TableHeaderCell>
-                        <TableHeaderCell className={!difficulties ? 'hidden' : ''}>Difficulty</TableHeaderCell>
+                        <TableHeaderCell className={!difficulties ? 'hidden' : ''}>
+                            Difficulty
+                        </TableHeaderCell>
                     </TableRow>
-                </TableHeaderRow>
+                </TableHeader>
                 <TableBody>
                     {
                         problemset.map((problem, index) => (
@@ -54,7 +57,7 @@ export default function Problemset({ contest, difficulties }: { contest: Promise
                                         wallet || cdetailed.is_participant
                                             ? <Link
                                                 href={`/contests/${problem.contest_id}/problems/${problem.id}`}
-                                            /* className={pid === problem.id.toString() ? 'text-bright-text font-semibold' : ''} */
+                                                className={currentProblemID?.toString() === problem.id.toString() ? 'text-primary-text' : ''}
                                             >
                                                 {problem.title}
                                             </Link>
@@ -69,6 +72,9 @@ export default function Problemset({ contest, difficulties }: { contest: Promise
                         ))
                     }
                 </TableBody>
+                {/* <TableCaption>
+                    Hello
+                </TableCaption> */}
             </Table>
         </TableContainer>
     );

@@ -6,7 +6,7 @@ import { use } from "react";
 import { Link } from "@/components/ui/link";
 import {
     TableContainer, TableHead, Table, TableBody,
-    TableRow, TableCell, TableHeaderRow, TableHeaderCell,
+    TableRow, TableCell, TableHeader, TableHeaderCell,
 } from "@/components/ui/table";
 
 export default function Setters({ contest }: { contest: Promise<ContestDetailed> }) {
@@ -20,12 +20,12 @@ export default function Setters({ contest }: { contest: Promise<ContestDetailed>
                 SETTERS
             </TableHead>
             <Table>
-                <TableHeaderRow>
+                <TableHeader>
                     <TableRow>
-                        <TableHeaderCell className='w-[15%]'>#</TableHeaderCell>
+                        <TableHeaderCell>#</TableHeaderCell>
                         <TableHeaderCell>Writer address</TableHeaderCell>
                     </TableRow>
-                </TableHeaderRow>
+                </TableHeader>
                 <TableBody>
                     {
                         setters.map((setter, index) => (
