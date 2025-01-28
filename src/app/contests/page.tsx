@@ -6,7 +6,7 @@ import { Metadata } from "next";
 import * as API from '@/api';
 
 export const metadata: Metadata = {
-    title: 'Contests :: VOID*',
+    title: 'Contests :: THE VOID*',
 };
 
 export default async function ContestsPage() {

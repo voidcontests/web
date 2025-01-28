@@ -9,7 +9,7 @@ import "./globals.css";
 import { Rubik } from 'next/font/google';
 
 export const metadata: Metadata = {
-  title: 'VOID*',
+  title: 'THE VOID*',
   description: 'Avoid a void in your head',
 };
 
