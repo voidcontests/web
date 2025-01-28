@@ -5,8 +5,7 @@ import { Link } from "@/components/ui/link";
 import { itoc } from '@/lib/utils';
 import {
     TableContainer, TableHead, Table, TableBody,
-    TableRow, TableCell, TableHeader, TableHeaderCell,
-    TableCaption,
+    TableRow, TableCell, TableHeaderRow, TableHeaderCell,
 } from "@/components/ui/table";
 import { ContestDetailed, ProblemListItem } from "@/api/dto/response";
 import { use } from "react";
@@ -36,15 +35,13 @@ export default function Problemset({ contest, difficulties, currentProblemID }: 
                 PROBLEMSET
             </TableHead>
             <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHeaderCell>#</TableHeaderCell>
-                        <TableHeaderCell>Title</TableHeaderCell>
-                        <TableHeaderCell className={!difficulties ? 'hidden' : ''}>
-                            Difficulty
-                        </TableHeaderCell>
-                    </TableRow>
-                </TableHeader>
+                <TableHeaderRow>
+                    <TableHeaderCell>#</TableHeaderCell>
+                    <TableHeaderCell>Title</TableHeaderCell>
+                    <TableHeaderCell className={!difficulties ? 'hidden' : ''}>
+                        Difficulty
+                    </TableHeaderCell>
+                </TableHeaderRow>
                 <TableBody>
                     {
                         problemset.map((problem, index) => (

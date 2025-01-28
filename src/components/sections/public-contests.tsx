@@ -2,10 +2,9 @@
 
 import { ContestListItem } from "@/api/dto/response";
 import { Link } from "@/components/ui/link";
-import { Tag } from "@/components/ui/tag";
 import {
     TableContainer, TableHead, Table, TableBody, TableRow, TableCell,
-    TableHeader, TableHeaderCell, TableCaption
+    TableHeaderRow, TableHeaderCell, TableCaption
 } from "@/components/ui/table";
 import { format_date, format_duration } from '@/lib/utils';
 import { truncate_address } from '@/lib/strings';
@@ -20,16 +19,14 @@ export function PublicContests({ contests }: { contests: Promise<ContestListItem
                 PUBLIC COMPETITIONS
             </TableHead>
             <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHeaderCell>#</TableHeaderCell>
-                        <TableHeaderCell>Title</TableHeaderCell>
-                        <TableHeaderCell>Host address</TableHeaderCell>
-                        <TableHeaderCell>Type</TableHeaderCell>
-                        <TableHeaderCell>Start</TableHeaderCell>
-                        <TableHeaderCell>Duration</TableHeaderCell>
-                    </TableRow>
-                </TableHeader>
+                <TableHeaderRow>
+                    <TableHeaderCell>#</TableHeaderCell>
+                    <TableHeaderCell>Title</TableHeaderCell>
+                    <TableHeaderCell>Host address</TableHeaderCell>
+                    <TableHeaderCell>Type</TableHeaderCell>
+                    <TableHeaderCell>Start</TableHeaderCell>
+                    <TableHeaderCell>Duration</TableHeaderCell>
+                </TableHeaderRow>
                 <TableBody>
                     {
                         publicContests.map((contest, index) => (

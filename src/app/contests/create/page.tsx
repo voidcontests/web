@@ -23,7 +23,7 @@ import {
     TableBody,
     TableRow,
     TableCell,
-    TableHeader,
+    TableHeaderRow,
     TableHeaderCell,
     TableCaption,
 } from "@/components/ui/table";
@@ -170,14 +170,12 @@ export default function CreateContestPage() {
                                         contest.problems.length === 0 &&
                                         <TableCaption>No problems yet</TableCaption>
                                     }
-                                    <TableHeader>
-                                        <TableRow>
-                                            <TableHeaderCell className="w-[6%]">#</TableHeaderCell>
-                                            <TableHeaderCell className="w-[50%]">Name</TableHeaderCell>
-                                            <TableHeaderCell className="w-[30%]">Difficulty</TableHeaderCell>
-                                            <TableHeaderCell></TableHeaderCell>
-                                        </TableRow>
-                                    </TableHeader>
+                                    <TableHeaderRow>
+                                        <TableHeaderCell className="w-[6%]">#</TableHeaderCell>
+                                        <TableHeaderCell className="w-[50%]">Name</TableHeaderCell>
+                                        <TableHeaderCell className="w-[30%]">Difficulty</TableHeaderCell>
+                                        <TableHeaderCell></TableHeaderCell>
+                                    </TableHeaderRow>
                                     <TableBody>
                                         {
                                             contest.problems.map((problem, index) => (
