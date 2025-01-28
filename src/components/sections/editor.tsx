@@ -1,18 +1,12 @@
 import { Heading, Bold, Italic, Code, Link2, TextQuote, List, ListOrdered, ListChecks } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "@/components/ui/tooltip"
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import React, { useState, useEffect, useRef } from "react";
 import { TextArea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Separator } from "./ui/separator";
+import { Separator } from "@/components/ui/separator";
 import Preview from "@/components/preview";
 import * as strings from '@/lib/strings';
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
 type StyleKind = 'bold' | 'italic' | 'code' | 'heading' | 'link' | 'quote';
@@ -203,8 +197,8 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                     </h1>
                     <div className="flex items-center gap-1">
                         {
-                            toggle_buttons.map((toggle) => (
-                                <>
+                            toggle_buttons.map((toggle, index) => (
+                                <div key={index}>
                                     {
                                         toggle.separatorBefore
                                             ? <Separator vertical className="h-5" />
@@ -220,7 +214,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                                             {toggle.tooltip}
                                         </TooltipContent>
                                     </Tooltip>
-                                </>
+                                </div>
                             ))
                         }
                     </div>

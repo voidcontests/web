@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Tag } from "@/components/ui/tag";
 import { Link } from "@/components/ui/link";
 import { useRouter } from 'next/navigation';
-import Editor from "@/components/editor";
+import Editor from "@/components/sections/editor";
 import { itoc } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { toast } from 'sonner';

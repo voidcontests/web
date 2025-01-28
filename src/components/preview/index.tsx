@@ -2,9 +2,7 @@ import { parse } from "@/lib/markdown";
 import { cn } from "@/lib/utils";
 import React from "react";
 
-// TODO: Import based on current theme (include this css files in globals)
-// import 'highlight.js/styles/github.min.css'; // LIGHT THEME
-import 'highlight.js/styles/github-dark.min.css'; // DARK THEME
+import './theme.css';
 
 interface PreviewProps extends React.ComponentProps<"div"> {
     markdown: string;
