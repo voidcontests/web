@@ -17,15 +17,9 @@ import { useEffect, useState } from "react";
 import { toast } from 'sonner';
 import * as API from '@/api';
 import {
-    TableContainer,
-    TableHead,
-    Table,
-    TableBody,
-    TableRow,
-    TableCell,
-    TableHeaderRow,
-    TableHeaderCell,
-    TableCaption,
+    TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
+    TableBody, TableRow, TableCell, TableCaption,
+    TableTitle,
 } from "@/components/ui/table";
 import { capitalize } from "@/lib/strings";
 import { Toggle } from "@/components/ui/toggle";
@@ -158,24 +152,22 @@ export default function CreateContestPage() {
                         </Editor>
                         <div className="flex flex-col gap-5">
                             <TableContainer>
-                                <TableHead className="gap-1">
-                                    <span>PROBLEMSET</span>
-                                    {
-                                        contest.problems.length !== 0 &&
-                                        <span className="font-normal text-muted-text">{`- ${contest.problems.length} problems`}</span>
-                                    }
-                                </TableHead>
+                                <TableTitle>
+                                    PROBLEMSET
+                                </TableTitle>
                                 <Table>
                                     {
                                         contest.problems.length === 0 &&
                                         <TableCaption>No problems yet</TableCaption>
                                     }
-                                    <TableHeaderRow>
-                                        <TableHeaderCell className="w-[6%]">#</TableHeaderCell>
-                                        <TableHeaderCell className="w-[50%]">Name</TableHeaderCell>
-                                        <TableHeaderCell className="w-[30%]">Difficulty</TableHeaderCell>
-                                        <TableHeaderCell></TableHeaderCell>
-                                    </TableHeaderRow>
+                                    <TableHeader>
+                                        <TableHeaderRow>
+                                            <TableHead className="w-[6%]">#</TableHead>
+                                            <TableHead className="w-[50%]">Name</TableHead>
+                                            <TableHead className="w-[30%]">Difficulty</TableHead>
+                                            <TableHead></TableHead>
+                                        </TableHeaderRow>
+                                    </TableHeader>
                                     <TableBody>
                                         {
                                             contest.problems.map((problem, index) => (

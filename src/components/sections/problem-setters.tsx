@@ -5,8 +5,8 @@ import { truncate_address } from "@/lib/strings";
 import { use } from "react";
 import { Link } from "@/components/ui/link";
 import {
-    TableContainer, TableHead, Table, TableBody,
-    TableRow, TableCell, TableHeaderRow, TableHeaderCell,
+    TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
+    TableBody, TableRow, TableCell, TableTitle,
 } from "@/components/ui/table";
 
 export default function Setters({ problem }: { problem: Promise<ProblemDetailed> }) {
@@ -14,14 +14,16 @@ export default function Setters({ problem }: { problem: Promise<ProblemDetailed>
 
     return (
         <TableContainer>
-            <TableHead>
+            <TableTitle>
                 SETTERS
-            </TableHead>
+            </TableTitle>
             <Table>
-                <TableHeaderRow>
-                    <TableHeaderCell>#</TableHeaderCell>
-                    <TableHeaderCell>Writer address</TableHeaderCell>
-                </TableHeaderRow>
+                <TableHeader>
+                    <TableHeaderRow>
+                        <TableHead>#</TableHead>
+                        <TableHead>Writer address</TableHead>
+                    </TableHeaderRow>
+                </TableHeader>
                 <TableBody>
                     {
                         [pdetailed.writer.address].map((setter, index) => (

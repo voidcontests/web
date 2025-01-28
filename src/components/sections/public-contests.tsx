@@ -3,8 +3,8 @@
 import { ContestListItem } from "@/api/dto/response";
 import { Link } from "@/components/ui/link";
 import {
-    TableContainer, TableHead, Table, TableBody, TableRow, TableCell,
-    TableHeaderRow, TableHeaderCell, TableCaption
+    TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
+    TableBody, TableRow, TableCell, TableCaption, TableTitle,
 } from "@/components/ui/table";
 import { format_date, format_duration } from '@/lib/utils';
 import { truncate_address } from '@/lib/strings';
@@ -15,18 +15,20 @@ export function PublicContests({ contests }: { contests: Promise<ContestListItem
 
     return (
         <TableContainer>
-            <TableHead>
+            <TableTitle>
                 PUBLIC COMPETITIONS
-            </TableHead>
+            </TableTitle>
             <Table>
-                <TableHeaderRow>
-                    <TableHeaderCell>#</TableHeaderCell>
-                    <TableHeaderCell>Title</TableHeaderCell>
-                    <TableHeaderCell>Host address</TableHeaderCell>
-                    <TableHeaderCell>Type</TableHeaderCell>
-                    <TableHeaderCell>Start</TableHeaderCell>
-                    <TableHeaderCell>Duration</TableHeaderCell>
-                </TableHeaderRow>
+                <TableHeader>
+                    <TableHeaderRow>
+                        <TableHead>#</TableHead>
+                        <TableHead>Title</TableHead>
+                        <TableHead>Host address</TableHead>
+                        <TableHead>Type</TableHead>
+                        <TableHead>Start</TableHead>
+                        <TableHead>Duration</TableHead>
+                    </TableHeaderRow>
+                </TableHeader>
                 <TableBody>
                     {
                         publicContests.map((contest, index) => (
@@ -43,9 +45,7 @@ export function PublicContests({ contests }: { contests: Promise<ContestListItem
                                     </Link>
                                 </TableCell>
                                 <TableCell>
-                                    {/* <Tag variant="secondary"> */}
                                     Training
-                                    {/* </Tag> */}
                                 </TableCell>
                                 <TableCell>{format_date(new Date(contest.starting_at))}</TableCell>
                                 <TableCell>{format_duration(contest.duration_mins)}</TableCell>
@@ -64,9 +64,9 @@ export function PublicContests({ contests }: { contests: Promise<ContestListItem
 export function Loading() {
     return (
         <TableContainer>
-            <TableHead>
+            <TableTitle>
                 PUBLIC COMPETITIONS
-            </TableHead>
+            </TableTitle>
             <Table>
                 <TableCaption>Loading...</TableCaption>
             </Table>
