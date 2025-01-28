@@ -1,5 +1,3 @@
-'use server';
-
 import ContentContainer from "@/components/content-container";
 import ProblemView from "@/components/sections/problem-view";
 import { getContest, getProblem } from "@/actions/actions";

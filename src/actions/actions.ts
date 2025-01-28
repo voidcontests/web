@@ -1,3 +1,5 @@
+'use server';
+
 import { ContestDetailed, ProblemDetailed } from "@/api/dto/response";
 import { cookies } from "next/headers";
 

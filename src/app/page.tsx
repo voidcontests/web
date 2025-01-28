@@ -1,5 +1,3 @@
-'use server';
-
 import { Widget, WidgetContent, WidgetTitle, WidgetFooter } from "@/components/ui/widget";
 import ContentContainer from "@/components/content-container";
 import { Button } from "@/components/ui/button";

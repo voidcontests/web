@@ -1,3 +1,5 @@
+'use client';
+
 import { ContestListItem } from "@/api/dto/response";
 import { Link } from "@/components/ui/link";
 import { Tag } from "@/components/ui/tag";
