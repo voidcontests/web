@@ -1,6 +1,7 @@
 'use server';
 
 import { ContestDetailed, ProblemDetailed } from "@/api/dto/response";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 type ID = string | number;
@@ -48,4 +49,8 @@ export async function getContest(cid: ID): Promise<ContestDetailed> {
     }
 
     return await res.json() as ContestDetailed;
+}
+
+export async function revalidate(path: string) {
+    revalidatePath(path);
 }

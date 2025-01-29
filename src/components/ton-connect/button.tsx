@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { LoaderCircle, LogOut } from "lucide-react";
 import {
@@ -6,8 +8,9 @@ import {
     useTonAddress,
     useTonWallet
 } from "@tonconnect/ui-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { truncate_address } from "@/lib/strings";
+import { revalidate } from "@/actions/actions";
 
 const TonConnectButton = () => {
     const isConnectionRestored = useIsConnectionRestored();
@@ -15,12 +18,19 @@ const TonConnectButton = () => {
     const address = useTonAddress();
     const wallet = useTonWallet();
 
-    const handleCopyAddress = () => {
-        navigator.clipboard.writeText(address);
+    useEffect(() => {
+        if (address) {
+            setTimeout(() => { revalidate('/') }, 500);
+        }
+    }, [address]);
+
+    const disconnect = async () => {
+        tonConnectUI.disconnect();
+        revalidate('/');
     }
 
-    const handleLogOut = () => {
-        tonConnectUI.disconnect();
+    const connect = async () => {
+        tonConnectUI.openModal();
     }
 
     if (!isConnectionRestored) {
@@ -33,7 +43,7 @@ const TonConnectButton = () => {
 
     if (!wallet || !tonConnectUI.account) {
         return (
-            <Button onClick={() => tonConnectUI.openModal()} className="text-primary-on-color-text bg-blue-ton hover:bg-blue-ton/90">
+            <Button onClick={() => connect()} className="text-primary-on-color-text bg-blue-ton hover:bg-blue-ton/90">
                 CONNECT WALLET
             </Button>
         );
@@ -42,7 +52,7 @@ const TonConnectButton = () => {
 
     // TODO: add dropdown menu with copying address, disconnecting account, etc.
     return (
-        <Button onClick={handleLogOut}>
+        <Button onClick={disconnect}>
             {truncate_address(address, 4)} <LogOut />
         </Button>
     );
