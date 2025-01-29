@@ -2,7 +2,6 @@ import { TonConnectProvider } from "@/components/ton-connect/provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Footer } from "@/components/footer";
 import Header from "@/components/header";
-import { cookies } from "next/headers";
 import type { Metadata } from "next";
 import { Toaster } from 'sonner';
 import "./globals.css";
@@ -19,9 +18,6 @@ const rubik = Rubik({
 });
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  // const cookieStore = cookies();
-  // const theme = cookieStore.get('theme')?.value === 'light' ? 'light' : 'dark';
-
   return (
     <html lang="en" suppressHydrationWarning>
       <TonConnectProvider>
