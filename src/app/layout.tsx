@@ -1,5 +1,5 @@
 import { TonConnectProvider } from "@/components/ton-connect/provider";
-import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ThemeProvider } from "@/components/theme-provider";
 import { Footer } from "@/components/footer";
 import Header from "@/components/header";
 import { cookies } from "next/headers";
@@ -19,29 +19,29 @@ const rubik = Rubik({
 });
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const cookieStore = cookies();
-  const theme = cookieStore.get('theme')?.value === 'light' ? 'light' : 'dark';
+  // const cookieStore = cookies();
+  // const theme = cookieStore.get('theme')?.value === 'light' ? 'light' : 'dark';
 
   return (
-    <html lang="en">
-      <ThemeProvider>
-        <TonConnectProvider>
-          <body className={`flex flex-col min-h-dvh antialiased ${rubik.className} ${theme}`}>
+    <html lang="en" suppressHydrationWarning>
+      <TonConnectProvider>
+        <body className={`flex flex-col min-h-dvh antialiased ${rubik.className}`}>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <Header />
             <main className="flex-grow">
               {children}
             </main>
             <Footer />
-            <Toaster closeButton richColors theme={theme} position="bottom-center" toastOptions={{
+            <Toaster closeButton richColors position="bottom-center" toastOptions={{
               className: rubik.className,
               duration: 3000,
               style: {
                 borderRadius: "16px",
               }
             }} />
-          </body>
-        </TonConnectProvider>
-      </ThemeProvider>
+          </ThemeProvider>
+        </body>
+      </TonConnectProvider>
     </html>
   );
 }
