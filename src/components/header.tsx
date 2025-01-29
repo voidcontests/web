@@ -22,10 +22,10 @@ const Header = () => {
             <div className='h-full max-w-7xl mx-auto flex justify-center'>
                 <div className='w-full flex items-center mx-4'>
                     <div className='h-full flex items-center gap-8 mr-auto'>
-                        <NavItem href='/' underlineActive={false} className="sm:text-base">
+                        <NavItem href='/' underlineActive={false}>
                             VOID
                         </NavItem>
-                        <NavItem href='/contests' className='sm:hidden'>
+                        <NavItem href='/contests'>
                             CONTESTS
                         </NavItem>
                     </div>
@@ -66,7 +66,7 @@ function NavItem({ className, state, href, underlineActive = true, children, ...
 
     return (
         <Link href={href} className={cn(navItemVariants({ state: isActive ? 'active' : 'default' }), className, 'relative flex flex-col justify-center h-full')} {...props}>
-            <span className="flex-grow flex items-center justify-center font-medium">
+            <span className="grow flex items-center justify-center font-medium">
                 {children}
             </span>
             <div className={cn(

@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 
 const toggleVariants = cva(
   cn(
-    "inline-flex items-center justify-center gap-2 rounded-[10px] text-base font-regular transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+    "inline-flex items-center justify-center gap-2 rounded-[10px] text-base font-regular transition-colors focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
     "text-secondary-text hover:bg-secondary data-[state=on]:bg-secondary data-[state=on]:text-primary-text"
   ),
   {

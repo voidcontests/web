@@ -280,18 +280,18 @@ export default function CreateContestPage() {
                                             Add a statement
                                         </Editor>
                                         <div className="flex justify-between gap-4">
-                                            <div className="flex flex-grow gap-2 items-center">
-                                                <Button variant='outline' className='flex-shrink-0' disabled>
+                                            <div className="flex grow gap-2 items-center">
+                                                <Button variant='outline' className='shrink-0' disabled>
                                                     ATTACH
                                                 </Button>
-                                                <div className='flex-shrink-0'>
+                                                <div className='shrink-0'>
                                                     input file with answer provided
                                                 </div>
                                                 <Input
                                                     value={problem.answer}
                                                     placeholder="here"
                                                     onChange={handleProblemAnswerChange}
-                                                    className="flex-grow"
+                                                    className="grow"
                                                 />
                                             </div>
                                             <Button

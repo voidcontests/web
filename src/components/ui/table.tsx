@@ -87,7 +87,7 @@ const TableFooter = React.forwardRef<HTMLTableSectionElement, React.HTMLAttribut
   <tfoot
     ref={ref}
     className={cn(
-      "h-10 w-full flex items-center justify-center bg-transparent font-regular text-sm text-primary-text border-t [&>tr]:last:border-b-0",
+      "h-10 w-full flex items-center justify-center bg-transparent font-regular text-sm text-primary-text border-t last:[&>tr]:border-b-0",
       className
     )}
     {...props}

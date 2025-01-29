@@ -59,7 +59,7 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
             </div>
             <Preview markdown={pdetailed.statement} />
             <div className="flex items-center gap-4">
-                <span className="flex-shrink-0 text-sm font-semibold">
+                <span className="shrink-0 text-sm font-semibold">
                     Answer:
                 </span>
                 <Input
