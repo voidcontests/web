@@ -19,7 +19,7 @@ const TonConnectButton = () => {
     const wallet = useTonWallet();
 
     useEffect(() => {
-        if (address) {
+        if (isConnectionRestored && address) {
             setTimeout(() => { revalidate('/') }, 500);
         }
     }, [address]);
