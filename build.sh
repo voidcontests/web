@@ -18,16 +18,6 @@ help() {
     echo -e "    ${bold}help${normal}               Print this help messages to standard output"
 }
 
-command_exists() {
-    command -v "$1" >/dev/null 2>&1
-}
-
-if command_exists bun; then
-    pkgm="bun"
-else
-    pkgm="npm"
-fi
-
 if [ "$1" == "deploy" ]; then
     if [ -n "$2" ]; then
         git checkout "$2"
@@ -39,13 +29,13 @@ if [ "$1" == "deploy" ]; then
     git pull
     
     echo "Downloading new dependencies..."
-    $pkgm install
+    bun install --frozen-lockfile
 
     echo "Building project..."
-    $pkgm run build
+    bun run build
 
     echo "Starting server..."
-    $pkgm run start
+    bun run start
 elif [ "$1" == "help" ]; then
     help
 fi
