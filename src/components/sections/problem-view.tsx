@@ -48,7 +48,7 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
         <div className="flex flex-col gap-7">
             <div className="flex justify-between items-center">
                 <div className="flex-1">
-                    <Link href={`/contests/${pdetailed.contest_id}`} size="large">
+                    <Link href={`/contest/${pdetailed.contest_id}`} size="large">
                         BACK TO CONTEST
                     </Link>
                 </div>

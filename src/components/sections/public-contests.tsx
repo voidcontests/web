@@ -35,7 +35,7 @@ export function PublicContests({ contests }: { contests: Promise<ContestListItem
                             <TableRow key={index}>
                                 <TableCell>{`${index}/`}</TableCell>
                                 <TableCell>
-                                    <Link href={`/contests/${contest.id}`}>
+                                    <Link href={`/contest/${contest.id}`}>
                                         {contest.title}
                                     </Link>
                                 </TableCell>

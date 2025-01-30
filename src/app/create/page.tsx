@@ -108,7 +108,7 @@ export default function CreateContestPage() {
             }
 
             toast.success("Contest created!");
-            router.push(`/contests/${c.id}`);
+            router.push(`/contest/${c.id}`);
         } catch (e) {
             toast.error("Something went wrong");
         }

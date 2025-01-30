@@ -27,7 +27,7 @@ export default async function HomePage() {
             </NextLink>
           </Button>
           <Button size="lg" variant="outline" asChild>
-            <NextLink href="/contests/create">
+            <NextLink href="/create">
               CREATE
             </NextLink>
           </Button>
@@ -61,7 +61,7 @@ export default async function HomePage() {
               </p>
             </WidgetContent>
             <WidgetFooter className="pt-5">
-              <Link href='/contests/create' size="large">
+              <Link href='/create' size="large">
                 CREATE
               </Link>
             </WidgetFooter>
