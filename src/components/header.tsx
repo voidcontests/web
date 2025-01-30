@@ -16,8 +16,8 @@ const Header = () => {
         <header className={cn(
             'h-14 w-full mb-6',
             pathname === '/'
-                ? 'sticky top-0 bg-primary border-t border-t-transparent border-b border-b-transparent'
-                : 'bg-secondary border-t border-t-transparent border-b border-b-border',
+                ? 'sticky top-0 bg-background border-t border-t-transparent border-b border-b-transparent'
+                : 'bg-surface border-t border-t-transparent border-b border-b-border',
         )}>
             <div className='h-full max-w-7xl mx-auto flex justify-center'>
                 <div className='w-full flex items-center mx-4'>
@@ -37,12 +37,12 @@ const Header = () => {
 };
 
 const navItemVariants = cva(
-    "text-sm font-semibold hover:text-primary-text transition-colors",
+    "text-sm font-semibold hover:text-foreground transition-colors",
     {
         variants: {
             state: {
-                default: "text-muted-text",
-                active: "text-primary-text",
+                default: "text-secondary-foreground",
+                active: "text-foreground",
             },
         },
         defaultVariants: {
@@ -71,7 +71,7 @@ function NavItem({ className, state, href, underlineActive = true, children, ...
             </span>
             <div className={cn(
                 "absolute bottom-0 left-0 h-[3px] rounded-t-[3px] transition-all duration-300 ease-in-out",
-                isActive && underlineActive ? 'w-full bg-blue-main' : 'w-0 bg-transparent'
+                isActive && underlineActive ? 'w-full bg-blue-400' : 'w-0 bg-transparent'
             )} />
         </Link>
     );

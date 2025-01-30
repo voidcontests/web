@@ -4,7 +4,7 @@ import NextLink from "next/link";
 import * as React from "react";
 
 const linkVariants = cva(
-    "text-sm text-link-text hover:underline underline-2 underline-offset-2",
+    "text-sm text-link-foreground hover:underline underline-2 underline-offset-2",
     {
         variants: {
             size: {

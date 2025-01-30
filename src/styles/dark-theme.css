@@ -1,52 +1,15 @@
 @layer base {
     .dark {
-        --text-primary: var(--white-600);
-        --text-bright: var(--white-main);
-        --text-primary-inverse: var(--black-main);
-        --text-primary-on-color: var(--white-main);
-        --text-secondary: var(--white-500);
-        --text-muted: var(--white-400);
-        --text-disabled: var(--white-300);
-        --text-critical: var(--red-main);
-        --text-caution: var(--orange-main);
-        --text-success: var(--green-main);
-        --text-link: var(--blue-main);
+        --background: #000;
 
-        --background-primary: var(--black-main);
-        --background-primary-inverse: var(--white-main);
-        --background-secondary: var(--white-100);
-        --background-secondary-subdued: var(--white-200);
-        --background-disabled: var(--white-200);
-        --background-success-subdued: var(--green-300);
-        --background-link-subdued: var(--blue-300);
-        --background-caution-subdued: var(--orange-300);
-        --background-critical-subdued: var(--red-300);
-        --background-critical: var(--red-main);
-        --background-popover: 240 5% 7.8%;
+        --foreground: #e0e0e1;
+        --bright-foreground: #fff;
+        --secondary-foreground: #68686a;
+        --link-foreground: #4d96ff;
 
-        --border-primary: 0 0% 15%;
-        --border-critical: var(--red-main);
-        --border-active: var(--blue-main);
+        --surface: #0e0e10;
+        --surface-2: #18181a;
 
-        --icon-primary: var(--white-600);
-
-        --code-foreground: #ededed;
-        --code-background: #0a0a0a;
-        --code-keyword: #f75f8f;
-        --code-entity: #bf7af0;
-        --code-constant: #ededed;
-        --code-string: #62c074;
-        --code-variable: #52a8ff;
-        --code-comment: #a1a1a1;
-        --code-entity-tag: #62c074;
-        --code-storage-modifier: #f75f8f;
-        --code-heading: #ededed;
-        --code-bullet: #bf7af0;
-        --code-emphasis: #ededed;
-        --code-strong: #ededed;
-        --code-addition-foreground: #62c074;
-        --code-addition-background: #62c0741f;
-        --code-deletion-foreground: #f75f8f;
-        --code-deletion-background: #f75f8f1f;
+        --border: #212121;
     }
 }

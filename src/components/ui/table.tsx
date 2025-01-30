@@ -4,7 +4,7 @@ import * as React from "react";
 const TableContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className="bg-secondary border rounded-xl relative w-full overflow-auto"
+    className="bg-surface border rounded-xl relative w-full overflow-auto"
     {...props}
   />
 ));
@@ -38,7 +38,7 @@ const TableBody = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes
 TableBody.displayName = "TableBody";
 
 const TableHeader = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
-  <thead ref={ref} className={cn("h-4 overflow-hidden bg-secondary [&_tr]:border-b", className)} {...props} />
+  <thead ref={ref} className={cn("h-4 overflow-hidden bg-surface-2 [&_tr]:border-b", className)} {...props} />
 ));
 TableHeader.displayName = "TableHeader";
 
@@ -51,7 +51,7 @@ const TableHead = React.forwardRef<HTMLTableCellElement, React.ThHTMLAttributes<
   <th
     ref={ref}
     className={cn(
-      "first:px-5 first:w-0 h-full text-left text-sm text-muted-text font-normal align-middle",
+      "first:px-5 first:w-0 h-full text-left text-sm text-secondary-foreground font-normal align-middle",
       className,
     )}
     {...props}
@@ -87,7 +87,7 @@ const TableFooter = React.forwardRef<HTMLTableSectionElement, React.HTMLAttribut
   <tfoot
     ref={ref}
     className={cn(
-      "h-10 w-full flex items-center justify-center bg-transparent font-regular text-sm text-primary-text border-t last:[&>tr]:border-b-0",
+      "h-10 w-full flex items-center justify-center bg-transparent font-regular text-sm text-foreground border-t last:[&>tr]:border-b-0",
       className
     )}
     {...props}
@@ -101,7 +101,7 @@ const TableCaption = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <caption
     ref={ref}
-    className={cn("py-2 text-sm text-secondary-text border-t", className)}
+    className={cn("py-2 text-sm text-secondary-foreground border-t", className)}
     {...props}
   />
 ))
