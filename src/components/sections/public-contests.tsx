@@ -1,6 +1,6 @@
 'use client';
 
-import { ContestListItem } from "@/api/dto/response";
+import { ContestList, ContestListItem } from "@/api/dto/response";
 import { Link } from "@/components/ui/link";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
@@ -10,7 +10,7 @@ import { format_date, format_duration } from '@/lib/utils';
 import { truncate_address } from '@/lib/strings';
 import { use } from "react";
 
-export function PublicContests({ contests }: { contests: Promise<ContestListItem[]> }) {
+export function PublicContests({ contests }: { contests: Promise<ContestList> }) {
     const publicContests = use(contests);
 
     return (
@@ -31,7 +31,7 @@ export function PublicContests({ contests }: { contests: Promise<ContestListItem
                 </TableHeader>
                 <TableBody>
                     {
-                        publicContests.map((contest, index) => (
+                        publicContests.data.map((contest, index) => (
                             <TableRow key={index}>
                                 <TableCell>{`${index}/`}</TableCell>
                                 <TableCell>
@@ -54,7 +54,7 @@ export function PublicContests({ contests }: { contests: Promise<ContestListItem
                     }
                 </TableBody>
                 {
-                    publicContests.length === 0 && <TableCaption>No public contests</TableCaption>
+                    publicContests.data.length === 0 && <TableCaption>No public contests</TableCaption>
                 }
             </Table>
         </TableContainer>

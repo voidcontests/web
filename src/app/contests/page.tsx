@@ -1,16 +1,26 @@
 import OfficialContests from "@/components/sections/official-contests";
-import { PublicContests, Loading } from "@/components/sections/public-contests";
+import { Loading } from "@/components/sections/public-contests";
 import { Separator } from "@/components/ui/separator";
 import { Suspense } from "react";
 import { Metadata } from "next";
-import * as API from '@/api';
+import { getContests } from "@/actions/actions";
+import dynamic from "next/dynamic";
+
+const PublicContests = dynamic(async () => {
+    const mod = await import('../../components/sections/public-contests');
+    return mod.PublicContests;
+}, {
+    ssr: false,
+    loading: () => <Loading />
+}
+)
 
 export const metadata: Metadata = {
     title: 'Contests :: THE VOID*',
 };
 
 export default async function ContestsPage() {
-    const contests = API.getContests();
+    const contests = getContests();
 
     return (
         <div className="flex justify-center">

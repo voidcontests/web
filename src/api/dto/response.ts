@@ -2,6 +2,10 @@ export type ContestID = {
     id: number;
 };
 
+export type ContestList = {
+    data: ContestListItem[];
+};
+
 export type ContestDetailed = {
     id: number;
     creator: User;
