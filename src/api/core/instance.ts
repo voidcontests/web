@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import axios from "axios";
 
 const DOMAIN = 'https://void.ndbtea.tech';
@@ -7,8 +8,7 @@ const authorized = axios.create({
 });
 
 authorized.interceptors.request.use((config) => {
-    // TODO: Move local storage key to other place to not repeat it
-    const token = localStorage.getItem("void-access-token");
+    const token = Cookies.get("token")
 
     config.headers.Authorization = `Bearer ${token}`;
 
