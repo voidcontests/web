@@ -4,7 +4,6 @@ import { useContext, useEffect, useRef } from "react";
 import * as Api from "@/api";
 import Cookies from "js-cookie";
 
-const localStorageKey = 'void-access-token';
 const COOKIE_KEY = 'token';
 const PAYLOAD_TTL_MS = 1000 * 60 * 20;
 
@@ -25,7 +24,6 @@ export function useTonProof() {
 
         if (!wallet) {
             Cookies.remove(COOKIE_KEY);
-            localStorage.removeItem(localStorageKey);
             setToken(null);
 
             const refreshPayload = async () => {
@@ -44,8 +42,7 @@ export function useTonProof() {
             return;
         }
 
-        const token = localStorage.getItem(localStorageKey);
-        // const token = Cookies.get(COOKIE_KEY);
+        const token = Cookies.get(COOKIE_KEY);
         if (token) {
             setToken(token);
             return;
@@ -55,7 +52,6 @@ export function useTonProof() {
             Api.tonproof.check(wallet.connectItems.tonProof.proof, wallet.account).then(result => {
                 if (result) {
                     setToken(result);
-                    localStorage.setItem(localStorageKey, result);
                     Cookies.set(COOKIE_KEY, result);
                 } else {
                     alert('Please try another wallet');
