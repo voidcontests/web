@@ -23,6 +23,14 @@ export default function ContestAbout({ contest }: { contest: Promise<ContestDeta
                 </div>
                 <div className="flex">
                     <div className="flex-1 text-secondary-text">
+                        Deadline
+                    </div>
+                    <div className="flex-1">
+                        No
+                    </div>
+                </div>
+                <div className="flex">
+                    <div className="flex-1 text-secondary-text">
                         Duration
                     </div>
                     <div className="flex-1">
@@ -35,6 +43,14 @@ export default function ContestAbout({ contest }: { contest: Promise<ContestDeta
                     </div>
                     <div className="flex-1">
                         {cdetailed.participants}
+                    </div>
+                </div>
+                <div className="flex">
+                    <div className="flex-1 text-secondary-text">
+                        Slots
+                    </div>
+                    <div className="flex-1">
+                        Not limited
                     </div>
                 </div>
             </WidgetContent>
