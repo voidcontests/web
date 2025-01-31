@@ -18,9 +18,7 @@ export default async function Page({ params }: { params: { cid: string } }) {
                     <ContestInfo contest={contest} />
                     {/* <ContestAboutTable contest={contest} /> */}
                     <Problemset contest={contest} difficulties />
-                    <div className="flex flex-col items-center mt-12">
-                        <ContestStartingCountdown contest={contest} />
-                    </div>
+                    <ContestStartingCountdown contest={contest} />
                 </div>
                 <div className="col-span-3">
                     <div className="flex flex-col gap-5">

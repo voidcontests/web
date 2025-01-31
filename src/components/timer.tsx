@@ -4,14 +4,19 @@ import React, { useState, useEffect } from 'react';
 
 interface TimerProps {
     target: Date;
+    onComplete?: () => void;
 }
 
-const get_countdown = (target: Date): string => {
+const get_distance = (target: Date): number => {
     const now = new Date();
     const distance = target.getTime() - now.getTime();
 
+    return distance;
+}
+
+const get_countdown_label = (distance: number): string => {
     if (distance < 0) {
-        return '0d 0h 0m 0s';
+        return '0s';
     }
 
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -26,34 +31,35 @@ const get_countdown = (target: Date): string => {
     if (minutes > 0) parts.push(`${minutes}m`);
     if (seconds > 0) parts.push(`${seconds}s`);
 
-    return parts.length > 0 ? parts.join(' ') : '0s'; // Return '0s' if all values are zero
+    return parts.length > 0 ? parts.join(' ') : '0s';
 }
 
-const Timer: React.FC<TimerProps> = ({ target }) => {
-    const [timeLeft, setTimeLeft] = useState<string>(get_countdown(target));
+// TODO: Extract move starting in out from this component
+const Timer: React.FC<TimerProps> = ({ target, onComplete }) => {
+    const [timeLeft, setTimeLeft] = useState<string>(get_countdown_label(get_distance(target)));
+    let docomplete = false;
 
     useEffect(() => {
         const interval = setInterval(() => {
-            const countdown = get_countdown(target);
-            setTimeLeft(countdown);
+            const distance = get_distance(target);
+            if (distance > 0 && !docomplete) docomplete = true;
 
-            if (countdown === '0d 0h 0m 0s') {
+            if (distance < 0) {
                 clearInterval(interval);
+                if (onComplete && docomplete) onComplete();
+                return;
             }
 
+            const label = get_countdown_label(distance);
+            setTimeLeft(label);
         }, 1000);
 
         return () => clearInterval(interval);
     }, [target]);
 
     return (
-        <div className='flex flex-col items-center'>
-            <div className="text-secondary-text text-lg">
-                STARTING IN
-            </div>
-            <div className="text-primary-text text-4xl font-medium" suppressHydrationWarning>
-                {timeLeft}
-            </div>
+        <div className="text-primary-text text-4xl font-medium" suppressHydrationWarning>
+            {timeLeft}
         </div>
     );
 };
