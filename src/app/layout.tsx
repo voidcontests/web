@@ -10,6 +10,7 @@ import { Rubik } from 'next/font/google';
 export const metadata: Metadata = {
   title: 'THE VOID*',
   description: 'Avoid a void in your head',
+  metadataBase: new URL('https://void.ndbtea.tech'),
 };
 
 const rubik = Rubik({

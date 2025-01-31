@@ -2,7 +2,7 @@
 
 import { cva, type VariantProps } from "class-variance-authority";
 import { TonConnectButton } from './ton-connect/button';
-import { useTonProof } from '@/hooks/useTonProof';
+import { useTonProof } from '@/hooks/use-tonproof';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
