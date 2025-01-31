@@ -7,6 +7,7 @@ import * as API from '@/api';
 import { use } from "react";
 import { toast } from "sonner";
 import { LoaderCircle } from "lucide-react";
+import { revalidate } from "@/actions/actions";
 
 export default function AppliedStatus({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);
@@ -29,22 +30,22 @@ export default function AppliedStatus({ contest }: { contest: Promise<ContestDet
         );
     }
 
-    if ((new Date()) > new Date(cdetailed.starting_at)) {
-        return (
-            <span className="text-center font-medium">Application time is over :/</span>
-        );
-    }
-
     if (cdetailed.is_participant) {
         return (
             <span className="text-center font-medium">You are participating!</span>
         );
     }
 
+    if ((new Date()) > new Date(cdetailed.starting_at)) {
+        return (
+            <span className="text-center font-medium">Application time is over :/</span>
+        );
+    }
+
     const handleApplyClick = async () => {
         try {
             await API.applyForContest(cdetailed.id);
-            // fetchContest(); // TODO
+            revalidate(`/contest/${cdetailed.id}`);
         } catch (e) {
             toast.error('Something went wrong. Try again leter');
         }
