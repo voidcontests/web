@@ -12,8 +12,7 @@ const PublicContests = dynamic(async () => {
 }, {
     ssr: false,
     loading: () => <Loading />
-}
-)
+});
 
 export const metadata: Metadata = {
     title: 'Contests :: THE VOID*',

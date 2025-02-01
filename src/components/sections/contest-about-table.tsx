@@ -1,4 +1,3 @@
-import { Widget, WidgetContent, WidgetTitle, } from "@/components/ui/widget";
 import { ContestDetailed } from "@/api/dto/response";
 import { format_duration } from "@/lib/utils";
 import { format_date } from '@/lib/utils';
@@ -10,7 +9,7 @@ import {
 } from "../ui/table-inline";
 import { truncate_address } from "@/lib/strings";
 
-export default function ContestAboutTable({ contest }: { contest: Promise<ContestDetailed> }) {
+export function ContestAboutTable({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);
 
     return (

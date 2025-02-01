@@ -3,8 +3,9 @@ import { ContestDetailed } from "@/api/dto/response";
 import { format_duration } from "@/lib/utils";
 import { format_date } from '@/lib/utils';
 import { use } from "react";
+import { Skeleton } from "../ui/skeleton";
 
-export default function ContestAbout({ contest }: { contest: Promise<ContestDetailed> }) {
+export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);
 
     return (
@@ -60,6 +61,26 @@ export default function ContestAbout({ contest }: { contest: Promise<ContestDeta
                     <div className="flex-1">
                         Not limited
                     </div>
+                </div>
+            </WidgetContent>
+        </Widget>
+    );
+}
+
+export function Loading() {
+    return (
+        <Widget className="flex-1">
+            <WidgetContent>
+                <WidgetTitle className="text-bright-text">
+                    ABOUT
+                </WidgetTitle>
+                <div className="flex flex-row justify-between">
+                    <Skeleton className="h-4 w-[50px]" />
+                    <Skeleton className="h-4 w-[120px]" />
+                </div>
+                <div className="flex flex-row justify-between">
+                    <Skeleton className="h-4 w-[60px]" />
+                    <Skeleton className="h-4 w-[100px]" />
                 </div>
             </WidgetContent>
         </Widget>
