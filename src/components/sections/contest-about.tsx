@@ -31,14 +31,17 @@ export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> })
                         {format_date(new Date(cdetailed.end_time))}
                     </div>
                 </div>
-                <div className="flex">
-                    <div className="flex-1 text-secondary-text">
-                        Duration
+                {
+                    cdetailed.duration_mins !== 0 &&
+                    <div className="flex">
+                        <div className="flex-1 text-secondary-text">
+                            Duration
+                        </div>
+                        <div className="flex-1">
+                            {format_duration(cdetailed.duration_mins)}
+                        </div>
                     </div>
-                    <div className="flex-1">
-                        {format_duration(cdetailed.duration_mins)}
-                    </div>
-                </div>
+                }
                 <div className="flex">
                     <div className="flex-1 text-secondary-text">
                         Participants
