@@ -23,7 +23,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     <html lang="en" suppressHydrationWarning>
       <TonConnectProvider>
         <body className={`flex flex-col min-h-dvh antialiased ${rubik.className}`}>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Header />
             <main className="flex-grow">
               {children}
