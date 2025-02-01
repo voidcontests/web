@@ -5,7 +5,7 @@ import { authorized } from "@/api/core/instance";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "@/components/ui/link";
-import Preview from "@/components/preview";
+import Preview from "@/components/sections/preview";
 import { use, useState } from "react";
 import { toast } from "sonner";
 

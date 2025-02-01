@@ -1,6 +1,4 @@
-import { Separator } from "@/components/ui/separator";
 import { ContestDetailed } from "@/api/dto/response";
-import Preview from "@/components/preview";
 import { use } from "react";
 
 export default function ContestInfo({ contest }: { contest: Promise<ContestDetailed> }) {

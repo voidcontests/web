@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { TextArea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import Preview from "@/components/preview";
+import Preview from "@/components/sections/preview";
 import * as strings from '@/lib/strings';
 import { cn } from "@/lib/utils";
 
