@@ -1,3 +1,5 @@
+'use client';
+
 import { Widget, WidgetContent, WidgetTitle, } from "@/components/ui/widget";
 import { ContestDetailed } from "@/api/dto/response";
 import { format_date, format_duration } from "@/lib/utils";
