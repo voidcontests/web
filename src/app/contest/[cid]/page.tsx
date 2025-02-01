@@ -1,20 +1,11 @@
 import ContestStartingCountdown from "@/components/sections/contest-starting-countdown";
-import { Loading } from "../../../components/sections/contest-about";
 import AppliedStatus from "@/components/sections/applied-status";
 import ContentContainer from "@/components/content-container";
 import ContestInfo from "@/components/sections/contest-info";
 import Setters from "@/components/sections/contest-setters";
 import Problemset from "@/components/sections/problemset";
 import { getContest } from "@/actions/actions";
-import dynamic from "next/dynamic";
-
-const ContestAbout = dynamic(async () => {
-    const mod = await import('../../../components/sections/contest-about');
-    return mod.ContestAbout;
-}, {
-    ssr: false,
-    loading: () => <Loading />,
-});
+import { ContestAbout } from "@/components/sections/contest-about";
 
 export default async function Page({ params }: { params: { cid: string } }) {
     const contest = getContest(params.cid);
