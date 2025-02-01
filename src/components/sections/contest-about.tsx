@@ -4,6 +4,7 @@ import { format_duration } from "@/lib/utils";
 import { format_date } from '@/lib/utils';
 import { use } from "react";
 import { Skeleton } from "../ui/skeleton";
+import Datetime from "../datetime";
 
 export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);
@@ -27,7 +28,8 @@ export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> })
                         End
                     </div>
                     <div className="flex-1">
-                        {format_date(new Date(cdetailed.end_time))}
+                        <Datetime timestamp={cdetailed.end_time} />
+                        {/* {format_date(new Date(cdetailed.end_time))} */}
                     </div>
                 </div>
                 <div className="flex">
