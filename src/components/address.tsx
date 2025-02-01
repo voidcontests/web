@@ -8,6 +8,8 @@ export default function Address({ address }: { address: string }) {
         <Link
             href={`${EXPLORER_BASEPATH}/address/${address}`}
             size="large"
+            target="_blank"
+            rel="noopener noreferrer"
         >
             {truncate_address(address, 8)}
         </Link>
