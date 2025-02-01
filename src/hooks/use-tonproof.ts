@@ -1,5 +1,5 @@
 import { useIsConnectionRestored, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
-import { TonProofContext } from "../contexts/TonProofToken";
+import { TonProofContext } from "../contexts/tonproof";
 import { useContext, useEffect, useRef } from "react";
 import * as Api from "@/api";
 import Cookies from "js-cookie";
@@ -62,6 +62,5 @@ export function useTonProof() {
             alert('Please try another wallet');
             tonConnectUI.disconnect();
         }
-
     }, [wallet, isConnectionRestored, setToken])
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { TonConnectUIProvider, THEME } from "@tonconnect/ui-react";
-import { TonProofContext } from "@/contexts/TonProofToken";
+import { TonProofContext } from "@/contexts/tonproof";
 import { useState } from "react";
 import { useTonProof } from "@/hooks/use-tonproof";
 
