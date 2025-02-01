@@ -7,8 +7,9 @@ import { revalidate } from "@/actions/actions";
 
 export default function ContestStartingCountdown({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);
+    const start_time = new Date(cdetailed.start_time);
 
-    if ((new Date()) > new Date(cdetailed.starting_at)) return null;
+    if ((new Date()) > start_time) return null;
 
     return (
         <div className="flex flex-col items-center mt-12">
@@ -16,7 +17,7 @@ export default function ContestStartingCountdown({ contest }: { contest: Promise
                 <div className="text-secondary-text text-lg">
                     STARTING IN
                 </div>
-                <Timer target={new Date(cdetailed.starting_at)} onComplete={() => revalidate(`/contest/${cdetailed.id}`) } />
+                <Timer target={start_time} onComplete={() => revalidate(`/contest/${cdetailed.id}`) } />
             </div>
         </div>
     );

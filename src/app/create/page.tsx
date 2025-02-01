@@ -32,7 +32,8 @@ export default function CreateContestPage() {
         title: '',
         description: '',
         problems: [],
-        starting_at: new Date(),
+        start_time: new Date(),
+        end_time: new Date(),
         duration_mins: 100,
     });
 
@@ -99,7 +100,9 @@ export default function CreateContestPage() {
                 title: contest.title,
                 description: contest.description,
                 problems: contest.problems,
-                starting_at: date,
+                // this freestyle with dates is temporary, okay
+                start_time: new Date(new Date().setHours(new Date().getHours() + 2)), // now + 2 hours
+                end_time: new Date(new Date(Date.now() + 2 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000)), // now + 2 days + 2 hours
                 duration_mins: 300,
             });
 

@@ -26,7 +26,7 @@ const difficultyToBadgeType: DifficultyColorMap = {
 export default function Problemset({ contest, difficulties, currentProblemID }: { contest: Promise<ContestDetailed>, difficulties?: boolean, currentProblemID?: string | number }) {
     const cdetailed = use(contest);
     const problemset = cdetailed.problems;
-    const started = new Date(cdetailed.starting_at) < new Date();
+    const started = new Date(cdetailed.start_time) < new Date();
 
     const wallet = useTonWallet();
 

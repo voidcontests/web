@@ -22,6 +22,7 @@ export default function ContestAboutTable({ contest }: { contest: Promise<Contes
                 <TableHeader>
                     <TableHeaderRow>
                         <TableHead>Starting at</TableHead>
+                        <TableHead>Ending at</TableHead>
                         <TableHead>Deadline</TableHead>
                         <TableHead>Duration</TableHead>
                         <TableHead>Creator</TableHead>
@@ -31,7 +32,8 @@ export default function ContestAboutTable({ contest }: { contest: Promise<Contes
                 </TableHeader>
                 <TableBody>
                     <TableRow>
-                        <TableCell>{format_date(new Date(cdetailed.starting_at))}</TableCell>
+                        <TableCell>{format_date(new Date(cdetailed.start_time))}</TableCell>
+                        <TableCell>{format_date(new Date(cdetailed.end_time))}</TableCell>
                         <TableCell>No</TableCell>
                         <TableCell>{format_duration(cdetailed.duration_mins)}</TableCell>
                         <TableCell>

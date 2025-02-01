@@ -36,7 +36,7 @@ export default function AppliedStatus({ contest }: { contest: Promise<ContestDet
         );
     }
 
-    if ((new Date()) > new Date(cdetailed.starting_at)) {
+    if ((new Date()) > new Date(cdetailed.start_time)) {
         return (
             <span className="text-center font-medium">Application time is over :/</span>
         );

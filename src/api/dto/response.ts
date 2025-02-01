@@ -11,7 +11,8 @@ export type ContestDetailed = {
     creator: User;
     title: string;
     description: string;
-    starting_at: Date;
+    start_time: Date;
+    end_time: Date;
     duration_mins: number;
     participants: number;
     is_draft?: boolean;
@@ -32,7 +33,8 @@ export type ContestListItem = {
     id: number;
     creator: User;
     title: string;
-    starting_at: Date;
+    start_time: Date;
+    end_time: Date;
     duration_mins: number;
 };
 

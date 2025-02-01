@@ -18,7 +18,15 @@ export default function ContestAbout({ contest }: { contest: Promise<ContestDeta
                         Start
                     </div>
                     <div className="flex-1">
-                        {format_date(new Date(cdetailed.starting_at))}
+                        {format_date(new Date(cdetailed.start_time))}
+                    </div>
+                </div>
+                <div className="flex">
+                    <div className="flex-1 text-secondary-text">
+                        End
+                    </div>
+                    <div className="flex-1">
+                        {format_date(new Date(cdetailed.end_time))}
                     </div>
                 </div>
                 <div className="flex">

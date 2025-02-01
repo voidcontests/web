@@ -26,6 +26,7 @@ export function PublicContests({ contests }: { contests: Promise<ContestList> })
                         <TableHead>Host address</TableHead>
                         <TableHead>Type</TableHead>
                         <TableHead>Start</TableHead>
+                        <TableHead>End</TableHead>
                         <TableHead>Duration</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
@@ -47,7 +48,8 @@ export function PublicContests({ contests }: { contests: Promise<ContestList> })
                                 <TableCell>
                                     Training
                                 </TableCell>
-                                <TableCell>{format_date(new Date(contest.starting_at))}</TableCell>
+                                <TableCell>{format_date(new Date(contest.start_time))}</TableCell>
+                                <TableCell>{format_date(new Date(contest.end_time))}</TableCell>
                                 <TableCell>{format_duration(contest.duration_mins)}</TableCell>
                             </TableRow>
                         ))

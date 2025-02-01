@@ -2,7 +2,8 @@ export type CreateContest = {
     title: string;
     description?: string;
     problems: CreateProblem[];
-    starting_at: Date;
+    start_time: Date;
+    end_time: Date;
     duration_mins: number;
 };
 
