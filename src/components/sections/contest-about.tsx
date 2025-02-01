@@ -17,7 +17,7 @@ export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> })
                 </WidgetTitle>
                 <div className="flex">
                     <div className="flex-1 text-secondary-text">
-                        Start
+                        Starts
                     </div>
                     <div className="flex-1">
                         {format_date(new Date(cdetailed.start_time))}
@@ -25,18 +25,10 @@ export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> })
                 </div>
                 <div className="flex">
                     <div className="flex-1 text-secondary-text">
-                        End
-                    </div>
-                    <div className="flex-1">
-                        {format_date(new Date(cdetailed.end_time))}
-                    </div>
-                </div>
-                <div className="flex">
-                    <div className="flex-1 text-secondary-text">
                         Deadline
                     </div>
                     <div className="flex-1">
-                        No
+                        {format_date(new Date(cdetailed.end_time))}
                     </div>
                 </div>
                 <div className="flex">
