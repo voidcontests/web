@@ -29,6 +29,9 @@ echo -e "Deploying ${bold}voidcontests/frontend${normal} from ${bold}$(git rev-p
 echo "Pulling latest changes..."
 git pull
 
+echo "Resetting all changes..."
+git reset --hard && git clean -fdx
+
 echo "Downloading new dependencies..."
 bun install --frozen-lockfile
 
