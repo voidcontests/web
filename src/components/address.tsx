@@ -7,7 +7,6 @@ export default function Address({ address }: { address: string }) {
     return (
         <Link
             href={`${EXPLORER_BASEPATH}/address/${address}`}
-            size="large"
             target="_blank"
             rel="noopener noreferrer"
         >
