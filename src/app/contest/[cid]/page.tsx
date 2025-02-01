@@ -1,6 +1,7 @@
 import ContestStartingCountdown from "@/components/sections/contest-starting-countdown";
 import AppliedStatus from "@/components/sections/applied-status";
 import ContentContainer from "@/components/content-container";
+import { Loading } from "@/components/sections/contest-about";
 import ContestInfo from "@/components/sections/contest-info";
 import Setters from "@/components/sections/contest-setters";
 import Problemset from "@/components/sections/problemset";
@@ -12,7 +13,7 @@ const ContestAbout = dynamic(async () => {
     return mod.ContestAbout;
 }, {
     ssr: false,
-    loading: () => <div>LOADING</div>
+    loading: () => <Loading />,
 });
 
 export default async function Page({ params }: { params: { cid: string } }) {
