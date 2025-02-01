@@ -13,7 +13,7 @@ TableContainer.displayName = "TableContainer";
 const TableTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn('h-12 text-sm flex items-center font-medium px-5 border-b', className)}
+    className={cn('h-12 text-sm flex items-center font-medium px-5', className)}
     {...props}
   />
 ));
@@ -31,19 +31,19 @@ Table.displayName = "Table";
 const TableBody = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
   <tbody
     ref={ref}
-    className={cn("[&_tr:last-child]:border-0", className)}
+    className={className}
     {...props}
   />
 ));
 TableBody.displayName = "TableBody";
 
 const TableHeader = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
-  <thead ref={ref} className={cn("h-4 overflow-hidden bg-secondary [&_tr]:border-b", className)} {...props} />
+  <thead ref={ref} className={cn("h-4 overflow-hidden bg-secondary", className)} {...props} />
 ));
 TableHeader.displayName = "TableHeader";
 
 const TableHeaderRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTMLTableRowElement>>(({ className, ...props }, ref) => (
-  <tr ref={ref} className={cn("h-8 border-b transition-colors", className)} {...props} />
+  <tr ref={ref} className={cn("h-8 transition-colors border-t", className)} {...props} />
 ));
 TableHeaderRow.displayName = "TableHeaderRow";
 
@@ -63,7 +63,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
   <tr
     ref={ref}
     className={cn(
-      "h-10 border-b transition-colors",
+      "h-10 transition-colors border-t",
       className,
     )}
     {...props}
@@ -87,7 +87,7 @@ const TableFooter = React.forwardRef<HTMLTableSectionElement, React.HTMLAttribut
   <tfoot
     ref={ref}
     className={cn(
-      "h-10 w-full flex items-center justify-center bg-transparent font-regular text-sm text-primary-text border-t [&>tr]:last:border-b-0",
+      "h-10 w-full flex items-center justify-center bg-transparent font-regular text-sm text-primary-text",
       className
     )}
     {...props}
