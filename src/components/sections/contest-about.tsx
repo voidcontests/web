@@ -3,7 +3,7 @@
 import { Widget, WidgetContent, WidgetTitle, } from "@/components/ui/widget";
 import { ContestDetailed } from "@/api/dto/response";
 import { format_date, format_duration } from "@/lib/utils";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import { use } from "react";
 
 export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> }) {

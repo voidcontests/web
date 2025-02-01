@@ -1,14 +1,14 @@
 'use client';
 
-import { ContestList, ContestListItem } from "@/api/dto/response";
+import { ContestList } from "@/api/dto/response";
 import { Link } from "@/components/ui/link";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableCaption, TableTitle,
 } from "@/components/ui/table";
 import { format_date, format_duration } from '@/lib/utils';
-import { truncate_address } from '@/lib/strings';
 import { use } from "react";
+import Address from "@/components/address";
 
 export function PublicContests({ contests }: { contests: Promise<ContestList> }) {
     const publicContests = use(contests);
@@ -41,16 +41,20 @@ export function PublicContests({ contests }: { contests: Promise<ContestList> })
                                     </Link>
                                 </TableCell>
                                 <TableCell>
-                                    <Link href={`https://tonscan.org/address/${contest.creator.address}`}>
-                                        {truncate_address(contest.creator.address)}
-                                    </Link>
+                                    <Address address={contest.creator.address} />
                                 </TableCell>
                                 <TableCell>
                                     Training
                                 </TableCell>
-                                <TableCell>{format_date(new Date(contest.start_time))}</TableCell>
-                                <TableCell>{format_date(new Date(contest.end_time))}</TableCell>
-                                <TableCell>{format_duration(contest.duration_mins)}</TableCell>
+                                <TableCell>
+                                    {format_date(new Date(contest.start_time))}
+                                </TableCell>
+                                <TableCell>
+                                    {format_date(new Date(contest.end_time))}
+                                </TableCell>
+                                <TableCell>
+                                    {format_duration(contest.duration_mins)}
+                                </TableCell>
                             </TableRow>
                         ))
                     }

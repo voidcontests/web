@@ -1,13 +1,12 @@
 'use client';
 
-import { ContestDetailed, ProblemDetailed } from "@/api/dto/response";
-import { truncate_address } from "@/lib/strings";
+import { ContestDetailed } from "@/api/dto/response";
 import { use } from "react";
-import { Link } from "@/components/ui/link";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableTitle,
 } from "@/components/ui/table";
+import Address from "@/components/address";
 
 export default function Setters({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);
@@ -32,9 +31,7 @@ export default function Setters({ contest }: { contest: Promise<ContestDetailed>
                             <TableRow key={index}>
                                 <TableCell>{`${index + 1}/`}</TableCell>
                                 <TableCell>
-                                    <Link href={`https://tonscan.org/address/${setter}`}>
-                                        {truncate_address(setter, 8)}
-                                    </Link>
+                                    <Address address={setter} />
                                 </TableCell>
                             </TableRow>
                         ))

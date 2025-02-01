@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import { ContestDetailed, ProblemListItem } from "@/api/dto/response";
 import { use } from "react";
-import { Tag } from "../ui/tag";
+import { Tag } from "@/components/ui/tag";
 import { capitalize } from "@/lib/strings";
 import { useTonWallet } from "@tonconnect/ui-react";
 

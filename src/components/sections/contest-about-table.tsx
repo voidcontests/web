@@ -1,13 +1,12 @@
 import { ContestDetailed } from "@/api/dto/response";
 import { format_duration } from "@/lib/utils";
-import { Link } from "@/components/ui/link";
 import { use } from "react";
 import {
     Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell
 } from "@/components/ui/table-inline";
-import { truncate_address } from "@/lib/strings";
 import Datetime from "@/components/datetime";
+import Address from "@/components/address";
 
 export function ContestAboutTable({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);
@@ -37,10 +36,7 @@ export function ContestAboutTable({ contest }: { contest: Promise<ContestDetaile
                         </TableCell>
                         <TableCell>{format_duration(cdetailed.duration_mins)}</TableCell>
                         <TableCell>
-                            { /*TODO: Move to <Address /> component */}
-                            <Link href={`https://tonscan.org/address/${cdetailed.creator.address}`}>
-                                {truncate_address(cdetailed.creator.address, 6)}
-                            </Link>
+                            <Address address={cdetailed.creator.address} />
                         </TableCell>
                         <TableCell>{cdetailed.participants}</TableCell>
                     </TableRow>

@@ -7,7 +7,7 @@ import { getContests } from "@/actions/actions";
 import dynamic from "next/dynamic";
 
 const PublicContests = dynamic(async () => {
-    const mod = await import('../../components/sections/public-contests');
+    const mod = await import('@/components/sections/public-contests');
     return mod.PublicContests;
 }, {
     ssr: false,

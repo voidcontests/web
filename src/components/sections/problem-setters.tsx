@@ -1,13 +1,12 @@
 'use client';
 
 import { ProblemDetailed } from "@/api/dto/response";
-import { truncate_address } from "@/lib/strings";
 import { use } from "react";
-import { Link } from "@/components/ui/link";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableTitle,
 } from "@/components/ui/table";
+import Address from "@/components/address";
 
 export default function Setters({ problem }: { problem: Promise<ProblemDetailed> }) {
     const pdetailed = use(problem);
@@ -30,9 +29,7 @@ export default function Setters({ problem }: { problem: Promise<ProblemDetailed>
                             <TableRow key={index}>
                                 <TableCell>{`${index + 1}/`}</TableCell>
                                 <TableCell>
-                                    <Link href={`https://tonscan.org/address/${setter}`}>
-                                        {truncate_address(setter, 8)}
-                                    </Link>
+                                    <Address address={setter} />
                                 </TableCell>
                             </TableRow>
                         ))
