@@ -1,10 +1,9 @@
 import { Widget, WidgetContent, WidgetTitle, } from "@/components/ui/widget";
 import { ContestDetailed } from "@/api/dto/response";
 import { format_duration } from "@/lib/utils";
-import { format_date } from '@/lib/utils';
-import { use } from "react";
 import { Skeleton } from "../ui/skeleton";
 import Datetime from "../datetime";
+import { use } from "react";
 
 export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);
@@ -20,7 +19,7 @@ export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> })
                         Start
                     </div>
                     <div className="flex-1">
-                        {format_date(new Date(cdetailed.start_time))}
+                        <Datetime timestamp={cdetailed.start_time} />
                     </div>
                 </div>
                 <div className="flex">
@@ -29,7 +28,6 @@ export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> })
                     </div>
                     <div className="flex-1">
                         <Datetime timestamp={cdetailed.end_time} />
-                        {/* {format_date(new Date(cdetailed.end_time))} */}
                     </div>
                 </div>
                 <div className="flex">

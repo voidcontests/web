@@ -8,6 +8,7 @@ import {
     TableBody, TableRow, TableCell
 } from "../ui/table-inline";
 import { truncate_address } from "@/lib/strings";
+import Datetime from "../datetime";
 
 export function ContestAboutTable({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);
@@ -20,28 +21,29 @@ export function ContestAboutTable({ contest }: { contest: Promise<ContestDetaile
             <Table>
                 <TableHeader>
                     <TableHeaderRow>
-                        <TableHead>Starting at</TableHead>
-                        <TableHead>Ending at</TableHead>
-                        <TableHead>Deadline</TableHead>
+                        <TableHead>Starts</TableHead>
+                        <TableHead>Ends</TableHead>
                         <TableHead>Duration</TableHead>
                         <TableHead>Creator</TableHead>
                         <TableHead>Participants</TableHead>
-                        <TableHead>Slots</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
                 <TableBody>
                     <TableRow>
-                        <TableCell>{format_date(new Date(cdetailed.start_time))}</TableCell>
-                        <TableCell>{format_date(new Date(cdetailed.end_time))}</TableCell>
-                        <TableCell>No</TableCell>
+                        <TableCell>
+                            <Datetime timestamp={cdetailed.start_time} />
+                        </TableCell>
+                        <TableCell>
+                            <Datetime timestamp={cdetailed.end_time} />
+                        </TableCell>
                         <TableCell>{format_duration(cdetailed.duration_mins)}</TableCell>
                         <TableCell>
+                            { /*TODO: Move to <Address /> component */}
                             <Link href={`https://tonscan.org/address/${cdetailed.creator.address}`}>
                                 {truncate_address(cdetailed.creator.address, 6)}
                             </Link>
                         </TableCell>
                         <TableCell>{cdetailed.participants}</TableCell>
-                        <TableCell>Not limited</TableCell>
                     </TableRow>
                 </TableBody>
             </Table>
