@@ -1,14 +1,13 @@
 import { ContestDetailed } from "@/api/dto/response";
 import { format_duration } from "@/lib/utils";
-import { format_date } from '@/lib/utils';
 import { Link } from "@/components/ui/link";
 import { use } from "react";
 import {
     Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell
-} from "../ui/table-inline";
+} from "@/components/ui/table-inline";
 import { truncate_address } from "@/lib/strings";
-import Datetime from "../datetime";
+import Datetime from "@/components/datetime";
 
 export function ContestAboutTable({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);
