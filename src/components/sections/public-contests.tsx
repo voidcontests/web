@@ -53,7 +53,11 @@ export function PublicContests({ contests }: { contests: Promise<ContestList> })
                                     {format_date(new Date(contest.end_time))}
                                 </TableCell>
                                 <TableCell>
-                                    {format_duration(contest.duration_mins)}
+                                    {
+                                        contest.duration_mins !== 0
+                                            ? format_duration(contest.duration_mins)
+                                            : '-'
+                                    }
                                 </TableCell>
                             </TableRow>
                         ))
