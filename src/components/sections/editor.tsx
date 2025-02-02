@@ -198,7 +198,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                     <div className="flex items-center gap-1">
                         {
                             toggle_buttons.map((toggle, index) => (
-                                <div key={index}>
+                                <div key={index} className="flex gap-1 items-center">
                                     {
                                         toggle.separatorBefore
                                             ? <Separator vertical className="h-5" />

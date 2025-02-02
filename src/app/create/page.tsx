@@ -3,13 +3,11 @@
 import { Widget, WidgetContent, WidgetTitle } from "@/components/ui/widget";
 import { CreateContest, CreateProblem } from '@/api/dto/request';
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
-import { Separator } from "@/components/ui/separator";
 import { useTonWallet } from '@tonconnect/ui-react';
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Tag } from "@/components/ui/tag";
-import { Link } from "@/components/ui/link";
 import { useRouter } from 'next/navigation';
 import Editor from "@/components/sections/editor";
 import { itoc } from "@/lib/utils";
@@ -205,38 +203,38 @@ export default function CreateContestPage() {
                             <Plus />ADD PROBLEM
                         </Button>
                     </div>
-                    <div className="flex flex-col gap-2">
-                        <h1 className="text-bright-text text-lg font-medium">Time settings</h1>
-                        <div className="flex flex-grow gap-3 items-center">
-                            <div className='flex-shrink-0'>
-                                From
-                            </div>
-                            <Input
-                                value={starts}
-                                placeholder="YYYY-MM-dd hh:mm"
-                                onChange={(e) => setStarts(e.target.value)}
-                                className="w-[300px]"
-                            />
-                            <div className='flex-shrink-0'>
-                                to
-                            </div>
-                            <Input
-                                value={ends}
-                                placeholder="YYYY-MM-dd hh:mm"
-                                onChange={(e) => setEnds(e.target.value)}
-                                className="w-[300px]"
-                            />
+                </div>
+                <div className="flex flex-col gap-2">
+                    <h1 className="text-bright-text text-lg font-medium">Time settings</h1>
+                    <div className="flex flex-grow gap-3 items-center">
+                        <div className='flex-shrink-0'>
+                            From
                         </div>
+                        <Input
+                            value={starts}
+                            placeholder="YYYY-MM-dd hh:mm"
+                            onChange={(e) => setStarts(e.target.value)}
+                            className="w-[300px]"
+                        />
+                        <div className='flex-shrink-0'>
+                            to
+                        </div>
+                        <Input
+                            value={ends}
+                            placeholder="YYYY-MM-dd hh:mm"
+                            onChange={(e) => setEnds(e.target.value)}
+                            className="w-[300px]"
+                        />
                     </div>
-                    <div className="flex justify-end">
-                        <div className="flex gap-5">
-                            <Button
-                                disabled={contest.problems.length === 0 || contest.title === ''}
-                                onClick={() => submitContest(false)}
-                            >
-                                SUBMIT CONTEST
-                            </Button>
-                        </div>
+                </div>
+                <div className="flex justify-end">
+                    <div className="flex gap-5">
+                        <Button
+                            disabled={contest.problems.length === 0 || contest.title === ''}
+                            onClick={() => submitContest(false)}
+                        >
+                            SUBMIT CONTEST
+                        </Button>
                     </div>
                 </div>
             </div>
