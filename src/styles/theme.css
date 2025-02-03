@@ -16,4 +16,7 @@
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
     --radius-sm: calc(var(--radius) - 4px);
+
+    /* Shadows */
+    --shadow-md: 0 0 15px --alpha(var(--color-zinc-950) / 6%);
 }

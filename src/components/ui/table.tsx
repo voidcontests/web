@@ -4,7 +4,7 @@ import * as React from "react";
 const TableContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className="bg-surface border rounded-xl relative w-full overflow-auto"
+    className="bg-surface border rounded-xl relative w-full overflow-auto not-dark:shadow-md"
     {...props}
   />
 ));

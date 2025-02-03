@@ -5,7 +5,7 @@ export default function ContestInfo({ contest }: { contest: Promise<ContestDetai
     const cdetailed = use(contest);
 
     return (
-        <div className="border rounded-xl bg-surface p-5 flex flex-col gap-2">
+        <div className="border rounded-xl bg-surface p-5 flex flex-col gap-2 not-dark:shadow-md">
             <h1 className="text-foreground text-xl font-medium">
                 {cdetailed.title}
             </h1>

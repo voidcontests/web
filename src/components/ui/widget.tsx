@@ -5,7 +5,7 @@ const Widget = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElem
   <div
     ref={ref}
     className={cn(
-      "rounded-2xl border bg-surface text-foreground text-sm",
+      "rounded-2xl border bg-surface text-foreground text-sm not-dark:shadow-md",
       "flex flex-col justify-between p-5",
       className
     )}
@@ -22,7 +22,7 @@ WidgetContent.displayName = "WidgetContent";
 const WidgetTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("font-medium text-secondary-foreground", className)}
+    className={cn("font-medium text-tertiary-foreground", className)}
     {...props}
   />
 ));

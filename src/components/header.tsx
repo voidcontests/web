@@ -17,7 +17,7 @@ const Header = () => {
             'h-14 w-full mb-6',
             pathname === '/'
                 ? 'sticky top-0 bg-background border-t border-t-transparent border-b border-b-transparent'
-                : 'bg-surface border-t border-t-transparent border-b border-b-border',
+                : 'bg-surface border-t border-t-transparent border-b border-b-border not-dark:shadow-md',
         )}>
             <div className='h-full max-w-7xl mx-auto flex justify-center'>
                 <div className='w-full flex items-center mx-4'>
