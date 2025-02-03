@@ -206,8 +206,8 @@ export default function CreateContestPage() {
                 </div>
                 <div className="flex flex-col gap-2">
                     <h1 className="text-bright-text text-lg font-medium">Time settings</h1>
-                    <div className="flex flex-grow gap-3 items-center">
-                        <div className='flex-shrink-0'>
+                    <div className="flex grow gap-3 items-center">
+                        <div className='shrink-0'>
                             From
                         </div>
                         <Input
@@ -216,7 +216,7 @@ export default function CreateContestPage() {
                             onChange={(e) => setStarts(e.target.value)}
                             className="w-[300px]"
                         />
-                        <div className='flex-shrink-0'>
+                        <div className='shrink-0'>
                             to
                         </div>
                         <Input
@@ -274,18 +274,18 @@ export default function CreateContestPage() {
                                         Add a statement
                                     </Editor>
                                     <div className="flex justify-between gap-4">
-                                        <div className="flex flex-grow gap-2 items-center">
-                                            <Button variant='outline' className='flex-shrink-0' disabled>
+                                        <div className="flex grow gap-2 items-center">
+                                            <Button variant='outline' className='shrink-0' disabled>
                                                 ATTACH
                                             </Button>
-                                            <div className='flex-shrink-0'>
+                                            <div className='shrink-0'>
                                                 input file with answer provided
                                             </div>
                                             <Input
                                                 value={problem.answer}
                                                 placeholder="here"
                                                 onChange={handleProblemAnswerChange}
-                                                className="flex-grow"
+                                                className="grow"
                                             />
                                         </div>
                                         <Button
