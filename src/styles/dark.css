@@ -1,0 +1,11 @@
+@layer base {
+    .dark {
+        --background: #040406;
+        --foreground: #fafafa;
+        --surface: #0e0e10;
+        --surface-secondary: #18181a;
+        --secondary-foreground: #898989;
+        --tertiary-foreground: #6e6e70;
+        --border: #212121;
+    }
+}

@@ -1,301 +1,35 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+
+@import "../styles/theme.css";
 
 @custom-variant dark (&:is(.dark *));
 
-@theme {
-  --background-image-notification-default: var(--notification-default);
-  --background-image-notification-warning: var(--notification-warning);
-  --background-image-notification-alert: var(--notification-alert);
-
-  --color-bright-text: hsla(var(--text-bright));
-
-  --color-primary: hsla(var(--background-primary));
-
-  --color-primary-inverse: hsla(var(--background-primary-inverse));
-  --color-primary-inverse-text: hsla(var(--text-primary-inverse));
-
-  --color-primary-border: hsl(var(--border-primary));
-  --color-primary-icon: hsla(var(--icon-primary));
-  --color-primary-text: hsla(var(--text-primary));
-  --color-primary-on-color-text: hsla(var(--text-primary-on-color));
-
-  --color-secondary: hsla(var(--background-secondary));
-  --color-secondary-subdued: hsla(var(--background-secondary-subdued));
-  --color-secondary-text: hsla(var(--text-secondary));
-
-  --color-disabled: hsla(var(--background-disabled));
-  --color-disabled-text: hsla(var(--text-disabled));
-
-  --color-muted-text: hsla(var(--text-muted));
-
-  --color-success-subdued: hsla(var(--background-success-subdued));
-  --color-success-text: hsla(var(--text-success));
-
-  --color-link-subdued: hsla(var(--background-link-subdued));
-  --color-link-text: hsla(var(--text-link));
-
-  --color-caution-subdued: hsla(var(--background-caution-subdued));
-  --color-caution-text: hsla(var(--text-caution));
-
-  --color-critical: hsla(var(--background-critical));
-  --color-critical-subdued: hsla(var(--background-critical-subdued));
-  --color-critical-border: hsla(var(--border-critical));
-  --color-critical-text: hsla(var(--text-critical));
-
-  --color-popover: hsl(var(--background-popover));
-
-  --color-active-border: hsla(var(--border-active));
-
-  --color-black-100: hsla(var(--black-100));
-  --color-black-200: hsla(var(--black-200));
-  --color-black-300: hsla(var(--black-300));
-  --color-black-400: hsla(var(--black-400));
-  --color-black-500: hsla(var(--black-500));
-  --color-black-600: hsla(var(--black-600));
-  --color-black-main: hsl(var(--black-main));
-
-  --color-white-100: hsla(var(--white-100));
-  --color-white-200: hsla(var(--white-200));
-  --color-white-300: hsla(var(--white-300));
-  --color-white-400: hsla(var(--white-400));
-  --color-white-500: hsla(var(--white-500));
-  --color-white-600: hsla(var(--white-600));
-  --color-white-main: hsla(var(--white-main));
-
-  --color-blue-100: hsla(var(--blue-100));
-  --color-blue-200: hsla(var(--blue-200));
-  --color-blue-300: hsla(var(--blue-300));
-  --color-blue-400: hsla(var(--blue-400));
-  --color-blue-500: hsla(var(--blue-500));
-  --color-blue-600: hsla(var(--blue-600));
-  --color-blue-main: hsla(var(--blue-main));
-  --color-blue-ton: hsl(var(--blue-ton));
-
-  --color-red-100: hsla(var(--red-100));
-  --color-red-200: hsla(var(--red-200));
-  --color-red-300: hsla(var(--red-300));
-  --color-red-400: hsla(var(--red-400));
-  --color-red-500: hsla(var(--red-500));
-  --color-red-600: hsla(var(--red-600));
-  --color-red-main: hsla(var(--red-main));
-
-  --color-green-100: hsla(var(--green-100));
-  --color-green-200: hsla(var(--green-200));
-  --color-green-300: hsla(var(--green-300));
-  --color-green-400: hsla(var(--green-400));
-  --color-green-500: hsla(var(--green-500));
-  --color-green-600: hsla(var(--green-600));
-  --color-green-main: hsla(var(--green-main));
-
-  --color-orange-100: hsla(var(--orange-100));
-  --color-orange-200: hsla(var(--orange-200));
-  --color-orange-300: hsla(var(--orange-300));
-  --color-orange-400: hsla(var(--orange-400));
-  --color-orange-500: hsla(var(--orange-500));
-  --color-orange-600: hsla(var(--orange-600));
-  --color-orange-main: hsla(var(--orange-main));
-
-  --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
-}
-
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
 }
 
 @utility text-balance {
-  text-wrap: balance;
+    text-wrap: balance;
 }
 
 @layer utilities {
-  body {
-    font-family: 'Rubik', sans-serif;
-  }
+    body {
+        font-family: "Rubik", sans-serif;
+    }
 }
 
 @layer base {
-  :root {
-    --radius: 0.5rem;
+    * {
+        @apply border-border;
+    }
 
-    /* ELEMENTS */
-    --text-primary: var(--black-600);
-    --text-bright: var(--black-main);
-    --text-primary-inverse: var(--white-main);
-    --text-primary-on-color: var(--white-main);
-    --text-secondary: var(--black-500);
-    --text-muted: var(--black-400);
-    --text-disabled: var(--black-300);
-    --text-critical: var(--red-main);
-    --text-caution: var(--orange-main);
-    --text-success: var(--green-main);
-    --text-link: var(--blue-main);
-
-    --background-primary: var(--white-main);
-    --background-primary-inverse: var(--black-main);
-    --background-secondary: var(--black-100);
-    --background-secondary-subdued: var(--black-200);
-    --background-disabled: var(--black-200);
-    --background-success-subdued: var(--green-300);
-    --background-link-subdued: var(--blue-300);
-    --background-caution-subdued: var(--orange-300);
-    --background-critical-subdued: var(--red-300);
-    --background-critical: var(--red-main);
-    --background-popover: 0 0% 96.1%;
-
-    --border-primary: 0 0% 90%;
-    --border-critical: var(--red-main);
-    --border-active: var(--blue-main);
-
-    --icon-primary: var(--black-600);
-
-    --notification-text: 0 0% 100%;
-    --notification-default: linear-gradient(to right, hsl(208, 89%, 59%), hsl(191, 100%, 62%));
-    --notification-warning: linear-gradient(to right, hsl(10, 82%, 55%), hsl(35, 100%, 60%));
-    --notification-alert: linear-gradient(90deg, hsla(357, 72%, 16%, 1) 0%, hsla(359, 64%, 30%, 1) 100%);
-
-    /* COLOR KIT */
-    --black-main: 240 10% 4%;
-    --black-600: 240, 10%, 4%, 0.88;
-    --black-500: 240, 10%, 4%, 0.6;
-    --black-400: 240, 10%, 4%, 0.4;
-    --black-300: 240, 10%, 4%, 0.12;
-    --black-200: 240, 10%, 4%, 0.08;
-    --black-100: 240, 10%, 4%, 0.04;
-
-    --white-main: 0, 0%, 100%, 1;
-    --white-600: 0, 0%, 100%, 0.88;
-    --white-500: 0, 0%, 100%, 0.6;
-    --white-400: 0, 0%, 100%, 0.4;
-    --white-300: 0, 0%, 100%, 0.12;
-    --white-200: 0, 0%, 100%, 0.08;
-    --white-100: 0, 0%, 100%, 0.04;
-
-    --blue-main: 215, 100%, 65%, 1;
-    --blue-600: 215, 100%, 65%, 0.88;
-    --blue-500: 215, 100%, 65%, 0.6;
-    --blue-400: 215, 100%, 65%, 0.4;
-    --blue-300: 215, 100%, 65%, 0.16;
-    --blue-200: 215, 100%, 65%, 0.08;
-    --blue-100: 215, 100%, 65%, 0.04;
-    --blue-ton: 206 100% 56%;
-
-    --red-main: 0, 96%, 61%, 1;
-    --red-600: 0, 96%, 61%, 0.88;
-    --red-500: 0, 96%, 61%, 0.6;
-    --red-400: 0, 96%, 61%, 0.4;
-    --red-300: 0, 96%, 61%, 0.16;
-    --red-200: 0, 96%, 61%, 0.08;
-    --red-100: 0, 96%, 61%, 0.04;
-
-    --green-main: 140, 61%, 43%, 1;
-    --green-600: 140, 61%, 43%, 0.88;
-    --green-500: 140, 61%, 43%, 0.6;
-    --green-400: 140, 61%, 43%, 0.4;
-    --green-300: 140, 61%, 43%, 0.16;
-    --green-200: 140, 61%, 43%, 0.08;
-    --green-100: 140, 61%, 43%, 0.04;
-
-    --orange-main: 27, 94%, 60%, 1;
-    --orange-600: 27, 94%, 60%, 0.88;
-    --orange-500: 27, 94%, 60%, 0.6;
-    --orange-400: 27, 94%, 60%, 0.4;
-    --orange-300: 27, 94%, 60%, 0.16;
-    --orange-200: 27, 94%, 60%, 0.08;
-    --orange-100: 27, 94%, 60%, 0.04;
-
-    --code-foreground: #171717;
-    --code-background: #ffffff;
-    --code-keyword: #bd2764;
-    --code-entity: #7820bc;
-    --code-constant: #171717;
-    --code-string: #297a3a;
-    --code-variable: #0068d6;
-    --code-comment: #666666;
-    --code-entity-tag: #297a3a;
-    --code-storage-modifier: #bd2764;
-    --code-heading: #171717;
-    --code-bullet: #7820bc;
-    --code-emphasis: #171717;
-    --code-strong: #171717;
-    --code-addition-foreground: #297a3a;
-    --code-addition-background: #62c0741f;
-    --code-deletion-foreground: #f75f8f;
-    --code-deletion-background: #f75f8f1f;
-  }
-
-  .dark {
-    --text-primary: var(--white-600);
-    --text-bright: var(--white-main);
-    --text-primary-inverse: var(--black-main);
-    --text-primary-on-color: var(--white-main);
-    --text-secondary: var(--white-500);
-    --text-muted: var(--white-400);
-    --text-disabled: var(--white-300);
-    --text-critical: var(--red-main);
-    --text-caution: var(--orange-main);
-    --text-success: var(--green-main);
-    --text-link: var(--blue-main);
-
-    --background-primary: var(--black-main);
-    --background-primary-inverse: var(--white-main);
-    --background-secondary: var(--white-100);
-    --background-secondary-subdued: var(--white-200);
-    --background-disabled: var(--white-200);
-    --background-success-subdued: var(--green-300);
-    --background-link-subdued: var(--blue-300);
-    --background-caution-subdued: var(--orange-300);
-    --background-critical-subdued: var(--red-300);
-    --background-critical: var(--red-main);
-    --background-popover: 240 5% 7.8%;
-
-    --border-primary: 0 0% 15%;
-    --border-critical: var(--red-main);
-    --border-active: var(--blue-main);
-
-    --icon-primary: var(--white-600);
-
-    --code-foreground: #ededed;
-    --code-background: #0a0a0a;
-    --code-keyword: #f75f8f;
-    --code-entity: #bf7af0;
-    --code-constant: #ededed;
-    --code-string: #62c074;
-    --code-variable: #52a8ff;
-    --code-comment: #a1a1a1;
-    --code-entity-tag: #62c074;
-    --code-storage-modifier: #f75f8f;
-    --code-heading: #ededed;
-    --code-bullet: #bf7af0;
-    --code-emphasis: #ededed;
-    --code-strong: #ededed;
-    --code-addition-foreground: #62c074;
-    --code-addition-background: #62c0741f;
-    --code-deletion-foreground: #f75f8f;
-    --code-deletion-background: #f75f8f1f;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-primary-border;
-  }
-
-  body {
-    @apply bg-primary text-primary-text;
-  }
+    body {
+        @apply bg-background text-foreground;
+    }
 }

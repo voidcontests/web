@@ -1,0 +1,11 @@
+@layer base {
+    :root {
+        --background: #fcfcfc;
+        --foreground: #171717;
+        --surface: #ffffff;
+        --surface-secondary: #f8f9fa;
+        --secondary-foreground: #707070;
+        --tertiary-foreground: #959595;
+        --border: #e7eaf3;
+    }
+}
