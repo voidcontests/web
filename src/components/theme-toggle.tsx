@@ -25,7 +25,7 @@ export default function ThemeToggle() {
     const { theme, setTheme } = useTheme();
 
     return (
-        <span onClick={() => setTheme(prev => transitions[prev])} className='hover:text-primary-text transition-colors hover:cursor-pointer select-none' suppressHydrationWarning>
+        <span onClick={() => setTheme(prev => transitions[prev])} className='hover:text-foreground transition-colors hover:cursor-pointer select-none' suppressHydrationWarning>
             {label(theme)}
         </span>
     );

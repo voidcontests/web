@@ -7,13 +7,13 @@ const tagVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary-inverse text-primary-inverse-text",
-        secondary: "bg-secondary text-primary-text",
-        outline: "border text-primary-text",
-        blue: "bg-link-subdued text-link-text",
-        green: "bg-success-subdued text-success-text",
-        orange: "bg-caution-subdued text-caution-text",
-        red: "bg-critical-subdued text-critical-text",
+        default: "bg-zinc-950 text-zinc-50 dark:bg-zinc-50 dark:text-zinc-950",
+        secondary: "bg-zinc-950/4 dark:bg-zinc-50/7",
+        outline: "border",
+        blue: "bg-blue-400/20 bg-blue-400",
+        green: "bg-green-500/15 text-green-500",
+        orange: "bg-amber-500/15 text-amber-500",
+        red: "bg-scarlet-500/15 text-scarlet-500",
       },
     },
     defaultVariants: {

@@ -4,17 +4,17 @@ import { cn } from "@/lib/utils";
 import * as React from "react";
 
 const buttonVariants = cva(
-  "font-medium inline-flex items-center justify-center gap-[10px] whitespace-nowrap rounded-[10px] transition-colors focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:opacity-90 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "font-medium inline-flex items-center justify-center gap-[10px] whitespace-nowrap rounded-[10px] transition-colors focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:opacity-90 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:cursor-pointer",
   {
     variants: {
       variant: {
-        default: "bg-primary-inverse text-primary-inverse-text",
-        secondary: "bg-secondary text-primary-text",
-        destructive: "bg-critical text-primary-on-color-text",
-        link: "text-link-text bg-link-subdued font-medium",
-        outline: "border bg-transparent hover:bg-secondary text-primary-text",
-        dashed: "border border-dashed bg-transparent hover:bg-secondary text-primary-text",
-        ghost: "bg-transparent text-primary-text hover:bg-secondary",
+        default: "bg-zinc-950 text-zinc-50 dark:bg-zinc-50 dark:text-zinc-950",
+        secondary: "bg-zinc-950/4 dark:bg-zinc-50/7",
+        destructive: "bg-scarlet-500 text-zinc-50",
+        link: "bg-blue-400/20 text-blue-400 font-medium",
+        outline: "border bg-transparent hover:bg-zinc-950/4 dark:hover:bg-zinc-50/7",
+        dashed: "border border-dashed bg-transparent hover:bg-zinc-950/4 dark:hover:bg-zinc-50/7",
+        ghost: "bg-transparent hover:bg-zinc-950/4 dark:hover:bg-zinc-50/7",
       },
       size: {
         sm: "h-7 px-3 min-w-32 text-xs",

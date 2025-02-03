@@ -33,7 +33,7 @@ const TableHead = React.forwardRef<HTMLTableCellElement, React.ThHTMLAttributes<
   <th
     ref={ref}
     className={cn(
-      "h-full text-left text-sm text-muted-text font-normal align-middle",
+      "h-full text-left text-sm text-tertiary-foreground font-normal align-middle",
       className,
     )}
     {...props}
@@ -62,25 +62,13 @@ const TableCell = React.forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<
 ));
 TableCell.displayName = "TableCell";
 
-const TableFooter = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
-  <tfoot
-    ref={ref}
-    className={cn(
-      "h-10 w-full flex items-center justify-center bg-transparent font-regular text-sm text-primary-text",
-      className
-    )}
-    {...props}
-  />
-));
-TableFooter.displayName = "TableFooter";
-
 const TableCaption = React.forwardRef<
   HTMLTableCaptionElement,
   React.HTMLAttributes<HTMLTableCaptionElement>
 >(({ className, ...props }, ref) => (
   <caption
     ref={ref}
-    className={cn("py-2 text-sm text-secondary-text", className)}
+    className={cn("py-2 text-sm text-secondary-foreground", className)}
     {...props}
   />
 ))
@@ -94,6 +82,5 @@ export {
   TableBody,
   TableRow,
   TableCell,
-  TableFooter,
   TableCaption,
 }

@@ -58,7 +58,7 @@ const Timer: React.FC<TimerProps> = ({ target, onComplete }) => {
     }, [target]);
 
     return (
-        <div className="text-primary-text text-4xl font-medium" suppressHydrationWarning>
+        <div className="text-4xl font-medium" suppressHydrationWarning>
             {timeLeft}
         </div>
     );

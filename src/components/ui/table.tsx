@@ -4,7 +4,7 @@ import * as React from "react";
 const TableContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className="bg-secondary border rounded-xl relative w-full overflow-auto"
+    className="bg-surface border rounded-xl relative w-full overflow-auto"
     {...props}
   />
 ));
@@ -38,7 +38,7 @@ const TableBody = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes
 TableBody.displayName = "TableBody";
 
 const TableHeader = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
-  <thead ref={ref} className={cn("h-4 overflow-hidden bg-secondary", className)} {...props} />
+  <thead ref={ref} className={cn("h-4 overflow-hidden bg-surface-secondary", className)} {...props} />
 ));
 TableHeader.displayName = "TableHeader";
 
@@ -51,7 +51,7 @@ const TableHead = React.forwardRef<HTMLTableCellElement, React.ThHTMLAttributes<
   <th
     ref={ref}
     className={cn(
-      "first:px-5 first:w-0 h-full text-left text-sm text-muted-text font-normal align-middle",
+      "first:px-5 first:w-0 h-full text-left text-sm text-tertiary-foreground font-normal align-middle",
       className,
     )}
     {...props}
@@ -83,25 +83,13 @@ const TableCell = React.forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<
 ));
 TableCell.displayName = "TableCell";
 
-const TableFooter = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
-  <tfoot
-    ref={ref}
-    className={cn(
-      "h-10 w-full flex items-center justify-center bg-transparent font-regular text-sm text-primary-text",
-      className
-    )}
-    {...props}
-  />
-));
-TableFooter.displayName = "TableFooter";
-
 const TableCaption = React.forwardRef<
   HTMLTableCaptionElement,
   React.HTMLAttributes<HTMLTableCaptionElement>
 >(({ className, ...props }, ref) => (
   <caption
     ref={ref}
-    className={cn("py-2 text-sm text-secondary-text border-t", className)}
+    className={cn("py-2 text-sm text-secondary-foreground border-t", className)}
     {...props}
   />
 ))
@@ -117,6 +105,5 @@ export {
   TableBody,
   TableRow,
   TableCell,
-  TableFooter,
   TableCaption,
 }
