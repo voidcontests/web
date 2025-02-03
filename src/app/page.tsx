@@ -10,7 +10,7 @@ export default async function HomePage() {
     <ContentContainer>
       <div className="flex flex-col items-center w-full pt-8 gap-8">
         <h1 className="flex flex-col items-center">
-          <span className="font-bold text-8xl leading-[90px] bg-linear-to-r from-[#7b84ff] to-[#2d83ec] bg-clip-text text-center text-blue-400">
+          <span className="font-bold text-8xl leading-[90px] text-center text-blue-400">
             THE VOID*
           </span>
           <span className="font-normal text-6xl leading-[75px] text-foreground text-center">

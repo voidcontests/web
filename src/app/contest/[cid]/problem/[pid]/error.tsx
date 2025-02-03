@@ -10,7 +10,7 @@ export default function Error({ error }: { error: Error & { digest?: string } })
 
     return (
         <ContentContainer>
-            <div className="py-4 px-6 rounded-lg bg-critical-subdued border border-critical text-critical-text">
+            <div className="py-4 px-6 rounded-lg bg-scarlet-500/20 border border-scarlet-500 text-scarlet-500">
                 Problem was not found
             </div>
         </ContentContainer>

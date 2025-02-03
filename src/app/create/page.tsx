@@ -134,7 +134,7 @@ export default function CreateContestPage() {
         <ContentContainer>
             <div className="flex flex-col gap-8 mb-16">
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-bright-text text-lg font-medium">Add a title</h1>
+                    <h1 className="text-foreground text-lg font-medium">Add a title</h1>
                     <Input
                         value={contest.title}
                         placeholder="Title"
@@ -181,7 +181,7 @@ export default function CreateContestPage() {
                                             </TableCell>
                                             <TableCell className="w-[100px]">
                                                 <span
-                                                    className="text-base text-link-text font-medium transition-colors hover:underline hover:cursor-pointer underline-offset-2"
+                                                    className="text-base text-blue-400 font-medium transition-colors hover:underline hover:cursor-pointer underline-offset-2"
                                                     onClick={() => {
                                                         setContest(prev => ({
                                                             ...prev,
@@ -205,7 +205,7 @@ export default function CreateContestPage() {
                     </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-bright-text text-lg font-medium">Time settings</h1>
+                    <h1 className="text-foreground text-lg font-medium">Time settings</h1>
                     <div className="flex grow gap-3 items-center">
                         <div className='shrink-0'>
                             From
@@ -257,7 +257,7 @@ export default function CreateContestPage() {
                         <div className="grid grid-cols-12 gap-5 mx-4">
                             <div className="col-span-9 flex flex-col gap-8">
                                 <div className="flex flex-col gap-2">
-                                    <h1 className="text-bright-text text-lg font-medium">Add a title</h1>
+                                    <h1 className="text-foreground text-lg font-medium">Add a title</h1>
                                     <Input
                                         value={problem.title}
                                         placeholder="Title"
