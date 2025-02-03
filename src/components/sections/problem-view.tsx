@@ -52,7 +52,7 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
                         BACK TO CONTEST
                     </Link>
                 </div>
-                <h1 className="text-bright-text text-xl font-medium text-center">
+                <h1 className="text-foreground text-xl font-medium text-center">
                     {pdetailed.title}
                 </h1>
                 <div className="flex-1"></div>

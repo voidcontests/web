@@ -12,8 +12,8 @@ export function ContestAboutTable({ contest }: { contest: Promise<ContestDetaile
     const cdetailed = use(contest);
 
     return (
-        <div className="border rounded-xl bg-secondary p-5 flex flex-col gap-2">
-            <h1 className="text-bright-text text-sm font-medium">
+        <div className="border rounded-xl bg-surface p-5 flex flex-col gap-2">
+            <h1 className="text-foreground text-sm font-medium">
                 ABOUT
             </h1>
             <Table>

@@ -12,11 +12,11 @@ export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> })
     return (
         <Widget className="flex-1">
             <WidgetContent>
-                <WidgetTitle className="text-bright-text">
+                <WidgetTitle className="text-foreground">
                     ABOUT
                 </WidgetTitle>
                 <div className="flex">
-                    <div className="flex-1 text-secondary-text">
+                    <div className="flex-1 text-secondary-foreground">
                         Starts
                     </div>
                     <div className="flex-1">
@@ -24,7 +24,7 @@ export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> })
                     </div>
                 </div>
                 <div className="flex">
-                    <div className="flex-1 text-secondary-text">
+                    <div className="flex-1 text-secondary-foreground">
                         Deadline
                     </div>
                     <div className="flex-1">
@@ -34,7 +34,7 @@ export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> })
                 {
                     cdetailed.duration_mins !== 0 &&
                     <div className="flex">
-                        <div className="flex-1 text-secondary-text">
+                        <div className="flex-1 text-secondary-foreground">
                             Duration
                         </div>
                         <div className="flex-1">
@@ -43,7 +43,7 @@ export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> })
                     </div>
                 }
                 <div className="flex">
-                    <div className="flex-1 text-secondary-text">
+                    <div className="flex-1 text-secondary-foreground">
                         Participants
                     </div>
                     <div className="flex-1">
@@ -51,7 +51,7 @@ export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> })
                     </div>
                 </div>
                 <div className="flex">
-                    <div className="flex-1 text-secondary-text">
+                    <div className="flex-1 text-secondary-foreground">
                         Slots
                     </div>
                     <div className="flex-1">
@@ -67,7 +67,7 @@ export function Loading() {
     return (
         <Widget className="flex-1">
             <WidgetContent>
-                <WidgetTitle className="text-bright-text">
+                <WidgetTitle className="text-foreground">
                     ABOUT
                 </WidgetTitle>
                 <div className="flex flex-row justify-between">

@@ -57,7 +57,7 @@ export default function Problemset({ contest, difficulties, currentProblemID }: 
                                         started && (cdetailed.is_participant || (wallet && cdetailed.is_participant))
                                             ? <Link
                                                 href={`/contest/${problem.contest_id}/problem/${problem.id}`}
-                                                className={currentProblemID?.toString() === problem.id.toString() ? 'text-primary-text' : ''}
+                                                className={currentProblemID?.toString() === problem.id.toString() ? 'text-foreground' : ''}
                                             >
                                                 {problem.title}
                                             </Link>

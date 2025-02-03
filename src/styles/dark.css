@@ -7,5 +7,24 @@
         --secondary-foreground: #898989;
         --tertiary-foreground: #6e6e70;
         --border: #212121;
+
+        --code-foreground: #ededed;
+        --code-background: #0a0a0a;
+        --code-keyword: #f75f8f;
+        --code-entity: #bf7af0;
+        --code-constant: #ededed;
+        --code-string: #62c074;
+        --code-variable: #52a8ff;
+        --code-comment: #a1a1a1;
+        --code-entity-tag: #62c074;
+        --code-storage-modifier: #f75f8f;
+        --code-heading: #ededed;
+        --code-bullet: #bf7af0;
+        --code-emphasis: #ededed;
+        --code-strong: #ededed;
+        --code-addition-foreground: #62c074;
+        --code-addition-background: #62c0741f;
+        --code-deletion-foreground: #f75f8f;
+        --code-deletion-background: #f75f8f1f;
     }
 }
