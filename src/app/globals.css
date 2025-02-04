@@ -32,4 +32,12 @@
     body {
         @apply bg-background text-foreground;
     }
+
+    ::selection {
+        background-color: --alpha(var(--color-blue-400) / 20%);
+    }
+
+    ::-moz-selection {
+        background-color: --alpha(var(--color-blue-400) / 20%);
+    }
 }
