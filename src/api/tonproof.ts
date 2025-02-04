@@ -1,9 +1,9 @@
 import { Account, ConnectAdditionalRequest, TonProofItemReplySuccess } from "@tonconnect/ui";
-import instance from "./core/instance";
+import { authorized } from "./core/instance";
 
 export const generatePayload = async (): Promise<ConnectAdditionalRequest | undefined> => {
     try {
-        const { data } = await instance.post('/tonproof/payload');
+        const { data } = await authorized.post('/tonproof/payload');
         return { tonProof: data.payload };
     } catch (e) {
         console.error(e);
@@ -22,7 +22,7 @@ export const check = async (proof: TonProofItemReplySuccess['proof'], account: A
             }
         }
 
-        const { data } = await instance.post('/tonproof/check', body);
+        const { data } = await authorized.post('/tonproof/check', body);
 
         return data.token;
     } catch (e) {
@@ -32,7 +32,7 @@ export const check = async (proof: TonProofItemReplySuccess['proof'], account: A
 }
 
 export const getAccount = async (accessToken: string, account: Account) => {
-    const { data } = await instance.get(`/tonproof/account?network=${account.chain}`, {
+    const { data } = await authorized.get(`/tonproof/account?network=${account.chain}`, {
         headers: {
             Authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json'

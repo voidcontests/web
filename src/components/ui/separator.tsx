@@ -9,7 +9,7 @@ const Separator = React.forwardRef<HTMLHRElement, SeparatorProps>(({ className, 
   <hr
     ref={ref}
     className={cn(
-      'bg-border-primary',
+      'bg-border',
       vertical ? 'h-full w-[1px]' : 'w-full h-[1px]',
       className,
     )}

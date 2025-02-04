@@ -25,3 +25,13 @@ export const getLineStartIndex = (text: string, index: number): number => {
     return -1;
 }
 
+export const truncate_address = (address: string, len: number = 6): string => {
+    if (address.length < 2 * len) return address;
+
+    return `${address.slice(0, len)}...${address.slice(-len)}`;
+}
+
+export const capitalize = (word: string): string => {
+    if (!word) return '';
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { TonConnectUIProvider, THEME } from "@tonconnect/ui-react";
-import { TonProofContext } from "@/contexts/TonProofToken";
+import { TonProofContext } from "@/contexts/tonproof";
 import { useState } from "react";
 
 const manifestURL = "https://raw.githubusercontent.com/voidcontests/frontend/refs/heads/master/public/tonconnect-manifest.json";
@@ -24,7 +24,7 @@ export const TonConnectProvider = ({ children }: { children: React.ReactNode }) 
                     { includeWallets: undefined }
                 }
             >
-                {children}
+                    {children}
             </TonConnectUIProvider>
         </TonProofContext.Provider>
     );

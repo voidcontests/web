@@ -1,13 +1,16 @@
-import React from "react";
+'use client';
+
+import { Button } from "@/components/ui/button";
+import { LoaderCircle, LogOut } from "lucide-react";
 import {
     useIsConnectionRestored,
     useTonConnectUI,
     useTonAddress,
     useTonWallet
 } from "@tonconnect/ui-react";
-
-import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/icons";
+import React, { useEffect } from "react";
+import { truncate_address } from "@/lib/strings";
+import { revalidate } from "@/actions/actions";
 
 const TonConnectButton = () => {
     const isConnectionRestored = useIsConnectionRestored();
@@ -15,60 +18,43 @@ const TonConnectButton = () => {
     const address = useTonAddress();
     const wallet = useTonWallet();
 
-    const handleCopyAddress = () => {
-        navigator.clipboard.writeText(address);
-    }
+    useEffect(() => {
+        if (isConnectionRestored && address) {
+            setTimeout(() => { revalidate('/') }, 500);
+        }
+    }, [address]);
 
-    const handleLogOut = () => {
+    const disconnect = async () => {
         tonConnectUI.disconnect();
+        revalidate('/');
     }
 
-    const enshortAdress = (address: string): string => {
-        if (address.length < 8) return address;
-        return `${address.slice(0, 4)}...${address.slice(-4)}`;
+    const connect = async () => {
+        tonConnectUI.openModal();
     }
 
     if (!isConnectionRestored) {
         return (
-            <Button variant="secondary" className="font-medium" disabled>
-                <Icons.loader className="animate-spin" /> LOADING
+            <Button variant="secondary" disabled>
+                <LoaderCircle className="animate-spin" /> LOADING
             </Button>
         );
     }
 
     if (!wallet || !tonConnectUI.account) {
         return (
-            <Button onClick={() => tonConnectUI.openModal()} className="text-text-primary-on-color font-medium bg-blue-ton hover:bg-blue-ton/90">
+            <Button onClick={() => connect()} className="bg-blue-400 text-zinc-50 dark:bg-blue-400 dark:text-zinc-50">
                 CONNECT WALLET
             </Button>
         );
     }
 
 
+    // TODO: add dropdown menu with copying address, disconnecting account, etc.
     return (
-        <Button className="font-medium" onClick={handleLogOut}>
-            {enshortAdress(address)} <Icons.chevronDown />
+        <Button onClick={disconnect}>
+            {truncate_address(address, 4)} <LogOut />
         </Button>
-        // <DropdownMenu>
-        //     <DropdownMenuTrigger>
-        //         <Button className="font-medium">
-        //             {enshortAdress(address)} <Icons.chevronDown />
-        //         </Button>
-        //     </DropdownMenuTrigger>
-        //     <DropdownMenuContent>
-        //         <DropdownMenuItem
-        //             onClick={handleCopyAddress}
-        //         >
-        //             <Copy /> Copy Address
-        //         </DropdownMenuItem>
-        //         <DropdownMenuItem
-        //             onClick={handleLogOut}
-        //             className="text-text-critical focus:bg-background-critical-subdued"
-        //         >
-        //             <LogOut /> Log Out
-        //         </DropdownMenuItem>
-        //     </DropdownMenuContent>
-        // </DropdownMenu>
     );
 }
 

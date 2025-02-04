@@ -4,11 +4,11 @@ import NextLink from "next/link";
 import * as React from "react";
 
 const linkVariants = cva(
-    "text-base text-text-link hover:underline underline-offset-2",
+    "text-sm text-blue-400 hover:underline underline-2 underline-offset-2",
     {
         variants: {
             size: {
-                default: "font-regulat",
+                default: "font-normal",
                 large: "font-medium",
             },
         },
@@ -18,8 +18,7 @@ const linkVariants = cva(
     }
 );
 
-export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
-    VariantProps<typeof linkVariants> {
+export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>, VariantProps<typeof linkVariants> {
     href: string;
 }
 

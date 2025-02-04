@@ -1,154 +1,43 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "../styles/theme.css";
 
-body {
-  font-family: 'Rubik', sans-serif;
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+@utility text-balance {
+    text-wrap: balance;
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    body {
+        font-family: "Rubik", sans-serif;
+    }
 }
 
 @layer base {
-  :root {
-    --radius: 0.5rem;
+    * {
+        @apply border-border;
+    }
 
-    /* ELEMENTS */
-    --text-primary: var(--black-600);
-    --text-bright: var(--black-main);
-    --text-primary-inverse: var(--white-main);
-    --text-primary-on-color: var(--white-main);
-    --text-secondary: var(--black-500);
-    --text-muted: var(--black-400);
-    --text-disabled: var(--black-300);
-    --text-critical: var(--red-main);
-    --text-caution: var(--orange-main);
-    --text-success: var(--green-main);
-    --text-link: var(--blue-main);
+    body {
+        @apply bg-background text-foreground;
+    }
 
-    --background-primary: var(--white-main);
-    --background-primary-inverse: var(--black-main);
-    --background-secondary: var(--black-100);
-    --background-secondary-subdued: var(--black-200);
-    --background-disabled: var(--black-200);
-    --background-success-subdued: var(--green-300);
-    --background-link-subdued: var(--blue-300);
-    --background-caution-subdued: var(--orange-300);
-    --background-critical-subdued: var(--red-300);
-    --background-critical: var(--red-main);
-    --background-popover: 0 0% 96.1%;
+    ::selection {
+        background-color: --alpha(var(--color-blue-400) / 20%);
+    }
 
-    --border-primary: 0 0% 90%;
-    --border-critical: var(--red-main);
-    --border-active: var(--blue-main);
-
-    --icon-primary: var(--black-600);
-
-    --notification-text: 0 0% 100%;
-    --notification-default: linear-gradient(to right, hsl(208, 89%, 59%), hsl(191, 100%, 62%));
-    --notification-warning: linear-gradient(to right, hsl(10, 82%, 55%), hsl(35, 100%, 60%));
-    --notification-alert: linear-gradient(90deg, hsla(357, 72%, 16%, 1) 0%, hsla(359, 64%, 30%, 1) 100%);
-
-    /* COLOR KIT */
-    --black-main: 240, 10%, 4%, 1;
-    --black-600: 240, 10%, 4%, 0.88;
-    --black-500: 240, 10%, 4%, 0.6;
-    --black-400: 240, 10%, 4%, 0.4;
-    --black-300: 240, 10%, 4%, 0.12;
-    --black-200: 240, 10%, 4%, 0.08;
-    --black-100: 240, 10%, 4%, 0.04;
-
-    --white-main: 0, 0%, 100%, 1;
-    --white-600: 0, 0%, 100%, 0.88;
-    --white-500: 0, 0%, 100%, 0.6;
-    --white-400: 0, 0%, 100%, 0.4;
-    --white-300: 0, 0%, 100%, 0.12;
-    --white-200: 0, 0%, 100%, 0.08;
-    --white-100: 0, 0%, 100%, 0.04;
-
-    --blue-main: 215, 100%, 65%, 1;
-    --blue-600: 215, 100%, 65%, 0.88;
-    --blue-500: 215, 100%, 65%, 0.6;
-    --blue-400: 215, 100%, 65%, 0.4;
-    --blue-300: 215, 100%, 65%, 0.16;
-    --blue-200: 215, 100%, 65%, 0.08;
-    --blue-100: 215, 100%, 65%, 0.04;
-    --blue-ton: 206 100% 56%;
-
-    --red-main: 0, 96%, 61%, 1;
-    --red-600: 0, 96%, 61%, 0.88;
-    --red-500: 0, 96%, 61%, 0.6;
-    --red-400: 0, 96%, 61%, 0.4;
-    --red-300: 0, 96%, 61%, 0.16;
-    --red-200: 0, 96%, 61%, 0.08;
-    --red-100: 0, 96%, 61%, 0.04;
-
-    --green-main: 140, 61%, 43%, 1;
-    --green-600: 140, 61%, 43%, 0.88;
-    --green-500: 140, 61%, 43%, 0.6;
-    --green-400: 140, 61%, 43%, 0.4;
-    --green-300: 140, 61%, 43%, 0.16;
-    --green-200: 140, 61%, 43%, 0.08;
-    --green-100: 140, 61%, 43%, 0.04;
-
-    --orange-main: 27, 94%, 60%, 1;
-    --orange-600: 27, 94%, 60%, 0.88;
-    --orange-500: 27, 94%, 60%, 0.6;
-    --orange-400: 27, 94%, 60%, 0.4;
-    --orange-300: 27, 94%, 60%, 0.16;
-    --orange-200: 27, 94%, 60%, 0.08;
-    --orange-100: 27, 94%, 60%, 0.04;
-  }
-
-  .dark {
-    --text-primary: var(--white-600);
-    --text-bright: var(--white-main);
-    --text-primary-inverse: var(--black-main);
-    --text-primary-on-color: var(--white-main);
-    --text-secondary: var(--white-500);
-    --text-muted: var(--white-400);
-    --text-disabled: var(--white-300);
-    --text-critical: var(--red-main);
-    --text-caution: var(--orange-main);
-    --text-success: var(--green-main);
-    --text-link: var(--blue-main);
-
-    --background-primary: var(--black-main);
-    --background-primary-inverse: var(--white-main);
-    --background-secondary: var(--white-100);
-    --background-secondary-subdued: var(--white-200);
-    --background-disabled: var(--white-200);
-    --background-success-subdued: var(--green-300);
-    --background-link-subdued: var(--blue-300);
-    --background-caution-subdued: var(--orange-300);
-    --background-critical-subdued: var(--red-300);
-    --background-critical: var(--red-main);
-    --background-popover: 240 5% 7.8%;
-
-    --border-primary: 0 0% 15%;
-    --border-critical: var(--red-main);
-    --border-active: var(--blue-main);
-
-    --icon-primary: var(--white-600);
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border-primary;
-  }
-
-  body {
-    @apply bg-background-primary text-text-primary;
-  }
-}
-
-.codeblock>pre {
-  background-color: transparent;
-  padding: 0;
+    ::-moz-selection {
+        background-color: --alpha(var(--color-blue-400) / 20%);
+    }
 }

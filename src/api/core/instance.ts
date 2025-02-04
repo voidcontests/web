@@ -1,7 +1,33 @@
+import Cookies from "js-cookie";
 import axios from "axios";
 
-const instance = axios.create({
-    baseURL: "http://localhost:6969/api",
+const DOMAIN = 'https://void.ndbtea.tech';
+
+const authorized = axios.create({
+    baseURL: DOMAIN + "/api",
 });
 
-export default instance;
+authorized.interceptors.request.use((config) => {
+    const token = Cookies.get("token")
+
+    config.headers.Authorization = `Bearer ${token}`;
+
+    return config;
+});
+
+authorized.interceptors.response.use(
+    response => response,
+    error => Promise.resolve(error.response),
+);
+
+
+const unauthorized = axios.create({
+    baseURL: DOMAIN + "/api",
+});
+
+unauthorized.interceptors.response.use(
+    response => response,
+    error => Promise.resolve(error.response),
+);
+
+export { authorized, unauthorized };
