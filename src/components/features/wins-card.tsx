@@ -3,7 +3,7 @@ import CentVisual from "./cent-visual";
 
 export default function WinsCard() {
     return (
-        <div className="col-span-6 p-5 rounded-xl bg-surface border flex justify-between items-center text-sm h-84 group hover:border-blue-400 hover:cursor-pointer transition-colors duration-300">
+        <div className="col-span-6 p-5 rounded-xl bg-surface border not-dark:shadow-md flex justify-between items-center text-sm h-84 group hover:border-blue-400 hover:cursor-pointer transition-colors duration-300">
             <div className="flex flex-col justify-between h-full">
                 <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-2">

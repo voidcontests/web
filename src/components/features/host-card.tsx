@@ -4,7 +4,7 @@ import KeyboardVisual from "./keyboard-visual";
 
 export default function HostCard() {
     return (
-        <div className="col-span-3 rounded-xl bg-surface border flex flex-col justify-between text-sm h-84 group hover:border-blue-400 hover:cursor-pointer transition-colors duration-300">
+        <div className="col-span-3 rounded-xl bg-surface border not-dark:shadow-md flex flex-col justify-between text-sm h-84 group hover:border-blue-400 hover:cursor-pointer transition-colors duration-300">
             <div className="m-5 flex flex-col gap-2">
                 <div className="flex items-center gap-2">
                     <Cannabis className="w-4 h-4" />
