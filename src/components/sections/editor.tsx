@@ -191,8 +191,8 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
     return (
         <TooltipProvider>
             <div className="flex flex-col gap-2">
-                <div className="flex justify-between items-center">
-                    <h1 className="text-foreground text-xl font-medium">
+                <div className="flex justify-between items-end">
+                    <h1 className="text-foreground text-lg font-medium">
                         {children}
                     </h1>
                     <div className="flex items-center gap-1">

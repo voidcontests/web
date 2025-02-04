@@ -9,9 +9,11 @@ export default function ContestInfo({ contest }: { contest: Promise<ContestDetai
             <h1 className="text-foreground text-xl font-medium">
                 {cdetailed.title}
             </h1>
-            <div>
-                {cdetailed.description}
-            </div>
+            {
+                cdetailed.description.trim().length !== 0
+                    ? <span className="text-sm">{cdetailed.description}</span>
+                    : <span className="italic text-sm text-secondary-foreground">No description</span>
+            }
         </div>
     );
 }
