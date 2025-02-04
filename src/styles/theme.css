@@ -10,6 +10,7 @@
     --color-secondary-foreground: var(--secondary-foreground);
     --color-tertiary-foreground: var(--tertiary-foreground);
     --color-border: var(--border);
+    --color-border-secondary: var(--border-secondary);
 
     /* Border radiuses */
     --radius: 0.5rem;
