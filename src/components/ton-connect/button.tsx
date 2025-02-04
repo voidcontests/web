@@ -43,7 +43,7 @@ const TonConnectButton = () => {
 
     if (!wallet || !tonConnectUI.account) {
         return (
-            <Button onClick={() => connect()} className="text-primary-on-color-text bg-blue-ton hover:bg-blue-ton/90">
+            <Button onClick={() => connect()} className="bg-blue-400 text-zinc-50 dark:bg-blue-400 dark:text-zinc-50">
                 CONNECT WALLET
             </Button>
         );

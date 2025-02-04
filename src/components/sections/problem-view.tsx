@@ -52,14 +52,14 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
                         BACK TO CONTEST
                     </Link>
                 </div>
-                <h1 className="text-bright-text text-xl font-medium text-center">
+                <h1 className="text-foreground text-xl font-medium text-center">
                     {pdetailed.title}
                 </h1>
                 <div className="flex-1"></div>
             </div>
             <Preview markdown={pdetailed.statement} />
             <div className="flex items-center gap-4">
-                <span className="flex-shrink-0 text-sm font-semibold">
+                <span className="shrink-0 text-sm font-semibold">
                     Answer:
                 </span>
                 <Input

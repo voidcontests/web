@@ -16,6 +16,8 @@ export default function AppliedStatus({ contest }: { contest: Promise<ContestDet
     const [tonConnectUI] = useTonConnectUI();
     const isConnectionRestored = useIsConnectionRestored();
 
+    const start_time = new Date(cdetailed.start_time);
+
     if (!isConnectionRestored) {
         return (
             <Button variant="link" disabled>
@@ -31,12 +33,14 @@ export default function AppliedStatus({ contest }: { contest: Promise<ContestDet
     }
 
     if (cdetailed.is_participant) {
-        return (
-            <span className="text-center font-medium">You are participating!</span>
-        );
+        if (new Date() < start_time) {
+            return <span className="text-center font-medium">You are applied!</span>;
+        }
+
+        return <span className="text-center font-medium">You are participating!</span>;
     }
 
-    if ((new Date()) > new Date(cdetailed.start_time)) {
+    if (new Date() > start_time) {
         return (
             <span className="text-center font-medium">Application time is over :/</span>
         );

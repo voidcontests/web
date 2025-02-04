@@ -1,0 +1,23 @@
+@import "./palette.css";
+@import "./light.css";
+@import "./dark.css";
+
+@theme {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-surface: var(--surface);
+    --color-surface-secondary: var(--surface-secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-tertiary-foreground: var(--tertiary-foreground);
+    --color-border: var(--border);
+    --color-border-secondary: var(--border-secondary);
+
+    /* Border radiuses */
+    --radius: 0.5rem;
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    /* Shadows */
+    --shadow-md: 0 0 15px --alpha(var(--color-zinc-950) / 6%);
+}

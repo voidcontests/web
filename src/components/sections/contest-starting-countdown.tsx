@@ -14,7 +14,7 @@ export default function ContestStartingCountdown({ contest }: { contest: Promise
     return (
         <div className="flex flex-col items-center mt-12">
             <div className='flex flex-col items-center'>
-                <div className="text-secondary-text text-lg">
+                <div className="text-secondary-foreground text-lg">
                     STARTING IN
                 </div>
                 <Timer target={start_time} onComplete={() => revalidate(`/contest/${cdetailed.id}`) } />

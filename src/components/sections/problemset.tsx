@@ -40,7 +40,7 @@ export default function Problemset({ contest, difficulties, currentProblemID }: 
                     <TableHeaderRow>
                         <TableHead>#</TableHead>
                         <TableHead>Title</TableHead>
-                        <TableHead className={!difficulties ? 'hidden' : ''}>
+                        <TableHead className={!difficulties ? 'hidden': ''}>
                             Difficulty
                         </TableHead>
                     </TableHeaderRow>
@@ -57,7 +57,7 @@ export default function Problemset({ contest, difficulties, currentProblemID }: 
                                         started && (cdetailed.is_participant || (wallet && cdetailed.is_participant))
                                             ? <Link
                                                 href={`/contest/${problem.contest_id}/problem/${problem.id}`}
-                                                className={currentProblemID?.toString() === problem.id.toString() ? 'text-primary-text' : ''}
+                                                className={currentProblemID?.toString() === problem.id.toString() ? 'text-foreground font-medium' : ''}
                                             >
                                                 {problem.title}
                                             </Link>

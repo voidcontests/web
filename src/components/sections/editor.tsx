@@ -191,8 +191,8 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
     return (
         <TooltipProvider>
             <div className="flex flex-col gap-2">
-                <div className="flex justify-between items-center">
-                    <h1 className="text-primary-text text-xl font-medium">
+                <div className="flex justify-between items-end">
+                    <h1 className="text-foreground text-lg font-medium">
                         {children}
                     </h1>
                     <div className="flex items-center gap-1">
@@ -231,7 +231,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                 <div className="flex justify-end">
                     <span
                         className={cn(
-                            "text-sm text-link-text font-medium",
+                            "text-sm text-blue-400 font-medium",
                             internalValue.trim().length !== 0
                                 ? "hover:cursor-pointer hover:underline hover:underline-offset-2"
                                 : "hover:cursor-default opacity-70",
