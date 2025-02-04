@@ -12,7 +12,7 @@ export default function WinsCard() {
                             <Coins className="w-4 h-4" />
                             <h2 className="text-base">Win Cash Prizes</h2>
                         </div>
-                        <p className="text-secondary-foreground w-60">
+                        <p className="text-secondary-foreground max-w-60">
                             Outsmart the competition, and <span className="text-foreground">earn real rewards</span> by joining our exclusive paid programming contests.
                         </p>
                     </div>

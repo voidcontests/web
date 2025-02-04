@@ -11,7 +11,7 @@ export default function HostCard() {
                         <Cannabis className="w-4 h-4" />
                         <h2 className="text-base">Host a Competition</h2>
                     </div>
-                    <p className="text-secondary-foreground w-60">
+                    <p className="text-secondary-foreground max-w-60">
                         You can create <span className="text-foreground">up to 5 own contests.</span> Bring your best ideas to life.
                     </p>
                 </div>

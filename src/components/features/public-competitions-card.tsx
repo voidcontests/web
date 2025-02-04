@@ -11,7 +11,7 @@ export default function PublicCompetitionsCard() {
                         <Currency className="w-4 h-4" />
                         <h2 className="text-base">Public Competitions</h2>
                     </div>
-                    <p className="text-secondary-foreground w-60">
+                    <p className="text-secondary-foreground max-w-60">
                         Join <span className="text-foreground">tons of public coding contests</span> - sharpen your skills in free challenges.
                     </p>
                 </div>
