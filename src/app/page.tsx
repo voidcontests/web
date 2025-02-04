@@ -20,18 +20,6 @@ export default async function HomePage() {
                     Open-source coding contests platform. <br />
                     Create your own competition, participate in existing ones and please your inner ludoman.
                 </p>
-                <div className="flex gap-5">
-                <Button size="lg" asChild>
-                    <NextLink href="/contests">
-                    EXPLORE
-                    </NextLink>
-                </Button>
-                <Button size="lg" variant="outline" asChild>
-                    <NextLink href="/create">
-                    CREATE
-                    </NextLink>
-                </Button>
-                </div>
             </div>
             <Features />
         </ContentContainer>
