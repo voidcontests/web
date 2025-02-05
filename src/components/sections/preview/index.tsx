@@ -17,9 +17,9 @@ const Preview = React.forwardRef<HTMLDivElement, PreviewProps>(({ markdown, clas
             className={cn(
                 'prose dark:prose-invert',
                 'prose-headings:font-normal',
-                'prose-code:bg-surface prose-code:border prose-code:p-1 prose-code:rounded-lg',
-                'prose-a:text-link-text prose-a:no-underline prose-a:hover:underline underline-offset-2 prose-a:font-normal',
-                'prose-hr:border-primary-border prose-hr:w-full',
+                'prose-code:bg-zinc-50 dark:prose-code:bg-surface prose-code:border prose-code:p-1 prose-code:rounded-lg',
+                'prose-a:text-blue-400 prose-a:no-underline prose-a:hover:underline underline-offset-2 prose-a:font-normal',
+                'prose-hr:border-border prose-hr:w-full',
                 'prose-strong:font-medium',
                 'prose-img:rounded',
                 'codeblock',
