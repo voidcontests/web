@@ -16,7 +16,7 @@ export default function WinsCard() {
                             Outsmart the competition, and <span className="text-foreground">earn real rewards</span> by joining our exclusive paid programming contests.
                         </p>
                     </div>
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 text-secondary-foreground group-hover:text-foreground transition-colors duration-300">
                         <div className="flex items-center gap-2">
                             <Check className="w-4 h-4" />
                             <span>Easy to build</span>
