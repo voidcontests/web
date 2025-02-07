@@ -9,7 +9,7 @@ const toggleVariants = cva(
   {
     variants: {
       variant: {
-        default: "border bg-zinc-950/5 dark:bg-zinc-50/5 hover:bg-zinc-950/10 dark:hover:bg-zinc-50/10 data-[state=on]:border-blue-400 data-[state=on]:bg-blue-400/20 dark:data-[state=on]:bg-blue-400/20",
+        default: "border bg-zinc-50 dark:bg-zinc-50/3 hover:bg-zinc-100 dark:hover:bg-zinc-50/5 data-[state=on]:border-blue-400 data-[state=on]:bg-blue-400/15 dark:data-[state=on]:bg-blue-400/20",
         secondary: "bg-transparent",
       },
       size: {

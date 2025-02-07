@@ -11,7 +11,7 @@ const buttonVariants = cva(
         default: "bg-zinc-950 text-zinc-50 dark:bg-zinc-50 dark:text-zinc-950",
         secondary: "bg-zinc-950/4 dark:bg-zinc-50/7",
         destructive: "bg-scarlet-500 text-zinc-50",
-        link: "bg-blue-400/20 text-blue-400 font-medium",
+        link: "bg-blue-400/15 text-blue-400 font-medium",
         outline: "border bg-transparent hover:bg-zinc-950/4 dark:hover:bg-zinc-50/7",
         dashed: "border border-dashed bg-transparent hover:bg-zinc-950/4 dark:hover:bg-zinc-50/7",
         ghost: "bg-transparent hover:bg-zinc-950/4 dark:hover:bg-zinc-50/7",
