@@ -42,7 +42,6 @@ export function TimePicker({ date, setDate }: { date: Date | undefined, setDate:
                     Secs
                 </Label>
                 <TimePickerInput
-                    disabled
                     picker="seconds"
                     date={date}
                     setDate={setDate}
