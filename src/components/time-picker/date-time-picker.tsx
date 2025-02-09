@@ -8,7 +8,7 @@ import { add, format } from "date-fns";
 import { cn } from "@/lib/utils";
 import * as React from "react";
 
-export function DateTimePicker({ date, setDate }: {date: Date | undefined, setDate: React.Dispatch<React.SetStateAction<Date | undefined>> }) {
+export function DateTimePicker({ placeholder, date, setDate }: { placeholder?: string, date: Date | undefined, setDate: React.Dispatch<React.SetStateAction<Date | undefined>> }) {
     /**
     * carry over the current time when a user clicks a new day
     * instead of resetting to 00:00
@@ -36,7 +36,13 @@ export function DateTimePicker({ date, setDate }: {date: Date | undefined, setDa
                         !date && "text-muted-foreground"
                     )}
                 >
-                    {date ? format(date, "PPP HH:mm:ss") : <span>Pick a date</span>}
+                    {
+                        date
+                            ? format(date, "PPP HH:mm:ss")
+                            : placeholder
+                                ? placeholder
+                                : <span>Pick a date</span>
+                    }
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
@@ -44,10 +50,13 @@ export function DateTimePicker({ date, setDate }: {date: Date | undefined, setDa
                     mode="single"
                     selected={date}
                     onSelect={(d) => handleSelect(d)}
+                    disabled={(date) =>
+                        date < new Date(new Date().setDate(new Date().getDate() - 1)) || date > new Date("2037-01-01")
+                    }
                     initialFocus
                 />
                 <div className="p-3 border-t border-border">
-                    <TimePicker setDate={setDate} date={date} />
+                    <TimePicker setDate={setDate} date={date} hours />
                 </div>
             </PopoverContent>
         </Popover>
