@@ -9,6 +9,8 @@ import * as React from "react";
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
 function Calendar({className, classNames, showOutsideDays = true, ...props}: CalendarProps) {
+    // TODO: fix weird behavior on click (today & selected)
+
     return (
         <DayPicker
             showOutsideDays={showOutsideDays}
