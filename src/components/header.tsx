@@ -22,10 +22,10 @@ const Header = () => {
             <div className='h-full max-w-7xl mx-auto flex justify-center'>
                 <div className='w-full flex items-center mx-4'>
                     <div className='h-full flex items-center gap-8 mr-auto'>
-                        <NavItem href='/' underlineActive={false}>
+                        <NavItem href='/' underlineActive={false} className="max-sm:text-base">
                             VOID
                         </NavItem>
-                        <NavItem href='/contests'>
+                        <NavItem href='/contests' className="max-sm:hidden">
                             CONTESTS
                         </NavItem>
                     </div>

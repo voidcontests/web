@@ -8,7 +8,7 @@ export default async function HomePage() {
     return (
         <ContentContainer className="items-center">
             <div className="flex flex-col items-center gap-8 max-sm:gap-6 mb-12 max-sm:mb-6">
-                <h1 className="flex flex-col items-center gap-2 mt-12 text-7xl max-sm:text-4xl">
+                <h1 className="flex flex-col items-center gap-2 mt-12 max-sm:mt-3 text-7xl max-sm:text-4xl">
                     <span>
                         Easy to host
                     </span>
