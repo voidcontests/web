@@ -41,7 +41,7 @@ export function DateTimePicker({ placeholder, date, setDate }: { placeholder?: s
                             ? format(date, "PPP HH:mm:ss")
                             : placeholder
                                 ? placeholder
-                                : <span>Pick a date</span>
+                                : <span className="text-secondary-foreground">Pick a date</span>
                     }
                 </Button>
             </PopoverTrigger>
