@@ -9,7 +9,7 @@ export default function WinsCard() {
                 <div className="flex flex-col justify-between h-full">
                     <div className="flex flex-col gap-2">
                         <div className="flex items-center gap-2">
-                            <Coins className="w-4 h-4" />
+                            <Coins className="size-4" />
                             <h2 className="text-base">Win Cash Prizes</h2>
                         </div>
                         <p className="text-secondary-foreground sm:max-w-60">
@@ -18,11 +18,11 @@ export default function WinsCard() {
                     </div>
                     <div className="flex flex-col gap-2 text-secondary-foreground group-hover:text-foreground transition-colors duration-300 max-sm:hidden">
                         <div className="flex items-center gap-2">
-                            <Check className="w-4 h-4" />
+                            <Check className="size-4" />
                             <span>Easy to build</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <Check className="w-4 h-4" />
+                            <Check className="size-4" />
                             <span>Code your victory</span>
                         </div>
                     </div>
