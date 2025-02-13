@@ -23,7 +23,7 @@ const difficultyToBadgeType: DifficultyColorMap = {
     'hard': 'red',
 }
 
-export default function Problemset({ contest, difficulties, currentProblemID }: { contest: Promise<ContestDetailed>, difficulties?: boolean, currentProblemID?: string | number }) {
+export default function Problemset({ contest, difficulties, currentProblem }: { contest: Promise<ContestDetailed>, difficulties?: boolean, currentProblem?: string | number }) {
     const cdetailed = use(contest);
     const problemset = cdetailed.problems;
     const started = new Date(cdetailed.start_time) < new Date();
@@ -50,14 +50,14 @@ export default function Problemset({ contest, difficulties, currentProblemID }: 
                         problemset.map((problem, index) => (
                             <TableRow key={index}>
                                 <TableCell>
-                                    {itoc(index)}
+                                    {problem.charcode.toUpperCase()}
                                 </TableCell>
                                 <TableCell>
                                     {
                                         started && (cdetailed.is_participant || (wallet && cdetailed.is_participant))
                                             ? <Link
-                                                href={`/contest/${problem.contest_id}/problem/${problem.id}`}
-                                                className={currentProblemID?.toString() === problem.id.toString() ? 'text-foreground font-medium' : ''}
+                                                href={`/contest/${cdetailed.id}/problem/${problem.charcode}`}
+                                                className={currentProblem?.toString() === problem.charcode ? 'text-foreground font-medium' : ''}
                                             >
                                                 {problem.title}
                                             </Link>

@@ -6,10 +6,11 @@ import { cookies } from "next/headers";
 
 type ID = string | number;
 
-const BASEPATH = 'https://void.ndbtea.tech/api';
+// const BASEPATH = 'https://void.ndbtea.tech/api';
+const BASEPATH = 'http://localhost:6969/api';
 const COOKIE_KEY = 'token';
 
-export async function getProblem(cid: ID, pid: ID): Promise<ProblemDetailed> {
+export async function getProblem(cid: ID, charcode: string): Promise<ProblemDetailed> {
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_KEY)?.value;
 
@@ -18,7 +19,7 @@ export async function getProblem(cid: ID, pid: ID): Promise<ProblemDetailed> {
         'Content-Type': 'application/json',
     };
 
-    const res = await fetch(BASEPATH + `/contests/${cid}/problems/${pid}`, {
+    const res = await fetch(BASEPATH + `/contests/${cid}/problems/${charcode}`, {
         method: 'GET',
         headers: headers,
     });

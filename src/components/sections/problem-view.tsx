@@ -8,6 +8,7 @@ import { Link } from "@/components/ui/link";
 import Preview from "@/components/sections/preview";
 import { use, useState } from "react";
 import { toast } from "sonner";
+import { revalidate } from "@/actions/actions";
 
 export default function ProblemView({ problem }: { problem: Promise<ProblemDetailed> }) {
     const pdetailed = use(problem);
@@ -21,7 +22,7 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
             return;
         }
 
-        const { data, status } = await authorized.post(`/contests/${pdetailed.contest_id}/problems/${pdetailed.id}/submissions`, { answer: answer });
+        const { data, status } = await authorized.post(`/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}/submissions`, { answer: answer });
 
         switch (status) {
             case 201:
@@ -33,8 +34,7 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
                 } else {
                     toast.error(`Unknown verdict: ${verdict}`);
                 }
-                // TODO: re-fetchContest on successfull problem submission
-                // fetchContest();
+                revalidate(`/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}`);
                 break;
             case 429:
                 toast.warning(`You are submitting too frequently. Wait for ${data.timeout}`);

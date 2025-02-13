@@ -22,6 +22,7 @@ export type ContestDetailed = {
 
 export type ProblemListItem = {
     id: number;
+    charcode: string;
     contest_id: number;
     writer: User;
     title: string;
@@ -52,6 +53,7 @@ export type User = {
 
 export type ProblemDetailed = {
     id: number;
+    charcode: string;
     contest_id: number;
     writer: User;
     title: string;

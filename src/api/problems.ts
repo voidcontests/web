@@ -28,9 +28,9 @@ export const getProblems = async (): Promise<Problems | undefined> => {
     }
 }
 
-export const submitanswerForProblem = async (cid: string | number, pid: string | number, answer: string): Promise<SubmissionListItem | undefined> => {
+export const submitAnswerForProblem = async (cid: string | number, charcode: string, answer: string): Promise<SubmissionListItem | undefined> => {
     try {
-        const { data } = await authorized.post(`/contests/${cid}/problems/${pid}/submissions`, { answer });
+        const { data } = await authorized.post(`/contests/${cid}/problems/${charcode}/submissions`, { answer });
 
         return data;
     } catch (e) {
