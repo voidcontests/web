@@ -47,8 +47,13 @@ export default function Page() {
                             className='shadow-none data-[state=checked]:border-green-500 data-[state=checked]:bg-green-500 *:data-[slot=radio-group-indicator]:[&>svg]:fill-white *:data-[slot=radio-group-indicator]:[&>svg]:stroke-white'
                         />
                         <div className='grid gap-1.5 font-normal'>
-                            <div className='font-medium'>
-                                Easy
+                            <div className='flex flex-row gap-1.5'>
+                                <span className='font-medium'>
+                                    Easy
+                                </span>
+                                <span className='text-secondary-foreground'>
+                                    (1 pts)
+                                </span>
                             </div>
                             <div className='text-foreground/80 leading-snug'>
                                 Easy problems involve basic concepts and can be solved quickly with simple reasoning
@@ -70,8 +75,13 @@ export default function Page() {
                             className='shadow-none data-[state=checked]:border-amber-500 data-[state=checked]:bg-amber-500 *:data-[slot=radio-group-indicator]:[&>svg]:fill-white *:data-[slot=radio-group-indicator]:[&>svg]:stroke-white'
                         />
                         <div className='grid gap-1.5 font-normal'>
-                            <div className='font-medium'>
-                                Medium
+                            <div className='flex flex-row gap-1.5'>
+                                <span className='font-medium'>
+                                    Medium
+                                </span>
+                                <span className='text-secondary-foreground'>
+                                    (2 pts)
+                                </span>
                             </div>
                             <div className='text-foreground/80 leading-snug'>
                                 Difficult challenge for advanced participants with complex scenarios
@@ -93,8 +103,13 @@ export default function Page() {
                             className='shadow-none data-[state=checked]:border-scarlet-500 data-[state=checked]:bg-scarlet-500 *:data-[slot=radio-group-indicator]:[&>svg]:fill-white *:data-[slot=radio-group-indicator]:[&>svg]:stroke-white'
                         />
                         <div className='grid gap-1.5 font-normal'>
-                            <div className='font-medium'>
-                                Hard
+                            <div className='flex flex-row gap-1.5'>
+                                <span className='font-medium'>
+                                    Hard
+                                </span>
+                                <span className='text-secondary-foreground'>
+                                    (3 pts)
+                                </span>
                             </div>
                             <div className='text-foreground/80 leading-snug'>
                                 Medium problems require a deeper understanding and the application of multiple concepts, often involving moderate complexity
@@ -105,22 +120,22 @@ export default function Page() {
 
                 <Label className={cn(
                     'flex w-fit items-start gap-3 rounded-xl border p-4 hover:cursor-pointer',
-                    'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4 has-[[aria-checked=true]]:border-blue-500 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:bg-blue-500/20'
+                    'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4 has-[[aria-checked=true]]:border-blue-400 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:bg-blue-400/20'
                 )}>
-                <Checkbox
-                    id='toggle-2'
-                    defaultChecked
-                    className='data-[state=checked]:bg-blue-500 dark:data-[state=checked]:bg-blue-500'
-                />
-                <div className='grid gap-1.5 font-normal'>
-                    <p className='text-sm leading-none font-medium'>
-                        Keep public
-                    </p>
-                    <p className='text-foreground text-sm'>
-                        After the end of the contest, the task will remain visible in public archives
-                    </p>
-                </div>
-              </Label>
+                    <Checkbox
+                        id='toggle-2'
+                        defaultChecked
+                        className='data-[state=checked]:bg-blue-400 dark:data-[state=checked]:bg-blue-400'
+                    />
+                    <div className='grid gap-1.5 font-normal'>
+                        <p className='text-sm leading-none font-medium'>
+                            Keep public
+                        </p>
+                        <p className='text-foreground/80 text-sm'>
+                            After the end of the contest, the task will remain visible in public archives
+                        </p>
+                    </div>
+                </Label>
             </div>
         </div>
     );
