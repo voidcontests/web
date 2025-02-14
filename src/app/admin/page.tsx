@@ -3,31 +3,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 
-const plans = [
-    {
-        id: 'easy',
-        name: 'Easy',
-        description:
-            'Easy problems involve basic concepts and can be solved quickly with simple reasoning',
-        points: 1,
-        color: 'green',
-    },
-    {
-        id: 'mid',
-        name: 'Medium',
-        description: 'Medium problems require a deeper understanding and the application of multiple concepts, often involving moderate complexity',
-        points: 2,
-        color: 'amber',
-    },
-    {
-        id: 'hard',
-        name: 'Hard',
-        description: 'Difficult challenge for advanced participants with complex scenarios',
-        points: 3,
-        color: 'scarlet',
-    },
-];
-
 export default function Page() {
     return (
         <div className='px-24 py-12'>
