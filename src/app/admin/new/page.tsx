@@ -1,6 +1,6 @@
 'use client';
 
-import CreateProblemForm from '@/components/forms/create-problem';
+import { CreateProblemForm } from '@/components/forms/create-problem';
 import ContentContainer from "@/components/content-container";
 
 export default function Page() {

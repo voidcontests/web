@@ -1,4 +1,4 @@
-export type ContestID = {
+export type EntityID = {
     id: number;
 };
 

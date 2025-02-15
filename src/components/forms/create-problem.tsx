@@ -8,9 +8,19 @@ import { Input } from "@/components/ui/input";
 import { cn } from '@/lib/utils';
 import Editor from '@/components/sections/editor';
 import { useForm } from 'react-hook-form';
+import { createProblem } from '@/actions/actions';
+import { toast } from 'sonner';
 
-export default function CreateProblemForm() {
-    const { register, handleSubmit, setValue, watch } = useForm({
+export interface FormData {
+    title: string;
+    statement: string;
+    answer: string;
+    difficulty: string;
+    keep_public: boolean;
+}
+
+export function CreateProblemForm() {
+    const { register, handleSubmit, setValue, watch } = useForm<FormData>({
         defaultValues: {
             title: "",
             statement: "",
@@ -20,8 +30,15 @@ export default function CreateProblemForm() {
         }
     });
 
-    const onSubmit = (data: any) => {
-        console.log(data);
+    const onSubmit = async (data: FormData) => {
+        // TODO:redirect to problem' page
+        try {
+            await createProblem(data);
+            toast.success("Problem created successfully");
+        } catch (e) {
+            console.error("Error:", e);
+            toast.error("Something went wrong. Try again later");
+        }
     };
 
     const validate = () => {
@@ -164,6 +181,7 @@ export default function CreateProblemForm() {
                         'flex items-start gap-3 rounded-xl border p-4 hover:cursor-pointer',
                         'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4 has-[[aria-checked=true]]:border-blue-400 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:bg-blue-400/20'
                     )}>
+                        {/* TODO: cursor being default when hovering exactly checkbox */}
                         <Checkbox
                             checked={watch("keep_public")}
                             onCheckedChange={(value) => setValue("keep_public", Boolean(value))}

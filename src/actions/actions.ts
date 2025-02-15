@@ -1,6 +1,7 @@
 'use server';
 
-import { ContestDetailed, ContestList, ContestListItem, ProblemDetailed } from "@/api/dto/response";
+import { ContestDetailed, ContestList, EntityID, ProblemDetailed } from "@/api/dto/response";
+import { FormData as CreateProblemFormData } from "@/components/forms/create-problem";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
@@ -9,6 +10,29 @@ type ID = string | number;
 // const BASEPATH = 'https://void.ndbtea.tech/api';
 const BASEPATH = 'http://localhost:6969/api';
 const COOKIE_KEY = 'token';
+
+export async function createProblem(data: CreateProblemFormData): Promise<EntityID> {
+    const cookieStore = cookies();
+    const token = cookieStore.get(COOKIE_KEY)?.value;
+
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    };
+
+    const res = await fetch(BASEPATH + `/problems`, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+        throw new Error(`can't create problem`);
+    }
+
+    return await res.json() as EntityID;
+}
+
 
 export async function getProblem(cid: ID, charcode: string): Promise<ProblemDetailed> {
     const cookieStore = cookies();

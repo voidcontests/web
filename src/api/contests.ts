@@ -1,4 +1,4 @@
-import { ContestDetailed, ContestID, ContestListItem } from "./dto/response";
+import { ContestDetailed, EntityID, ContestListItem } from "./dto/response";
 import { authorized, unauthorized } from "./core/instance";
 import { CreateContest } from "./dto/request";
 
@@ -26,7 +26,7 @@ export const getContests = async (): Promise<ContestListItem[]> => {
     }
 }
 
-export const createContest = async (contest: CreateContest): Promise<ContestID | undefined> => {
+export const createContest = async (contest: CreateContest): Promise<EntityID | undefined> => {
     try {
         const { data } = await authorized.post("/contests", contest);
         return data;
