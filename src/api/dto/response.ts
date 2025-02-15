@@ -6,6 +6,10 @@ export type ContestList = {
     data: ContestListItem[];
 };
 
+export type ProblemList = {
+    data: ProblemListItem[];
+};
+
 export type ContestDetailed = {
     id: number;
     creator: User;
