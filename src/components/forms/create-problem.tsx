@@ -10,6 +10,7 @@ import Editor from '@/components/sections/editor';
 import { useForm } from 'react-hook-form';
 import { createProblem } from '@/actions/actions';
 import { toast } from 'sonner';
+import { Separator } from '../ui/separator';
 
 export interface FormData {
     title: string;
@@ -54,7 +55,7 @@ export function CreateProblemForm() {
                 <div className="flex flex-col gap-2">
                     <Label className="text-foreground text-base font-medium flex items-center gap-1">
                         Add a title
-                        <span className='text-scarlet-500'>*</span>
+                        <span className='text-scarlet-500 text-base'>*</span>
                     </Label>
                     <Input
                         {...register("title")}
@@ -75,7 +76,7 @@ export function CreateProblemForm() {
                 <div className="flex flex-col gap-2">
                     <Label className="text-foreground text-base font-medium flex items-center gap-1">
                         Add answer
-                        <span className='text-scarlet-500'>*</span>
+                        <span className='text-scarlet-500 text-base'>*</span>
                     </Label>
                     <Input
                         {...register("answer")}
@@ -83,10 +84,12 @@ export function CreateProblemForm() {
                     />
                 </div>
 
+                <Separator />
+
                 <div className="flex flex-col gap-2">
                     <Label className="text-foreground text-base font-medium flex items-center gap-1">
                         Select difficulty
-                        <span className='text-scarlet-500'>*</span>
+                        <span className='text-scarlet-500 text-base'>*</span>
                     </Label>
                     <RadioGroup value={watch('difficulty')} onValueChange={(value) => setValue("difficulty", value)}>
                         {/* Easy */}
@@ -176,7 +179,7 @@ export function CreateProblemForm() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-foreground text-lg font-medium">Change visibility</h1>
+                    <Label className="text-foreground text-base font-medium">Change visibility</Label>
                     <Label className={cn(
                         'flex items-start gap-3 rounded-xl border p-4 hover:cursor-pointer',
                         'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4 has-[[aria-checked=true]]:border-blue-400 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:bg-blue-400/20'
