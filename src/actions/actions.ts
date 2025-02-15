@@ -4,11 +4,11 @@ import { ContestDetailed, ContestList, EntityID, ProblemDetailed, ProblemList, P
 import { FormData as CreateProblemFormData } from "@/components/forms/create-problem";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { DOMAIN } from "@/config";
 
 type ID = string | number;
 
-// const BASEPATH = 'https://void.ndbtea.tech/api';
-const BASEPATH = 'http://localhost:6969/api';
+const BASEPATH = `${DOMAIN}/api`;
 const COOKIE_KEY = 'token';
 
 export async function createProblem(data: CreateProblemFormData): Promise<EntityID> {
