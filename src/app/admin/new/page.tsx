@@ -45,7 +45,7 @@ export default function Page() {
     }
 
     return (
-        <ContentContainer>
+        <ContentContainer className="max-w-3xl">
             <div className="flex flex-col gap-6">
                 <div className="flex flex-col gap-2">
                     <h1 className="text-foreground text-lg font-medium">Add a title</h1>
@@ -82,7 +82,7 @@ export default function Page() {
                     <h1 className="text-foreground text-lg font-medium">
                         Select difficulty
                     </h1>
-                    <RadioGroup className='max-w-sm' value={problem.difficulty} onValueChange={(value) => setProblem((prev) => ({ ...prev, difficulty: value }))}>
+                    <RadioGroup value={problem.difficulty} onValueChange={(value) => setProblem((prev) => ({ ...prev, difficulty: value }))}>
                         {/* Easy */}
                         <Label
                             className={cn(
@@ -172,7 +172,7 @@ export default function Page() {
                 <div className="flex flex-col gap-2">
                     <h1 className="text-foreground text-lg font-medium">Set visibility</h1>
                     <Label className={cn(
-                        'flex w-fit items-start gap-3 rounded-xl border p-4 hover:cursor-pointer',
+                        'flex items-start gap-3 rounded-xl border p-4 hover:cursor-pointer',
                         'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4 has-[[aria-checked=true]]:border-blue-400 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:bg-blue-400/20'
                     )}>
                         <Checkbox
