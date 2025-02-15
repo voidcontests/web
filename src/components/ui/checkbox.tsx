@@ -11,7 +11,7 @@ function Checkbox({className, ...props}: React.ComponentProps<typeof CheckboxPri
       data-slot="checkbox"
       className={cn(
         "peer border-input size-4 shrink-0 rounded-[4px] border shadow-xs transition-[color,box-shadow] focus-visible:ring-4 focus-visible:outline-1 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:focus-visible:ring-0 hover:cursor-pointer",
-        "data-[state=checked]:bg-zinc-950 dark:data-[state=checked]:bg-zinc-50 data-[state=checked]:text-zinc-50 dark:data-[state=checked]:text-zinc-950 data-[state=checked]:border-border",
+        "data-[state=checked]:bg-blue-400 dark:data-[state=checked]:bg-blue-400",
         className
       )}
       {...props}

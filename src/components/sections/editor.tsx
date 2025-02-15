@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import Preview from "@/components/sections/preview";
 import * as strings from '@/lib/strings';
 import { cn } from "@/lib/utils";
+import { Label } from "../ui/label";
 
 type StyleKind = 'bold' | 'italic' | 'code' | 'heading' | 'link' | 'quote';
 
@@ -192,9 +193,17 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
         <TooltipProvider>
             <div className="flex flex-col gap-2">
                 <div className="flex justify-between items-end">
-                    <h1 className="text-foreground text-lg font-medium">
+                    <Label className="text-foreground text-base font-medium flex items-center gap-1">
                         {children}
-                    </h1>
+                        {
+                            props.required
+                                ? <span className='text-scarlet-500'>*</span>
+                                : <span className='text-secondary-foreground text-sm'>(optional)</span>
+                        }
+                    </Label>
+                    {/* <h1 className="text-foreground text-lg font-medium">
+                        {children}
+                    </h1> */}
                     <div className="flex items-center gap-1">
                         {
                             toggle_buttons.map((toggle, index) => (
@@ -226,6 +235,7 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
                     onChange={handleChange}
                     onKeyDown={handleKeyDown}
                     ref={textAreaRef}
+                    resizable
                     {...props}
                 />
                 <div className="flex justify-end">

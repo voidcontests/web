@@ -34,11 +34,11 @@
         @apply bg-background text-foreground;
     }
 
-    ::selection {
+    /* ::selection {
         background-color: --alpha(var(--color-blue-400) / 20%);
     }
 
     ::-moz-selection {
         background-color: --alpha(var(--color-blue-400) / 20%);
-    }
+    } */
 }
