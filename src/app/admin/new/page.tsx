@@ -1,11 +1,14 @@
-'use client';
-
 import { CreateProblemForm } from '@/components/forms/create-problem';
 import ContentContainer from "@/components/content-container";
 import { Separator } from '@/components/ui/separator';
 import { Link } from '@/components/ui/link';
+import { Metadata } from 'next';
 
-export default function Page() {
+export const metadata: Metadata = {
+    title: 'New problem',
+};
+
+export default async function Page() {
     return (
         <ContentContainer className="max-w-3xl">
             <div className='flex flex-col gap-1'>
