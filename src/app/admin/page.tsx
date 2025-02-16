@@ -43,6 +43,8 @@ export default async function Page() {
                             <TableHead>Start</TableHead>
                             <TableHead>End</TableHead>
                             <TableHead>Duration</TableHead>
+                            <TableHead>Participants</TableHead>
+                            <TableHead>Created At</TableHead>
                         </TableHeaderRow>
                     </TableHeader>
                     <TableBody>
@@ -65,8 +67,14 @@ export default async function Page() {
                                         {
                                             contest.duration_mins !== 0
                                                 ? format_duration(contest.duration_mins)
-                                                : '-'
+                                                : 'Not limited'
                                         }
+                                    </TableCell>
+                                    <TableCell>
+                                        {contest.participants}
+                                    </TableCell>
+                                    <TableCell>
+                                        {format_date(new Date(contest.created_at))}
                                     </TableCell>
                                 </TableRow>
                             ))
@@ -87,7 +95,7 @@ export default async function Page() {
                             <TableHead>ID</TableHead>
                             <TableHead>Title</TableHead>
                             <TableHead>Difficulty</TableHead>
-                            {/* <TableHead>Created At</TableHead> */}
+                            <TableHead className='w-3xs'>Created At</TableHead>
                         </TableHeaderRow>
                     </TableHeader>
                     <TableBody>
@@ -105,16 +113,13 @@ export default async function Page() {
                                     <TableCell>
                                         <Tag variant={difficultyToBadgeType[problem.difficulty]}>{capitalize(problem.difficulty)}</Tag>
                                     </TableCell>
-                                    {/* <TableCell>
+                                    <TableCell className='w-3xs'>
                                         {format_date(new Date(problem.created_at))}
-                                    </TableCell> */}
+                                    </TableCell>
                                 </TableRow>
                             ))
                         }
                     </TableBody>
-                    {/* <TableCaption>
-                        Hello
-                    </TableCaption> */}
                 </Table>
             </TableContainer>
         </ContentContainer>
