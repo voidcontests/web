@@ -4,7 +4,8 @@ import Difficulty from '@/components/difficulty';
 import { Link } from "@/components/ui/link";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
-    TableBody, TableRow, TableCell, TableTitle
+    TableBody, TableRow, TableCell, TableTitle,
+    TableCaption
 } from "@/components/ui/table";
 import { format_date, format_duration } from '@/lib/utils';
 
@@ -15,8 +16,9 @@ export default async function Page() {
     return (
         <ContentContainer>
             <TableContainer>
-                <TableTitle>
-                    CONTESTS
+                <TableTitle className='flex justify-between'>
+                    <span>CONTESTS</span>
+                    <Link href='/hub/new/contest' size="large">NEW</Link>
                 </TableTitle>
                 <Table>
                     <TableHeader>
@@ -66,8 +68,9 @@ export default async function Page() {
                 </Table>
             </TableContainer>
             <TableContainer>
-                <TableTitle>
-                    PROBLEMS
+                <TableTitle className='flex justify-between'>
+                    <span>PROBLEMS</span>
+                    <Link href='/hub/new/problem' size="large">NEW</Link>
                 </TableTitle>
                 <Table>
                     <TableHeader>
