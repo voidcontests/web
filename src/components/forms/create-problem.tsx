@@ -53,9 +53,8 @@ export function CreateProblemForm() {
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
             <div className="flex flex-col gap-6">
                 <div className="flex flex-col gap-2">
-                    <Label className="text-foreground text-base font-medium flex items-center gap-1">
+                    <Label required>
                         Add a title
-                        <span className='text-scarlet-500 text-base'>*</span>
                     </Label>
                     <Input
                         {...register("title")}
@@ -74,9 +73,8 @@ export function CreateProblemForm() {
                 </Editor>
 
                 <div className="flex flex-col gap-2">
-                    <Label className="text-foreground text-base font-medium flex items-center gap-1">
+                    <Label required>
                         Add answer
-                        <span className='text-scarlet-500 text-base'>*</span>
                     </Label>
                     <Input
                         {...register("answer")}
@@ -87,9 +85,8 @@ export function CreateProblemForm() {
                 <Separator />
 
                 <div className="flex flex-col gap-2">
-                    <Label className="text-foreground text-base font-medium flex items-center gap-1">
+                    <Label required>
                         Select difficulty
-                        <span className='text-scarlet-500 text-base'>*</span>
                     </Label>
                     <RadioGroup value={watch('difficulty')} onValueChange={(value) => setValue("difficulty", value)}>
                         {/* Easy */}
@@ -179,7 +176,7 @@ export function CreateProblemForm() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label className="text-foreground text-base font-medium">Change visibility</Label>
+                    <Label>Change visibility</Label>
                     <Label className={cn(
                         'flex items-start gap-3 rounded-xl border p-4 hover:cursor-pointer',
                         'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4 has-[[aria-checked=true]]:border-blue-400 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:bg-blue-400/20'

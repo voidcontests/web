@@ -193,13 +193,8 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
         <TooltipProvider>
             <div className="flex flex-col gap-2">
                 <div className="flex justify-between items-end">
-                    <Label className="text-foreground text-base font-medium flex items-center gap-1">
+                    <Label required={props.required} optional={!props.required}>
                         {children}
-                        {
-                            props.required
-                                ? <span className='text-scarlet-500'>*</span>
-                                : <span className='text-secondary-foreground text-sm'>(optional)</span>
-                        }
                     </Label>
                     {/* <h1 className="text-foreground text-lg font-medium">
                         {children}

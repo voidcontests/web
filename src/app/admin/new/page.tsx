@@ -15,7 +15,7 @@ export default async function Page() {
                 <h1 className='text-xl font-medium'>
                     Create a new problem
                 </h1>
-                <p className='text-sm text-foreground/80'>
+                <p className='text-base text-foreground/80'>
                     Use this form to create a new problem. You can view all your created problems on the <Link href="/admin/problems">dashboard</Link> page.
                 </p>
             </div>
