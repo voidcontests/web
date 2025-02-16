@@ -2,6 +2,7 @@ import { getAdminContests, getAdminProblems } from '@/actions/actions';
 import ContentContainer from '@/components/content-container';
 import Difficulty from '@/components/difficulty';
 import { Link } from "@/components/ui/link";
+import { Separator } from '@/components/ui/separator';
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableTitle,
@@ -15,6 +16,15 @@ export default async function Page() {
 
     return (
         <ContentContainer>
+            <div className='flex flex-col gap-1'>
+                <h1 className='text-xl font-medium'>
+                    Welcome to creator's hub
+                </h1>
+                <p className='text-base text-foreground/80'>
+                    Here you can control all of your created competitions, create new problems and contests.
+                </p>
+            </div>
+            <Separator />
             <TableContainer>
                 <TableTitle className='flex justify-between'>
                     <span>CONTESTS</span>
@@ -65,6 +75,12 @@ export default async function Page() {
                             ))
                         }
                     </TableBody>
+                    {
+                        contests.data.length === 0 &&
+                        <TableCaption>
+                            No created contests.
+                        </TableCaption>
+                    }
                 </Table>
             </TableContainer>
             <TableContainer>
@@ -103,6 +119,12 @@ export default async function Page() {
                             ))
                         }
                     </TableBody>
+                    {
+                        problems.data.length === 0 &&
+                        <TableCaption>
+                            No created problems.
+                        </TableCaption>
+                    }
                 </Table>
             </TableContainer>
         </ContentContainer>
