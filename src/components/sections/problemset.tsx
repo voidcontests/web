@@ -12,16 +12,7 @@ import { use } from "react";
 import { Tag } from "@/components/ui/tag";
 import { capitalize } from "@/lib/strings";
 import { useTonWallet } from "@tonconnect/ui-react";
-
-type DifficultyColorMap = {
-    [key: string]: 'green' | 'orange' | 'red';
-};
-
-const difficultyToBadgeType: DifficultyColorMap = {
-    'easy': 'green',
-    'mid': 'orange',
-    'hard': 'red',
-}
+import Difficulty from "../difficulty";
 
 export default function Problemset({ contest, difficulties, currentProblem }: { contest: Promise<ContestDetailed>, difficulties?: boolean, currentProblem?: string | number }) {
     const cdetailed = use(contest);
@@ -66,7 +57,7 @@ export default function Problemset({ contest, difficulties, currentProblem }: { 
                                     <SolvedTag className="ml-2" state={problem.status} />
                                 </TableCell>
                                 <TableCell className={!difficulties ? 'hidden' : ''}>
-                                    <Tag variant={difficultyToBadgeType[problem.difficulty]}>{capitalize(problem.difficulty)}</Tag>
+                                    <Difficulty difficulty={problem.difficulty} />
                                 </TableCell>
                             </TableRow>
                         ))

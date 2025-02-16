@@ -16,7 +16,7 @@ export default async function Page() {
                     Create a new problem
                 </h1>
                 <p className='text-base text-foreground/80'>
-                    Use this form to create a new problem. You can view all your created problems on the <Link href="/admin/problems">dashboard</Link> page.
+                    Use this form to create a new problem. You can view all your created problems on the <Link href="/hub">creator's hub</Link>.
                 </p>
             </div>
             <Separator />

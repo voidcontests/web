@@ -28,6 +28,9 @@ const Header = () => {
                         <NavItem href='/contests' className="max-sm:hidden">
                             CONTESTS
                         </NavItem>
+                        <NavItem href='/hub' className="max-sm:hidden">
+                            HUB
+                        </NavItem>
                     </div>
                     <TonConnectButton />
                 </div>
@@ -37,7 +40,7 @@ const Header = () => {
 };
 
 const navItemVariants = cva(
-    "text-sm font-semibold hover:text-foreground transition-colors",
+    "text-sm min-w-12 text-center font-semibold hover:text-foreground transition-colors",
     {
         variants: {
             state: {

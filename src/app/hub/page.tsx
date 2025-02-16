@@ -1,29 +1,12 @@
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
-import { cn, format_date, format_duration } from '@/lib/utils';
+import { getAdminContests, getAdminProblems } from '@/actions/actions';
 import ContentContainer from '@/components/content-container';
-
-
-import { SolvedTag } from "@/components/solved-tag";
+import Difficulty from '@/components/difficulty';
 import { Link } from "@/components/ui/link";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableTitle
 } from "@/components/ui/table";
-import { Tag } from "@/components/ui/tag";
-import { capitalize } from "@/lib/strings";
-import { getAdminContests, getAdminProblems } from '@/actions/actions';
-
-type DifficultyColorMap = {
-    [key: string]: 'green' | 'orange' | 'red';
-};
-
-const difficultyToBadgeType: DifficultyColorMap = {
-    'easy': 'green',
-    'mid': 'orange',
-    'hard': 'red',
-}
+import { format_date, format_duration } from '@/lib/utils';
 
 export default async function Page() {
     const problems = await getAdminProblems();
@@ -53,7 +36,7 @@ export default async function Page() {
                                 <TableRow key={index}>
                                     <TableCell className='text-center'>{contest.id}</TableCell>
                                     <TableCell>
-                                        <Link href={`/admin/contests/${contest.id}`}>
+                                        <Link href={`/hub/contests/${contest.id}`}>
                                             {contest.title}
                                         </Link>
                                     </TableCell>
@@ -80,9 +63,6 @@ export default async function Page() {
                             ))
                         }
                     </TableBody>
-                    {/* <TableCaption>
-                        Hello
-                    </TableCaption> */}
                 </Table>
             </TableContainer>
             <TableContainer>
@@ -106,12 +86,12 @@ export default async function Page() {
                                         {problem.id}
                                     </TableCell>
                                     <TableCell>
-                                        <Link href={`/admin/problem/${problem.id}`}>
+                                        <Link href={`/hub/problem/${problem.id}`}>
                                             {problem.title}
                                         </Link>
                                     </TableCell>
                                     <TableCell>
-                                        <Tag variant={difficultyToBadgeType[problem.difficulty]}>{capitalize(problem.difficulty)}</Tag>
+                                        <Difficulty difficulty={problem.difficulty} />
                                     </TableCell>
                                     <TableCell className='w-3xs'>
                                         {format_date(new Date(problem.created_at))}
