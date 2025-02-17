@@ -41,7 +41,7 @@ export default function Problemset({ contest, difficulties, currentProblem }: { 
                         problemset.map((problem, index) => (
                             <TableRow key={index}>
                                 <TableCell>
-                                    {problem.charcode.toUpperCase()}
+                                    {problem.charcode?.toUpperCase()}
                                 </TableCell>
                                 <TableCell>
                                     {
