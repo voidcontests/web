@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import React from 'react';
+import New from "./new";
 
 const Header = () => {
     const pathname = usePathname();
@@ -29,7 +30,10 @@ const Header = () => {
                             CONTESTS
                         </NavItem>
                         <NavItem href='/hub' className="max-sm:hidden">
-                            HUB
+                            <div className="flex flex-row gap-2 items-center">
+                                <span>HUB</span>
+                                <New />
+                            </div>
                         </NavItem>
                     </div>
                     <TonConnectButton />
