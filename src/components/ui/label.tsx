@@ -17,8 +17,8 @@ const Label = React.forwardRef<React.ElementRef<typeof LabelPrimitive.Root>, Rea
             {...props}
         >
             {children}
-            {required && <span className="text-scarlet-500">*</span>}
-            {optional && <span className="text-sm text-tertiary-foreground">(optional)</span>}
+            {required && <span className="font-normal text-scarlet-500">*</span>}
+            {optional && <span className="text-sm font-normal text-tertiary-foreground">(optional)</span>}
         </label>
     )
 );

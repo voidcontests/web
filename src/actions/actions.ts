@@ -2,6 +2,7 @@
 
 import { ContestDetailed, ContestList, EntityID, ProblemDetailed, ProblemList, ProblemListItem } from "@/api/dto/response";
 import { FormData as CreateProblemFormData } from "@/components/forms/create-problem";
+import { FormData as CreateContestFormData } from "@/components/forms/create-contest";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { DOMAIN } from "@/config";
@@ -33,6 +34,27 @@ export async function createProblem(data: CreateProblemFormData): Promise<Entity
     return await res.json() as EntityID;
 }
 
+export async function createContest(data: CreateContestFormData): Promise<EntityID> {
+    const cookieStore = cookies();
+    const token = cookieStore.get(COOKIE_KEY)?.value;
+
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    };
+
+    const res = await fetch(BASEPATH + `/contests`, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+        throw new Error(`can't create contest`);
+    }
+
+    return await res.json() as EntityID;
+}
 
 export async function getProblem(cid: ID, charcode: string): Promise<ProblemDetailed> {
     const cookieStore = cookies();

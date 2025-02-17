@@ -13,7 +13,7 @@ export default async function Page() {
         <ContentContainer className="max-w-3xl">
             <div className='flex flex-col gap-1'>
                 <h1 className='text-xl font-medium'>
-                    Create a new problem
+                    Create new problem
                 </h1>
                 <p className='text-base text-foreground/80'>
                     Use this form to create a new problem. You can view all your created problems on the <Link href="/hub">creator's hub</Link>.

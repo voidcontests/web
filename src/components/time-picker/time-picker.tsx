@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { TimePickerInput } from "./time-picker-input";
 import { cn } from "@/lib/utils";
 
-export function TimePicker({ hours, minutes, seconds, date, setDate }: { hours?: boolean, minutes?: boolean, seconds?: boolean,  date: Date | undefined, setDate: React.Dispatch<React.SetStateAction<Date | undefined>> }) {
+export function TimePicker({ hours, minutes, seconds, date, setDate }: { hours?: boolean, minutes?: boolean, seconds?: boolean,  date: Date | undefined, setDate: (v: Date) => void }) {
     const minuteRef = React.useRef<HTMLInputElement>(null);
     const hourRef = React.useRef<HTMLInputElement>(null);
     const secondRef = React.useRef<HTMLInputElement>(null);

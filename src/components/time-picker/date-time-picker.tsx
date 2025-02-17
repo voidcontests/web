@@ -1,5 +1,3 @@
-"use client";
-
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
@@ -8,7 +6,7 @@ import { add, format } from "date-fns";
 import { cn } from "@/lib/utils";
 import * as React from "react";
 
-export function DateTimePicker({ placeholder, date, setDate }: { placeholder?: string, date: Date | undefined, setDate: React.Dispatch<React.SetStateAction<Date | undefined>> }) {
+export function DateTimePicker({ placeholder, date, setDate }: { placeholder?: string, date: Date | undefined, setDate: (v: Date) => void }) {
     /**
     * carry over the current time when a user clicks a new day
     * instead of resetting to 00:00

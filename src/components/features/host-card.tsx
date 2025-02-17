@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function HostCard() {
     return (
-        <Link href="/create" className="col-span-3">
+        <Link href="/hub" className="col-span-3">
             <div className="col-span-3 rounded-xl bg-surface border not-dark:shadow-md flex flex-col justify-between text-sm h-84 max-sm:h-fit group hover:border-blue-400 hover:cursor-pointer transition-colors duration-300 overflow-hidden">
                 <div className="m-5 flex flex-col gap-2">
                     <div className="flex items-center gap-2">

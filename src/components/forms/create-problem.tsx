@@ -54,7 +54,7 @@ export function CreateProblemForm() {
             <div className="flex flex-col gap-6">
                 <div className="flex flex-col gap-2">
                     <Label required>
-                        Add a title
+                        Add title
                     </Label>
                     <Input
                         {...register("title")}

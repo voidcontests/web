@@ -6,7 +6,7 @@ import React from "react";
 export interface TimePickerInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     picker: TimePickerType;
     date: Date | undefined;
-    setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+    setDate: (v: Date) => void;
     period?: Period;
     onRightFocus?: () => void;
     onLeftFocus?: () => void;
