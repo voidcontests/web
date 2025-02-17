@@ -19,13 +19,14 @@ import { use } from "react";
 import Difficulty from "../difficulty";
 import { Link } from "../ui/link";
 import { Checkbox } from "../ui/checkbox";
+import { CheckedState } from "@radix-ui/react-checkbox";
 
 export interface FormData {
     title: string;
     description: string;
-    problem_ids: number[];
-    start_date: Date;
-    end_date: Date;
+    problems_ids: number[];
+    start_time: Date;
+    end_time: Date;
 }
 
 export function CreateContestForm({ problems }: { problems: Promise<ProblemList> }) {
@@ -35,9 +36,9 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
         defaultValues: {
             title: "",
             description: "",
-            problem_ids: [],
-            start_date: undefined,
-            end_date: undefined,
+            problems_ids: [],
+            start_time: undefined,
+            end_time: undefined,
         }
     });
 
@@ -52,8 +53,19 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
         }
     };
 
+    const onCheckedChange = (e: CheckedState, problemID: number) => {
+        const checked = Boolean(e.valueOf());
+        let prev = watch('problems_ids');
+        if (checked) {
+            prev.push(problemID);
+        } else {
+            prev = prev.filter(x => x != problemID);
+        }
+        setValue('problems_ids', prev);
+    }
+
     const validate = () => {
-        return watch('start_date') && watch('end_date') && watch('title').length !== 0 && watch('problem_ids').length !== 0 && watch('start_date') < watch('end_date');
+        return watch('start_time') && watch('end_time') && watch('title').length !== 0 && watch('problems_ids').length !== 0 && watch('start_time') < watch('end_time');
     };
 
     return (
@@ -106,19 +118,8 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
                                     <TableRow key={index}>
                                         <TableCell className="flex items-center">
                                             <Checkbox
-                                                checked={watch('problem_ids').includes(problem.id)}
-                                                onCheckedChange={
-                                                    (e) => {
-                                                        const checked = Boolean(e.valueOf());
-                                                        let prev = watch('problem_ids');
-                                                        if (checked) {
-                                                            prev.push(problem.id);
-                                                        } else {
-                                                            prev = prev.filter(x => x != problem.id);
-                                                        }
-                                                        setValue('problem_ids', prev);
-                                                    }
-                                                }
+                                                checked={watch('problems_ids').includes(problem.id)}
+                                                onCheckedChange={(e) => onCheckedChange(e, problem.id)}
                                             />
                                         </TableCell>
                                         <TableCell>
@@ -141,12 +142,12 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
 
                 <div className="flex flex-col gap-2">
                     <Label required>Starting at</Label>
-                    <DateTimePicker date={watch('start_date')} setDate={(d: Date) => setValue("start_date", d)} />
+                    <DateTimePicker date={watch('start_time')} setDate={(d: Date) => setValue("start_time", d)} />
                 </div>
 
                 <div className="flex flex-col gap-2">
                     <Label required>Deadline at</Label>
-                    <DateTimePicker date={watch('end_date')} setDate={(d: Date) => setValue("end_date", d)} />
+                    <DateTimePicker date={watch('end_time')} setDate={(d: Date) => setValue("end_time", d)} />
                 </div>
 
                 <div className="flex justify-end">
