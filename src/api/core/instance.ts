@@ -1,7 +1,6 @@
+import { DOMAIN } from "@/config";
 import Cookies from "js-cookie";
 import axios from "axios";
-
-const DOMAIN = 'https://void.ndbtea.tech';
 
 const authorized = axios.create({
     baseURL: DOMAIN + "/api",

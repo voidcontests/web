@@ -5,8 +5,8 @@ export const Footer = () => {
     return (
         <footer className='h-24 mt-10 w-full flex-none'>
             <div className='h-full max-w-7xl mx-auto flex justify-center'>
-                <div className='w-full flex items-center justify-between mx-4 text-sm text-tertiary-foreground'>
-                    <span className='mr-auto'>
+                <div className='w-full flex items-center justify-between max-sm:justify-center mx-4 text-sm text-tertiary-foreground'>
+                    <span className='mr-auto max-sm:hidden'>
                         Built by <Link href="https://github.com/jus1d" className='hover:text-foreground transition-colors'>@ndbtea</Link>
                     </span>
                     <div className='flex gap-8'>

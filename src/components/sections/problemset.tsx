@@ -12,18 +12,9 @@ import { use } from "react";
 import { Tag } from "@/components/ui/tag";
 import { capitalize } from "@/lib/strings";
 import { useTonWallet } from "@tonconnect/ui-react";
+import Difficulty from "../difficulty";
 
-type DifficultyColorMap = {
-    [key: string]: 'green' | 'orange' | 'red';
-};
-
-const difficultyToBadgeType: DifficultyColorMap = {
-    'easy': 'green',
-    'mid': 'orange',
-    'hard': 'red',
-}
-
-export default function Problemset({ contest, difficulties, currentProblemID }: { contest: Promise<ContestDetailed>, difficulties?: boolean, currentProblemID?: string | number }) {
+export default function Problemset({ contest, difficulties, currentProblem }: { contest: Promise<ContestDetailed>, difficulties?: boolean, currentProblem?: string | number }) {
     const cdetailed = use(contest);
     const problemset = cdetailed.problems;
     const started = new Date(cdetailed.start_time) < new Date();
@@ -50,14 +41,14 @@ export default function Problemset({ contest, difficulties, currentProblemID }: 
                         problemset.map((problem, index) => (
                             <TableRow key={index}>
                                 <TableCell>
-                                    {itoc(index)}
+                                    {problem.charcode.toUpperCase()}
                                 </TableCell>
                                 <TableCell>
                                     {
                                         started && (cdetailed.is_participant || (wallet && cdetailed.is_participant))
                                             ? <Link
-                                                href={`/contest/${problem.contest_id}/problem/${problem.id}`}
-                                                className={currentProblemID?.toString() === problem.id.toString() ? 'text-foreground font-medium' : ''}
+                                                href={`/contest/${cdetailed.id}/problem/${problem.charcode}`}
+                                                className={currentProblem?.toString() === problem.charcode ? 'text-foreground font-medium' : ''}
                                             >
                                                 {problem.title}
                                             </Link>
@@ -66,7 +57,7 @@ export default function Problemset({ contest, difficulties, currentProblemID }: 
                                     <SolvedTag className="ml-2" state={problem.status} />
                                 </TableCell>
                                 <TableCell className={!difficulties ? 'hidden' : ''}>
-                                    <Tag variant={difficultyToBadgeType[problem.difficulty]}>{capitalize(problem.difficulty)}</Tag>
+                                    <Difficulty difficulty={problem.difficulty} />
                                 </TableCell>
                             </TableRow>
                         ))

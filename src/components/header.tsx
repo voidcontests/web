@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import React from 'react';
+import New from "./new";
 
 const Header = () => {
     const pathname = usePathname();
@@ -16,17 +17,23 @@ const Header = () => {
         <header className={cn(
             'h-14 w-full mb-6',
             pathname === '/'
-                ? 'sticky top-0 bg-background border-t border-t-transparent border-b border-b-transparent'
+                ? 'sticky max-sm:static top-0 bg-background border-t border-t-transparent border-b border-b-transparent'
                 : 'bg-surface border-t border-t-transparent border-b border-b-border not-dark:shadow-md',
         )}>
             <div className='h-full max-w-7xl mx-auto flex justify-center'>
                 <div className='w-full flex items-center mx-4'>
                     <div className='h-full flex items-center gap-8 mr-auto'>
-                        <NavItem href='/' underlineActive={false}>
+                        <NavItem href='/' underlineActive={false} className="max-sm:text-base">
                             VOID
                         </NavItem>
-                        <NavItem href='/contests'>
+                        <NavItem href='/contests' className="max-sm:hidden">
                             CONTESTS
+                        </NavItem>
+                        <NavItem href='/hub' className="max-sm:hidden">
+                            <div className="flex flex-row gap-2 items-center">
+                                <span>HUB</span>
+                                <New />
+                            </div>
                         </NavItem>
                     </div>
                     <TonConnectButton />
@@ -37,7 +44,7 @@ const Header = () => {
 };
 
 const navItemVariants = cva(
-    "text-sm font-semibold hover:text-foreground transition-colors",
+    "text-sm min-w-12 text-center font-semibold hover:text-foreground transition-colors",
     {
         variants: {
             state: {

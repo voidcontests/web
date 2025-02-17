@@ -4,7 +4,7 @@ import { Address as Addr } from "@ton/core";
 
 const EXPLORER_BASEPATH = "https://tonscan.org";
 
-export default function Address({ address }: { address: string }) {
+export default function Address({ address, notruncate, length = 12 }: { address: string, notruncate?: boolean, length?: number }) {
     const addr = Addr.parse(address).toString({ bounceable: false });
 
     return (
@@ -13,7 +13,11 @@ export default function Address({ address }: { address: string }) {
             target="_blank"
             rel="noopener noreferrer"
         >
-            {truncate_address(addr, 12)}
+            {
+                notruncate
+                    ? addr
+                    : truncate_address(addr, length)
+            }
         </Link>
     );
 }

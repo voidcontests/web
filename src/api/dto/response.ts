@@ -1,9 +1,13 @@
-export type ContestID = {
+export type EntityID = {
     id: number;
 };
 
 export type ContestList = {
     data: ContestListItem[];
+};
+
+export type ProblemList = {
+    data: ProblemListItem[];
 };
 
 export type ContestDetailed = {
@@ -18,15 +22,18 @@ export type ContestDetailed = {
     is_draft?: boolean;
     is_participant?: boolean;
     problems: ProblemListItem[];
+    created_at: Date;
 };
 
 export type ProblemListItem = {
     id: number;
-    contest_id: number;
+    charcode?: string;
+    contest_id?: number;
     writer: User;
     title: string;
     difficulty: string;
     status?: 'accepted' | 'tried';
+    created_at: Date;
 };
 
 export type ContestListItem = {
@@ -36,6 +43,8 @@ export type ContestListItem = {
     start_time: Date;
     end_time: Date;
     duration_mins: number;
+    participants: number;
+    created_at: Date;
 };
 
 export type SubmissionListItem = {
@@ -52,11 +61,24 @@ export type User = {
 
 export type ProblemDetailed = {
     id: number;
-    contest_id: number;
+    charcode?: string;
+    contest_id?: number;
     writer: User;
     title: string;
     statement: string;
     difficulty: string;
     status?: 'accepted' | 'tried';
     input?: string;
+    created_at: Date;
+}
+
+
+export type LeaderboardItem = {
+    user_id: number;
+    user_address: string;
+    points: number;
+}
+
+export type Leaderboard = {
+    data: LeaderboardItem[];
 }

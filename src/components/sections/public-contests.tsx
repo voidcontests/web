@@ -21,10 +21,9 @@ export function PublicContests({ contests }: { contests: Promise<ContestList> })
             <Table>
                 <TableHeader>
                     <TableHeaderRow>
-                        <TableHead>#</TableHead>
+                        <TableHead>ID</TableHead>
                         <TableHead>Title</TableHead>
                         <TableHead>Host address</TableHead>
-                        <TableHead>Type</TableHead>
                         <TableHead>Start</TableHead>
                         <TableHead>End</TableHead>
                         <TableHead>Duration</TableHead>
@@ -34,7 +33,7 @@ export function PublicContests({ contests }: { contests: Promise<ContestList> })
                     {
                         publicContests.data.map((contest, index) => (
                             <TableRow key={index}>
-                                <TableCell>{`${index}/`}</TableCell>
+                                <TableCell>{contest.id}</TableCell>
                                 <TableCell>
                                     <Link href={`/contest/${contest.id}`}>
                                         {contest.title}
@@ -42,9 +41,6 @@ export function PublicContests({ contests }: { contests: Promise<ContestList> })
                                 </TableCell>
                                 <TableCell>
                                     <Address address={contest.creator.address} />
-                                </TableCell>
-                                <TableCell>
-                                    Training
                                 </TableCell>
                                 <TableCell>
                                     {format_date(new Date(contest.start_time))}

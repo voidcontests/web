@@ -31,14 +31,14 @@
     }
 
     body {
-        @apply bg-background text-foreground;
+        @apply bg-background text-foreground text-sm;
     }
 
-    ::selection {
+    /* ::selection {
         background-color: --alpha(var(--color-blue-400) / 20%);
     }
 
     ::-moz-selection {
         background-color: --alpha(var(--color-blue-400) / 20%);
-    }
+    } */
 }
