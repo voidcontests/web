@@ -35,7 +35,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
           }
         }}
         className={cn(
-          "flex min-h-[60px] w-full rounded-[10px] border bg-transparent px-3 py-2 text-sm placeholder:text-secondary-foreground focus-visible:outline-hidden focus-visible:border-blue-400 disabled:cursor-not-allowed disabled:opacity-50",
+          "flex min-h-[60px] w-full rounded-[10px] border bg-surface px-3 py-2 text-sm placeholder:text-secondary-foreground focus-visible:outline-hidden focus-visible:border-blue-400 disabled:cursor-not-allowed disabled:opacity-50",
           resizable ? "overflow-hidden resize-none" : "resize",
           className
         )}

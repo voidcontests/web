@@ -103,7 +103,7 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
                         </TableCaption>
                         <TableHeader>
                             <TableHeaderRow>
-                                <TableHead>Inc</TableHead>
+                                <TableHead>Inc.</TableHead>
                                 <TableHead>ID</TableHead>
                                 <TableHead>Name</TableHead>
                                 <TableHead>Difficulty</TableHead>

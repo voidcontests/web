@@ -30,7 +30,7 @@ export function DateTimePicker({ placeholder, date, setDate }: { placeholder?: s
                 <Button
                     variant={"outline"}
                     className={cn(
-                        "w-[280px] justify-start text-left font-normal",
+                        "w-[280px] justify-start text-left font-normal bg-surface hover:bg-surface-secondary",
                         !date && "text-muted-foreground"
                     )}
                 >

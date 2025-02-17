@@ -35,12 +35,12 @@ export default async function Page() {
                         <TableHeaderRow>
                             <TableHead>ID</TableHead>
                             <TableHead>Title</TableHead>
-                            <TableHead>Start</TableHead>
-                            <TableHead>End</TableHead>
+                            <TableHead>Starting at</TableHead>
+                            <TableHead>Deadline</TableHead>
                             <TableHead>Duration</TableHead>
                             <TableHead>Participants</TableHead>
                             <TableHead>Leaderboard</TableHead>
-                            <TableHead>Created At</TableHead>
+                            <TableHead>Created at</TableHead>
                         </TableHeaderRow>
                     </TableHeader>
                     <TableBody>
@@ -100,7 +100,7 @@ export default async function Page() {
                             <TableHead>ID</TableHead>
                             <TableHead>Title</TableHead>
                             <TableHead>Difficulty</TableHead>
-                            <TableHead className='w-3xs'>Created At</TableHead>
+                            <TableHead className='w-3xs'>Created at</TableHead>
                         </TableHeaderRow>
                     </TableHeader>
                     <TableBody>
