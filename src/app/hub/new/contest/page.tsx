@@ -3,12 +3,15 @@ import { CreateContestForm } from "@/components/forms/create-contest";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/components/ui/link";
 import { Metadata } from "next";
+import { getAdminProblems } from "@/actions/actions";
 
 export const metadata: Metadata = {
     title: 'New contest',
 };
 
-export default function Page() {
+export default async function Page() {
+    const ps = getAdminProblems();
+
     return (
         <ContentContainer className="max-w-3xl">
             <div className='flex flex-col gap-1'>
@@ -20,7 +23,7 @@ export default function Page() {
                 </p>
             </div>
             <Separator />
-            <CreateContestForm />
+            <CreateContestForm problems={ps} />
         </ContentContainer>
     );
 }

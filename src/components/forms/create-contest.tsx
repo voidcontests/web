@@ -3,13 +3,22 @@
 import { Button } from "@/components/ui/button";
 import { Label } from '@/components/ui/label';
 import { Input } from "@/components/ui/input";
-import Editor from '@/components/sections/editor';
 import { useForm } from 'react-hook-form';
 import { createContest } from '@/actions/actions';
 import { toast } from 'sonner';
 import { Separator } from '../ui/separator';
 import { DateTimePicker } from "@/components/time-picker/date-time-picker";
 import { TextArea } from "../ui/textarea";
+import {
+    TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
+    TableBody, TableRow, TableCell, TableCaption,
+    TableTitle,
+} from "@/components/ui/table";
+import { ProblemList } from "@/api/dto/response";
+import { use } from "react";
+import Difficulty from "../difficulty";
+import { Link } from "../ui/link";
+import { Checkbox } from "../ui/checkbox";
 
 export interface FormData {
     title: string;
@@ -19,7 +28,9 @@ export interface FormData {
     end_date: Date;
 }
 
-export function CreateContestForm() {
+export function CreateContestForm({ problems }: { problems: Promise<ProblemList> }) {
+    const problemslist = use(problems);
+
     const { register, handleSubmit, setValue, watch } = useForm<FormData>({
         defaultValues: {
             title: "",
@@ -42,7 +53,7 @@ export function CreateContestForm() {
     };
 
     const validate = () => {
-        return watch('start_date') && watch('end_date') && watch('title').length !== 0 && watch('problem_ids').length !== 0;
+        return watch('start_date') && watch('end_date') && watch('title').length !== 0 && watch('problem_ids').length !== 0 && watch('start_date') < watch('end_date');
     };
 
     return (
@@ -69,6 +80,62 @@ export function CreateContestForm() {
                         resizable
                     />
                 </div>
+
+                <TableContainer>
+                    <TableTitle>
+                        SELECT PROBLEMS
+                    </TableTitle>
+                    <Table>
+                        {
+                            problemslist.data.length === 0 &&
+                            <TableCaption>
+                                You dont't have any created problems. You can create new one problem <Link href="/hub/new/problem">here</Link>.
+                            </TableCaption>
+                        }
+                        <TableHeader>
+                            <TableHeaderRow>
+                                <TableHead>Inc</TableHead>
+                                <TableHead>ID</TableHead>
+                                <TableHead>Name</TableHead>
+                                <TableHead>Difficulty</TableHead>
+                            </TableHeaderRow>
+                        </TableHeader>
+                        <TableBody>
+                            {
+                                problemslist.data.map((problem, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell className="flex items-center">
+                                            <Checkbox
+                                                checked={watch('problem_ids').includes(problem.id)}
+                                                onCheckedChange={
+                                                    (e) => {
+                                                        const checked = Boolean(e.valueOf());
+                                                        let prev = watch('problem_ids');
+                                                        if (checked) {
+                                                            prev.push(problem.id);
+                                                        } else {
+                                                            prev = prev.filter(x => x != problem.id);
+                                                        }
+                                                        setValue('problem_ids', prev);
+                                                    }
+                                                }
+                                            />
+                                        </TableCell>
+                                        <TableCell>
+                                            {problem.id}
+                                        </TableCell>
+                                        <TableCell>
+                                            {problem.title}
+                                        </TableCell>
+                                        <TableCell>
+                                            <Difficulty difficulty={problem.difficulty} />
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
 
                 <Separator />
 
