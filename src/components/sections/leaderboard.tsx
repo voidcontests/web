@@ -26,8 +26,8 @@ export default function Problemset({ leaderboard }: { leaderboard: Promise<Leade
             <Table>
                 <TableHeader>
                     <TableHeaderRow>
-                        <TableHead>User ID</TableHead>
-                        <TableHead>User Address</TableHead>
+                        <TableHead>ID</TableHead>
+                        <TableHead>Address</TableHead>
                         <TableHead>Points</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
