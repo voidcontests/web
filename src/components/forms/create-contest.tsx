@@ -98,12 +98,9 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
                         SELECT PROBLEMS
                     </TableTitle>
                     <Table>
-                        {
-                            problemslist.data.length === 0 &&
-                            <TableCaption>
-                                You dont't have any created problems. You can create new one problem <Link href="/hub/new/problem">here</Link>.
-                            </TableCaption>
-                        }
+                        <TableCaption>
+                            You can create new problems <Link href="/hub/new/problem">here</Link>.
+                        </TableCaption>
                         <TableHeader>
                             <TableHeaderRow>
                                 <TableHead>Inc</TableHead>
@@ -153,10 +150,6 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
                 <div className="flex justify-end">
                     <Button type='submit' disabled={!validate()}>CREATE</Button>
                 </div>
-
-                <code>
-                    {JSON.stringify(watch())}
-                </code>
             </div>
         </form>
     );

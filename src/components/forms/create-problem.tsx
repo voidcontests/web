@@ -100,7 +100,7 @@ export function CreateProblemForm() {
                         >
                             <RadioGroupItem
                                 value='easy'
-                                className='shadow-none data-[state=checked]:border-green-500 data-[state=checked]:bg-green-500 *:data-[slot=radio-group-indicator]:[&>svg]:fill-white *:data-[slot=radio-group-indicator]:[&>svg]:stroke-white'
+                                className='shadow-none data-[state=checked]:border-green-500 data-[state=checked]:bg-green-500 *:data-[slot=radio-group-indicator]:[&>svg]:fill-zinc-50 *:data-[slot=radio-group-indicator]:[&>svg]:stroke-white'
                             />
                             <div className='grid gap-1.5 font-normal'>
                                 <div className='flex flex-row gap-1.5'>
@@ -128,7 +128,7 @@ export function CreateProblemForm() {
                         >
                             <RadioGroupItem
                                 value='mid'
-                                className='shadow-none data-[state=checked]:border-amber-500 data-[state=checked]:bg-amber-500 *:data-[slot=radio-group-indicator]:[&>svg]:fill-white *:data-[slot=radio-group-indicator]:[&>svg]:stroke-white'
+                                className='shadow-none data-[state=checked]:border-amber-500 data-[state=checked]:bg-amber-500 *:data-[slot=radio-group-indicator]:[&>svg]:fill-zinc-50 *:data-[slot=radio-group-indicator]:[&>svg]:stroke-white'
                             />
                             <div className='grid gap-1.5 font-normal'>
                                 <div className='flex flex-row gap-1.5'>
@@ -156,7 +156,7 @@ export function CreateProblemForm() {
                         >
                             <RadioGroupItem
                                 value='hard'
-                                className='shadow-none data-[state=checked]:border-scarlet-500 data-[state=checked]:bg-scarlet-500 *:data-[slot=radio-group-indicator]:[&>svg]:fill-white *:data-[slot=radio-group-indicator]:[&>svg]:stroke-white'
+                                className='shadow-none data-[state=checked]:border-scarlet-500 data-[state=checked]:bg-scarlet-500 *:data-[slot=radio-group-indicator]:[&>svg]:fill-zinc-50 *:data-[slot=radio-group-indicator]:[&>svg]:stroke-white'
                             />
                             <div className='grid gap-1.5 font-normal'>
                                 <div className='flex flex-row gap-1.5'>
