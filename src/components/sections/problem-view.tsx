@@ -53,7 +53,7 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
                     </Link>
                 </div>
                 <h1 className="text-foreground text-xl font-medium text-center">
-                    {pdetailed.title}
+                    {`${pdetailed.charcode} :: ${pdetailed.title}`}
                 </h1>
                 <div className="flex-1"></div>
             </div>

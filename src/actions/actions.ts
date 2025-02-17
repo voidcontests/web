@@ -1,6 +1,6 @@
 'use server';
 
-import { ContestDetailed, ContestList, EntityID, ProblemDetailed, ProblemList, ProblemListItem } from "@/api/dto/response";
+import { ContestDetailed, ContestList, EntityID, Leaderboard, ProblemDetailed, ProblemList, ProblemListItem } from "@/api/dto/response";
 import { FormData as CreateProblemFormData } from "@/components/forms/create-problem";
 import { FormData as CreateContestFormData } from "@/components/forms/create-contest";
 import { revalidatePath } from "next/cache";
@@ -138,6 +138,23 @@ export async function getContest(cid: ID): Promise<ContestDetailed> {
     }
 
     return await res.json() as ContestDetailed;
+}
+
+export async function getLeaderboard(cid: ID): Promise<Leaderboard> {
+    const headers = {
+        'Content-Type': 'application/json',
+    };
+
+    const res = await fetch(BASEPATH + `/contests/${cid}/leaderboard`, {
+        method: 'GET',
+        headers: headers,
+    });
+
+    if (!res.ok) {
+        throw new Error(`can't get leaderboard`);
+    }
+
+    return await res.json() as Leaderboard;
 }
 
 export async function getContests(): Promise<ContestList> {

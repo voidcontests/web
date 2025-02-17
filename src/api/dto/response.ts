@@ -71,3 +71,14 @@ export type ProblemDetailed = {
     input?: string;
     created_at: Date;
 }
+
+
+export type LeaderboardItem = {
+    user_id: number;
+    user_address: string;
+    points: number;
+}
+
+export type Leaderboard = {
+    data: LeaderboardItem[];
+}

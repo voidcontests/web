@@ -39,6 +39,7 @@ export default async function Page() {
                             <TableHead>End</TableHead>
                             <TableHead>Duration</TableHead>
                             <TableHead>Participants</TableHead>
+                            <TableHead>Leaderboard</TableHead>
                             <TableHead>Created At</TableHead>
                         </TableHeaderRow>
                     </TableHeader>
@@ -67,6 +68,11 @@ export default async function Page() {
                                     </TableCell>
                                     <TableCell>
                                         {contest.participants}
+                                    </TableCell>
+                                    <TableCell>
+                                        <Link href={`/contest/${contest.id}/leaderboard`}>
+                                            View
+                                        </Link>
                                     </TableCell>
                                     <TableCell>
                                         {format_date(new Date(contest.created_at))}
