@@ -1,6 +1,7 @@
 import { getAdminContests, getAdminProblems } from '@/actions/actions';
 import ContentContainer from '@/components/content-container';
 import Difficulty from '@/components/difficulty';
+import { MessageBox, MessageBoxTitle } from '@/components/message-box';
 import { Link } from "@/components/ui/link";
 import { Separator } from '@/components/ui/separator';
 import {
@@ -16,6 +17,16 @@ export default async function Page() {
 
     return (
         <ContentContainer>
+            <MessageBox variant="warning">
+                <span className='font-medium'>
+                    LIMITED MODE
+                </span>
+                <span>
+                    You are in kinda limited mode. You can create up to 2 contests and 10 problems.
+                    I didn't figured out how to upgrade limitations yet, so for now just enjoy
+                    this situation or contact me somewhere
+                </span>
+            </MessageBox>
             <div className='flex flex-col gap-1'>
                 <h1 className='text-xl font-medium'>
                     Welcome to creator's hub

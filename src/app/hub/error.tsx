@@ -12,7 +12,12 @@ export default function Error({ error }: { error: Error & { digest?: string } })
     return (
         <ContentContainer>
             <MessageBox variant='error'>
-                Contest was not found
+                <span className='font-medium'>
+                    UNAUTHORIZED
+                </span>
+                <span>
+                    You need to connect wallet to have access to creator's hub.
+                </span>
             </MessageBox>
         </ContentContainer>
     )
