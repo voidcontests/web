@@ -1,7 +1,7 @@
 import { getAdminContests, getAdminProblems } from '@/actions/actions';
 import ContentContainer from '@/components/content-container';
 import Difficulty from '@/components/difficulty';
-import { MessageBox, MessageBoxTitle } from '@/components/message-box';
+import { MessageBox } from '@/components/message-box';
 import { Link } from "@/components/ui/link";
 import { Separator } from '@/components/ui/separator';
 import {
