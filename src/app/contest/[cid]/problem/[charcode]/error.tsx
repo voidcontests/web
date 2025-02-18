@@ -2,13 +2,8 @@
 
 import ContentContainer from '@/components/content-container'
 import { MessageBox } from '@/components/message-box'
-import { useEffect } from 'react'
 
-export default function Error({ error }: { error: Error & { digest?: string } }) {
-    useEffect(() => {
-        console.error(error)
-    }, [error])
-
+export default function Error({ error }: { error: Error }) {
     return (
         <ContentContainer>
             <MessageBox variant='error'>
