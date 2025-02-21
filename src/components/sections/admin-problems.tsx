@@ -17,7 +17,7 @@ export default async function AdminProblems() {
                 <span>PROBLEMS</span>
                 {
                     account.role.name !== 'banned' &&
-                    <Link href='/hub/new/contest' size="large">NEW</Link>
+                    <Link href='/hub/new/problem' size="large">NEW</Link>
                 }
             </TableTitle>
             <Table>
