@@ -1,3 +1,21 @@
+export type Account = {
+    id: number;
+    ton_account: {
+        address: {
+            bounceable: string;
+            non_bounceable: string;
+            raw: string;
+        };
+        balance: number;
+        status: string;
+    };
+    role: {
+        name: string;
+        created_problems_limit: number;
+        created_contests_limit: number;
+    };
+};
+
 export type EntityID = {
     id: number;
 };

@@ -1,6 +1,6 @@
 'use server';
 
-import { ContestDetailed, ContestList, EntityID, Leaderboard, ProblemDetailed, ProblemList, ProblemListItem } from "@/api/dto/response";
+import { Account, ContestDetailed, ContestList, EntityID, Leaderboard, ProblemDetailed, ProblemList } from "@/api/dto/response";
 import { FormData as CreateProblemFormData } from "@/components/forms/create-problem";
 import { FormData as CreateContestFormData } from "@/components/forms/create-contest";
 import { revalidatePath } from "next/cache";
@@ -11,6 +11,27 @@ type ID = string | number;
 
 const BASEPATH = `${DOMAIN}/api`;
 const COOKIE_KEY = 'token';
+
+export async function getAccount(): Promise<Account> {
+    const cookieStore = cookies();
+    const token = cookieStore.get(COOKIE_KEY)?.value;
+
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    };
+
+    const res = await fetch(BASEPATH + `/account?network=-239`, {
+        method: 'GET',
+        headers: headers,
+    });
+
+    if (!res.ok) {
+        throw new Error(`can't get current account`);
+    }
+
+    return await res.json() as Account;
+}
 
 export async function createProblem(data: CreateProblemFormData): Promise<EntityID> {
     const cookieStore = cookies();
