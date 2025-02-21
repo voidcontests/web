@@ -1,6 +1,6 @@
 'use client';
 
-import { ContestDetailed } from "@/api/dto/response";
+import { ContestDetailed } from "@/actions/dto/response";
 import { use } from "react";
 import Timer from "@/components/timer";
 import { revalidate } from "@/actions/actions";

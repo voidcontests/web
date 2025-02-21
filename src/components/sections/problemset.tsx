@@ -2,15 +2,12 @@
 
 import { SolvedTag } from "@/components/solved-tag";
 import { Link } from "@/components/ui/link";
-import { itoc } from '@/lib/utils';
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
-    TableBody, TableRow, TableCell, TableCaption, TableTitle
+    TableBody, TableRow, TableCell, TableTitle
 } from "@/components/ui/table";
-import { ContestDetailed, ProblemListItem } from "@/api/dto/response";
+import { ContestDetailed } from "@/actions/dto/response";
 import { use } from "react";
-import { Tag } from "@/components/ui/tag";
-import { capitalize } from "@/lib/strings";
 import { useTonWallet } from "@tonconnect/ui-react";
 import Difficulty from "../difficulty";
 

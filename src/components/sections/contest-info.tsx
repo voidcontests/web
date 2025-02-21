@@ -1,4 +1,4 @@
-import { ContestDetailed } from "@/api/dto/response";
+import { ContestDetailed } from "@/actions/dto/response";
 import { use } from "react";
 
 export default function ContestInfo({ contest }: { contest: Promise<ContestDetailed> }) {

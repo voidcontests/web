@@ -1,6 +1,6 @@
 'use server';
 
-import { Account, ContestDetailed, ContestList, EntityID, Leaderboard, ProblemDetailed, ProblemList } from "@/api/dto/response";
+import { Account, ContestDetailed, ContestList, EntityID, Leaderboard, ProblemDetailed, ProblemList } from "@/actions/dto/response";
 import { FormData as CreateProblemFormData } from "@/components/forms/create-problem";
 import { FormData as CreateContestFormData } from "@/components/forms/create-contest";
 import { revalidatePath } from "next/cache";
@@ -12,6 +12,25 @@ type ID = string | number;
 const BASEPATH = `${DOMAIN}/api`;
 const COOKIE_KEY = 'token';
 
+export async function createEntry(cid: ID): Promise<void> {
+    const cookieStore = cookies();
+    const token = cookieStore.get(COOKIE_KEY)?.value;
+
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    };
+
+    const res = await fetch(BASEPATH + `/contests/${cid}/entry`, {
+        method: 'POST',
+        headers: headers,
+    });
+
+    if (!res.ok) {
+        throw new Error(`can't apply for contest`);
+    }
+}
+
 export async function getAccount(): Promise<Account> {
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_KEY)?.value;
@@ -21,6 +40,7 @@ export async function getAccount(): Promise<Account> {
         'Content-Type': 'application/json',
     };
 
+    // TODO: unhardcode mainnet id out of here
     const res = await fetch(BASEPATH + `/account?network=-239`, {
         method: 'GET',
         headers: headers,

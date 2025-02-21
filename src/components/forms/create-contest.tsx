@@ -14,7 +14,7 @@ import {
     TableBody, TableRow, TableCell, TableCaption,
     TableTitle,
 } from "@/components/ui/table";
-import { ProblemList } from "@/api/dto/response";
+import { ProblemList } from "@/actions/dto/response";
 import { use } from "react";
 import Difficulty from "../difficulty";
 import { Link } from "../ui/link";
@@ -99,7 +99,11 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
                     </TableTitle>
                     <Table>
                         <TableCaption>
-                            You can create new problems <Link href="/hub/new/problem">here</Link>.
+                            {
+                                problemslist.data.length === 0
+                                    ? <span>You need to create problems first <Link href="/hub/new/problem">here</Link>.</span>
+                                    : <span>You can create new problems <Link href="/hub/new/problem">here</Link>.</span>
+                            }
                         </TableCaption>
                         <TableHeader>
                             <TableHeaderRow>

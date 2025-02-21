@@ -1,3 +1,5 @@
+// TODO: try to migrate to server actions instead of client-side API calls
+
 import { useIsConnectionRestored, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 import { TonProofContext } from "@/contexts/tonproof";
 import { useContext, useEffect, useRef } from "react";

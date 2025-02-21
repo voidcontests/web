@@ -7,7 +7,7 @@ import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableCaption, TableTitle
 } from "@/components/ui/table";
-import { ContestDetailed, Leaderboard, ProblemListItem } from "@/api/dto/response";
+import { ContestDetailed, Leaderboard, ProblemListItem } from "@/actions/dto/response";
 import { use } from "react";
 import { Tag } from "@/components/ui/tag";
 import { capitalize } from "@/lib/strings";
