@@ -1,4 +1,4 @@
-import { getAdminContests } from '@/actions/actions';
+import { getAccount, getAdminContests } from '@/actions/actions';
 import { Link } from "@/components/ui/link";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
@@ -8,13 +8,16 @@ import {
 import { format_date, format_duration } from '@/lib/utils';
 
 export default async function AdminContests() {
-    const contests = await getAdminContests();
+    const [contests, account] = await Promise.all([getAdminContests(), getAccount()]);
 
     return (
         <TableContainer>
             <TableTitle className='flex justify-between'>
                 <span>CONTESTS</span>
-                <Link href='/hub/new/contest' size="large">NEW</Link>
+                {
+                    account.role.name !== 'banned' &&
+                    <Link href='/hub/new/contest' size="large">NEW</Link>
+                }
             </TableTitle>
             <Table>
                 <TableHeader>

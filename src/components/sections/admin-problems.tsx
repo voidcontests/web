@@ -1,4 +1,4 @@
-import { getAdminProblems } from '@/actions/actions';
+import { getAccount, getAdminProblems } from '@/actions/actions';
 import Difficulty from '@/components/difficulty';
 import { Link } from "@/components/ui/link";
 import {
@@ -9,13 +9,16 @@ import {
 import { format_date } from '@/lib/utils';
 
 export default async function AdminProblems() {
-    const problems = await getAdminProblems();
+    const [problems, account] = await Promise.all([getAdminProblems(), getAccount()]);
 
     return (
         <TableContainer>
             <TableTitle className='flex justify-between'>
                 <span>PROBLEMS</span>
-                <Link href='/hub/new/problem' size="large">NEW</Link>
+                {
+                    account.role.name !== 'banned' &&
+                    <Link href='/hub/new/contest' size="large">NEW</Link>
+                }
             </TableTitle>
             <Table>
                 <TableHeader>

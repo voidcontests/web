@@ -25,7 +25,7 @@ export default async function HubMessage() {
                     BANNED
                 </span>
                 <span>
-                    Probably, you have been banned from creating contests and problems for acting against the admins' will.
+                    You have been banned from creating contests and problems for acting against the admins' will.
                 </span>
             </MessageBox>
         );
