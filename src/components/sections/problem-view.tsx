@@ -27,9 +27,9 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
         switch (status) {
             case 201:
                 const verdict = data.verdict;
-                if (verdict === 'OK') {
+                if (verdict === 'ok') {
                     toast.success('Correct! Answer accepted');
-                } else if (verdict === 'WA') {
+                } else if (verdict === 'wrong_answer') {
                     toast.warning('Your answer is incorrect');
                 } else {
                     toast.error(`Unknown verdict: ${verdict}`);
