@@ -14,7 +14,7 @@ import {
     TableBody, TableRow, TableCell, TableCaption,
     TableTitle,
 } from "@/components/ui/table";
-import { ProblemList } from "@/api/dto/response";
+import { ProblemList } from "@/actions/dto/response";
 import { use } from "react";
 import Difficulty from "../difficulty";
 import { Link } from "../ui/link";

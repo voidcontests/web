@@ -1,5 +1,5 @@
 import { authorized, unauthorized } from "./core/instance";
-import { ProblemDetailed, SubmissionListItem } from "./dto/response";
+import { SubmissionListItem } from "../actions/dto/response";
 
 interface Problems {
     data: Problem[];

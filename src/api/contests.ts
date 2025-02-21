@@ -1,6 +1,6 @@
-import { ContestDetailed, EntityID, ContestListItem } from "./dto/response";
+import { ContestDetailed, EntityID, ContestListItem } from "../actions/dto/response";
 import { authorized, unauthorized } from "./core/instance";
-import { CreateContest } from "./dto/request";
+import { CreateContest } from "../actions/dto/request";
 
 export interface Contestlist {
     data: ContestListItem[];

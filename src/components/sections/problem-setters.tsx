@@ -1,6 +1,6 @@
 'use client';
 
-import { ProblemDetailed } from "@/api/dto/response";
+import { ProblemDetailed } from "@/actions/dto/response";
 import { use } from "react";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,

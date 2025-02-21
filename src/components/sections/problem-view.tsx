@@ -1,6 +1,6 @@
 'use client';
 
-import { ProblemDetailed } from "@/api/dto/response";
+import { ProblemDetailed } from "@/actions/dto/response";
 import { authorized } from "@/api/core/instance";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

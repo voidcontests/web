@@ -1,6 +1,6 @@
 'use client';
 
-import { ContestList } from "@/api/dto/response";
+import { ContestList } from "@/actions/dto/response";
 import { Link } from "@/components/ui/link";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,

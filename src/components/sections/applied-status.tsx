@@ -1,13 +1,12 @@
 'use client';
 
 import { useIsConnectionRestored, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
-import { ContestDetailed } from "@/api/dto/response";
+import { ContestDetailed } from "@/actions/dto/response";
 import { Button } from "@/components/ui/button";
-import * as API from '@/api';
 import { use } from "react";
 import { toast } from "sonner";
 import { LoaderCircle } from "lucide-react";
-import { revalidate } from "@/actions/actions";
+import { createEntry, revalidate } from "@/actions/actions";
 
 export default function AppliedStatus({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);
@@ -48,7 +47,7 @@ export default function AppliedStatus({ contest }: { contest: Promise<ContestDet
 
     const handleApplyClick = async () => {
         try {
-            await API.applyForContest(cdetailed.id);
+            await createEntry(cdetailed.id);
             revalidate(`/contest/${cdetailed.id}`);
         } catch (e) {
             toast.error('Something went wrong. Try again leter');
