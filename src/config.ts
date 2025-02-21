@@ -1,2 +1,3 @@
-// export const DOMAIN = 'https://void.ndbtea.tech';
-export const DOMAIN = 'http://localhost:6969';
+// TODO: MOVE THIS SHIT OUT OF HERE TO ENV FILE OR KINDA
+// I ALWAYS FORGOT TO CHANGE IT FROM LOCALHOST
+export const DOMAIN = 'https://void.ndbtea.tech';
