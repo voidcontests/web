@@ -1,4 +1,5 @@
 import { getAccount, getAdminContests } from '@/actions/actions';
+import { ContestListItem } from '@/actions/dto/response';
 import { Link } from "@/components/ui/link";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
@@ -6,9 +7,18 @@ import {
     TableCaption
 } from "@/components/ui/table";
 import { format_date, format_duration } from '@/lib/utils';
+import Status from '../status';
 
 export default async function AdminContests() {
     const [contests, account] = await Promise.all([getAdminContests(), getAccount()]);
+
+    const is_live = (contest: ContestListItem): boolean => {
+        const now = new Date();
+        const start = new Date(contest.start_time);
+        const end = new Date(contest.end_time);
+
+        return now > start && now < end;
+    }
 
     return (
         <TableContainer>
@@ -30,13 +40,16 @@ export default async function AdminContests() {
                         <TableHead>Participants</TableHead>
                         <TableHead>Leaderboard</TableHead>
                         <TableHead>Created at</TableHead>
+                        <TableHead>Status</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
                 <TableBody>
                     {
                         contests.data.map((contest, index) => (
                             <TableRow key={index}>
-                                <TableCell className='text-center'>{contest.id}</TableCell>
+                                <TableCell className='text-center pr-5'>
+                                    {contest.id}
+                                </TableCell>
                                 <TableCell>
                                     <Link href={`/hub/contests/${contest.id}`}>
                                         {contest.title}
@@ -65,6 +78,9 @@ export default async function AdminContests() {
                                 </TableCell>
                                 <TableCell>
                                     {format_date(new Date(contest.created_at))}
+                                </TableCell>
+                                <TableCell>
+                                    <Status active={ is_live(contest) } />
                                 </TableCell>
                             </TableRow>
                         ))

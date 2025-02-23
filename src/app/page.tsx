@@ -1,7 +1,5 @@
 import ContentContainer from "@/components/content-container";
-import { Button } from "@/components/ui/button";
 import Features from "@/components/features";
-import NextLink from "next/link";
 import React from "react";
 
 export default async function HomePage() {
