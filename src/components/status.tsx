@@ -4,8 +4,8 @@ export default function Status({ active }: { active?: boolean }) {
     if (active) {
         return (
             <span className='relative flex items-center justify-center'>
-     			<span className='absolute inline-flex h-2 w-2 animate-ping rounded-full border border-scarlet-500 bg-scarlet-500 opacity-75'></span>
-     			<span className='relative inline-flex h-2 w-2 rounded-full bg-scarlet-500'></span>
+     			<span className='absolute inline-flex h-2 w-2 animate-ping rounded-full border border-green-500 bg-green-500 opacity-75'></span>
+     			<span className='relative inline-flex h-2 w-2 rounded-full bg-green-500'></span>
       		</span>
         );
     }
