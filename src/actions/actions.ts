@@ -12,6 +12,38 @@ type ID = string | number;
 const BASEPATH = `${DOMAIN}/api`;
 const COOKIE_KEY = 'token';
 
+export type ExecutionResult = {
+    status: number;
+    stdout: string;
+    stderr: string;
+};
+
+export async function execute(code: string): Promise<ExecutionResult> {
+    const cookieStore = cookies();
+    const token = cookieStore.get(COOKIE_KEY)?.value;
+
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    };
+
+    let body = {
+        code: code,
+    }
+
+    const res = await fetch(BASEPATH + `/run`, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(body),
+    });
+
+    if (!res.ok) {
+        throw new Error(`can't get execute code`);
+    }
+
+    return await res.json() as ExecutionResult;
+}
+
 export async function createEntry(cid: ID): Promise<void> {
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_KEY)?.value;
