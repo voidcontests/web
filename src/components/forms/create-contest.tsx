@@ -229,10 +229,6 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
                     </Label>
                 </div>
 
-                <code>
-                    {JSON.stringify(watch())}
-                </code>
-
                 <div className="flex justify-end">
                     <Button type='submit' disabled={!validate()}>CREATE</Button>
                 </div>
