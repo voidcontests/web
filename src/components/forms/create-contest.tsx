@@ -176,19 +176,20 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
                         <span className="text-sm font-normal text-tertiary-foreground">(optional, 0 - not limited)</span>
                     </Label>
                     <Input
-                        className="max-w-70"
-                        {...register("max_entries")}
+                        type="number"
+                        className="no-arrows max-w-70"
+                        {...register("max_entries", { valueAsNumber: true })}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => {
                             const val = e.target.value;
                             if (val.length !== 0) {
-                                const charcode = val[val.length-1].charCodeAt(0);
+                                const charcode = val[val.length - 1].charCodeAt(0);
                                 if (charcode < 48 || charcode > 57) return;
                             }
-
-                            setValue('max_entries', Number(val));
+                            setValue("max_entries", Number(val));
                         }}
-                        placeholder="Title"
+                        placeholder="Slots"
                     />
+
                     {
                         watch('max_entries') > 8*1000**3 &&
                         <span className="text-[0.8125rem] font-normal">
