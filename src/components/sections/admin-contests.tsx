@@ -7,9 +7,10 @@ import {
     TableCaption
 } from "@/components/ui/table";
 import { format_date, format_duration } from '@/lib/utils';
-import Status from '../status';
+import ContestStatus from '../contest-status';
 
 export default async function AdminContests() {
+    // TODO: add loadings
     const [contests, account] = await Promise.all([getAdminContests(), getAccount()]);
 
     const is_live = (contest: ContestListItem): boolean => {
@@ -84,7 +85,7 @@ export default async function AdminContests() {
                                     {format_date(new Date(contest.created_at))}
                                 </TableCell>
                                 <TableCell>
-                                    <Status active={ is_live(contest) } />
+                                    <ContestStatus contest={contest} />
                                 </TableCell>
                             </TableRow>
                         ))
