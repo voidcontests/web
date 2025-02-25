@@ -181,7 +181,6 @@ export function CreateProblemForm() {
                         'flex items-start gap-3 rounded-xl border p-4 hover:cursor-pointer',
                         'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4 has-[[aria-checked=true]]:border-blue-400 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:bg-blue-400/20'
                     )}>
-                        {/* TODO: cursor being default when hovering exactly checkbox */}
                         <Checkbox
                             checked={watch("keep_public")}
                             onCheckedChange={(value) => setValue("keep_public", Boolean(value))}

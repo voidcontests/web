@@ -15,11 +15,12 @@ import {
     TableTitle,
 } from "@/components/ui/table";
 import { ProblemList } from "@/actions/dto/response";
-import { use } from "react";
+import { ChangeEvent, use } from "react";
 import Difficulty from "../difficulty";
 import { Link } from "../ui/link";
-import { Checkbox } from "../ui/checkbox";
+import { Checkbox } from '@/components/ui/checkbox';
 import { CheckedState } from "@radix-ui/react-checkbox";
+import { cn } from "@/lib/utils";
 
 export interface FormData {
     title: string;
@@ -27,6 +28,9 @@ export interface FormData {
     problems_ids: number[];
     start_time: Date;
     end_time: Date;
+    max_entries: number;
+    allow_late_join: boolean;
+    keep_as_training: boolean;
 }
 
 export function CreateContestForm({ problems }: { problems: Promise<ProblemList> }) {
@@ -39,6 +43,9 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
             problems_ids: [],
             start_time: undefined,
             end_time: undefined,
+            max_entries: 0,
+            allow_late_join: true,
+            keep_as_training: false,
         }
     });
 
@@ -142,6 +149,57 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
                 <Separator />
 
                 <div className="flex flex-col gap-2">
+                    <Label>Accesibility settings</Label>
+                    <Label className={cn(
+                        'flex items-start gap-3 rounded-xl border p-4 hover:cursor-pointer',
+                        'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4 has-[[aria-checked=true]]:border-blue-400 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:bg-blue-400/20'
+                    )}>
+                        <Checkbox
+                            checked={watch("allow_late_join")}
+                            onCheckedChange={(value) => setValue("allow_late_join", Boolean(value))}
+                        />
+                        <div className='grid gap-1.5 font-normal'>
+                            <p className='text-sm leading-none font-medium'>
+                                Allow late join
+                            </p>
+                            <p className='text-foreground/80 text-sm'>
+                                When the option is enabled, users may apply to the competition at any time until it finishes;
+                                when it is not - users may only apply before the competition begins.
+                            </p>
+                        </div>
+                    </Label>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                    <Label>
+                        Add total participants limit
+                        <span className="text-sm font-normal text-tertiary-foreground">(optional, 0 - not limited)</span>
+                    </Label>
+                    <Input
+                        className="max-w-70"
+                        {...register("max_entries")}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                            const val = e.target.value;
+                            if (val.length !== 0) {
+                                const charcode = val[val.length-1].charCodeAt(0);
+                                if (charcode < 48 || charcode > 57) return;
+                            }
+
+                            setValue('max_entries', Number(val));
+                        }}
+                        placeholder="Title"
+                    />
+                    {
+                        watch('max_entries') > 8*1000**3 &&
+                        <span className="text-[0.8125rem] font-normal">
+                            Bro, do you really need this limitation??? There are fewer people on the planet than that number.
+                        </span>
+                    }
+                </div>
+
+                <Separator />
+
+                <div className="flex flex-col gap-2">
                     <Label required>Starting at</Label>
                     <DateTimePicker date={watch('start_time')} setDate={(d: Date) => setValue("start_time", d)} />
                 </div>
@@ -150,6 +208,30 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
                     <Label required>Deadline at</Label>
                     <DateTimePicker date={watch('end_time')} setDate={(d: Date) => setValue("end_time", d)} />
                 </div>
+
+                <div className="flex flex-col gap-2">
+                    <Label className={cn(
+                        'flex items-start gap-3 rounded-xl border p-4 hover:cursor-pointer',
+                        'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4 has-[[aria-checked=true]]:border-blue-400 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:bg-blue-400/20'
+                    )}>
+                        <Checkbox
+                            checked={watch("keep_as_training")}
+                            onCheckedChange={(value) => setValue("keep_as_training", Boolean(value))}
+                        />
+                        <div className='grid gap-1.5 font-normal'>
+                            <p className='text-sm leading-none font-medium'>
+                                Keep as training
+                            </p>
+                            <p className='text-foreground/80 text-sm'>
+                                You can keep this contest available as a training session after it ends. Users will be able to view the problems, but they won't be able to submit any solutions.
+                            </p>
+                        </div>
+                    </Label>
+                </div>
+
+                <code>
+                    {JSON.stringify(watch())}
+                </code>
 
                 <div className="flex justify-end">
                     <Button type='submit' disabled={!validate()}>CREATE</Button>

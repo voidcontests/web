@@ -5,6 +5,9 @@ export type CreateContest = {
     start_time: Date;
     end_time: Date;
     duration_mins: number;
+    max_entries: number;
+    allow_late_join: boolean;
+    keep_as_training: boolean;
 };
 
 export type CreateProblem = {
