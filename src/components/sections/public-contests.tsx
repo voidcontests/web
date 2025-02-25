@@ -27,6 +27,8 @@ export function PublicContests({ contests }: { contests: Promise<ContestList> })
                         <TableHead>Start</TableHead>
                         <TableHead>End</TableHead>
                         <TableHead>Duration</TableHead>
+                        <TableHead>Participants</TableHead>
+                        <TableHead>Total slots</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
                 <TableBody>
@@ -53,6 +55,14 @@ export function PublicContests({ contests }: { contests: Promise<ContestList> })
                                         contest.duration_mins !== 0
                                             ? format_duration(contest.duration_mins)
                                             : '-'
+                                    }
+                                </TableCell>
+                                <TableCell>
+                                    {contest.participants}
+                                </TableCell>
+                                <TableCell>
+                                    {
+                                        contest.max_entries || 'Not limited'
                                     }
                                 </TableCell>
                             </TableRow>

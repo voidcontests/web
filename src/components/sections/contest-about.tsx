@@ -52,10 +52,10 @@ export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> })
                 </div>
                 <div className="flex">
                     <div className="flex-1 text-secondary-foreground">
-                        Slots
+                        Total slots
                     </div>
                     <div className="flex-1">
-                        Not limited
+                        {cdetailed.max_entries || 'Not limited'}
                     </div>
                 </div>
             </WidgetContent>

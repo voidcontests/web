@@ -36,8 +36,10 @@ export type ContestDetailed = {
     start_time: Date;
     end_time: Date;
     duration_mins: number;
+    max_entries?: number;
     participants: number;
     is_draft?: boolean;
+    allow_late_join: boolean;
     is_participant?: boolean;
     problems: ProblemListItem[];
     created_at: Date;
@@ -61,6 +63,7 @@ export type ContestListItem = {
     start_time: Date;
     end_time: Date;
     duration_mins: number;
+    max_entries?: number;
     participants: number;
     created_at: Date;
 };

@@ -38,6 +38,7 @@ export default async function AdminContests() {
                         <TableHead>Deadline</TableHead>
                         <TableHead>Duration</TableHead>
                         <TableHead>Participants</TableHead>
+                        <TableHead>Total slots</TableHead>
                         <TableHead>Leaderboard</TableHead>
                         <TableHead>Created at</TableHead>
                         <TableHead>Status</TableHead>
@@ -70,6 +71,9 @@ export default async function AdminContests() {
                                 </TableCell>
                                 <TableCell>
                                     {contest.participants}
+                                </TableCell>
+                                <TableCell>
+                                    {contest.max_entries || 'Not limited'}
                                 </TableCell>
                                 <TableCell>
                                     <Link href={`/contest/${contest.id}/leaderboard`}>

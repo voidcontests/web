@@ -39,7 +39,7 @@ export default function AppliedStatus({ contest }: { contest: Promise<ContestDet
         return <span className="text-center font-medium">You are participating!</span>;
     }
 
-    if (new Date() > start_time) {
+    if (new Date() > start_time && !cdetailed.allow_late_join) {
         return (
             <span className="text-center font-medium">Application time is over :/</span>
         );
