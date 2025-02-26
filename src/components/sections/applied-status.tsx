@@ -41,7 +41,13 @@ export default function AppliedStatus({ contest }: { contest: Promise<ContestDet
 
     if (new Date() > start_time && !cdetailed.allow_late_join) {
         return (
-            <span className="text-center font-medium">Application time is over :/</span>
+            <span className="text-center font-medium">Application time is over.</span>
+        );
+    }
+
+    if (cdetailed.max_entries && cdetailed.max_entries >= cdetailed.participants) {
+        return (
+            <span className="text-center font-medium">There is no available slots to join.</span>
         );
     }
 
