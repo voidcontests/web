@@ -5,8 +5,8 @@ import {
     Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell
 } from "@/components/ui/table-inline";
-import Datetime from "@/components/datetime";
 import Address from "@/components/address";
+import DateView from "../date";
 
 export function ContestAboutTable({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);
@@ -29,10 +29,10 @@ export function ContestAboutTable({ contest }: { contest: Promise<ContestDetaile
                 <TableBody>
                     <TableRow>
                         <TableCell>
-                            <Datetime timestamp={cdetailed.start_time} />
+                            <DateView date={cdetailed.start_time} />
                         </TableCell>
                         <TableCell>
-                            <Datetime timestamp={cdetailed.end_time} />
+                            <DateView date={cdetailed.end_time} />
                         </TableCell>
                         <TableCell>{format_duration(cdetailed.duration_mins)}</TableCell>
                         <TableCell>

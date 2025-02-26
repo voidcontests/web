@@ -6,8 +6,9 @@ import {
     TableBody, TableRow, TableCell, TableTitle,
     TableCaption
 } from "@/components/ui/table";
-import { format_date, format_duration } from '@/lib/utils';
+import { format_duration } from '@/lib/utils';
 import ContestStatus from '../contest-status';
+import DateView from '../date';
 
 export default async function AdminContests() {
     // TODO: add loadings
@@ -58,10 +59,10 @@ export default async function AdminContests() {
                                     </Link>
                                 </TableCell>
                                 <TableCell>
-                                    {format_date(new Date(contest.start_time))}
+                                    <DateView date={contest.start_time} />
                                 </TableCell>
                                 <TableCell>
-                                    {format_date(new Date(contest.end_time))}
+                                    <DateView date={contest.end_time} />
                                 </TableCell>
                                 <TableCell>
                                     {
@@ -82,7 +83,7 @@ export default async function AdminContests() {
                                     </Link>
                                 </TableCell>
                                 <TableCell>
-                                    {format_date(new Date(contest.created_at))}
+                                    <DateView date={contest.created_at} />
                                 </TableCell>
                                 <TableCell>
                                     <ContestStatus contest={contest} />

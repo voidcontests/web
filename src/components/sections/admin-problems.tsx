@@ -6,7 +6,7 @@ import {
     TableBody, TableRow, TableCell, TableTitle,
     TableCaption
 } from "@/components/ui/table";
-import { format_date } from '@/lib/utils';
+import DateView from '../date';
 
 export default async function AdminProblems() {
     const [problems, account] = await Promise.all([getAdminProblems(), getAccount()]);
@@ -45,7 +45,7 @@ export default async function AdminProblems() {
                                     <Difficulty difficulty={problem.difficulty} />
                                 </TableCell>
                                 <TableCell className='w-3xs'>
-                                    {format_date(new Date(problem.created_at))}
+                                    <DateView date={problem.created_at} />
                                 </TableCell>
                             </TableRow>
                         ))

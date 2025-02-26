@@ -7,20 +7,6 @@ export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 // Converts a number to its corresponding letetr in capital english alphabet
 export const itoc = (i: number) => String.fromCharCode(65 + i);
 
-export const format_date = (date: Date): string => {
-    const options: Intl.DateTimeFormatOptions = {
-        day: '2-digit',
-        month: 'short',
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true
-    };
-
-    const formattedDate = date.toLocaleString('en-US', options);
-
-    return formattedDate;
-}
-
 export const format_duration = (duration_mins: number): string => {
     if (duration_mins < 0) {
         return "00:00";

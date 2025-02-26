@@ -6,9 +6,10 @@ import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableCaption, TableTitle,
 } from "@/components/ui/table";
-import { format_date, format_duration } from '@/lib/utils';
+import { format_duration } from '@/lib/utils';
 import { use } from "react";
 import Address from "@/components/address";
+import DateView from "../date";
 
 export function PublicContests({ contests }: { contests: Promise<ContestList> }) {
     const publicContests = use(contests);
@@ -45,10 +46,10 @@ export function PublicContests({ contests }: { contests: Promise<ContestList> })
                                     <Address address={contest.creator.address} />
                                 </TableCell>
                                 <TableCell>
-                                    {format_date(new Date(contest.start_time))}
+                                    <DateView date={contest.start_time} />
                                 </TableCell>
                                 <TableCell>
-                                    {format_date(new Date(contest.end_time))}
+                                    <DateView date={contest.end_time} />
                                 </TableCell>
                                 <TableCell>
                                     {
