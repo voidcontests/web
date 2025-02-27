@@ -1,6 +1,7 @@
 import { ContestListItem } from "@/actions/dto/response";
 import Status from "./status";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import { capitalize } from "@/lib/strings";
 
 export default function ContestStatus({ contest }: { contest: ContestListItem }) {
     // Statuses:
@@ -13,15 +14,15 @@ export default function ContestStatus({ contest }: { contest: ContestListItem })
     const start = new Date(contest.start_time);
     const end = new Date(contest.end_time);
 
-    let label;
+    let state: 'upcoming' | 'ongoing' | 'training';
     if (now < start) {
-        label = 'Upcoming';
+        state = 'upcoming';
     }
     else if (now >= start && now < end) {
-        label = 'Ongoing';
+        state = 'ongoing';
     }
-    else if (now >= end) {
-        label = 'Training';
+    else { // if (now >= end)
+        state = 'training';
     }
 
     return (
@@ -29,11 +30,11 @@ export default function ContestStatus({ contest }: { contest: ContestListItem })
             <Tooltip>
                 <TooltipTrigger asChild>
                     <div className="hover:bg-zinc-950/3 dark:hover:bg-zinc-50/5 flex items-center justify-center size-7 rounded-lg transition-colors hover:cursor-pointer">
-                        <Status active={ now > start && now < end } />
+                        <Status state={state} />
                     </div>
                 </TooltipTrigger>
                 <TooltipContent>
-                    { label }
+                    { capitalize(state) }
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>
