@@ -153,27 +153,13 @@ export function CreateProblemForm() {
                                     </div>
                                 </div>
                             ))}
-                            <div className="flex flex-row gap-3 w-full">
-                                <Button
-                                    variant="dashed"
-                                    type="button"
-                                    className="flex-1"
-                                    onClick={() => append({ input: "", output: "" })}
-                                >
-                                    New test case
-                                </Button>
-                                {
-                                    watch('test_cases').length !== 0 &&
-                                    <Button
-                                        variant="destructive"
-                                        type="button"
-                                        className="flex-1"
-                                        onClick={() => replace([])}
-                                    >
-                                        Remove all test cases
-                                    </Button>
-                                }
-                            </div>
+                            <Button
+                                variant="dashed"
+                                type="button"
+                                onClick={() => append({ input: "", output: "" })}
+                            >
+                                New test case
+                            </Button>
                         </div>
                     </>
                 )}
