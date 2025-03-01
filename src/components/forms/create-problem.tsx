@@ -59,27 +59,32 @@ export function CreateProblemForm() {
         }
     };
 
-    const validate = () => {
-        // TODO: add probper validation for each problem kind
+    function validate(): boolean {
+        const { title, statement, kind, answer, difficulty, test_cases } = watch();
 
-        // const values = watch();
-        // return Object.entries(values).every(([key, value]) => {
-        //     if (Array.isArray(value)) return true;
-        //     return typeof value !== "string" || value.trim() !== "";
-        // });
-        return true;
-    };
+        return (
+            !!title.trim() &&
+            !!statement.trim() &&
+            !!kind.trim() &&
+            !!difficulty.trim() &&
+            (
+              kind === "text_answer_problem" ||
+              (test_cases.length > 0 && test_cases.every(tc => !!tc.input.trim() && !!tc.output.trim()))
+            ) &&
+            (kind === "coding_problem" || !!answer.trim())
+        );
+    }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
             <div className="flex flex-col gap-6">
-                {/* Title Field */}
+
                 <div className="flex flex-col gap-2">
                     <Label required>Add title</Label>
                     <Input {...register("title")} placeholder="Title" required />
                 </div>
 
-                {/* Statement Editor */}
+
                 <Editor
                     placeholder="Write problem's statement"
                     markdown={watch("statement")}
@@ -89,7 +94,7 @@ export function CreateProblemForm() {
                     Add statement
                 </Editor>
 
-                {/* Problem Kind Selector */}
+
                 <div className="flex flex-col gap-2">
                     <Label required>Select problem's type</Label>
                     <Select value={watch('kind')} onValueChange={(value) => setValue('kind', value)}>
@@ -105,9 +110,7 @@ export function CreateProblemForm() {
                     </Select>
                 </div>
 
-                {watch('kind') && <Separator />}
 
-                {/* Conditional Answer for Text Answer Problems */}
                 {watch('kind') === 'text_answer_problem' && (
                     <div className="flex flex-col gap-2">
                         <Label required>Add answer</Label>
@@ -115,10 +118,10 @@ export function CreateProblemForm() {
                     </div>
                 )}
 
-                {/* Conditional fields for Coding Problems */}
+
                 {watch('kind') === 'coding_problem' && (
                     <>
-                        {/* Test Cases Dynamic Field Array */}
+
                         <div className="flex flex-col gap-4">
                             <Label required>Test cases</Label>
                             <MessageBox>
@@ -177,11 +180,11 @@ export function CreateProblemForm() {
 
                 <Separator />
 
-                {/* Difficulty Radio Group */}
+
                 <div className="flex flex-col gap-2">
                     <Label required>Select difficulty</Label>
                     <RadioGroup value={watch('difficulty')} onValueChange={(value) => setValue("difficulty", value)}>
-                        {/* Easy */}
+
                         <Label
                             className={cn(
                                 'flex items-start gap-3 rounded-xl border p-3 hover:cursor-pointer',
@@ -205,7 +208,7 @@ export function CreateProblemForm() {
                             </div>
                         </Label>
 
-                        {/* Medium */}
+
                         <Label
                             className={cn(
                                 'flex items-start gap-3 rounded-xl border p-3 hover:cursor-pointer',
@@ -229,7 +232,7 @@ export function CreateProblemForm() {
                             </div>
                         </Label>
 
-                        {/* Hard */}
+
                         <Label
                             className={cn(
                                 'flex items-start gap-3 rounded-xl border p-3 hover:cursor-pointer',
