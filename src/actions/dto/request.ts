@@ -19,5 +19,7 @@ export type CreateProblem = {
 };
 
 export type CreateSubmission = {
-    answer: string;
+    problem_kind: string;
+    answer?: string;
+    code?: string;
 };

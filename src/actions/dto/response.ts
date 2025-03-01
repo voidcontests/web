@@ -72,6 +72,12 @@ export type SubmissionListItem = {
     id: number;
     problem_id: number;
     verdict: string;
+    answer?: string;
+    code?: string;
+    testing_report?: {
+        passed: number;
+        total: number;
+    };
     created_at: Date;
 };
 
@@ -85,11 +91,13 @@ export type ProblemDetailed = {
     charcode?: string;
     contest_id?: number;
     writer: User;
+    kind: string;
     title: string;
     statement: string;
     difficulty: string;
     status?: 'accepted' | 'tried';
     input?: string;
+    time_limit_ms?: number;
     created_at: Date;
 }
 
