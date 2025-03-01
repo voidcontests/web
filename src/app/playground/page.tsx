@@ -1,10 +1,15 @@
 'use client';
 import { execute, ExecutionResult } from "@/actions/actions";
+import { Code } from "@/components/code";
 import ContentContainer from "@/components/content-container";
 import Editor from "@/components/sections/editor";
+import ExecutionReport from "@/components/sections/execution-report";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Widget, WidgetContent, WidgetTitle } from "@/components/ui/widget";
+import { cn } from "@/lib/utils";
 import { LoaderCircle } from "lucide-react";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 
 const DEFAULT_CODE = `#include <stdio.h>
 
@@ -36,26 +41,29 @@ export default function Page() {
             <Button onClick={onClick}>Execute</Button>
             {
                 waiting
-                    ? <div className="flex gap-2 items-center text-base"><LoaderCircle className="size-5 animate-spin" /> Executing...</div>
-                    : <div>
-                        {
-                            result &&
-                            <div className="font-mono flex flex-col">
-                                <span>{`exit_code: ${result.status}`}</span>
-                                {
-                                    result.stdout &&
-                                    <span>{`stdout: ${result.stdout}`}</span>
-                                }
-                                {
-                                    result.stderr &&
-                                    <span className="text-red-500/80">{`stderr: ${result.stderr}`}</span>
-                                }
-                            </div>
-                        }
-                    </div>
+                    ? <Loading />
+                    // ? <div className="flex gap-2 items-center text-base"><LoaderCircle className="size-5 animate-spin" /> Executing...</div>
+                    : <ExecutionReport result={result} />
             }
             <div>
             </div>
         </ContentContainer>
+    );
+}
+
+function Loading() {
+    return (
+        <Widget className="min-w-196 w-fit">
+            <WidgetContent className="gap-3">
+                <WidgetTitle>
+                    <Skeleton className="h-4 w-24" />
+                </WidgetTitle>
+                <div className="flex flex-col gap-2">
+                    <Skeleton className="h-4 w-96" />
+                    <Skeleton className="h-4 w-72" />
+                    <Skeleton className="h-4 w-80" />
+                </div>
+            </WidgetContent>
+        </Widget>
     );
 }
