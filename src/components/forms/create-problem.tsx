@@ -138,7 +138,7 @@ export function CreateProblemForm() {
                                     <div className="flex flex-col gap-2">
                                         <Label required>Input</Label>
                                         <TextArea
-                                            placeholder='Test case input'
+                                            className='font-mono'
                                             {...register(`test_cases.${index}.input` as const, { required: true })}
                                             resizable
                                         />
@@ -146,7 +146,7 @@ export function CreateProblemForm() {
                                     <div className="flex flex-col gap-2">
                                         <Label required>Output</Label>
                                         <TextArea
-                                            placeholder='Test case output'
+                                            className='font-mono'
                                             {...register(`test_cases.${index}.output` as const, { required: true })}
                                             resizable
                                         />
