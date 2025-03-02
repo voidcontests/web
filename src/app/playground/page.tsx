@@ -1,8 +1,8 @@
 'use client';
+import { MarkdownEditor } from "@/components/sections/markdown-editor";
 import { execute, ExecutionResult } from "@/actions/actions";
 import { Code } from "@/components/code";
 import ContentContainer from "@/components/content-container";
-import Editor from "@/components/sections/editor";
 import ExecutionReport from "@/components/sections/execution-report";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -10,6 +10,7 @@ import { Widget, WidgetContent, WidgetTitle } from "@/components/ui/widget";
 import { cn } from "@/lib/utils";
 import { LoaderCircle } from "lucide-react";
 import { forwardRef, useState } from "react";
+import { CodeEditor } from "@/components/sections/code-editor";
 
 const DEFAULT_CODE = `#include <stdio.h>
 
@@ -35,9 +36,7 @@ export default function Page() {
 
     return (
         <ContentContainer>
-            <Editor markdown={code}  setMarkdown={setCode} required className="font-mono">
-                Write C program
-            </Editor>
+            <CodeEditor code={code} setCode={setCode} />
             <Button onClick={onClick}>Execute</Button>
             {
                 waiting

@@ -1,30 +1,26 @@
 'use client';
 
+import { Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell } from "@/components/ui/table-inline";
 import { ProblemDetailed, SubmissionListItem } from "@/actions/dto/response";
+import { Widget, WidgetContent, WidgetTitle } from "../ui/widget";
+import { CodeEditor } from "@/components/sections/code-editor";
+import Preview from "@/components/sections/preview";
 import { authorized } from "@/api/core/instance";
 import { Button } from "@/components/ui/button";
+import { revalidate } from "@/actions/actions";
 import { Input } from "@/components/ui/input";
 import { Link } from "@/components/ui/link";
-import Preview from "@/components/sections/preview";
+import { Skeleton } from "../ui/skeleton";
+import DateView from "@/components/date";
 import { use, useState } from "react";
 import { toast } from "sonner";
-import { execute, ExecutionResult, revalidate } from "@/actions/actions";
-import Editor from "./editor";
-import { Widget, WidgetContent, WidgetTitle } from "../ui/widget";
-import { Skeleton } from "../ui/skeleton";
-import ExecutionReport from "./execution-report";
-import {
-    Table, TableHeader, TableHeaderRow, TableHead,
-    TableBody, TableRow, TableCell
-} from "@/components/ui/table-inline";
-import DateView from "../date";
-import { Verdict } from "../verdict";
 
 const DEFAULT_CODE = `#include <stdio.h>
 
-int main() {
-    printf("Hello world\\n");
-    return 0;
+int main(void) {
+    int a, b;
+    scanf("%d %d", &a, &b);
+    printf("%d", a + b);
 }`;
 
 export default function ProblemView({ problem }: { problem: Promise<ProblemDetailed> }) {
@@ -33,10 +29,7 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
 
     const [code, setCode] = useState(DEFAULT_CODE);
     const [waiting, setWaiting] = useState(false);
-    const [result, setResult] = useState<ExecutionResult>();
     const [submission, setSubmission] = useState<SubmissionListItem>();
-
-    const [data, setData] = useState('');
 
     async function submitAnswer() {
         if (answer.trim().length === 0) return;
@@ -117,32 +110,31 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
             }
             {
                 pdetailed.kind === 'coding_problem' &&
-                <div>
-                    <Editor markdown={code}  setMarkdown={setCode} required className="font-mono">
-                        Write C program
-                    </Editor>
-                    <Button onClick={submitProgram} disabled={code.trim().length === 0}>SUBMIT</Button>
+                <div className="flex flex-col gap-4">
+                    <CodeEditor code={code} setCode={setCode} />
+                    <Button onClick={submitProgram} disabled={code.trim().length === 0}>
+                        SUBMIT
+                    </Button>
+                    {
+                        waiting
+                            ? <Loading />
+                            : <Report submission={submission} />
+                    }
                 </div>
-            }
-            {
-                pdetailed.kind === 'coding_problem' && waiting
-                    ? <Loading />
-                    : <Report submission={submission} />
             }
         </div>
     );
 }
 function Loading() {
     return (
-        <Widget className="min-w-196 w-fit">
-            <WidgetContent className="gap-3">
+        <Widget>
+            <WidgetContent className="gap-4">
                 <WidgetTitle>
                     <Skeleton className="h-4 w-24" />
                 </WidgetTitle>
                 <div className="flex flex-col gap-2">
                     <Skeleton className="h-4 w-96" />
                     <Skeleton className="h-4 w-72" />
-                    <Skeleton className="h-4 w-80" />
                 </div>
             </WidgetContent>
         </Widget>

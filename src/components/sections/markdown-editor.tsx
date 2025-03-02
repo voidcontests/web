@@ -1,14 +1,14 @@
 import { Heading, Bold, Italic, Code, Link2, TextQuote, List, ListOrdered, ListChecks } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "@/components/ui/tooltip"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "@/components/ui/tooltip";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
-import React, { useState, useEffect, useRef } from "react";
-import { TextArea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+import { useState, useEffect, useRef, forwardRef, TextareaHTMLAttributes, ChangeEvent, KeyboardEvent } from "react";
 import { Separator } from "@/components/ui/separator";
 import Preview from "@/components/sections/preview";
+import { TextArea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import * as strings from '@/lib/strings';
+import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { Label } from "../ui/label";
 
 type StyleKind = 'bold' | 'italic' | 'code' | 'heading' | 'link' | 'quote';
 
@@ -20,12 +20,12 @@ const ktoch = {
     'quote': '> ',
 }
 
-interface EditorProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface MarkdownEditorProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     markdown: string,
     setMarkdown: (s: string) => void;
 }
 
-const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, setMarkdown, children, className, ...props }, ref) => {
+const MarkdownEditor = forwardRef<HTMLTextAreaElement, MarkdownEditorProps>(({ markdown, setMarkdown, children, className, ...props }, ref) => {
     const [internalValue, setInternalValue] = useState<string>(markdown);
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
     const [open, setOpen] = useState(false);
@@ -38,13 +38,13 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
         setMarkdown(internalValue);
     }, [internalValue]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const newValue = e.target.value;
         setInternalValue(newValue);
         setMarkdown(newValue);
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if ((!e.ctrlKey && !e.metaKey) || !e.key) return;
 
         switch (e.key) {
@@ -264,4 +264,4 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(({ markdown, s
     )
 });
 
-export default Editor;
+export { MarkdownEditor };

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import Editor from '@/components/sections/editor';
+import { MarkdownEditor } from '@/components/sections/markdown-editor';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { createProblem } from '@/actions/actions';
 import { toast } from 'sonner';
@@ -85,14 +85,14 @@ export function CreateProblemForm() {
                 </div>
 
 
-                <Editor
+                <MarkdownEditor
                     placeholder="Write problem's statement"
                     markdown={watch("statement")}
                     setMarkdown={(s: string) => setValue("statement", s)}
                     required
                 >
                     Add statement
-                </Editor>
+                </MarkdownEditor>
 
 
                 <div className="flex flex-col gap-2">
