@@ -4,35 +4,52 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from "@/components/ui/button";
 import { Label } from '@/components/ui/label';
-import { Input } from "@/components/ui/input";
+import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import Editor from '@/components/sections/editor';
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { createProblem } from '@/actions/actions';
 import { toast } from 'sonner';
 import { Separator } from '../ui/separator';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { MessageBox } from '../message-box';
+import { Trash2 } from 'lucide-react';
+import { TextArea } from '../ui/textarea';
+
+export interface TestCase {
+    input: string;
+    output: string;
+}
 
 export interface FormData {
     title: string;
     statement: string;
+    kind: string;
     answer: string;
     difficulty: string;
     keep_public: boolean;
+    test_cases: TestCase[];
 }
 
 export function CreateProblemForm() {
-    const { register, handleSubmit, setValue, watch } = useForm<FormData>({
+    const { register, handleSubmit, setValue, watch, control } = useForm<FormData>({
         defaultValues: {
             title: "",
             statement: "",
+            kind: "",
             answer: "",
             difficulty: "",
             keep_public: true,
+            test_cases: [],
         }
     });
 
+    const { fields, append, remove, replace } = useFieldArray({
+        control,
+        name: "test_cases",
+    });
+
     const onSubmit = async (data: FormData) => {
-        // TODO:redirect to problem' page
         try {
             await createProblem(data);
             toast.success("Problem created successfully");
@@ -42,26 +59,31 @@ export function CreateProblemForm() {
         }
     };
 
-    const validate = () => {
-        const values = watch();
-        return Object.entries(values).every(([_, value]) => {
-            return typeof value !== "string" || value.trim() !== "";
-        });
-    };
+    function validate(): boolean {
+        const { title, statement, kind, answer, difficulty, test_cases } = watch();
+
+        return (
+            !!title.trim() &&
+            !!statement.trim() &&
+            !!kind.trim() &&
+            !!difficulty.trim() &&
+            (
+              kind === "text_answer_problem" ||
+              (test_cases.length > 0 && test_cases.every(tc => !!tc.input.trim() && !!tc.output.trim()))
+            ) &&
+            (kind === "coding_problem" || !!answer.trim())
+        );
+    }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
             <div className="flex flex-col gap-6">
+
                 <div className="flex flex-col gap-2">
-                    <Label required>
-                        Add title
-                    </Label>
-                    <Input
-                        {...register("title")}
-                        placeholder="Title"
-                        required
-                    />
+                    <Label required>Add title</Label>
+                    <Input {...register("title")} placeholder="Title" required />
                 </div>
+
 
                 <Editor
                     placeholder="Write problem's statement"
@@ -72,30 +94,89 @@ export function CreateProblemForm() {
                     Add statement
                 </Editor>
 
+
                 <div className="flex flex-col gap-2">
-                    <Label required>
-                        Add answer
-                    </Label>
-                    <Input
-                        {...register("answer")}
-                        placeholder="Answer"
-                    />
+                    <Label required>Select problem's type</Label>
+                    <Select value={watch('kind')} onValueChange={(value) => setValue('kind', value)}>
+                        <SelectTrigger className="w-96">
+                            <SelectValue placeholder="Choose one" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem value="text_answer_problem">TEXT ANSWER PROBLEM</SelectItem>
+                                <SelectItem value="coding_problem">CODING PROBLEM</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
                 </div>
+
+
+                {watch('kind') === 'text_answer_problem' && (
+                    <div className="flex flex-col gap-2">
+                        <Label required>Add answer</Label>
+                        <Input {...register("answer")} placeholder="Answer" />
+                    </div>
+                )}
+
+
+                {watch('kind') === 'coding_problem' && (
+                    <>
+
+                        <div className="flex flex-col gap-4">
+                            <Label required>Test cases</Label>
+                            <MessageBox>
+                                Be very precise with spaces and new lines. Be sure NOT to accidentally include extra whitespaces. On judging step they will be treated exactly as provided!
+                            </MessageBox>
+                            {fields.map((field, index) => (
+                                <div key={field.id} className={cn("flex flex-col gap-4 pb-4", (index !== watch('test_cases').length-1) && 'border-b')}>
+                                    <div className='flex items-center justify-between'>
+                                        <span className="text-base font-medium">TC #{index + 1}</span>
+                                        <Button variant="ghost" size="icon" className='text-secondary-foreground hover:text-scarlet-500' type="button" onClick={() => remove(index)}>
+                                            <Trash2 />
+                                        </Button>
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <Label required>Input</Label>
+                                        <TextArea
+                                            className='font-mono'
+                                            {...register(`test_cases.${index}.input` as const, { required: true })}
+                                            resizable
+                                        />
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <Label required>Output</Label>
+                                        <TextArea
+                                            className='font-mono'
+                                            {...register(`test_cases.${index}.output` as const, { required: true })}
+                                            resizable
+                                        />
+                                    </div>
+                                </div>
+                            ))}
+                            <Button
+                                variant="dashed"
+                                type="button"
+                                onClick={() => append({ input: "", output: "" })}
+                            >
+                                New test case
+                            </Button>
+                        </div>
+                    </>
+                )}
 
                 <Separator />
 
+
                 <div className="flex flex-col gap-2">
-                    <Label required>
-                        Select difficulty
-                    </Label>
+                    <Label required>Select difficulty</Label>
                     <RadioGroup value={watch('difficulty')} onValueChange={(value) => setValue("difficulty", value)}>
-                        {/* Easy */}
+
                         <Label
                             className={cn(
                                 'flex items-start gap-3 rounded-xl border p-3 hover:cursor-pointer',
                                 'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4',
                                 'has-[[data-state=checked]]:border-green-500',
-                                'has-[[data-state=checked]]:bg-green-50 dark:has-[[data-state=checked]]:bg-green-500/16',
+                                'has-[[data-state=checked]]:bg-green-50 dark:has-[[data-state=checked]]:bg-green-500/16'
                             )}
                         >
                             <RadioGroupItem
@@ -104,12 +185,8 @@ export function CreateProblemForm() {
                             />
                             <div className='grid gap-1.5 font-normal'>
                                 <div className='flex flex-row gap-1.5'>
-                                    <span className='font-medium'>
-                                        Easy
-                                    </span>
-                                    <span className='text-secondary-foreground'>
-                                        (1 pts)
-                                    </span>
+                                    <span className='font-medium'>Easy</span>
+                                    <span className='text-secondary-foreground'>(1 pts)</span>
                                 </div>
                                 <div className='text-foreground/80 leading-snug'>
                                     Easy problems involve basic concepts and can be solved quickly with simple reasoning
@@ -117,13 +194,13 @@ export function CreateProblemForm() {
                             </div>
                         </Label>
 
-                        {/* Mid */}
+
                         <Label
                             className={cn(
                                 'flex items-start gap-3 rounded-xl border p-3 hover:cursor-pointer',
                                 'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4',
                                 'has-[[data-state=checked]]:border-amber-500',
-                                'has-[[data-state=checked]]:bg-amber-50 dark:has-[[data-state=checked]]:bg-amber-500/16',
+                                'has-[[data-state=checked]]:bg-amber-50 dark:has-[[data-state=checked]]:bg-amber-500/16'
                             )}
                         >
                             <RadioGroupItem
@@ -132,12 +209,8 @@ export function CreateProblemForm() {
                             />
                             <div className='grid gap-1.5 font-normal'>
                                 <div className='flex flex-row gap-1.5'>
-                                    <span className='font-medium'>
-                                        Medium
-                                    </span>
-                                    <span className='text-secondary-foreground'>
-                                        (2 pts)
-                                    </span>
+                                    <span className='font-medium'>Medium</span>
+                                    <span className='text-secondary-foreground'>(2 pts)</span>
                                 </div>
                                 <div className='text-foreground/80 leading-snug'>
                                     Medium problems require a deeper understanding and the application of multiple concepts, often involving moderate complexity
@@ -145,13 +218,13 @@ export function CreateProblemForm() {
                             </div>
                         </Label>
 
-                        {/* Hard */}
+
                         <Label
                             className={cn(
                                 'flex items-start gap-3 rounded-xl border p-3 hover:cursor-pointer',
                                 'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4',
                                 'has-[[data-state=checked]]:border-scarlet-500',
-                                'has-[[data-state=checked]]:bg-scarlet-50 dark:has-[[data-state=checked]]:bg-scarlet-500/16',
+                                'has-[[data-state=checked]]:bg-scarlet-50 dark:has-[[data-state=checked]]:bg-scarlet-500/16'
                             )}
                         >
                             <RadioGroupItem
@@ -160,12 +233,8 @@ export function CreateProblemForm() {
                             />
                             <div className='grid gap-1.5 font-normal'>
                                 <div className='flex flex-row gap-1.5'>
-                                    <span className='font-medium'>
-                                        Hard
-                                    </span>
-                                    <span className='text-secondary-foreground'>
-                                        (3 pts)
-                                    </span>
+                                    <span className='font-medium'>Hard</span>
+                                    <span className='text-secondary-foreground'>(3 pts)</span>
                                 </div>
                                 <div className='text-foreground/80 leading-snug'>
                                     Difficult challenge for advanced participants with complex scenarios
@@ -175,26 +244,28 @@ export function CreateProblemForm() {
                     </RadioGroup>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                    <Label>Change visibility</Label>
-                    <Label className={cn(
-                        'flex items-start gap-3 rounded-xl border p-4 hover:cursor-pointer',
-                        'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4 has-[[aria-checked=true]]:border-blue-400 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:bg-blue-400/20'
-                    )}>
-                        <Checkbox
-                            checked={watch("keep_public")}
-                            onCheckedChange={(value) => setValue("keep_public", Boolean(value))}
-                        />
-                        <div className='grid gap-1.5 font-normal'>
-                            <p className='text-sm leading-none font-medium'>
-                                Keep public
-                            </p>
-                            <p className='text-foreground/80 text-sm'>
-                                After the end of the contest, the task will remain visible in public archives
-                            </p>
-                        </div>
-                    </Label>
-                </div>
+                {false && (
+                    <div className="flex flex-col gap-2">
+                        <Label>Change visibility</Label>
+                        <Label
+                            className={cn(
+                                'flex items-start gap-3 rounded-xl border p-4 hover:cursor-pointer',
+                                'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4 has-[[aria-checked=true]]:border-blue-400 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:bg-blue-400/20'
+                            )}
+                        >
+                            <Checkbox
+                                checked={watch("keep_public")}
+                                onCheckedChange={(value) => setValue("keep_public", Boolean(value))}
+                            />
+                            <div className='grid gap-1.5 font-normal'>
+                                <p className='text-sm leading-none font-medium'>Keep public</p>
+                                <p className='text-foreground/80 text-sm'>
+                                    After the end of the contest, the task will remain visible in public archives
+                                </p>
+                            </div>
+                        </Label>
+                    </div>
+                )}
 
                 <div className="flex justify-end">
                     <Button type='submit' disabled={!validate()}>CREATE</Button>
