@@ -25,7 +25,7 @@ const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({ code, set
 
         return (
             <div className='border rounded-xl bg-surface overflow-hidden pb-3'>
-                <div className="bg-surface-secondary border-b px-5 py-3 flex flex-row items-center gap-2">
+                <div className="bg-surface-secondary border-b px-5 py-2 flex flex-row items-center gap-2">
                     {/* <Terminal className="size-5" /> */}
                     <span className="text-sm font-medium text-foreground">CODE EDITOR</span>
                 </div>
