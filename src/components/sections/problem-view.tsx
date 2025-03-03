@@ -1,9 +1,9 @@
 'use client';
 
-import { Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell } from "@/components/ui/table-inline";
 import { ProblemDetailed, SubmissionListItem } from "@/actions/dto/response";
 import { Widget, WidgetContent, WidgetTitle } from "../ui/widget";
 import { CodeEditor } from "@/components/sections/code-editor";
+import { SubmissionReport } from "./submission-report";
 import Preview from "@/components/sections/preview";
 import { authorized } from "@/api/core/instance";
 import { Button } from "@/components/ui/button";
@@ -11,10 +11,8 @@ import { revalidate } from "@/actions/actions";
 import { Input } from "@/components/ui/input";
 import { Link } from "@/components/ui/link";
 import { Skeleton } from "../ui/skeleton";
-import DateView from "@/components/date";
 import { use, useState } from "react";
 import { toast } from "sonner";
-import { Code } from "../code";
 
 const DEFAULT_CODE = `#include <stdio.h>
 
@@ -119,13 +117,14 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
                     {
                         waiting
                             ? <Loading />
-                            : <Report submission={submission} />
+                            : <SubmissionReport submission={submission} />
                     }
                 </div>
             }
         </div>
     );
 }
+
 function Loading() {
     return (
         <Widget>
@@ -139,62 +138,5 @@ function Loading() {
                 </div>
             </WidgetContent>
         </Widget>
-    );
-}
-
-function Report({ submission }: { submission?: SubmissionListItem }) {
-    if (!submission) return;
-
-    return (
-        <div className="flex flex-col gap-5">
-            <div className="border rounded-xl bg-surface p-5 flex flex-col gap-2 not-dark:shadow-md">
-                <h1 className="text-foreground text-sm font-medium">
-                    SUBMISSION DETAILS
-                </h1>
-                <Table>
-                    <TableHeader>
-                        <TableHeaderRow>
-                            <TableHead>ID</TableHead>
-                            <TableHead>Verdict</TableHead>
-                            <TableHead>Tests passed</TableHead>
-                            <TableHead>Total tests</TableHead>
-                            <TableHead>Submitted at</TableHead>
-                        </TableHeaderRow>
-                    </TableHeader>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell>
-                                {submission.id}
-                            </TableCell>
-                            <TableCell>
-                                {submission.verdict}
-                            </TableCell>
-                            <TableCell>
-                                {submission.testing_report?.passed}
-                            </TableCell>
-                            <TableCell>
-                                {submission.testing_report?.total}
-                            </TableCell>
-                            <TableCell>
-                                <DateView date={submission.created_at} />
-                            </TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
-            </div>
-            {
-                submission.verdict === 'runtime_error' || submission.verdict === 'wrong_answer' &&
-                <Widget>
-                    <WidgetContent>
-                        <WidgetTitle>INPUT</WidgetTitle>
-                        <Code>{submission.testing_report?.failed_test?.input}</Code>
-                        <WidgetTitle>STDOUT</WidgetTitle>
-                        <Code>{submission.testing_report?.failed_test?.actual_output}</Code>
-                        <WidgetTitle>EXPECTED OUTPUT</WidgetTitle>
-                        <Code>{submission.testing_report?.failed_test?.expected_output}</Code>
-                    </WidgetContent>
-                </Widget>
-            }
-        </div>
     );
 }
