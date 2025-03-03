@@ -11,7 +11,7 @@ export function SubmissionReport({ submission }: { submission?: SubmissionListIt
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex flex-col gap-1">
                     <span className="text-lg text-scarlet-500 font-medium">
-                        WRONG ANSWER
+                        Wrong answer
                     </span>
                     <span className="text-sm text-tertiary-foreground">
                         Tests passed {submission.testing_report?.passed}/{submission.testing_report?.total}
@@ -53,7 +53,7 @@ export function SubmissionReport({ submission }: { submission?: SubmissionListIt
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex flex-col gap-1">
                     <span className="text-lg text-green-500 font-medium">
-                        ACCEPTED
+                        Accepted
                     </span>
                     <span className="text-sm text-tertiary-foreground">
                         Tests passed {submission.testing_report?.passed}/{submission.testing_report?.total}
@@ -75,7 +75,7 @@ export function SubmissionReport({ submission }: { submission?: SubmissionListIt
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex flex-col gap-1">
                     <span className="text-lg text-scarlet-500 font-medium">
-                        RUNTIME ERROR
+                        Runtime error
                     </span>
                 </div>
                 <Separator />
@@ -122,7 +122,7 @@ export function SubmissionReport({ submission }: { submission?: SubmissionListIt
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex flex-col gap-1">
                     <span className="text-lg text-scarlet-500 font-medium">
-                        COMPILATION ERROR
+                        Compilation error
                     </span>
                 </div>
                 <Separator />
