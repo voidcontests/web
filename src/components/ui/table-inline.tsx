@@ -4,7 +4,7 @@ import * as React from "react";
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(({ className, ...props }, ref) => (
   <table
     ref={ref}
-    className={cn("w-full caption-bottom text-sm not-dark:shadow-md", className)}
+    className={cn("w-full caption-bottom text-sm", className)}
     {...props}
   />
 ));
