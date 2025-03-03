@@ -77,6 +77,7 @@ export type SubmissionListItem = {
     testing_report?: {
         passed: number;
         total: number;
+        stderr?: string;
         failed_test?: {
             input: string;
             expected_output: string;

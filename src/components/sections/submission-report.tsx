@@ -81,7 +81,7 @@ export function SubmissionReport({ submission }: { submission?: SubmissionListIt
                 <Separator />
                 <div className="flex flex-col gap-1 bg-scarlet-500/10 py-3 px-4 rounded-xl not-dark:border border-border-secondary">
                     <Code className="text-scarlet-500">
-                        Index out of range
+                        {submission.testing_report?.stderr}
                     </Code>
                 </div>
             </div>
@@ -99,7 +99,7 @@ export function SubmissionReport({ submission }: { submission?: SubmissionListIt
                 <Separator />
                 <div className="flex flex-col gap-1 bg-scarlet-500/10 py-3 px-4 rounded-xl not-dark:border border-border-secondary">
                     <Code className="text-scarlet-500">
-                        Index out of range
+                        {submission.testing_report?.stderr}
                     </Code>
                 </div>
             </div>
