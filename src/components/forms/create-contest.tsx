@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/table";
 import { ProblemList } from "@/actions/dto/response";
 import { ChangeEvent, use } from "react";
-import Difficulty from "../difficulty";
+import { DifficultyTag } from "@/components/difficulty-tag";
 import { Link } from "../ui/link";
 import { Checkbox } from '@/components/ui/checkbox';
 import { CheckedState } from "@radix-ui/react-checkbox";
@@ -137,7 +137,7 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
                                             {problem.title}
                                         </TableCell>
                                         <TableCell>
-                                            <Difficulty difficulty={problem.difficulty} />
+                                            <DifficultyTag difficulty={problem.difficulty} />
                                         </TableCell>
                                     </TableRow>
                                 ))

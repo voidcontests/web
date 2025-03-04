@@ -1,15 +1,15 @@
 'use client';
 
-import { SolvedTag } from "@/components/solved-tag";
-import { Link } from "@/components/ui/link";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableTitle
 } from "@/components/ui/table";
+import { DifficultyTag } from "@/components/difficulty-tag";
 import { ContestDetailed } from "@/actions/dto/response";
-import { use } from "react";
 import { useTonWallet } from "@tonconnect/ui-react";
-import Difficulty from "../difficulty";
+import { SolvedTag } from "@/components/solved-tag";
+import { Link } from "@/components/ui/link";
+import { use } from "react";
 
 export default function Problemset({ contest, difficulties, currentProblem }: { contest: Promise<ContestDetailed>, difficulties?: boolean, currentProblem?: string | number }) {
     const cdetailed = use(contest);
@@ -40,12 +40,12 @@ export default function Problemset({ contest, difficulties, currentProblem }: { 
                                 <TableCell>
                                     {problem.charcode?.toUpperCase()}
                                 </TableCell>
-                                <TableCell>
+                                <TableCell className="flex flex-nowrap items-center pr-5">
                                     {
                                         started && (cdetailed.is_participant || (wallet && cdetailed.is_participant))
                                             ? <Link
                                                 href={`/contest/${cdetailed.id}/problem/${problem.charcode}`}
-                                                className={currentProblem?.toString() === problem.charcode ? 'text-foreground font-medium' : ''}
+                                                className="flex-1 truncate w-0 max-w-fit"
                                             >
                                                 {problem.title}
                                             </Link>
@@ -54,15 +54,12 @@ export default function Problemset({ contest, difficulties, currentProblem }: { 
                                     <SolvedTag className="ml-2" state={problem.status} />
                                 </TableCell>
                                 <TableCell className={!difficulties ? 'hidden' : ''}>
-                                    <Difficulty difficulty={problem.difficulty} />
+                                    <DifficultyTag difficulty={problem.difficulty} />
                                 </TableCell>
                             </TableRow>
                         ))
                     }
                 </TableBody>
-                {/* <TableCaption>
-                    Hello
-                </TableCaption> */}
             </Table>
         </TableContainer>
     );

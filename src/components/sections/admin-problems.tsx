@@ -1,5 +1,5 @@
 import { getAccount, getAdminProblems } from '@/actions/actions';
-import Difficulty from '@/components/difficulty';
+import { DifficultyTag } from '@/components/difficulty-tag';
 import { Link } from "@/components/ui/link";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
@@ -42,7 +42,7 @@ export default async function AdminProblems() {
                                     </Link>
                                 </TableCell>
                                 <TableCell>
-                                    <Difficulty difficulty={problem.difficulty} />
+                                    <DifficultyTag difficulty={problem.difficulty} />
                                 </TableCell>
                                 <TableCell className='w-3xs'>
                                     <DateView date={problem.created_at} />

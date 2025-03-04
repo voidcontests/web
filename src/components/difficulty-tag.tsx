@@ -11,7 +11,7 @@ const difficultyToBadgeType: DifficultyColorMap = {
     'hard': 'red',
 }
 
-export default function Difficulty({ difficulty }: { difficulty: string }) {
+export function DifficultyTag({ difficulty }: { difficulty: string }) {
     if (!(difficulty in difficultyToBadgeType)) {
         return <Tag>{capitalize(difficulty)}</Tag>
     }
