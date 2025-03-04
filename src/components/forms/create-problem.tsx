@@ -12,9 +12,9 @@ import { createProblem } from '@/actions/actions';
 import { toast } from 'sonner';
 import { Separator } from '../ui/separator';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
-import { MessageBox } from '../message-box';
+import { MessageBox } from '@/components/message-box';
 import { Trash2 } from 'lucide-react';
-import { TextArea } from '../ui/textarea';
+import { TextArea } from '@/components/ui/textarea';
 
 export interface TestCase {
     input: string;

@@ -2,10 +2,10 @@
 
 import { Widget, WidgetContent, WidgetTitle, } from "@/components/ui/widget";
 import { ContestDetailed } from "@/actions/dto/response";
-import { format_duration } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { format_duration } from "@/lib/utils";
+import DateView from "@/components/date";
 import { use } from "react";
-import DateView from "../date";
 
 export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);

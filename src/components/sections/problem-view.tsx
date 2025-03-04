@@ -1,16 +1,16 @@
 'use client';
 
 import { ProblemDetailed, SubmissionListItem } from "@/actions/dto/response";
-import { Widget, WidgetContent, WidgetTitle } from "../ui/widget";
+import { SubmissionReport } from "@/components/sections/submission-report";
+import { Widget, WidgetContent, WidgetTitle } from "@/components/ui/widget";
 import { CodeEditor } from "@/components/sections/code-editor";
-import { SubmissionReport } from "./submission-report";
+import { Skeleton } from "@/components/ui/skeleton";
 import Preview from "@/components/sections/preview";
 import { authorized } from "@/api/core/instance";
 import { Button } from "@/components/ui/button";
 import { revalidate } from "@/actions/actions";
 import { Input } from "@/components/ui/input";
 import { Link } from "@/components/ui/link";
-import { Skeleton } from "../ui/skeleton";
 import { use, useState } from "react";
 import { toast } from "sonner";
 
@@ -50,7 +50,9 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
                 } else {
                     toast.error(`Unknown verdict: ${verdict}`);
                 }
-                revalidate(`/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}`);
+
+                revalidate(`/contest/${pdetailed.contest_id}/problem/${pdetailed.charcode}`);
+
                 break;
             case 429:
                 toast.warning(`You are submitting too frequently. Wait for ${data.timeout}`);
@@ -71,7 +73,9 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
         setWaiting(true);
         setSubmission(undefined);
 
-        const { data, status } = await authorized.post(`/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}/submissions`, { problem_kind: 'coding_problem', code: code });
+        const { data } = await authorized.post(`/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}/submissions`, { problem_kind: 'coding_problem', code: code });
+
+        revalidate(`/contest/${pdetailed.contest_id}/problem/${pdetailed.charcode}`);
 
         setSubmission(data);
         setWaiting(false);

@@ -6,7 +6,7 @@ import {
     TableBody, TableRow, TableCell
 } from "@/components/ui/table-inline";
 import Address from "@/components/address";
-import DateView from "../date";
+import DateView from "@/components/date";
 
 export function ContestAboutTable({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);

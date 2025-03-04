@@ -1,7 +1,7 @@
 'use client';
 
 import { Leaderboard } from "@/actions/dto/response";
-import Address from "../address";
+import Address from "@/components/address";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableCaption, TableTitle

@@ -7,9 +7,9 @@ import {
     TableBody, TableRow, TableCell, TableCaption, TableTitle,
 } from "@/components/ui/table";
 import { format_duration } from '@/lib/utils';
-import { use } from "react";
 import Address from "@/components/address";
-import DateView from "../date";
+import DateView from "@/components/date";
+import { use } from "react";
 
 export function PublicContests({ contests }: { contests: Promise<ContestList> }) {
     const publicContests = use(contests);
