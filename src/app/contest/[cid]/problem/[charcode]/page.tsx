@@ -1,8 +1,8 @@
 import ContentContainer from "@/components/content-container";
 import ProblemView from "@/components/sections/problem-view";
+import Setters from "@/components/sections/problem-setters";
 import { getContest, getProblem } from "@/actions/actions";
 import Problemset from "@/components/sections/problemset";
-import Setters from "@/components/sections/problem-setters";
 
 export default async function Page({ params }: { params: { cid: string, charcode: string } }) {
     const problem = getProblem(params.cid, params.charcode);
@@ -12,7 +12,7 @@ export default async function Page({ params }: { params: { cid: string, charcode
         <ContentContainer>
             <div className="grid grid-cols-12 gap-5">
                 <div className="col-span-9">
-                    <ProblemView problem={problem} /> {/* TODO: maybe add suspense */}
+                    <ProblemView problem={problem} />
                 </div>
                 <div className="col-span-3 flex flex-col gap-5">
                     <Problemset contest={contest} contestLink />

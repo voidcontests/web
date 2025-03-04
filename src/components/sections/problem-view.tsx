@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Link } from "@/components/ui/link";
 import { use, useState } from "react";
 import { toast } from "sonner";
+import { TestCase } from "./test-case";
 
 const DEFAULT_CODE = `#include <stdio.h>
 
@@ -81,6 +82,17 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
         setWaiting(false);
     }
 
+    const examples = [
+        {
+            input: '4\n6 2 0 1',
+            output: '9',
+        },
+        {
+            input: '4\n6 2 0 1',
+            output: '9',
+        }
+    ];
+
     return (
         <div className="flex flex-col gap-7">
             <div className="flex justify-center items-center">
@@ -89,6 +101,11 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
                 </h1>
             </div>
             <Preview markdown={pdetailed.statement} />
+            {/* {
+                examples.map((example) => (
+                    <TestCase tc={example} />
+                ))
+            } */}
             {
                 pdetailed.kind === 'text_answer_problem' &&
                 <div className="flex items-center gap-4">
