@@ -1,5 +1,4 @@
 import { getAccount, getAdminContests } from '@/actions/actions';
-import { ContestListItem } from '@/actions/dto/response';
 import { Link } from "@/components/ui/link";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
@@ -7,24 +6,17 @@ import {
     TableCaption
 } from "@/components/ui/table";
 import { format_duration } from '@/lib/utils';
-import ContestStatus from '../contest-status';
-import DateView from '../date';
+import ContestStatus from '@/components/contest-status';
+import DateView from '@/components/date';
 
 export default async function AdminContests() {
     // TODO: add loadings
     const [contests, account] = await Promise.all([getAdminContests(), getAccount()]);
 
-    const is_live = (contest: ContestListItem): boolean => {
-        const now = new Date();
-        const start = new Date(contest.start_time);
-        const end = new Date(contest.end_time);
-
-        return now > start && now < end;
-    }
-
     return (
         <TableContainer>
             <TableTitle className='flex justify-between'>
+                // TODO: hide new button, if user already created maximum contests
                 <span>CONTESTS</span>
                 {
                     account.role.name !== 'banned' &&
