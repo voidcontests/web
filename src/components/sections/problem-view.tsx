@@ -83,16 +83,10 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
 
     return (
         <div className="flex flex-col gap-7">
-            <div className="flex justify-between items-center">
-                <div className="flex-1">
-                    <Link href={`/contest/${pdetailed.contest_id}`} size="large">
-                        BACK TO CONTEST
-                    </Link>
-                </div>
+            <div className="flex justify-center items-center">
                 <h1 className="text-foreground text-xl font-medium text-center">
                     {`${pdetailed.charcode}. ${pdetailed.title}`}
                 </h1>
-                <div className="flex-1"></div>
             </div>
             <Preview markdown={pdetailed.statement} />
             {

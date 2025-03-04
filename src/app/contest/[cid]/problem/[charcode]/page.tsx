@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: { cid: string, charcode
                     <ProblemView problem={problem} /> {/* TODO: maybe add suspense */}
                 </div>
                 <div className="col-span-3 flex flex-col gap-5">
-                    <Problemset contest={contest} currentProblem={params.charcode} />
+                    <Problemset contest={contest} contestLink />
                     <Setters problem={problem} />
                 </div>
             </div>

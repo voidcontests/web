@@ -2,7 +2,7 @@
 
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
-    TableBody, TableRow, TableCell, TableTitle
+    TableBody, TableRow, TableCell, TableTitle, TableCaption
 } from "@/components/ui/table";
 import { DifficultyTag } from "@/components/difficulty-tag";
 import { ContestDetailed } from "@/actions/dto/response";
@@ -11,7 +11,7 @@ import { SolvedTag } from "@/components/solved-tag";
 import { Link } from "@/components/ui/link";
 import { use } from "react";
 
-export default function Problemset({ contest, difficulties, currentProblem }: { contest: Promise<ContestDetailed>, difficulties?: boolean, currentProblem?: string | number }) {
+export default function Problemset({ contest, difficulties, contestLink }: { contest: Promise<ContestDetailed>, difficulties?: boolean, contestLink?: boolean }) {
     const cdetailed = use(contest);
     const problemset = cdetailed.problems;
     const started = new Date(cdetailed.start_time) < new Date();
@@ -60,6 +60,12 @@ export default function Problemset({ contest, difficulties, currentProblem }: { 
                         ))
                     }
                 </TableBody>
+                {
+                    contestLink &&
+                    <TableCaption>
+                        Return to <Link href={`/contest/${cdetailed.id}`}>contest</Link>.
+                    </TableCaption>
+                }
             </Table>
         </TableContainer>
     );
