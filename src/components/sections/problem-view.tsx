@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { revalidate } from "@/actions/actions";
 import { Input } from "@/components/ui/input";
 import { use, useState } from "react";
-import { toast } from "sonner";
+import { toast } from "@/components/toast";
 import { TestCase } from "@/components/sections/test-case";
 import { Separator } from "@/components/ui/separator";
 
@@ -35,7 +35,7 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
         if (answer.trim().length === 0) return;
 
         if (pdetailed.status === 'accepted') {
-            toast.info("Solution for this problem already accepted");
+            toast({ title: "Solution for this problem already accepted" });
             return;
         }
 
@@ -45,21 +45,21 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
             case 201:
                 const verdict = data.verdict;
                 if (verdict === 'ok') {
-                    toast.success('Correct! Answer accepted');
+                    toast({ title: 'Correct! Answer accepted' });
                 } else if (verdict === 'wrong_answer') {
-                    toast.warning('Your answer is incorrect');
+                    toast({ title: 'Your answer is incorrect' });
                 } else {
-                    toast.error(`Unknown verdict: ${verdict}`);
+                    toast({ title: `Unknown verdict: ${verdict}` });
                 }
 
                 revalidate(`/contest/${pdetailed.contest_id}/problem/${pdetailed.charcode}`);
 
                 break;
             case 429:
-                toast.warning(`You are submitting too frequently. Wait for ${data.timeout}`);
+                toast({ title: `You are submitting too frequently. Wait for ${data.timeout}` });
                 break;
             default:
-                toast.error('Something went wrong. Try again later');
+                toast({ title: 'Something went wrong. Try again later' });
         }
     }
 

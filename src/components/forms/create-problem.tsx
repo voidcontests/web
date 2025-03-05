@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { MarkdownEditor } from '@/components/sections/markdown-editor';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { createProblem, revalidate } from '@/actions/actions';
-import { toast } from 'sonner';
+import { toast } from '@/components/toast';
 import { Separator } from '../ui/separator';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { MessageBox } from '@/components/message-box';
@@ -54,10 +54,10 @@ export function CreateProblemForm() {
         try {
             await createProblem(data);
             revalidate('/hub');
-            toast.success("Problem created successfully");
+            toast({ title: 'Problem created successfully' });
         } catch (e) {
             console.error("Error:", e);
-            toast.error("Something went wrong. Try again later");
+            toast({ title: 'Something went wrong. Try again later' });
         }
     };
 
@@ -80,12 +80,10 @@ export function CreateProblemForm() {
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
             <div className="flex flex-col gap-6">
-
                 <div className="flex flex-col gap-2">
                     <Label required>Add title</Label>
                     <Input {...register("title")} placeholder="Title" required />
                 </div>
-
 
                 <MarkdownEditor
                     placeholder="Write problem's statement"
@@ -95,7 +93,6 @@ export function CreateProblemForm() {
                 >
                     Add statement
                 </MarkdownEditor>
-
 
                 <div className="flex flex-col gap-2">
                     <Label required>Select problem's type</Label>
@@ -112,14 +109,12 @@ export function CreateProblemForm() {
                     </Select>
                 </div>
 
-
                 {watch('kind') === 'text_answer_problem' && (
                     <div className="flex flex-col gap-2">
                         <Label required>Add answer</Label>
                         <Input {...register("answer")} placeholder="Answer" />
                     </div>
                 )}
-
 
                 {watch('kind') === 'coding_problem' && (
                     <>

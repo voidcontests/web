@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@/lib/utils';
 import React from 'react';
 import { toast as sonner } from 'sonner';
 
@@ -37,16 +38,19 @@ export function toast(props: Omit<ToastProps, 'id'>) {
     ));
 }
 
+// NOTE: I can not come up with this setting
+const INVERSED = false;
+
 function Toast(props: ToastProps) {
     const { title, description, button, id } = props;
 
     return (
-        <div className="flex rounded-xl bg-surface not-dark:shadow-md border w-[364px] items-center p-4">
+        <div className={cn("flex rounded-xl not-dark:shadow-md border w-[364px] items-center p-4", INVERSED ? 'bg-zinc-900 dark:bg-zinc-50' : 'bg-surface')}>
             <div className="flex flex-1 items-center">
                 <div className="w-full">
-                    <p className="text-sm font-medium text-foreground">{title}</p>
+                    <p className={cn("text-sm font-medium", INVERSED ? 'text-zinc-50 dark:text-zinc-950' : 'text-foreground')}>{title}</p>
                     {description &&
-                        <p className="mt-1 text-sm text-secondary-foreground">{description}</p>
+                        <p className={cn("mt-1 text-sm", INVERSED ? 'text-zinc-300 dark:text-zinc-700' : 'text-secondary-foreground')}>{description}</p>
                     }
                 </div>
             </div>

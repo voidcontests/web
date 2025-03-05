@@ -29,9 +29,9 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
                             {children}
                         </main>
                         <Footer />
-                        <Toaster closeButton richColors position="bottom-center" toastOptions={{
+                        <Toaster position="bottom-right" toastOptions={{
                             className: rubik.className,
-                            duration: 3000,
+                            duration: 5000,
                             style: {
                                 borderRadius: "16px",
                             },

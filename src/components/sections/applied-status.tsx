@@ -4,7 +4,7 @@ import { useIsConnectionRestored, useTonConnectUI, useTonWallet } from "@tonconn
 import { ContestDetailed } from "@/actions/dto/response";
 import { Button } from "@/components/ui/button";
 import { use } from "react";
-import { toast } from "sonner";
+import { toast } from "@/components/toast";
 import { LoaderCircle } from "lucide-react";
 import { createEntry, revalidate } from "@/actions/actions";
 
@@ -56,7 +56,7 @@ export default function AppliedStatus({ contest }: { contest: Promise<ContestDet
             await createEntry(cdetailed.id);
             revalidate(`/contest/${cdetailed.id}`);
         } catch (e) {
-            toast.error('Something went wrong. Try again leter');
+            toast({ title: 'Something went wrong. Try again leter' });
         }
     }
 

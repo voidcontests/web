@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from '@/components/ui/label';
 import { Input } from "@/components/ui/input";
 import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
+import { toast } from '@/components/toast';
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableCaption,
@@ -54,10 +54,10 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
         try {
             await createContest(data);
             revalidate('/hub');
-            toast.success("Contest created successfully");
+            toast({ title: 'Contest created successfully' });
         } catch (e) {
             console.error("Error:", e);
-            toast.error("Something went wrong. Try again later");
+            toast({ title: 'Something went wrong. Try again later' });
         }
     };
 
