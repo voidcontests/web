@@ -82,6 +82,17 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
         setWaiting(false);
     }
 
+    const examples = [
+        {
+            input: '1 2 3',
+            output: '6',
+        },
+        {
+            input: '1 2 3',
+            output: '6',
+        },
+    ];
+
     return (
         <div className="flex flex-col gap-7">
             <div className="flex justify-center items-center">
@@ -109,6 +120,21 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
             {
                 pdetailed.kind === 'coding_problem' &&
                 <div className="flex flex-col gap-4">
+                    {
+                        (pdetailed.examples && pdetailed.examples.length !== 0) &&
+                        <div className="flex flex-col gap-2">
+                            <h3 className="font-medium text-lg">
+                                Examples
+                            </h3>
+                            <div className="flex flex-col gap-2">
+                                {
+                                    pdetailed.examples.map((example) => (
+                                        <TestCase tc={example} />
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    }
                     <CodeEditor code={code} setCode={setCode} />
                     <Button onClick={submitProgram} disabled={code.trim().length === 0}>
                         SUBMIT

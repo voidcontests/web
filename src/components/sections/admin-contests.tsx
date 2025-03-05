@@ -16,7 +16,7 @@ export default async function AdminContests() {
     return (
         <TableContainer>
             <TableTitle className='flex justify-between'>
-                // TODO: hide new button, if user already created maximum contests
+                {/* TODO: hide new button, if user already created maximum contests */}
                 <span>CONTESTS</span>
                 {
                     account.role.name !== 'banned' &&

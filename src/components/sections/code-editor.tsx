@@ -1,5 +1,4 @@
 import { useState, useEffect, forwardRef, TextareaHTMLAttributes, ChangeEvent } from "react";
-import { Terminal } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface CodeEditorProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {

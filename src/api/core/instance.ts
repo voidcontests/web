@@ -4,6 +4,7 @@ import axios from "axios";
 
 const authorized = axios.create({
     baseURL: DOMAIN + "/api",
+    timeout: 0,
 });
 
 authorized.interceptors.request.use((config) => {

@@ -1,12 +1,26 @@
 'use client';
 
+import { useState } from "react";
+
 export function Copy({ data }: { data: string }) {
+    const [copied, setCopied] = useState(false);
+
+    const onClick = () => {
+        navigator.clipboard.writeText(data);
+        setCopied(true);
+        setTimeout(() => {
+            setCopied(false);
+        }, 1000);
+    }
+
     return (
         <span
-            className="text-tertiary-foreground hover:text-foreground transition-colors hover:cursor-pointer"
-            onClick={() => { if (data) navigator.clipboard.writeText(data) }}
+            className='text-tertiary-foreground hover:text-foreground transition-colors hover:cursor-pointer'
+            onClick={onClick}
         >
-            Copy
+            {
+                copied ? 'Copied!' : 'Copy'
+            }
         </span>
     );
 }

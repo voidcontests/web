@@ -99,8 +99,12 @@ export type ProblemDetailed = {
     writer: User;
     kind: string;
     title: string;
-    statement: string;
     difficulty: string;
+    statement: string;
+    examples?: {
+        input: string;
+        output: string;
+    }[];
     status?: 'accepted' | 'tried';
     input?: string;
     time_limit_ms?: number;
