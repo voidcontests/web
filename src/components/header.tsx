@@ -30,10 +30,7 @@ const Header = () => {
                             CONTESTS
                         </NavItem>
                         <NavItem href='/hub' className="max-sm:hidden">
-                            <div className="flex flex-row gap-2 items-center">
-                                <span>HUB</span>
-                                <New />
-                            </div>
+                            HUB
                         </NavItem>
                     </div>
                     <TonConnectButton />
