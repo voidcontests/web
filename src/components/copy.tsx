@@ -6,6 +6,8 @@ export function Copy({ data }: { data: string }) {
     const [copied, setCopied] = useState(false);
 
     const onClick = () => {
+        if (copied) return;
+
         navigator.clipboard.writeText(data);
         setCopied(true);
         setTimeout(() => {
