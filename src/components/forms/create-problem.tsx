@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { MarkdownEditor } from '@/components/sections/markdown-editor';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { createProblem } from '@/actions/actions';
+import { createProblem, revalidate } from '@/actions/actions';
 import { toast } from 'sonner';
 import { Separator } from '../ui/separator';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
