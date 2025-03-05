@@ -3,7 +3,7 @@
 import { DateTimePicker } from "@/components/time-picker/date-time-picker";
 import { Separator } from '@/components/ui/separator';
 import { TextArea } from "@/components/ui/textarea";
-import { createContest } from '@/actions/actions';
+import { createContest, revalidate } from '@/actions/actions';
 import { Button } from "@/components/ui/button";
 import { Label } from '@/components/ui/label';
 import { Input } from "@/components/ui/input";
@@ -53,6 +53,7 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
         // TODO:redirect to problem' page
         try {
             await createContest(data);
+            revalidate('/hub');
             toast.success("Contest created successfully");
         } catch (e) {
             console.error("Error:", e);

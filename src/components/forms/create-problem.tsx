@@ -53,6 +53,7 @@ export function CreateProblemForm() {
     const onSubmit = async (data: FormData) => {
         try {
             await createProblem(data);
+            revalidate('/hub');
             toast.success("Problem created successfully");
         } catch (e) {
             console.error("Error:", e);
