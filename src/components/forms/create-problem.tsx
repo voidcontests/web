@@ -19,6 +19,7 @@ import { TextArea } from '@/components/ui/textarea';
 export interface TestCase {
     input: string;
     output: string;
+    is_example: boolean;
 }
 
 export interface FormData {
@@ -151,12 +152,19 @@ export function CreateProblemForm() {
                                             resizable
                                         />
                                     </div>
+                                    <Label className='flex flex-row gap-2 hover:cursor-pointer'>
+                                        <Checkbox
+                                            checked={watch(`test_cases.${index}.is_example`)}
+                                            onCheckedChange={(value) => setValue(`test_cases.${index}.is_example`, Boolean(value))}
+                                        />
+                                        <span className='font-normal'>Use as example</span>
+                                    </Label>
                                 </div>
                             ))}
                             <Button
                                 variant="dashed"
                                 type="button"
-                                onClick={() => append({ input: "", output: "" })}
+                                onClick={() => append({ input: "", output: "", is_example: false })}
                             >
                                 New test case
                             </Button>
@@ -165,7 +173,6 @@ export function CreateProblemForm() {
                 )}
 
                 <Separator />
-
 
                 <div className="flex flex-col gap-2">
                     <Label required>Select difficulty</Label>

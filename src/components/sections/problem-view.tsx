@@ -10,10 +10,10 @@ import { authorized } from "@/api/core/instance";
 import { Button } from "@/components/ui/button";
 import { revalidate } from "@/actions/actions";
 import { Input } from "@/components/ui/input";
-import { Link } from "@/components/ui/link";
 import { use, useState } from "react";
 import { toast } from "sonner";
-import { TestCase } from "./test-case";
+import { TestCase } from "@/components/sections/test-case";
+import { Separator } from "@/components/ui/separator";
 
 const DEFAULT_CODE = `#include <stdio.h>
 
@@ -82,17 +82,6 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
         setWaiting(false);
     }
 
-    const examples = [
-        {
-            input: '1 2 3',
-            output: '6',
-        },
-        {
-            input: '1 2 3',
-            output: '6',
-        },
-    ];
-
     return (
         <div className="flex flex-col gap-7">
             <div className="flex justify-center items-center">
@@ -122,11 +111,11 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
                 <div className="flex flex-col gap-4">
                     {
                         (pdetailed.examples && pdetailed.examples.length !== 0) &&
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-0">
                             <h3 className="font-medium text-lg">
                                 Examples
                             </h3>
-                            <div className="flex flex-col gap-2">
+                            <div className="flex flex-col gap-3">
                                 {
                                     pdetailed.examples.map((example) => (
                                         <TestCase tc={example} />
@@ -135,6 +124,7 @@ export default function ProblemView({ problem }: { problem: Promise<ProblemDetai
                             </div>
                         </div>
                     }
+                    <Separator />
                     <CodeEditor code={code} setCode={setCode} />
                     <Button onClick={submitProgram} disabled={code.trim().length === 0}>
                         SUBMIT
