@@ -45,7 +45,7 @@ export default async function AdminProblems() {
                                     <DifficultyTag difficulty={problem.difficulty} />
                                 </TableCell>
                                 <TableCell className='w-3xs'>
-                                    <DateView date={problem.created_at} />
+                                    <DateView date={problem.created_at} relative />
                                 </TableCell>
                             </TableRow>
                         ))

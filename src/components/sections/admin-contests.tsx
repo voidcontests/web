@@ -75,7 +75,7 @@ export default async function AdminContests() {
                                     </Link>
                                 </TableCell>
                                 <TableCell>
-                                    <DateView date={contest.created_at} />
+                                    <DateView date={contest.created_at} relative />
                                 </TableCell>
                                 <TableCell>
                                     <ContestStatus contest={contest} />
