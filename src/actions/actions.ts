@@ -171,6 +171,18 @@ export async function getAdminProblems(): Promise<ProblemList> {
     return await res.json() as ProblemList;
 }
 
+export async function getProblemArchive(): Promise<ProblemList> {
+    const res = await fetch(BASEPATH + `/problems`, {
+        method: 'GET',
+    });
+
+    if (!res.ok) {
+        throw new Error(`can't get archived problems`);
+    }
+
+    return await res.json() as ProblemList;
+}
+
 export async function getAdminContests(): Promise<ContestList> {
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_KEY)?.value;
