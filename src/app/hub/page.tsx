@@ -1,13 +1,13 @@
 import { getAccount, getAdminContests, getAdminProblems } from '@/actions/actions';
 import ContentContainer from '@/components/content-container';
+import { TableTemplate } from '@/components/sections/loading';
 import HubMessage from '@/components/sections/hub-message';
 import { Separator } from '@/components/ui/separator';
-import { Table, TableCaption, TableContainer, TableTitle } from '@/components/ui/table';
 import { Suspense } from 'react';
 
 import dynamic from 'next/dynamic';
-const AdminContests = dynamic(() => import('@/components/sections/admin-contests'), { ssr: false, loading: () => <Loading title='CONTESTS' /> });
-const AdminProblems = dynamic(() => import('@/components/sections/admin-problems'), { ssr: false, loading: () => <Loading title='PROBLEMS' /> });
+const AdminContests = dynamic(() => import('@/components/sections/admin-contests'), { ssr: false, loading: () => <TableTemplate title='CONTESTS' /> });
+const AdminProblems = dynamic(() => import('@/components/sections/admin-problems'), { ssr: false, loading: () => <TableTemplate title='PROBLEMS' /> });
 
 export default async function Page() {
     const account = getAccount();
@@ -26,25 +26,12 @@ export default async function Page() {
                 </p>
             </div>
             <Separator />
-            <Suspense fallback={<Loading title='CONTESTS' />}>
+            <Suspense fallback={<TableTemplate title='CONTESTS' />}>
                 <AdminContests account={account} contests={contests} />
             </Suspense>
-            <Suspense fallback={<Loading title='PROBLEMS' />}>
+            <Suspense fallback={<TableTemplate title='PROBLEMS' />}>
                 <AdminProblems account={account} problems={problems} />
             </Suspense>
         </ContentContainer>
-    );
-}
-
-function Loading({ title }: { title: string }) {
-    return (
-        <TableContainer>
-            <TableTitle>
-                {title}
-            </TableTitle>
-            <Table>
-                <TableCaption>Loading...</TableCaption>
-            </Table>
-        </TableContainer>
     );
 }
