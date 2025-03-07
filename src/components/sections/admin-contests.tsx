@@ -1,4 +1,5 @@
-import { getAccount, getAdminContests } from '@/actions/actions';
+'use client';
+
 import { Link } from "@/components/ui/link";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
@@ -7,11 +8,14 @@ import {
 } from "@/components/ui/table";
 import { format_duration } from '@/lib/utils';
 import ContestStatus from '@/components/contest-status';
-import DateView from '@/components/date';
+import dynamic from 'next/dynamic';
+import { Account, ContestList } from '@/actions/dto/response';
+import { use } from 'react';
+const DateView = dynamic(() => import("@/components/date"), { ssr: false });
 
-export default async function AdminContests() {
-    // TODO: add loadings
-    const [contests, account] = await Promise.all([getAdminContests(), getAccount()]);
+export default async function AdminContests({ account, contests }: { account: Promise<Account>, contests: Promise<ContestList> }) {
+    const acc = use(account);
+    const cs = use(contests);
 
     return (
         <TableContainer>
@@ -19,7 +23,7 @@ export default async function AdminContests() {
                 {/* TODO: hide new button, if user already created maximum contests */}
                 <span>CONTESTS</span>
                 {
-                    account.role.name !== 'banned' &&
+                    acc.role.name !== 'banned' &&
                     <Link href='/hub/new/contest' size="large">NEW</Link>
                 }
             </TableTitle>
@@ -40,7 +44,7 @@ export default async function AdminContests() {
                 </TableHeader>
                 <TableBody>
                     {
-                        contests.data.map((contest, index) => (
+                        cs.data.map((contest, index) => (
                             <TableRow key={index}>
                                 <TableCell className='text-center pr-5'>
                                     {contest.id}
@@ -75,7 +79,7 @@ export default async function AdminContests() {
                                     </Link>
                                 </TableCell>
                                 <TableCell>
-                                    <DateView date={contest.created_at} relative />
+                                    <DateView date={contest.created_at} />
                                 </TableCell>
                                 <TableCell>
                                     <ContestStatus contest={contest} />
@@ -85,7 +89,7 @@ export default async function AdminContests() {
                     }
                 </TableBody>
                 {
-                    contests.data.length === 0 &&
+                    cs.data.length === 0 &&
                     <TableCaption>
                         No created contests.
                     </TableCaption>

@@ -5,14 +5,7 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 import { getContests } from "@/actions/actions";
 import dynamic from "next/dynamic";
-
-const PublicContests = dynamic(async () => {
-    const mod = await import('@/components/sections/public-contests');
-    return mod.PublicContests;
-}, {
-    ssr: false,
-    loading: () => <Loading />
-});
+const PublicContests = dynamic(() => import('@/components/sections/public-contests'), { ssr: false, loading: () => <Loading /> });
 
 export const metadata: Metadata = {
     title: 'Contests :: THE VOID*',

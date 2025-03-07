@@ -1,14 +1,18 @@
-import { getAccount } from '@/actions/actions';
+import { getAccount, getAdminContests, getAdminProblems } from '@/actions/actions';
 import ContentContainer from '@/components/content-container';
-import AdminContests from '@/components/sections/admin-contests';
-import AdminProblems from '@/components/sections/admin-problems';
 import HubMessage from '@/components/sections/hub-message';
 import { Separator } from '@/components/ui/separator';
+import { Table, TableCaption, TableContainer, TableTitle } from '@/components/ui/table';
+import { Suspense } from 'react';
+
+import dynamic from 'next/dynamic';
+const AdminContests = dynamic(() => import('@/components/sections/admin-contests'), { ssr: false, loading: () => <Loading title='CONTESTS' /> });
+const AdminProblems = dynamic(() => import('@/components/sections/admin-problems'), { ssr: false, loading: () => <Loading title='PROBLEMS' /> });
 
 export default async function Page() {
-    // NOTE: if user not authorized, this thing will throw an error
-    // and error page (from error.tsx) will be rendered.
-    await getAccount();
+    const account = getAccount();
+    const contests = getAdminContests();
+    const problems = getAdminProblems();
 
     return (
         <ContentContainer>
@@ -22,8 +26,25 @@ export default async function Page() {
                 </p>
             </div>
             <Separator />
-            <AdminContests />
-            <AdminProblems />
+            <Suspense fallback={<Loading title='CONTESTS' />}>
+                <AdminContests account={account} contests={contests} />
+            </Suspense>
+            <Suspense fallback={<Loading title='PROBLEMS' />}>
+                <AdminProblems account={account} problems={problems} />
+            </Suspense>
         </ContentContainer>
+    );
+}
+
+function Loading({ title }: { title: string }) {
+    return (
+        <TableContainer>
+            <TableTitle>
+                {title}
+            </TableTitle>
+            <Table>
+                <TableCaption>Loading...</TableCaption>
+            </Table>
+        </TableContainer>
     );
 }

@@ -1,4 +1,6 @@
-import { getAccount, getAdminProblems } from '@/actions/actions';
+'use client';
+
+import { Account, ProblemList } from '@/actions/dto/response';
 import { DifficultyTag } from '@/components/difficulty-tag';
 import { Link } from "@/components/ui/link";
 import {
@@ -6,17 +8,20 @@ import {
     TableBody, TableRow, TableCell, TableTitle,
     TableCaption
 } from "@/components/ui/table";
-import DateView from '../date';
+import dynamic from 'next/dynamic';
+import { use } from 'react';
+const DateView = dynamic(() => import("@/components/date"), { ssr: false });
 
-export default async function AdminProblems() {
-    const [problems, account] = await Promise.all([getAdminProblems(), getAccount()]);
+export default async function AdminProblems({ account, problems }: { account: Promise<Account>, problems: Promise<ProblemList> }) {
+    const acc = use(account);
+    const ps = use(problems);
 
     return (
         <TableContainer>
             <TableTitle className='flex justify-between'>
                 <span>PROBLEMS</span>
                 {
-                    account.role.name !== 'banned' &&
+                    acc.role.name !== 'banned' &&
                     <Link href='/hub/new/problem' size="large">NEW</Link>
                 }
             </TableTitle>
@@ -31,7 +36,7 @@ export default async function AdminProblems() {
                 </TableHeader>
                 <TableBody>
                     {
-                        problems.data.map((problem, index) => (
+                        ps.data.map((problem, index) => (
                             <TableRow key={index}>
                                 <TableCell className='text-center'>
                                     {problem.id}
@@ -45,14 +50,14 @@ export default async function AdminProblems() {
                                     <DifficultyTag difficulty={problem.difficulty} />
                                 </TableCell>
                                 <TableCell className='w-3xs'>
-                                    <DateView date={problem.created_at} relative />
+                                    <DateView date={problem.created_at} />
                                 </TableCell>
                             </TableRow>
                         ))
                     }
                 </TableBody>
                 {
-                    problems.data.length === 0 &&
+                    ps.data.length === 0 &&
                     <TableCaption>
                         No created problems.
                     </TableCaption>

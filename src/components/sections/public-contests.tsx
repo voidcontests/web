@@ -11,7 +11,7 @@ import Address from "@/components/address";
 import DateView from "@/components/date";
 import { use } from "react";
 
-export function PublicContests({ contests }: { contests: Promise<ContestList> }) {
+export default function PublicContests({ contests }: { contests: Promise<ContestList> }) {
     const publicContests = use(contests);
 
     return (
