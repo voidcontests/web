@@ -1,6 +1,6 @@
-import { Table, TableCaption, TableContainer, TableTitle } from '@/components/ui/table';
 import ArchivedProblems from '@/components/sections/archived-problems';
 import ContentContainer from '@/components/content-container';
+import { TableTemplate } from '@/components/sections/loading';
 import { getProblemArchive } from '@/actions/actions';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
@@ -14,22 +14,9 @@ export default async function ContestsPage() {
 
     return (
         <ContentContainer>
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<TableTemplate title='PROBLEMS' />}>
                 <ArchivedProblems problems={problems} />
             </Suspense>
         </ContentContainer>
-    );
-}
-
-function Loading() {
-    return (
-        <TableContainer>
-            <TableTitle>
-                PROBLEMS
-            </TableTitle>
-            <Table>
-                <TableCaption>Loading...</TableCaption>
-            </Table>
-        </TableContainer>
     );
 }
