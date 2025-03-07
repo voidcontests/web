@@ -1,16 +1,14 @@
-import { getProblemArchive } from '@/actions/actions';
+'use client';
+
+import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from '@/components/ui/table';
 import { DifficultyTag } from '@/components/difficulty-tag';
-import { Link } from "@/components/ui/link";
-import {
-    TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
-    TableBody, TableRow, TableCell, TableTitle, TableCaption
-} from "@/components/ui/table";
+import { ProblemList } from '@/actions/dto/response';
+import { Link } from '@/components/ui/link';
 import Address from '@/components/address';
+import { use } from 'react';
 
-export default async function ArchivedProblems() {
-    const problems = await getProblemArchive();
-
-    console.log(problems);
+export default function ArchivedProblems({ problems }: { problems: Promise<ProblemList> }) {
+    const ps = use(problems);
 
     return (
         <TableContainer>
@@ -28,7 +26,7 @@ export default async function ArchivedProblems() {
                 </TableHeader>
                 <TableBody>
                     {
-                        problems.data.map((problem, index) => (
+                        ps.data.map((problem, index) => (
                             <TableRow key={index}>
                                 <TableCell className='text-center'>
                                     {problem.id}
@@ -49,10 +47,9 @@ export default async function ArchivedProblems() {
                     }
                 </TableBody>
                 {
-                    problems.data.length === 0 &&
+                    ps.data.length === 0 &&
                     <TableCaption>
-                        There are no archived problems at the moment. Please wait
-                        until the contest ends — then, some problems may become public.
+                        Archive is empty now.
                     </TableCaption>
                 }
             </Table>

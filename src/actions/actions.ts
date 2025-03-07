@@ -172,8 +172,15 @@ export async function getAdminProblems(): Promise<ProblemList> {
 }
 
 export async function getProblemArchive(): Promise<ProblemList> {
+    cookies();
+
+    const headers = {
+        'Content-Type': 'application/json',
+    };
+
     const res = await fetch(BASEPATH + `/problems`, {
         method: 'GET',
+        headers: headers,
     });
 
     if (!res.ok) {

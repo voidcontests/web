@@ -1,22 +1,31 @@
-import ContentContainer from '@/components/content-container';
 import { Table, TableCaption, TableContainer, TableTitle } from '@/components/ui/table';
-import dynamic from 'next/dynamic';
+import ArchivedProblems from '@/components/sections/archived-problems';
+import ContentContainer from '@/components/content-container';
+import { getProblemArchive } from '@/actions/actions';
+import { Suspense } from 'react';
+import { Metadata } from 'next';
 
-const ArchivedProblems = dynamic(() => import('@/components/sections/archived-problems'), { ssr: false, loading: () => <Loading title='PROBLEMSET' /> });
+export const metadata: Metadata = {
+    title: 'Problems :: THE VOID*',
+};
 
-export default async function Page() {
+export default async function ContestsPage() {
+    const problems = getProblemArchive();
+
     return (
         <ContentContainer>
-            <ArchivedProblems />
+            <Suspense fallback={<Loading />}>
+                <ArchivedProblems problems={problems} />
+            </Suspense>
         </ContentContainer>
     );
 }
 
-function Loading({ title }: { title: string }) {
+function Loading() {
     return (
         <TableContainer>
             <TableTitle>
-                {title}
+                PROBLEMS
             </TableTitle>
             <Table>
                 <TableCaption>Loading...</TableCaption>
