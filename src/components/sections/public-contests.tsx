@@ -1,18 +1,15 @@
 'use client';
 
-import { ContestList } from "@/actions/dto/response";
-import { Link } from "@/components/ui/link";
-import {
-    TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
-    TableBody, TableRow, TableCell, TableCaption, TableTitle,
-} from "@/components/ui/table";
+import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableCaption, TableTitle } from '@/components/ui/table';
+import { ContestList } from '@/actions/dto/response';
 import { format_duration } from '@/lib/utils';
-import Address from "@/components/address";
-import DateView from "@/components/date";
-import { use } from "react";
+import { Link } from '@/components/ui/link';
+import Address from '@/components/address';
+import DateView from '@/components/date';
+import { use } from 'react';
 
 export default function PublicContests({ contests }: { contests: Promise<ContestList> }) {
-    const publicContests = use(contests);
+    const cs = use(contests);
 
     return (
         <TableContainer>
@@ -34,7 +31,7 @@ export default function PublicContests({ contests }: { contests: Promise<Contest
                 </TableHeader>
                 <TableBody>
                     {
-                        publicContests.data.map((contest, index) => (
+                        cs.data.map((contest, index) => (
                             <TableRow key={index}>
                                 <TableCell>{contest.id}</TableCell>
                                 <TableCell>
@@ -71,21 +68,8 @@ export default function PublicContests({ contests }: { contests: Promise<Contest
                     }
                 </TableBody>
                 {
-                    publicContests.data.length === 0 && <TableCaption>No public contests</TableCaption>
+                    cs.data.length === 0 && <TableCaption>No public contests</TableCaption>
                 }
-            </Table>
-        </TableContainer>
-    );
-}
-
-export function Loading() {
-    return (
-        <TableContainer>
-            <TableTitle>
-                PUBLIC COMPETITIONS
-            </TableTitle>
-            <Table>
-                <TableCaption>Loading...</TableCaption>
             </Table>
         </TableContainer>
     );
