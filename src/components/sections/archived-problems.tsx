@@ -13,7 +13,7 @@ export default function ArchivedProblems({ problems }: { problems: Promise<Probl
     return (
         <TableContainer>
             <TableTitle className='flex justify-between'>
-                <span>PROBLEM ARCHIVE</span>
+                <span>PROBLEMS</span>
             </TableTitle>
             <Table>
                 <TableHeader>
@@ -32,7 +32,7 @@ export default function ArchivedProblems({ problems }: { problems: Promise<Probl
                                     {problem.id}
                                 </TableCell>
                                 <TableCell>
-                                    <Link href={`/hub/problem/${problem.id}`}>
+                                    <Link href={`/problem/${problem.id}`}>
                                         {problem.title}
                                     </Link>
                                 </TableCell>

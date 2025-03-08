@@ -1,9 +1,6 @@
 'use client';
 
-import {
-    TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
-    TableBody, TableRow, TableCell, TableTitle, TableCaption
-} from "@/components/ui/table";
+import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from "@/components/ui/table";
 import { DifficultyTag } from "@/components/difficulty-tag";
 import { ContestDetailed } from "@/actions/dto/response";
 import { useTonWallet } from "@tonconnect/ui-react";

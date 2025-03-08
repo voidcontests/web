@@ -129,7 +129,7 @@ export async function createContest(data: CreateContestFormData): Promise<Entity
     return await res.json() as EntityID;
 }
 
-export async function getProblem(cid: ID, charcode: string): Promise<ProblemDetailed> {
+export async function getContestProblem(cid: ID, charcode: string): Promise<ProblemDetailed> {
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_KEY)?.value;
 
@@ -268,6 +268,27 @@ export async function getContests(): Promise<ContestList> {
     }
 
     return await res.json() as ContestList;
+}
+
+export async function getProblem(id: ID): Promise<ProblemDetailed> {
+    const cookieStore = cookies();
+    const token = cookieStore.get(COOKIE_KEY)?.value;
+
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    };
+
+    const res = await fetch(BASEPATH + `/problems/${id}`, {
+        method: 'GET',
+        headers: headers,
+    });
+
+    if (!res.ok) {
+        throw new Error(`can't get problem`);
+    }
+
+    return await res.json() as ProblemDetailed;
 }
 
 export async function revalidate(path: string) {
