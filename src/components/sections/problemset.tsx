@@ -37,18 +37,20 @@ export default function Problemset({ contest, difficulties, contestLink }: { con
                                 <TableCell>
                                     {problem.charcode?.toUpperCase()}
                                 </TableCell>
-                                <TableCell className="flex flex-nowrap items-center pr-5">
-                                    {
-                                        started && (cdetailed.is_participant || (wallet && cdetailed.is_participant))
-                                            ? <Link
-                                                href={`/contest/${cdetailed.id}/problem/${problem.charcode}`}
-                                                className="flex-1 truncate w-0 max-w-fit"
-                                            >
-                                                {problem.title}
-                                            </Link>
-                                            : <span>{problem.title}</span>
-                                    }
-                                    <SolvedTag className="ml-2" state={problem.status} />
+                                <TableCell>
+                                    <div className="flex flex-nowrap items-center pr-5">
+                                        {
+                                            started && (cdetailed.is_participant || (wallet && cdetailed.is_participant))
+                                                ? <Link
+                                                    href={`/contest/${cdetailed.id}/problem/${problem.charcode}`}
+                                                    className="flex-1 truncate w-0 max-w-fit"
+                                                >
+                                                    {problem.title}
+                                                </Link>
+                                                : <span>{problem.title}</span>
+                                        }
+                                        <SolvedTag className="ml-2" state={problem.status} />
+                                    </div>
                                 </TableCell>
                                 <TableCell className={!difficulties ? 'hidden' : ''}>
                                     <DifficultyTag difficulty={problem.difficulty} />
