@@ -9,14 +9,14 @@ import dynamic from 'next/dynamic';
 const AdminContests = dynamic(() => import('@/components/sections/admin-contests'), { ssr: false, loading: () => <TableTemplate title='CONTESTS' /> });
 const AdminProblems = dynamic(() => import('@/components/sections/admin-problems'), { ssr: false, loading: () => <TableTemplate title='PROBLEMS' /> });
 
-export default async function Page() {
+export default function Page() {
     const account = getAccount();
     const contests = getAdminContests();
     const problems = getAdminProblems();
 
     return (
         <ContentContainer>
-            <HubMessage />
+            <HubMessage account={account} />
             <div className='flex flex-col gap-1'>
                 <h1 className='text-xl font-medium'>
                     Welcome to creator's hub

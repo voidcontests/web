@@ -233,7 +233,11 @@ export async function getContest(cid: ID): Promise<ContestDetailed> {
 }
 
 export async function getLeaderboard(cid: ID): Promise<Leaderboard> {
+    const cookieStore = cookies();
+    const token = cookieStore.get(COOKIE_KEY)?.value;
+
     const headers = {
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
 
