@@ -1,7 +1,7 @@
 'use client'
 
-import ContentContainer from '@/components/content-container'
-import { MessageBox } from '@/components/message-box'
+import { MessageBox } from '@/components/sections/message-box';
+import ContentContainer from '@/components/content-container';
 
 export default function Error({ error }: { error: Error & { digest?: string } }) {
     return (

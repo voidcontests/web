@@ -1,6 +1,6 @@
 'use client';
 
-import { DateTimePicker } from "@/components/time-picker/date-time-picker";
+import { DateTimePicker } from "@/components/ui/time-picker/date-time-picker";
 import { Separator } from '@/components/ui/separator';
 import { TextArea } from "@/components/ui/textarea";
 import { createContest, revalidate } from '@/actions/actions';

@@ -1,7 +1,7 @@
-import { TonConnectProvider } from "@/components/ton-connect/provider";
+import { TonConnectProvider } from "@/components/sections/ton-connect/provider";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Footer } from "@/components/footer";
-import Header from "@/components/header";
+import { Footer } from "@/components/sections/footer";
+import Header from "@/components/sections/header";
 import type { Metadata } from "next";
 import { Toaster } from 'sonner';
 import "./globals.css";

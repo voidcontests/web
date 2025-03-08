@@ -13,7 +13,7 @@ import { Account, ContestList } from '@/actions/dto/response';
 import { use } from 'react';
 const DateView = dynamic(() => import("@/components/date"), { ssr: false });
 
-export default async function AdminContests({ account, contests }: { account: Promise<Account>, contests: Promise<ContestList> }) {
+export default function AdminContests({ account, contests }: { account: Promise<Account>, contests: Promise<ContestList> }) {
     const acc = use(account);
     const cs = use(contests);
 

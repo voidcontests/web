@@ -12,7 +12,7 @@ import dynamic from 'next/dynamic';
 import { use } from 'react';
 const DateView = dynamic(() => import("@/components/date"), { ssr: false });
 
-export default async function AdminProblems({ account, problems }: { account: Promise<Account>, problems: Promise<ProblemList> }) {
+export default function AdminProblems({ account, problems }: { account: Promise<Account>, problems: Promise<ProblemList> }) {
     const acc = use(account);
     const ps = use(problems);
 

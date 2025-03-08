@@ -1,7 +1,5 @@
 'use client'
 
-import ContentContainer from '@/components/content-container'
-import { MessageBox } from '@/components/message-box'
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';

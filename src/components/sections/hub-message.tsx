@@ -1,6 +1,6 @@
 'use client';
 
-import { MessageBox } from '@/components/message-box';
+import { MessageBox } from '@/components/sections/message-box';
 import { Account } from '@/actions/dto/response';
 import { use } from 'react';
 

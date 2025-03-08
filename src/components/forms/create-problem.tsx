@@ -12,7 +12,7 @@ import { createProblem, revalidate } from '@/actions/actions';
 import { toast } from '@/components/toast';
 import { Separator } from '../ui/separator';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
-import { MessageBox } from '@/components/message-box';
+import { MessageBox } from '@/components/sections/message-box';
 import { Trash2 } from 'lucide-react';
 import { TextArea } from '@/components/ui/textarea';
 

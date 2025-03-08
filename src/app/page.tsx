@@ -1,5 +1,5 @@
 import ContentContainer from "@/components/content-container";
-import Features from "@/components/features";
+import Features from "@/components/sections/features";
 import React from "react";
 
 export default async function HomePage() {

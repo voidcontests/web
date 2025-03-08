@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import React from 'react';
-import New from "./new";
+import New from "@/components/new";
 
 const Header = () => {
     const pathname = usePathname();
