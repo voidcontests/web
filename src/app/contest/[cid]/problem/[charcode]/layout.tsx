@@ -1,6 +1,10 @@
-export async function generateMetadata({ params }: { params: { charcode: string } }) {
+import { getContestProblem } from "@/actions/actions";
+
+export async function generateMetadata({ params }: { params: { cid: string, charcode: string } }) {
+    const problem = await getContestProblem(params.cid, params.charcode);
+
     return {
-        title: `Problem ${params.charcode.toUpperCase()}`,
+        title: `Problem ${params.charcode.toUpperCase()} - ${problem.title}`,
     }
 }
 
