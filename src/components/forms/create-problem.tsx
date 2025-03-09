@@ -11,7 +11,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { createProblem, revalidate } from '@/actions/actions';
 import { toast } from '@/components/toast';
 import { Separator } from '../ui/separator';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { MessageBox } from '@/components/sections/message-box';
 import { Trash2 } from 'lucide-react';
 import { TextArea } from '@/components/ui/textarea';
@@ -45,7 +45,7 @@ export function CreateProblemForm() {
         }
     });
 
-    const { fields, append, remove, replace } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control,
         name: "test_cases",
     });
