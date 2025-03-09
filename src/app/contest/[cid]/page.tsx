@@ -2,9 +2,9 @@ import ContestStartingCountdown from "@/components/sections/contest-starting-cou
 import AppliedStatus from "@/components/sections/applied-status";
 import ContentContainer from "@/components/content-container";
 import { Loading } from "@/components/sections/contest-about";
+import { Problemset } from "@/components/sections/problemset";
 import ContestInfo from "@/components/sections/contest-info";
 import Setters from "@/components/sections/contest-setters";
-import Problemset from "@/components/sections/problemset";
 import { getContest } from "@/actions/actions";
 import dynamic from "next/dynamic";
 
@@ -24,7 +24,7 @@ export default async function Page({ params }: { params: { cid: string } }) {
             <div className="grid grid-cols-12 gap-5">
                 <div className="col-span-9 flex flex-col gap-5">
                     <ContestInfo contest={contest} />
-                    <Problemset contest={contest} difficulties />
+                    <Problemset contest={contest} />
                     <ContestStartingCountdown contest={contest} />
                 </div>
                 <div className="col-span-3">

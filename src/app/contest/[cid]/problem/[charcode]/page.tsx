@@ -1,9 +1,9 @@
 import { ContestProblemView } from '@/components/sections/contest-problem-view';
 import { ProblemTemplate, TableTemplate } from '@/components/sections/loading';
+import { ProblemsetMinimal } from '@/components/sections/problemset';
 import { getContest, getContestProblem } from '@/actions/actions';
 import ContentContainer from '@/components/content-container';
 import Setters from '@/components/sections/problem-setters';
-import Problemset from '@/components/sections/problemset';
 import { Suspense } from 'react';
 
 export default async function Page({ params }: { params: { cid: string, charcode: string } }) {
@@ -20,7 +20,7 @@ export default async function Page({ params }: { params: { cid: string, charcode
                 </div>
                 <div className='col-span-3 flex flex-col gap-5'>
                     <Suspense fallback={<TableTemplate title='PROBLEMSET' />}>
-                        <Problemset contest={contest} contestLink />
+                        <ProblemsetMinimal contest={contest} />
                     </Suspense>
                     <Suspense fallback={<TableTemplate title='SETTERS' />}>
                         <Setters problem={problem} />

@@ -17,9 +17,7 @@ const state_tag_color: StateMap = {
 
 function SolvedTag({ className, state, ...props }: SolvedTagProps) {
     if (state === undefined) {
-        return (
-            <></>
-        )
+        return null;
     }
 
     return (
