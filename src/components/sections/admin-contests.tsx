@@ -1,17 +1,12 @@
 'use client';
 
-import { Link } from "@/components/ui/link";
-import {
-    TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
-    TableBody, TableRow, TableCell, TableTitle,
-    TableCaption
-} from "@/components/ui/table";
-import { format_duration } from '@/lib/utils';
-import ContestStatus from '@/components/contest-status';
-import dynamic from 'next/dynamic';
+import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from "@/components/ui/table";
 import { Account, ContestList } from '@/actions/dto/response';
+import ContestStatus from '@/components/contest-status';
+import { format_duration } from '@/lib/utils';
+import { DateView } from "@/components/date";
+import { Link } from "@/components/ui/link";
 import { use } from 'react';
-const DateView = dynamic(() => import("@/components/date"), { ssr: false });
 
 export default function AdminContests({ account, contests }: { account: Promise<Account>, contests: Promise<ContestList> }) {
     const acc = use(account);

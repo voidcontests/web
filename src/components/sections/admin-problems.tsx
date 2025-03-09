@@ -1,16 +1,11 @@
 'use client';
 
+import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from "@/components/ui/table";
 import { Account, ProblemList } from '@/actions/dto/response';
 import { DifficultyTag } from '@/components/difficulty-tag';
+import { DateView } from "@/components/date";
 import { Link } from "@/components/ui/link";
-import {
-    TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
-    TableBody, TableRow, TableCell, TableTitle,
-    TableCaption
-} from "@/components/ui/table";
-import dynamic from 'next/dynamic';
 import { use } from 'react';
-const DateView = dynamic(() => import("@/components/date"), { ssr: false });
 
 export default function AdminProblems({ account, problems }: { account: Promise<Account>, problems: Promise<ProblemList> }) {
     const acc = use(account);

@@ -106,7 +106,7 @@ export function ProblemsetMinimal({ contest }: { contest: Promise<ContestDetaile
                                                 </Link>
                                                 : <span>{problem.title}</span>
                                         }
-                                        <SolvedTag className='ml-2' state={problem.status} />
+                                        <SolvedTag className='ml-2' status={problem.status} />
                                     </div>
                                 </TableCell>
                             </TableRow>

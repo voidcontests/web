@@ -5,7 +5,7 @@ import { ContestList } from '@/actions/dto/response';
 import { format_duration } from '@/lib/utils';
 import { Link } from '@/components/ui/link';
 import Address from '@/components/address';
-import DateView from '@/components/date';
+import { DateView } from '@/components/date';
 import { use } from 'react';
 
 export default function PublicContests({ contests }: { contests: Promise<ContestList> }) {

@@ -1,29 +1,34 @@
-import * as React from "react";
-import { Tag } from "./ui/tag";
-import { capitalize } from "@/lib/strings";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tag } from "@/components/ui/tag";
+import { HTMLAttributes } from "react";
+import { cn } from "@/lib/utils";
 
-export interface SolvedTagProps extends React.HTMLAttributes<HTMLDivElement> {
-    state: 'accepted' | 'tried' | undefined;
+interface Props extends HTMLAttributes<HTMLDivElement> {
+    status: "accepted" | "tried" | undefined;
 }
 
-type StateMap = {
-    [key: string]: 'green' | 'orange';
-};
-
-const state_tag_color: StateMap = {
-    'accepted': 'green',
-    'tried': 'orange',
-}
-
-function SolvedTag({ className, state, ...props }: SolvedTagProps) {
-    if (state === undefined) {
+function SolvedTag({ status, className, ...props }: Props) {
+    if (status === undefined) {
         return null;
     }
 
     return (
-        <Tag variant={state_tag_color[state]} className={className} {...props}>
-            {capitalize(state)}
-        </Tag>
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger>
+                    <Tag variant={status === "accepted" ? "green" : "orange"} className={cn("hover:cursor-pointer", className)} {...props}>
+                        {status === "accepted" ? "AC" : "TR"}
+                    </Tag>
+                </TooltipTrigger>
+                <TooltipContent>
+                    {
+                        status === "accepted"
+                            ? "You've submitted an accepted solution."
+                            : "You've tried this problem."
+                    }
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
     );
 }
 

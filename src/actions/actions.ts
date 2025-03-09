@@ -1,5 +1,12 @@
 'use server';
 
+//
+// NOTE:
+// if server-action don't use server API like `cookies` from 'next/headers'
+// next.js decides to do actual request only once (at build time). it leads to
+// kinda 'statical' pages, that are even not marked as static in build logs.
+//
+
 import { Account, ContestDetailed, ContestList, EntityID, Leaderboard, ProblemDetailed, ProblemList } from "@/actions/dto/response";
 import { FormData as CreateProblemFormData } from "@/components/forms/create-problem";
 import { FormData as CreateContestFormData } from "@/components/forms/create-contest";

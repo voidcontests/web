@@ -39,7 +39,7 @@ const format_relative = (date: Date): string => {
     return rtf.format(diffDay, "day");
 }
 
-export default function DateView({ date, relative = false }: { date: Date, relative?: boolean }) {
+export function DateView({ date, relative = false }: { date: Date, relative?: boolean }) {
     return (
         <TooltipProvider>
             <Tooltip>

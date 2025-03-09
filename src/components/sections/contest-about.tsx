@@ -4,7 +4,7 @@ import { Widget, WidgetContent, WidgetTitle, } from "@/components/ui/widget";
 import { ContestDetailed } from "@/actions/dto/response";
 import { Skeleton } from "@/components/ui/skeleton";
 import { format_duration } from "@/lib/utils";
-import DateView from "@/components/date";
+import { DateView } from "@/components/date";
 import { use } from "react";
 
 export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> }) {
