@@ -5,7 +5,7 @@ import { ProblemDetailed } from '@/actions/dto/response';
 import Preview from '@/components/sections/preview';
 import { use } from 'react';
 
-export function ContestProblemView({ problem }: { problem: Promise<ProblemDetailed> }) {
+export function ProblemView({ problem }: { problem: Promise<ProblemDetailed> }) {
     const pdetailed = use(problem);
 
     return (

@@ -1,3 +1,4 @@
+import { ContestProblemView } from '@/components/sections/contest-problem-view';
 import { ProblemsetMinimal } from '@/components/sections/problemset';
 import { getContest, getContestProblem } from '@/actions/actions';
 import ContentContainer from '@/components/content-container';
@@ -11,6 +12,7 @@ export default async function Page({ params }: { params: { cid: string, charcode
         <ContentContainer>
             <div className='grid grid-cols-12 gap-5'>
                 <div className='col-span-9'>
+                    <ContestProblemView problem={problem} />
                 </div>
                 <div className='col-span-3 flex flex-col gap-5'>
                     <ProblemsetMinimal contest={contest} />

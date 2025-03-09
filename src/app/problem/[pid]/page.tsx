@@ -1,4 +1,4 @@
-import { ContestProblemView } from '@/components/sections/problem-view';
+import { ProblemView } from '@/components/sections/problem-view';
 import { ProblemTemplate } from '@/components/sections/loading';
 import ContentContainer from '@/components/content-container';
 import { getProblem } from '@/actions/actions';
@@ -10,7 +10,7 @@ export default async function Page({ params }: { params: { pid: string } }) {
     return (
         <ContentContainer>
             <Suspense fallback={<ProblemTemplate />}>
-                <ContestProblemView problem={problem} />
+                <ProblemView problem={problem} />
             </Suspense>
         </ContentContainer>
     );
