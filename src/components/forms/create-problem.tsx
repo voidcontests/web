@@ -28,7 +28,6 @@ export interface FormData {
     kind: string;
     answer: string;
     difficulty: string;
-    keep_public: boolean;
     test_cases: TestCase[];
 }
 
@@ -40,7 +39,6 @@ export function CreateProblemForm() {
             kind: "",
             answer: "",
             difficulty: "",
-            keep_public: true,
             test_cases: [],
         }
     });
@@ -246,29 +244,6 @@ export function CreateProblemForm() {
                         </Label>
                     </RadioGroup>
                 </div>
-
-                {false && (
-                    <div className="flex flex-col gap-2">
-                        <Label>Change visibility</Label>
-                        <Label
-                            className={cn(
-                                'flex items-start gap-3 rounded-xl border p-4 hover:cursor-pointer',
-                                'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4 has-[[aria-checked=true]]:border-blue-400 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:bg-blue-400/20'
-                            )}
-                        >
-                            <Checkbox
-                                checked={watch("keep_public")}
-                                onCheckedChange={(value) => setValue("keep_public", Boolean(value))}
-                            />
-                            <div className='grid gap-1.5 font-normal'>
-                                <p className='text-sm leading-none font-medium'>Keep public</p>
-                                <p className='text-foreground/80 text-sm'>
-                                    After the end of the contest, the task will remain visible in public archives
-                                </p>
-                            </div>
-                        </Label>
-                    </div>
-                )}
 
                 <div className="flex justify-end">
                     <Button type='submit' disabled={!validate()}>CREATE</Button>

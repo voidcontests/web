@@ -30,7 +30,6 @@ export interface FormData {
     end_time: Date;
     max_entries: number;
     allow_late_join: boolean;
-    keep_as_training: boolean;
 }
 
 export function CreateContestForm({ problems }: { problems: Promise<ProblemList> }) {
@@ -45,7 +44,6 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
             end_time: undefined,
             max_entries: 0,
             allow_late_join: true,
-            keep_as_training: false,
         }
     });
 
@@ -209,26 +207,6 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
                 <div className="flex flex-col gap-2">
                     <Label required>Deadline at</Label>
                     <DateTimePicker date={watch('end_time')} setDate={(d: Date) => setValue("end_time", d)} />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                    <Label className={cn(
-                        'flex items-start gap-3 rounded-xl border p-4 hover:cursor-pointer',
-                        'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4 has-[[aria-checked=true]]:border-blue-400 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:bg-blue-400/20'
-                    )}>
-                        <Checkbox
-                            checked={watch("keep_as_training")}
-                            onCheckedChange={(value) => setValue("keep_as_training", Boolean(value))}
-                        />
-                        <div className='grid gap-1.5 font-normal'>
-                            <p className='text-sm leading-none font-medium'>
-                                Keep as training
-                            </p>
-                            <p className='text-foreground/80 text-sm'>
-                                You can keep this contest available as a training session after it ends. Users will be able to view the problems, but they won't be able to submit any solutions.
-                            </p>
-                        </div>
-                    </Label>
                 </div>
 
                 <div className="flex justify-end">

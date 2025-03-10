@@ -32,12 +32,6 @@ const Header = () => {
                         <NavItem href='/hub' className="max-sm:hidden">
                             HUB
                         </NavItem>
-                        <NavItem href='/archive' className="max-sm:hidden">
-                            <div className="flex flex-row gap-2 items-center">
-                                <span>ARCHIVE</span>
-                                <New />
-                            </div>
-                        </NavItem>
                     </div>
                     <TonConnectButton />
                 </div>

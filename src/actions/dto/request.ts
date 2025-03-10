@@ -7,14 +7,12 @@ export type CreateContest = {
     duration_mins: number;
     max_entries: number;
     allow_late_join: boolean;
-    keep_as_training: boolean;
 };
 
 export type CreateProblem = {
     title: string;
     statement: string;
     difficulty: string;
-    input?: string;
     answer: string;
 };
 

@@ -38,7 +38,6 @@ export type ContestDetailed = {
     duration_mins: number;
     max_entries?: number;
     participants: number;
-    is_draft?: boolean;
     allow_late_join: boolean;
     is_participant?: boolean;
     problems: ProblemListItem[];
@@ -106,7 +105,6 @@ export type ProblemDetailed = {
         output: string;
     }[];
     status?: 'accepted' | 'tried';
-    input?: string;
     time_limit_ms?: number;
     created_at: Date;
 }
