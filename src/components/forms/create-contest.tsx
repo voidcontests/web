@@ -11,8 +11,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from '@/components/toast';
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
-    TableBody, TableRow, TableCell, TableCaption,
-    TableTitle,
+    TableBody, TableRow, TableCell, TableCaption, TableTitle,
 } from "@/components/ui/table";
 import { DifficultyTag } from "@/components/difficulty-tag";
 import { CheckedState } from "@radix-ui/react-checkbox";
@@ -21,6 +20,7 @@ import { ProblemList } from "@/actions/dto/response";
 import { Link } from "@/components/ui/link";
 import { ChangeEvent, use } from "react";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 export interface FormData {
     title: string;
@@ -34,6 +34,7 @@ export interface FormData {
 
 export function CreateContestForm({ problems }: { problems: Promise<ProblemList> }) {
     const problemslist = use(problems);
+    const router = useRouter();
 
     const { register, handleSubmit, setValue, watch } = useForm<FormData>({
         defaultValues: {
@@ -48,11 +49,11 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
     });
 
     const onSubmit = async (data: FormData) => {
-        // TODO:redirect to problem' page
         try {
             await createContest(data);
             revalidate('/hub');
             toast({ title: 'Contest created successfully' });
+            router.push('/hub');
         } catch (e) {
             console.error("Error:", e);
             toast({ title: 'Something went wrong. Try again later' });

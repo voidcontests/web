@@ -15,6 +15,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { MessageBox } from '@/components/sections/message-box';
 import { Trash2 } from 'lucide-react';
 import { TextArea } from '@/components/ui/textarea';
+import { useRouter } from 'next/navigation';
 
 export interface TestCase {
     input: string;
@@ -32,6 +33,8 @@ export interface FormData {
 }
 
 export function CreateProblemForm() {
+    const router = useRouter();
+
     const { register, handleSubmit, setValue, watch, control } = useForm<FormData>({
         defaultValues: {
             title: "",
@@ -53,6 +56,7 @@ export function CreateProblemForm() {
             await createProblem(data);
             revalidate('/hub');
             toast({ title: 'Problem created successfully' });
+            router.push('/hub');
         } catch (e) {
             console.error("Error:", e);
             toast({ title: 'Something went wrong. Try again later' });
