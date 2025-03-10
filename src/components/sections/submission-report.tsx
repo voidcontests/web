@@ -117,6 +117,48 @@ export function SubmissionReport({ submission }: { submission?: SubmissionListIt
         );
     }
 
+    if (submission.verdict === 'time_limit_exceeded') {
+        return (
+            <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
+                <div className="flex flex-col gap-1">
+                    <span className="text-lg text-scarlet-500 font-medium">
+                        Time Limit Exceeded
+                    </span>
+                </div>
+                <Separator />
+                <div className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-1 bg-surface-secondary p-3 rounded-xl not-dark:border border-border-secondary">
+                        <span className="text-sm text-tertiary-foreground">
+                            Input
+                        </span>
+                        <Code className="text-foreground">
+                            {submission.testing_report?.failed_test?.input}
+                        </Code>
+                    </div>
+                    {
+                        submission.testing_report?.failed_test?.actual_output.trim().length !== 0 &&
+                        <div className="flex flex-col gap-1 bg-surface-secondary p-3 rounded-xl not-dark:border border-border-secondary">
+                            <span className="text-sm text-tertiary-foreground">
+                                Stdout
+                            </span>
+                            <Code className="text-foreground">
+                                {submission.testing_report?.failed_test?.actual_output}
+                            </Code>
+                        </div>
+                    }
+                    <div className="flex flex-col gap-1 bg-surface-secondary p-3 rounded-xl not-dark:border border-border-secondary">
+                        <span className="text-sm text-tertiary-foreground">
+                            Expected output
+                        </span>
+                        <Code className="text-foreground">
+                            {submission.testing_report?.failed_test?.expected_output}
+                        </Code>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     if (submission.verdict === 'compilation_error') {
         return (
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
