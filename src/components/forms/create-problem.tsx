@@ -30,6 +30,7 @@ export interface FormData {
     answer: string;
     difficulty: string;
     test_cases: TestCase[];
+    time_limit_ms: number;
 }
 
 export function CreateProblemForm() {
@@ -43,6 +44,7 @@ export function CreateProblemForm() {
             answer: "",
             difficulty: "",
             test_cases: [],
+            time_limit_ms: 5000,
         }
     });
 
@@ -71,6 +73,7 @@ export function CreateProblemForm() {
             !!statement.trim() &&
             !!kind.trim() &&
             !!difficulty.trim() &&
+            !(isNaN(watch('time_limit_ms')) || watch('time_limit_ms').toString().includes('.') || watch('time_limit_ms').toString().includes(',') || watch('time_limit_ms') < 500 || watch('time_limit_ms') > 10000) &&
             (
               kind === "text_answer_problem" ||
               (test_cases.length > 0 && test_cases.every(tc => !!tc.input.trim() && !!tc.output.trim()))
@@ -166,6 +169,20 @@ export function CreateProblemForm() {
                             >
                                 New test case
                             </Button>
+                            <Separator />
+                            <div className="flex flex-col gap-2">
+                                <Label required>Time limit</Label>
+                                <div className='flex flex-col gap-1'>
+                                    <div className='flex flex-row gap-1 items-center max-w-72'>
+                                        <Input {...register("time_limit_ms", { valueAsNumber: true })} placeholder="Time limit" required />
+                                        <span className=''>ms</span>
+                                    </div>
+                                    {
+                                        (isNaN(watch('time_limit_ms')) || watch('time_limit_ms').toString().includes('.') || watch('time_limit_ms').toString().includes(',') || watch('time_limit_ms') < 500 || watch('time_limit_ms') > 10000) &&
+                                        <span className="text-scarlet-500">Time limit should be a valid integer between 1000ms and 10000ms</span>
+                                    }
+                                </div>
+                            </div>
                         </div>
                     </>
                 )}
