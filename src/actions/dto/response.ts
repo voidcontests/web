@@ -73,6 +73,7 @@ export type SubmissionListItem = {
     verdict: string;
     answer?: string;
     code?: string;
+    language?: string;
     testing_report?: {
         passed: number;
         total: number;

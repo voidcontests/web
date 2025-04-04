@@ -64,7 +64,7 @@ export function SubmissionReport({ submission }: { submission?: SubmissionListIt
                     <span className="text-sm font-medium text-foreground">
                         Submitted solution
                     </span>
-                    <CodeBlock code={submission.code ?? ''} language="c" />
+                    <CodeBlock code={submission.code ?? ''} language={submission.language ?? 'plaintext'} />
                 </div>
             </div>
         );
