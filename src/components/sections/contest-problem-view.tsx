@@ -14,6 +14,8 @@ import { use, useState } from "react";
 import { toast } from "@/components/toast";
 import { TestCase } from "@/components/sections/test-case";
 import { Separator } from "@/components/ui/separator";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Label } from "@/components/ui/label";
 
 const DEFAULT_CODE = `#include <stdio.h>
 
@@ -23,11 +25,34 @@ int main(void) {
     printf("%d", a + b);
 }`;
 
+type Language = 'c' | 'python';
+
+function getInitialCode(language: Language): string {
+    switch (language) {
+        case 'c':
+            return `#include <stdio.h>
+
+int main(void) {
+    int a, b;
+    scanf("%d %d", &a, &b);
+    printf("%d", a + b);
+}`;
+        case 'python':
+            return `a = int(input())
+b = int(input())
+
+print(sum(a, b))`;
+    }
+
+    return '';
+}
+
 export function ContestProblemView({ problem }: { problem: Promise<ProblemDetailed> }) {
     const pdetailed = use(problem);
     const [answer, setAnswer] = useState('');
 
     const [code, setCode] = useState(DEFAULT_CODE);
+    const [language, setLanguage] = useState<Language>('c');
     const [waiting, setWaiting] = useState(false);
     const [submission, setSubmission] = useState<SubmissionListItem>();
 
@@ -74,7 +99,7 @@ export function ContestProblemView({ problem }: { problem: Promise<ProblemDetail
         setWaiting(true);
         setSubmission(undefined);
 
-        const { data } = await authorized.post(`/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}/submissions`, { problem_kind: 'coding_problem', code: code });
+        const { data } = await authorized.post(`/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}/submissions`, { problem_kind: 'coding_problem', code: code, language: language });
 
         revalidate(`/contest/${pdetailed.contest_id}/problem/${pdetailed.charcode}`);
 
@@ -125,6 +150,23 @@ export function ContestProblemView({ problem }: { problem: Promise<ProblemDetail
                         </div>
                     }
                     <Separator />
+                    <div className="flex flex-col gap-2">
+                        <Label required>Select language</Label>
+                        <Select value={language} onValueChange={(value: Language) => {
+                                setLanguage(value);
+                                setCode(getInitialCode(value));
+                        }}>
+                            <SelectTrigger className="w-96">
+                                <SelectValue placeholder="Choose one" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectItem value="c">C</SelectItem>
+                                    <SelectItem value="python">Python</SelectItem>
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                    </div>
                     <CodeEditor code={code} setCode={setCode} />
                     <Button onClick={submitProgram} disabled={code.trim().length === 0}>
                         SUBMIT
