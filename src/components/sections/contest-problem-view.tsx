@@ -14,16 +14,19 @@ import { use, useState } from "react";
 import { toast } from "@/components/toast";
 import { TestCase } from "@/components/sections/test-case";
 import { Separator } from "@/components/ui/separator";
+import { getInitialCode } from "@/components/sections/editor/utils";
 
 export function ContestProblemView({ problem }: { problem: Promise<ProblemDetailed> }) {
     const pdetailed = use(problem);
+
     const [answer, setAnswer] = useState('');
 
-    const [code, setCode] = useState('');
+    // TODO: Save preferred language to local storage
+    const [language, setLanguage] = useState('c');
+    const [code, setCode] = useState(getInitialCode(language));
+
     const [waiting, setWaiting] = useState(false);
     const [submission, setSubmission] = useState<SubmissionListItem>();
-
-    const [language, setLanguage] = useState('c');
 
     async function submitAnswer() {
         if (answer.trim().length === 0) return;

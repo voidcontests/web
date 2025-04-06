@@ -27,3 +27,16 @@ export function stopPropagation(e: React.KeyboardEvent<HTMLTextAreaElement>) {
   e.stopPropagation();
   e.preventDefault();
 }
+
+export function getInitialCode(language: string): string {
+    switch (language) {
+        case 'c':
+            return `int main(void) {
+    // write your \`C\` code here
+}`;
+        case 'python':
+            return `# write your \`python\` code here`;
+    }
+
+    return '';
+}

@@ -1,6 +1,6 @@
 .w-tc-editor {
     font-family: "Ubuntu Mono", monospace;
-    font-size: 15px;
+    font-size: 1rem;
     color: var(--editor-gray);
     background-color: transparent;
 }
