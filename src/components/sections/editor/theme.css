@@ -96,14 +96,8 @@
 .w-tc-editor pre[class*="language-"] .token.entity,
 .w-tc-editor code[class*="language-"] .token.url,
 .w-tc-editor pre[class*="language-"] .token.url,
-.w-tc-editor code[class*="language-"] .token.bold,
-.w-tc-editor pre[class*="language-"] .token.bold,
-.w-tc-editor code[class*="language-"] .token.important,
-.w-tc-editor pre[class*="language-"] .token.important,
 .w-tc-editor code[class*="language-"] .token.tag,
 .w-tc-editor pre[class*="language-"] .token.tag,
-.w-tc-editor code[class*="language-"] .token.important,
-.w-tc-editor pre[class*="language-"] .token.important,
 .w-tc-editor code[class*="language-"] .token.regex,
 .w-tc-editor pre[class*="language-"] .token.regex,
 .w-tc-editor code[class*="language-"] .token.variable,
@@ -113,6 +107,14 @@
 .w-tc-editor code[class*="language-"] .token.attr-name,
 .w-tc-editor pre[class*="language-"] .token.attr-name {
     color: var(--editor-gray);
+}
+
+/* markdown: bold text and headings */
+.w-tc-editor code[class*="language-"] .token.important,
+.w-tc-editor pre[class*="language-"] .token.important,
+.w-tc-editor code[class*="language-"] .token.bold,
+.w-tc-editor pre[class*="language-"] .token.bold {
+    font-weight: bold;
 }
 
 .w-tc-editor code[class*="language-"] .token.selector .class,

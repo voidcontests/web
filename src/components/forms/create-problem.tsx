@@ -91,7 +91,7 @@ export function CreateProblemForm() {
                 </div>
 
                 <MarkdownEditor
-                    placeholder="Write problem's statement"
+                    placeholder="Write problem's statement here (Markdown supported)"
                     markdown={watch("statement")}
                     setMarkdown={(s: string) => setValue("statement", s)}
                     required

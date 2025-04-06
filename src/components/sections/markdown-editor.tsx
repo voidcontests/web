@@ -4,11 +4,11 @@ import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { useState, useEffect, useRef, forwardRef, TextareaHTMLAttributes, ChangeEvent, KeyboardEvent } from "react";
 import { Separator } from "@/components/ui/separator";
 import Preview from "@/components/sections/preview";
-import { TextArea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import * as strings from '@/lib/strings';
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import Editor from "./editor";
 
 type StyleKind = 'bold' | 'italic' | 'code' | 'heading' | 'link' | 'quote';
 
@@ -223,16 +223,9 @@ const MarkdownEditor = forwardRef<HTMLTextAreaElement, MarkdownEditorProps>(({ m
                         }
                     </div>
                 </div>
-                <TextArea
-                    className={className}
-                    value={internalValue}
-                    placeholder={props.placeholder}
-                    onChange={handleChange}
-                    onKeyDown={handleKeyDown}
-                    ref={textAreaRef}
-                    resizable
-                    {...props}
-                />
+                <div className="rounded-[10px] border bg-surface">
+                    <Editor className="min-h-40" value={internalValue} onChange={handleChange} language="markdown" ref={textAreaRef} {...props} />
+                </div>
                 <div className="flex justify-end">
                     <span
                         className={cn(
