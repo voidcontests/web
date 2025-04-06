@@ -10,23 +10,36 @@ import { authorized } from "@/api/core/instance";
 import { Button } from "@/components/ui/button";
 import { revalidate } from "@/actions/actions";
 import { Input } from "@/components/ui/input";
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { toast } from "@/components/toast";
 import { TestCase } from "@/components/sections/test-case";
 import { Separator } from "@/components/ui/separator";
 import { getInitialCode } from "@/components/sections/editor/utils";
+
+const PREFERRED_LANGUAGE_KEY = "preferred-language";
+const DEFAULT_LANGUAGE = "c";
 
 export function ContestProblemView({ problem }: { problem: Promise<ProblemDetailed> }) {
     const pdetailed = use(problem);
 
     const [answer, setAnswer] = useState('');
 
-    // TODO: Save preferred language to local storage
-    const [language, setLanguage] = useState('c');
+    const [language, setLanguage] = useState(() => {
+        if (typeof window !== "undefined") {
+            const preferred = localStorage.getItem(PREFERRED_LANGUAGE_KEY);
+            return preferred ?? DEFAULT_LANGUAGE;
+        }
+
+        return DEFAULT_LANGUAGE;
+    });
     const [code, setCode] = useState(getInitialCode(language));
 
     const [waiting, setWaiting] = useState(false);
     const [submission, setSubmission] = useState<SubmissionListItem>();
+
+    useEffect(() => {
+        localStorage.setItem(PREFERRED_LANGUAGE_KEY, language);
+    }, [language]);
 
     async function submitAnswer() {
         if (answer.trim().length === 0) return;
