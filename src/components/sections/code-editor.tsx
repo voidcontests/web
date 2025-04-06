@@ -28,18 +28,19 @@ const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({ code, set
                             setLanguage(value);
                             setInner(getInitialCode(value));
                     }}>
-                        <SelectTrigger className="w-32">
-                            <SelectValue placeholder="Choose one" />
+                        <SelectTrigger className="w-48">
+                            <SelectValue placeholder="Choose language" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                <SelectItem value="c">C</SelectItem>
-                                <SelectItem value="python">Python</SelectItem>
+                                <SelectItem value="c">C17 (gcc 10.2.1)</SelectItem>
+                                <SelectItem value="python">Python (3.9.2)</SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select>
                 </div>
                 <Editor
+                    className='min-h-92'
                     language={language}
                     value={inner}
                     onChange={handleChange}
