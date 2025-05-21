@@ -10,51 +10,36 @@ import { authorized } from "@/api/core/instance";
 import { Button } from "@/components/ui/button";
 import { revalidate } from "@/actions/actions";
 import { Input } from "@/components/ui/input";
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { toast } from "@/components/toast";
 import { TestCase } from "@/components/sections/test-case";
 import { Separator } from "@/components/ui/separator";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Label } from "@/components/ui/label";
+import { getInitialCode } from "@/components/sections/editor/utils";
 
-const DEFAULT_CODE = `#include <stdio.h>
-
-int main(void) {
-    int a, b;
-    scanf("%d %d", &a, &b);
-    printf("%d", a + b);
-}`;
-
-type Language = 'c' | 'python';
-
-function getInitialCode(language: Language): string {
-    switch (language) {
-        case 'c':
-            return `#include <stdio.h>
-
-int main(void) {
-    int a, b;
-    scanf("%d %d", &a, &b);
-    printf("%d", a + b);
-}`;
-        case 'python':
-            return `a = int(input())
-b = int(input())
-
-print(sum(a, b))`;
-    }
-
-    return '';
-}
+const PREFERRED_LANGUAGE_KEY = "preferred-language";
+const DEFAULT_LANGUAGE = "c";
 
 export function ContestProblemView({ problem }: { problem: Promise<ProblemDetailed> }) {
     const pdetailed = use(problem);
+
     const [answer, setAnswer] = useState('');
 
-    const [code, setCode] = useState(DEFAULT_CODE);
-    const [language, setLanguage] = useState<Language>('c');
+    const [language, setLanguage] = useState(() => {
+        if (typeof window !== "undefined") {
+            const preferred = localStorage.getItem(PREFERRED_LANGUAGE_KEY);
+            return preferred ?? DEFAULT_LANGUAGE;
+        }
+
+        return DEFAULT_LANGUAGE;
+    });
+    const [code, setCode] = useState(getInitialCode(language));
+
     const [waiting, setWaiting] = useState(false);
     const [submission, setSubmission] = useState<SubmissionListItem>();
+
+    useEffect(() => {
+        localStorage.setItem(PREFERRED_LANGUAGE_KEY, language);
+    }, [language]);
 
     async function submitAnswer() {
         if (answer.trim().length === 0) return;
@@ -150,24 +135,7 @@ export function ContestProblemView({ problem }: { problem: Promise<ProblemDetail
                         </div>
                     }
                     <Separator />
-                    <div className="flex flex-col gap-2">
-                        <Label required>Select language</Label>
-                        <Select value={language} onValueChange={(value: Language) => {
-                                setLanguage(value);
-                                setCode(getInitialCode(value));
-                        }}>
-                            <SelectTrigger className="w-96">
-                                <SelectValue placeholder="Choose one" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectItem value="c">C</SelectItem>
-                                    <SelectItem value="python">Python</SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                    </div>
-                    <CodeEditor code={code} setCode={setCode} />
+                    <CodeEditor code={code} setCode={setCode} language={language} setLanguage={(value) => setLanguage(value)} />
                     <Button onClick={submitProgram} disabled={code.trim().length === 0}>
                         SUBMIT
                     </Button>

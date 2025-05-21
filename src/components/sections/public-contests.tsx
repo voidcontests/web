@@ -14,7 +14,7 @@ export default function PublicContests({ contests }: { contests: Promise<Contest
     return (
         <TableContainer>
             <TableTitle>
-                PUBLIC COMPETITIONS
+                PUBLIC CONTESTS
             </TableTitle>
             <Table>
                 <TableHeader>
