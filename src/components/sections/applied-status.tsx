@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { use } from "react";
 import { toast } from "@/components/toast";
 import { LoaderCircle } from "lucide-react";
-import { createEntry, revalidate } from "@/actions/actions";
+import { createEntry, revalidate } from "@/actions";
 
 export default function AppliedStatus({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);

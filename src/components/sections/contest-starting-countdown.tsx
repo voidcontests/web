@@ -3,7 +3,7 @@
 import { ContestDetailed } from "@/actions/dto/response";
 import { use } from "react";
 import Timer from "@/components/timer";
-import { revalidate } from "@/actions/actions";
+import { revalidate } from "@/actions";
 
 export default function ContestStartingCountdown({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);

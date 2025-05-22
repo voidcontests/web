@@ -10,7 +10,7 @@ import {
 } from "@tonconnect/ui-react";
 import React, { useEffect } from "react";
 import { truncate_address } from "@/lib/strings";
-import { revalidate } from "@/actions/actions";
+import { revalidate } from "@/actions";
 
 const TonConnectButton = () => {
     const isConnectionRestored = useIsConnectionRestored();

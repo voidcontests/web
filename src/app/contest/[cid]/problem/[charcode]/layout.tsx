@@ -1,4 +1,4 @@
-import { getContestProblem } from "@/actions/actions";
+import { getContestProblem } from "@/actions";
 
 export async function generateMetadata({ params }: { params: { cid: string, charcode: string } }) {
     const problem = await getContestProblem(params.cid, params.charcode);

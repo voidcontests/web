@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Preview from "@/components/sections/preview";
 import { authorized } from "@/api/core/instance";
 import { Button } from "@/components/ui/button";
-import { revalidate } from "@/actions/actions";
+import { revalidate } from "@/actions";
 import { Input } from "@/components/ui/input";
 import { use, useEffect, useState } from "react";
 import { toast } from "@/components/toast";

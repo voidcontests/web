@@ -1,12 +1,12 @@
 import { ContestProblemView } from '@/components/sections/contest-problem-view';
 import { ProblemsetMinimal } from '@/components/sections/problemset';
-import { getContest, getContestProblem } from '@/actions/actions';
+import { getContestByID, getContestProblem } from '@/actions';
 import ContentContainer from '@/components/content-container';
 import Setters from '@/components/sections/problem-setters';
 
 export default async function Page({ params }: { params: { cid: string, charcode: string } }) {
     const problem = getContestProblem(params.cid, params.charcode);
-    const contest = getContest(params.cid);
+    const contest = getContestByID(params.cid);
 
     return (
         <ContentContainer>

@@ -5,7 +5,7 @@ import { Loading } from "@/components/sections/contest-about";
 import { Problemset } from "@/components/sections/problemset";
 import ContestInfo from "@/components/sections/contest-info";
 import Setters from "@/components/sections/contest-setters";
-import { getContest } from "@/actions/actions";
+import { getContestByID } from "@/actions";
 import dynamic from "next/dynamic";
 
 const ContestAbout = dynamic(async () => {
@@ -17,7 +17,7 @@ const ContestAbout = dynamic(async () => {
 });
 
 export default async function Page({ params }: { params: { cid: string } }) {
-    const contest = getContest(params.cid);
+    const contest = getContestByID(params.cid);
 
     return (
         <ContentContainer suppressHydrationWarning>

@@ -1,4 +1,4 @@
-import { getAccount, getAdminContests, getAdminProblems } from '@/actions/actions';
+import { getAccount, getCreatedContests, getCreatedProblems } from '@/actions';
 import ContentContainer from '@/components/content-container';
 import { TableTemplate } from '@/components/sections/loading';
 import HubMessage from '@/components/sections/hub-message';
@@ -11,8 +11,8 @@ const AdminProblems = dynamic(() => import('@/components/sections/admin-problems
 
 export default function Page() {
     const account = getAccount();
-    const contests = getAdminContests();
-    const problems = getAdminProblems();
+    const contests = getCreatedContests();
+    const problems = getCreatedProblems();
 
     return (
         <ContentContainer>

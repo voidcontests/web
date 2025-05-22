@@ -3,7 +3,7 @@
 import { DateTimePicker } from "@/components/ui/time-picker/date-time-picker";
 import { Separator } from '@/components/ui/separator';
 import { TextArea } from "@/components/ui/textarea";
-import { createContest, revalidate } from '@/actions/actions';
+import { createContest, revalidate }  from '@/actions';
 import { Button } from "@/components/ui/button";
 import { Label } from '@/components/ui/label';
 import { Input } from "@/components/ui/input";
