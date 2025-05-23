@@ -1,14 +1,6 @@
 export type Account = {
     id: number;
-    ton_account: {
-        address: {
-            bounceable: string;
-            non_bounceable: string;
-            raw: string;
-        };
-        balance: number;
-        status: string;
-    };
+    username: string;
     role: {
         name: string;
         created_problems_limit: number;
@@ -18,6 +10,10 @@ export type Account = {
 
 export type EntityID = {
     id: number;
+};
+
+export type Token = {
+    token: string;
 };
 
 export type ContestList = {
