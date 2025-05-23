@@ -5,12 +5,7 @@
 // kinda 'statical' pages, that are even not marked as static in build logs.
 //
 
-import { DOMAIN } from '@/config';
-
 export type ID = string | number;
-
-export const BASEPATH = `${DOMAIN}/api`;
-export const COOKIE_KEY = 'token';
 
 export * from './problems';
 export * from './contests';

@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useForm } from 'react-hook-form';
 import { toast } from '@/components/toast';
 import { useRouter } from "next/navigation";
+import { Container } from '@/components/container';
 
 export interface FormData {
     username: string;
@@ -28,7 +29,7 @@ export function CreateAccountForm() {
     const onSubmit = async (data: FormData) => {
         try {
             await createAccount(data);
-            toast({ title: 'Acc created successfully' });
+            toast({ title: 'Account created successfully' });
             router.push('/login');
         } catch (e) {
             console.error("Error:", e);
@@ -43,42 +44,44 @@ export function CreateAccountForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 items-center">
-            <div className="flex flex-col gap-6 w-72">
-                <div className="flex flex-col gap-2">
-                    <Label required>
-                        Username
-                    </Label>
-                    <Input
-                        {...register("username")}
-                        required
-                    />
-                </div>
+        <Container className='p-5'>
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 items-center">
+                <div className="flex flex-col gap-6 w-72">
+                    <div className="flex flex-col gap-2">
+                        <Label required>
+                            Username
+                        </Label>
+                        <Input
+                            {...register("username")}
+                            required
+                        />
+                    </div>
 
-                <div className="flex flex-col gap-2">
-                    <Label required>
-                        Password
-                    </Label>
-                    <Input
-                        {...register("password")}
-                        type='password'
-                        required
-                    />
-                </div>
+                    <div className="flex flex-col gap-2">
+                        <Label required>
+                            Password
+                        </Label>
+                        <Input
+                            {...register("password")}
+                            type='password'
+                            required
+                        />
+                    </div>
 
-                <div className="flex flex-col gap-2">
-                    <Label required>
-                        Repeat password
-                    </Label>
-                    <Input
-                        {...register("repeat_password")}
-                        type='password'
-                        required
-                    />
-                </div>
+                    <div className="flex flex-col gap-2">
+                        <Label required>
+                            Repeat password
+                        </Label>
+                        <Input
+                            {...register("repeat_password")}
+                            type='password'
+                            required
+                        />
+                    </div>
 
-                <Button className="w-full" type='submit' disabled={!validate()}>CREATE ACCOUNT</Button>
-            </div>
-        </form>
+                    <Button className="w-full" type='submit' disabled={!validate()}>CREATE ACCOUNT</Button>
+                </div>
+            </form>
+        </Container>
     );
 }

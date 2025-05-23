@@ -1,14 +1,14 @@
 'use server';
 
 import { Account, EntityID, Token } from "@/actions/dto/response";
-import { BASEPATH, COOKIE_KEY } from ".";
 import { cookies } from "next/headers";
 import { FormData as SignInFormData } from "@/components/forms/login";
 import { FormData as SignUpFormData } from "@/components/forms/create-account";
+import { BASEPATH, TOKEN_COOKIE_KEY } from "@/config";
 
 export async function createSession(data: SignInFormData): Promise<Token> {
     const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
+    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
@@ -30,7 +30,7 @@ export async function createSession(data: SignInFormData): Promise<Token> {
 
 export async function createAccount(data: SignUpFormData): Promise<EntityID> {
     const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
+    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
@@ -52,7 +52,7 @@ export async function createAccount(data: SignUpFormData): Promise<EntityID> {
 
 export async function getAccount(): Promise<Account> {
     const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
+    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,

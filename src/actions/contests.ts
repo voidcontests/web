@@ -2,12 +2,13 @@
 
 import { ContestDetailed, ContestList, EntityID, Leaderboard, ProblemDetailed } from "@/actions/dto/response";
 import { FormData as CreateContestFormData } from "@/components/forms/create-contest";
+import { BASEPATH, TOKEN_COOKIE_KEY } from "@/config";
 import { cookies } from "next/headers";
-import { BASEPATH, COOKIE_KEY, ID } from ".";
+import { ID } from ".";
 
 export async function createContest(data: CreateContestFormData): Promise<EntityID> {
     const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
+    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
@@ -29,7 +30,7 @@ export async function createContest(data: CreateContestFormData): Promise<Entity
 
 export async function getContestProblem(cid: ID, charcode: string): Promise<ProblemDetailed> {
     const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
+    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
@@ -50,7 +51,7 @@ export async function getContestProblem(cid: ID, charcode: string): Promise<Prob
 
 export async function getCreatedContests(): Promise<ContestList> {
     const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
+    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
@@ -71,7 +72,7 @@ export async function getCreatedContests(): Promise<ContestList> {
 
 export async function createEntry(cid: ID): Promise<void> {
     const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
+    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
@@ -90,7 +91,7 @@ export async function createEntry(cid: ID): Promise<void> {
 
 export async function getContestByID(cid: ID): Promise<ContestDetailed> {
     const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
+    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
@@ -111,7 +112,7 @@ export async function getContestByID(cid: ID): Promise<ContestDetailed> {
 
 export async function getLeaderboard(cid: ID): Promise<Leaderboard> {
     const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
+    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
@@ -132,7 +133,7 @@ export async function getLeaderboard(cid: ID): Promise<Leaderboard> {
 
 export async function getAllContests(): Promise<ContestList> {
     const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
+    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,

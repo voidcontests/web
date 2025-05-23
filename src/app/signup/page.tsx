@@ -1,4 +1,5 @@
 import { CreateAccountForm } from "@/components/forms/create-account";
+import { Link } from "@/components/ui/link";
 
 export default function SignUpPage() {
     return (
@@ -6,8 +7,9 @@ export default function SignUpPage() {
             <h1 className="text-xl font-normal">
                 Sign up to THE VOID*
             </h1>
-            <div className="border rounded-xl bg-surface p-5 flex flex-col gap-2 not-dark:shadow-md">
-                <CreateAccountForm />
+            <CreateAccountForm />
+            <div>
+                Already have an account? <Link href='/login'>Log in</Link>
             </div>
         </div>
     );

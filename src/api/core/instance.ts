@@ -1,14 +1,14 @@
-import { DOMAIN } from "@/config";
+import { BASEPATH, TOKEN_COOKIE_KEY } from "@/config";
 import Cookies from "js-cookie";
 import axios from "axios";
 
 const authorized = axios.create({
-    baseURL: DOMAIN + "/api",
+    baseURL: BASEPATH,
     timeout: 0,
 });
 
 authorized.interceptors.request.use((config) => {
-    const token = Cookies.get("token")
+    const token = Cookies.get(TOKEN_COOKIE_KEY)
 
     config.headers.Authorization = `Bearer ${token}`;
 

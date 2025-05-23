@@ -7,11 +7,9 @@ export default function LoginPage() {
             <h1 className="text-xl font-normal">
                 Sign in to THE VOID*
             </h1>
-            <div className="border rounded-xl bg-surface p-5 flex flex-col gap-2 not-dark:shadow-md">
-                <LoginForm />
-            </div>
+            <LoginForm />
             <div>
-                New here? <Link href='/sign-up'>Create an account</Link>
+                New here? <Link href='/signup'>Create an account</Link>
             </div>
         </div>
     );

@@ -5,8 +5,8 @@ import { TonProofContext } from "@/contexts/tonproof";
 import { useContext, useEffect, useRef } from "react";
 import * as Api from "@/api";
 import Cookies from "js-cookie";
+import { TOKEN_COOKIE_KEY } from "@/config";
 
-const COOKIE_KEY = 'token';
 const PAYLOAD_TTL_MS = 1000 * 60 * 20;
 
 export function useTonProof() {
@@ -25,7 +25,7 @@ export function useTonProof() {
         clearInterval(interval.current);
 
         if (!wallet) {
-            Cookies.remove(COOKIE_KEY);
+            Cookies.remove(TOKEN_COOKIE_KEY);
             setToken(null);
 
             const refreshPayload = async () => {
@@ -44,7 +44,7 @@ export function useTonProof() {
             return;
         }
 
-        const token = Cookies.get(COOKIE_KEY);
+        const token = Cookies.get(TOKEN_COOKIE_KEY);
         if (token) {
             setToken(token);
             return;
@@ -54,7 +54,7 @@ export function useTonProof() {
             Api.tonproof.check(wallet.connectItems.tonProof.proof, wallet.account).then(result => {
                 if (result) {
                     setToken(result);
-                    Cookies.set(COOKIE_KEY, result);
+                    Cookies.set(TOKEN_COOKIE_KEY, result);
                 } else {
                     alert('Please try another wallet');
                     tonConnectUI.disconnect();
