@@ -5,7 +5,6 @@ import {
     Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell
 } from "@/components/ui/table-inline";
-import Address from "@/components/address";
 import { DateView } from "@/components/date";
 
 export function ContestAboutTable({ contest }: { contest: Promise<ContestDetailed> }) {
@@ -36,7 +35,7 @@ export function ContestAboutTable({ contest }: { contest: Promise<ContestDetaile
                         </TableCell>
                         <TableCell>{format_duration(cdetailed.duration_mins)}</TableCell>
                         <TableCell>
-                            <Address address={cdetailed.creator.address} />
+                            {`@${cdetailed.creator.username}`}
                         </TableCell>
                         <TableCell>{cdetailed.participants}</TableCell>
                     </TableRow>

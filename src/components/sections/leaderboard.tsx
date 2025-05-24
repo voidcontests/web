@@ -1,7 +1,6 @@
 'use client';
 
 import { Leaderboard } from "@/actions/dto/response";
-import Address from "@/components/address";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableCaption, TableTitle
@@ -32,7 +31,7 @@ export default function Problemset({ leaderboard }: { leaderboard: Promise<Leade
                                     {entry.user_id}
                                 </TableCell>
                                 <TableCell>
-                                    <Address address={entry.user_address} notruncate />
+                                    {`@${entry.username}`}
                                 </TableCell>
                                 <TableCell>
                                     {entry.points}

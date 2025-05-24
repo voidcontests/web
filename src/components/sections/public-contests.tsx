@@ -4,7 +4,6 @@ import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBod
 import { ContestList } from '@/actions/dto/response';
 import { format_duration } from '@/lib/utils';
 import { Link } from '@/components/ui/link';
-import Address from '@/components/address';
 import { DateView } from '@/components/date';
 import { use } from 'react';
 
@@ -21,7 +20,7 @@ export default function PublicContests({ contests }: { contests: Promise<Contest
                     <TableHeaderRow>
                         <TableHead>ID</TableHead>
                         <TableHead>Title</TableHead>
-                        <TableHead>Host address</TableHead>
+                        <TableHead>Host</TableHead>
                         <TableHead>Start</TableHead>
                         <TableHead>End</TableHead>
                         <TableHead>Duration</TableHead>
@@ -40,7 +39,7 @@ export default function PublicContests({ contests }: { contests: Promise<Contest
                                     </Link>
                                 </TableCell>
                                 <TableCell>
-                                    <Address address={contest.creator.address} />
+                                    {`@${contest.creator.username}`}
                                 </TableCell>
                                 <TableCell>
                                     <DateView date={contest.start_time} />

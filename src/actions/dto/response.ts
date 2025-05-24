@@ -85,7 +85,7 @@ export type SubmissionListItem = {
 
 export type User = {
     id: number;
-    address: string;
+    username: string;
 };
 
 export type ProblemDetailed = {
@@ -109,7 +109,7 @@ export type ProblemDetailed = {
 
 export type LeaderboardItem = {
     user_id: number;
-    user_address: string;
+    username: string;
     points: number;
 }
 

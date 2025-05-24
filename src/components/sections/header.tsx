@@ -30,7 +30,6 @@ const Header = () => {
                             HUB
                         </NavItem>
                     </div>
-                    {/* <TonConnectButton /> */}
                     <AccountButton />
                 </div>
             </div>

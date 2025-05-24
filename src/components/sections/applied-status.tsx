@@ -1,23 +1,21 @@
 'use client';
 
-import { useIsConnectionRestored, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 import { ContestDetailed } from "@/actions/dto/response";
 import { Button } from "@/components/ui/button";
 import { use } from "react";
 import { toast } from "@/components/toast";
 import { LoaderCircle } from "lucide-react";
 import { createEntry, revalidate } from "@/actions";
+import { useAccount } from "@/hooks/use-account";
+import Link from "next/link";
 
 export default function AppliedStatus({ contest }: { contest: Promise<ContestDetailed> }) {
+    const { account, loading } = useAccount();
+
     const cdetailed = use(contest);
-
-    const wallet = useTonWallet();
-    const [tonConnectUI] = useTonConnectUI();
-    const isConnectionRestored = useIsConnectionRestored();
-
     const start_time = new Date(cdetailed.start_time);
 
-    if (!isConnectionRestored) {
+    if (loading) {
         return (
             <Button variant="link" disabled>
                 <LoaderCircle className="animate-spin" /> LOADING
@@ -25,9 +23,12 @@ export default function AppliedStatus({ contest }: { contest: Promise<ContestDet
         );
     }
 
-    if (!wallet) {
+    // TODO: for whatever freaking reason, sign in button dont work
+    if (account === null) {
         return (
-            <Button variant="link" onClick={() => tonConnectUI.openModal()}>CONNECT WALET TO APPLY</Button>
+            <Link href="/login">
+                <Button asChild variant="link">SIGN IN TO APPLY</Button>
+            </Link>
         );
     }
 

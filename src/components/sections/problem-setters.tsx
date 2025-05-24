@@ -6,7 +6,6 @@ import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableTitle,
 } from "@/components/ui/table";
-import Address from "@/components/address";
 
 export default function Setters({ problem }: { problem: Promise<ProblemDetailed> }) {
     const pdetailed = use(problem);
@@ -20,16 +19,16 @@ export default function Setters({ problem }: { problem: Promise<ProblemDetailed>
                 <TableHeader>
                     <TableHeaderRow>
                         <TableHead>#</TableHead>
-                        <TableHead>Writer address</TableHead>
+                        <TableHead>Writer</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
                 <TableBody>
                     {
-                        [pdetailed.writer.address].map((setter, index) => (
+                        [pdetailed.writer.username].map((username, index) => (
                             <TableRow key={index}>
                                 <TableCell>{`${index + 1}/`}</TableCell>
                                 <TableCell>
-                                    <Address address={setter} />
+                                    {`@${username}`}
                                 </TableCell>
                             </TableRow>
                         ))

@@ -4,7 +4,6 @@ import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBod
 import { DifficultyTag } from '@/components/difficulty-tag';
 import { ProblemList } from '@/actions/dto/response';
 import { Link } from '@/components/ui/link';
-import Address from '@/components/address';
 import { use } from 'react';
 
 export default function ArchivedProblems({ problems }: { problems: Promise<ProblemList> }) {
@@ -21,7 +20,7 @@ export default function ArchivedProblems({ problems }: { problems: Promise<Probl
                         <TableHead>ID</TableHead>
                         <TableHead>Title</TableHead>
                         <TableHead>Difficulty</TableHead>
-                        <TableHead className='w-122'>Writer address</TableHead>
+                        <TableHead className='w-122'>Writer</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
                 <TableBody>
@@ -40,7 +39,7 @@ export default function ArchivedProblems({ problems }: { problems: Promise<Probl
                                     <DifficultyTag difficulty={problem.difficulty} />
                                 </TableCell>
                                 <TableCell className='w-122'>
-                                    <Address address={problem.writer.address} notruncate />
+                                    {`@${problem.writer.username}`}
                                 </TableCell>
                             </TableRow>
                         ))
