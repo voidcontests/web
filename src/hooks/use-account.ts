@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { getAccount } from '@/actions';
 import { Account } from '@/actions/dto/response';
 import Cookies from 'js-cookie';
-import { TOKEN_COOKIE_KEY } from '@/config';
+import { config } from '@/config';
 
 export function useAccount() {
     const [account, setAccount] = useState<Account | null>(null);
@@ -14,7 +14,7 @@ export function useAccount() {
     const fetchAccount = async () => {
         try {
             setLoading(true);
-            let token = Cookies.get(TOKEN_COOKIE_KEY);
+            let token = Cookies.get(config.cookies.token_key);
             if (token === undefined || token === "") {
                 setAccount(null);
             } else {

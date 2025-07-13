@@ -2,20 +2,20 @@
 
 import { ContestDetailed, ContestList, EntityID, Leaderboard, ProblemDetailed } from "@/actions/dto/response";
 import { FormData as CreateContestFormData } from "@/components/forms/create-contest";
-import { BASEPATH, TOKEN_COOKIE_KEY } from "@/config";
+import { config } from "@/config";
 import { cookies } from "next/headers";
 import { ID } from ".";
 
 export async function createContest(data: CreateContestFormData): Promise<EntityID> {
     const cookieStore = cookies();
-    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
+    const token = cookieStore.get(config.cookies.token_key)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
 
-    const res = await fetch(BASEPATH + `/contests`, {
+    const res = await fetch(config.api.basepath + `/contests`, {
         method: 'POST',
         headers: headers,
         body: JSON.stringify(data),
@@ -30,14 +30,14 @@ export async function createContest(data: CreateContestFormData): Promise<Entity
 
 export async function getContestProblem(cid: ID, charcode: string): Promise<ProblemDetailed> {
     const cookieStore = cookies();
-    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
+    const token = cookieStore.get(config.cookies.token_key)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
 
-    const res = await fetch(BASEPATH + `/contests/${cid}/problems/${charcode}`, {
+    const res = await fetch(config.api.basepath + `/contests/${cid}/problems/${charcode}`, {
         method: 'GET',
         headers: headers,
     });
@@ -51,14 +51,14 @@ export async function getContestProblem(cid: ID, charcode: string): Promise<Prob
 
 export async function getCreatedContests(): Promise<ContestList> {
     const cookieStore = cookies();
-    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
+    const token = cookieStore.get(config.cookies.token_key)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
 
-    const res = await fetch(BASEPATH + `/creator/contests`, {
+    const res = await fetch(config.api.basepath + `/creator/contests`, {
         method: 'GET',
         headers: headers,
     });
@@ -72,14 +72,14 @@ export async function getCreatedContests(): Promise<ContestList> {
 
 export async function createEntry(cid: ID): Promise<void> {
     const cookieStore = cookies();
-    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
+    const token = cookieStore.get(config.cookies.token_key)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
 
-    const res = await fetch(BASEPATH + `/contests/${cid}/entry`, {
+    const res = await fetch(config.api.basepath + `/contests/${cid}/entry`, {
         method: 'POST',
         headers: headers,
     });
@@ -91,14 +91,14 @@ export async function createEntry(cid: ID): Promise<void> {
 
 export async function getContestByID(cid: ID): Promise<ContestDetailed> {
     const cookieStore = cookies();
-    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
+    const token = cookieStore.get(config.cookies.token_key)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
 
-    const res = await fetch(BASEPATH + `/contests/${cid}`, {
+    const res = await fetch(config.api.basepath + `/contests/${cid}`, {
         method: 'GET',
         headers: headers,
     });
@@ -112,14 +112,14 @@ export async function getContestByID(cid: ID): Promise<ContestDetailed> {
 
 export async function getLeaderboard(cid: ID): Promise<Leaderboard> {
     const cookieStore = cookies();
-    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
+    const token = cookieStore.get(config.cookies.token_key)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
 
-    const res = await fetch(BASEPATH + `/contests/${cid}/leaderboard`, {
+    const res = await fetch(config.api.basepath + `/contests/${cid}/leaderboard`, {
         method: 'GET',
         headers: headers,
     });
@@ -133,14 +133,14 @@ export async function getLeaderboard(cid: ID): Promise<Leaderboard> {
 
 export async function getAllContests(): Promise<ContestList> {
     const cookieStore = cookies();
-    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
+    const token = cookieStore.get(config.cookies.token_key)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
 
-    const res = await fetch(BASEPATH + `/contests`, {
+    const res = await fetch(config.api.basepath + `/contests`, {
         method: 'GET',
         headers: headers,
     });

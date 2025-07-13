@@ -1,45 +1,29 @@
 'use client';
 
-import { ProblemDetailed, SubmissionListItem } from "@/actions/dto/response";
+import { ProblemDetailed, Submission } from "@/actions/dto/response";
 import { SubmissionReport } from "@/components/sections/submission-report";
-import { Widget, WidgetContent, WidgetTitle } from "@/components/ui/widget";
 import { CodeEditor } from "@/components/sections/code-editor";
-import { Skeleton } from "@/components/ui/skeleton";
 import Preview from "@/components/sections/preview";
 import { authorized } from "@/api/core/instance";
 import { Button } from "@/components/ui/button";
 import { revalidate } from "@/actions";
 import { Input } from "@/components/ui/input";
-import { use, useEffect, useState } from "react";
+import { use, useState } from "react";
 import { toast } from "@/components/toast";
 import { TestCase } from "@/components/sections/test-case";
 import { Separator } from "@/components/ui/separator";
 import { getInitialCode } from "@/components/sections/editor/utils";
+import { sleep } from "@/lib/utils";
 
-const PREFERRED_LANGUAGE_KEY = "preferred-language";
 const DEFAULT_LANGUAGE = "c";
 
 export function ContestProblemView({ problem }: { problem: Promise<ProblemDetailed> }) {
     const pdetailed = use(problem);
 
+    const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
+    const [code, setCode] = useState(getInitialCode(DEFAULT_LANGUAGE));
+    const [submission, setSubmission] = useState<Submission>();
     const [answer, setAnswer] = useState('');
-
-    const [language, setLanguage] = useState(() => {
-        if (typeof window !== "undefined") {
-            const preferred = localStorage.getItem(PREFERRED_LANGUAGE_KEY);
-            return preferred ?? DEFAULT_LANGUAGE;
-        }
-
-        return DEFAULT_LANGUAGE;
-    });
-    const [code, setCode] = useState(getInitialCode(language));
-
-    const [waiting, setWaiting] = useState(false);
-    const [submission, setSubmission] = useState<SubmissionListItem>();
-
-    useEffect(() => {
-        localStorage.setItem(PREFERRED_LANGUAGE_KEY, language);
-    }, [language]);
 
     async function submitAnswer() {
         if (answer.trim().length === 0) return;
@@ -49,7 +33,13 @@ export function ContestProblemView({ problem }: { problem: Promise<ProblemDetail
             return;
         }
 
-        const { data, status } = await authorized.post(`/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}/submissions`, { problem_kind: 'text_answer_problem', answer: answer });
+        const { data, status } = await authorized.post(
+            `/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}/submissions`,
+            {
+                problem_kind: 'text_answer_problem',
+                answer,
+            }
+        );
 
         switch (status) {
             case 201:
@@ -61,9 +51,7 @@ export function ContestProblemView({ problem }: { problem: Promise<ProblemDetail
                 } else {
                     toast({ title: `Unknown verdict: ${verdict}` });
                 }
-
                 revalidate(`/contest/${pdetailed.contest_id}/problem/${pdetailed.charcode}`);
-
                 break;
             case 429:
                 toast({ title: `You are submitting too frequently. Wait for ${data.timeout}` });
@@ -76,20 +64,33 @@ export function ContestProblemView({ problem }: { problem: Promise<ProblemDetail
     async function submitProgram() {
         if (code.trim().length === 0) return;
 
-        // if (pdetailed.status === 'accepted') {
-        //     toast.info("Solution for this problem already accepted");
-        //     return;
-        // }
-
-        setWaiting(true);
         setSubmission(undefined);
 
-        const { data } = await authorized.post(`/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}/submissions`, { problem_kind: 'coding_problem', code: code, language: language });
+        const { data } = await authorized.post(
+            `/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}/submissions`,
+            {
+                problem_kind: "coding_problem",
+                code,
+                language,
+            }
+        );
+
+        const submissionID = data.id;
+        let currentSubmission = data;
+
+        setSubmission(currentSubmission);
+
+        while (
+            currentSubmission.verdict === "pending" ||
+            currentSubmission.verdict === "running"
+        ) {
+            await sleep(1000);
+            const { data: updated } = await authorized.get(`/submissions/${submissionID}`);
+            currentSubmission = updated;
+            setSubmission(currentSubmission);
+        }
 
         revalidate(`/contest/${pdetailed.contest_id}/problem/${pdetailed.charcode}`);
-
-        setSubmission(data);
-        setWaiting(false);
     }
 
     return (
@@ -99,13 +100,12 @@ export function ContestProblemView({ problem }: { problem: Promise<ProblemDetail
                     {`${pdetailed.charcode}. ${pdetailed.title}`}
                 </h1>
             </div>
+
             <Preview markdown={pdetailed.statement} />
-            {
-                pdetailed.kind === 'text_answer_problem' &&
+
+            {pdetailed.kind === 'text_answer_problem' && (
                 <div className="flex items-center gap-4">
-                    <span className="shrink-0 text-sm font-semibold">
-                        Answer:
-                    </span>
+                    <span className="shrink-0 text-sm font-semibold">Answer:</span>
                     <Input
                         value={answer}
                         onChange={(e) => setAnswer(e.target.value)}
@@ -115,53 +115,36 @@ export function ContestProblemView({ problem }: { problem: Promise<ProblemDetail
                     />
                     <Button onClick={submitAnswer} disabled={answer.trim().length === 0}>SUBMIT</Button>
                 </div>
-            }
-            {
-                pdetailed.kind === 'coding_problem' &&
+            )}
+
+            {pdetailed.kind === 'coding_problem' && (
                 <div className="flex flex-col gap-4">
-                    {
-                        (pdetailed.examples && pdetailed.examples.length !== 0) &&
+                    {pdetailed.examples && pdetailed.examples.length > 0 && (
                         <div className="flex flex-col gap-0">
-                            <h3 className="font-medium text-lg">
-                                Examples
-                            </h3>
+                            <h3 className="font-medium text-lg">Examples</h3>
                             <div className="flex flex-col gap-3">
-                                {
-                                    pdetailed.examples.map((example) => (
-                                        <TestCase tc={example} />
-                                    ))
-                                }
+                                {pdetailed.examples.map((example) => (
+                                    <TestCase key={example.input + example.output} tc={example} />
+                                ))}
                             </div>
                         </div>
-                    }
+                    )}
                     <Separator />
-                    <CodeEditor code={code} setCode={setCode} language={language} setLanguage={(value) => setLanguage(value)} />
+                    <CodeEditor
+                        code={code}
+                        setCode={setCode}
+                        language={language}
+                        setLanguage={(value) => {
+                            setLanguage(value);
+                            setCode(getInitialCode(value));
+                        }}
+                    />
                     <Button onClick={submitProgram} disabled={code.trim().length === 0}>
                         SUBMIT
                     </Button>
-                    {
-                        waiting
-                            ? <Loading />
-                            : <SubmissionReport submission={submission} />
-                    }
+                    <SubmissionReport submission={submission} />
                 </div>
-            }
+            )}
         </div>
-    );
-}
-
-function Loading() {
-    return (
-        <Widget>
-            <WidgetContent className="gap-4">
-                <WidgetTitle>
-                    <Skeleton className="h-4 w-24" />
-                </WidgetTitle>
-                <div className="flex flex-col gap-2">
-                    <Skeleton className="h-4 w-96" />
-                    <Skeleton className="h-4 w-72" />
-                </div>
-            </WidgetContent>
-        </Widget>
     );
 }

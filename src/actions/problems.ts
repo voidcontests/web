@@ -4,18 +4,18 @@ import { EntityID, ProblemDetailed, ProblemList } from "@/actions/dto/response";
 import { FormData as CreateProblemFormData } from "@/components/forms/create-problem";
 import { cookies } from "next/headers";
 import { ID } from ".";
-import { BASEPATH, TOKEN_COOKIE_KEY } from "@/config";
+import { config } from "@/config";
 
 export async function createProblem(data: CreateProblemFormData): Promise<EntityID> {
     const cookieStore = cookies();
-    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
+    const token = cookieStore.get(config.cookies.token_key)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
 
-    const res = await fetch(BASEPATH + `/problems`, {
+    const res = await fetch(config.api.basepath + `/problems`, {
         method: 'POST',
         headers: headers,
         body: JSON.stringify(data),
@@ -30,14 +30,14 @@ export async function createProblem(data: CreateProblemFormData): Promise<Entity
 
 export async function getCreatedProblems(): Promise<ProblemList> {
     const cookieStore = cookies();
-    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
+    const token = cookieStore.get(config.cookies.token_key)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
 
-    const res = await fetch(BASEPATH + `/creator/problems`, {
+    const res = await fetch(config.api.basepath + `/creator/problems`, {
         method: 'GET',
         headers: headers,
     });
@@ -51,14 +51,14 @@ export async function getCreatedProblems(): Promise<ProblemList> {
 
 export async function getProblemByID(id: ID): Promise<ProblemDetailed> {
     const cookieStore = cookies();
-    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
+    const token = cookieStore.get(config.cookies.token_key)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
 
-    const res = await fetch(BASEPATH + `/problems/${id}`, {
+    const res = await fetch(config.api.basepath + `/problems/${id}`, {
         method: 'GET',
         headers: headers,
     });
@@ -78,7 +78,7 @@ export type ExecutionResult = {
 
 export async function executeSolution(code: string): Promise<ExecutionResult> {
     const cookieStore = cookies();
-    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
+    const token = cookieStore.get(config.cookies.token_key)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
@@ -89,7 +89,7 @@ export async function executeSolution(code: string): Promise<ExecutionResult> {
         code: code,
     }
 
-    const res = await fetch(BASEPATH + `/run`, {
+    const res = await fetch(config.api.basepath + `/run`, {
         method: 'POST',
         headers: headers,
         body: JSON.stringify(body),

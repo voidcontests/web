@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from '@/components/toast';
 import { useRouter } from "next/navigation";
 import { Container } from '@/components/container';
-import { BASEPATH } from '@/config';
+import { config } from '@/config';
 
 export interface FormData {
     username: string;
@@ -29,7 +29,7 @@ export function CreateAccountForm() {
 
     const onSubmit = async (data: FormData) => {
         try {
-            const res = await fetch(BASEPATH + `/account`, {
+            const res = await fetch(config.api.basepath + `/account`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'aaplication/json',

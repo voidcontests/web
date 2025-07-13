@@ -9,7 +9,7 @@ import { toast } from '@/components/toast';
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { Container } from '@/components/container';
-import { TOKEN_COOKIE_KEY } from '@/config';
+import { config } from '@/config';
 
 export interface FormData {
     username: string;
@@ -29,7 +29,7 @@ export function LoginForm() {
     const onSubmit = async (data: FormData) => {
         try {
             let response = await createSession(data);
-            Cookies.set(TOKEN_COOKIE_KEY, response.token);
+            Cookies.set(config.cookies.token_key, response.token);
             revalidate('/');
             router.push('/');
             toast({ title: 'Logged in' });

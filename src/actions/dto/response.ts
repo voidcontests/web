@@ -63,9 +63,10 @@ export type ContestListItem = {
     created_at: Date;
 };
 
-export type SubmissionListItem = {
+export type Submission = {
     id: number;
     problem_id: number;
+    problem_kind: string;
     verdict: string;
     answer?: string;
     code?: string;

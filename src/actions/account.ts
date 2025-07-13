@@ -2,20 +2,20 @@
 
 import { Account, EntityID, Token } from "@/actions/dto/response";
 import { cookies } from "next/headers";
-import { FormData as SignInFormData } from "@/components/forms/login";
-import { FormData as SignUpFormData } from "@/components/forms/create-account";
-import { BASEPATH, TOKEN_COOKIE_KEY } from "@/config";
+import { FormData as SignInFormData } from "@/components/forms/sign-in";
+import { FormData as SignUpFormData } from "@/components/forms/sign-up";
+import { config } from "@/config";
 
 export async function createSession(data: SignInFormData): Promise<Token> {
     const cookieStore = cookies();
-    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
+    const token = cookieStore.get(config.cookies.token_key)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
 
-    const res = await fetch(BASEPATH + `/session`, {
+    const res = await fetch(config.api.basepath + `/session`, {
         method: 'POST',
         headers: headers,
         body: JSON.stringify(data),
@@ -30,14 +30,14 @@ export async function createSession(data: SignInFormData): Promise<Token> {
 
 export async function createAccount(data: SignUpFormData): Promise<EntityID> {
     const cookieStore = cookies();
-    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
+    const token = cookieStore.get(config.cookies.token_key)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
 
-    const res = await fetch(BASEPATH + `/account`, {
+    const res = await fetch(config.api.basepath + `/account`, {
         method: 'POST',
         headers: headers,
         body: JSON.stringify(data),
@@ -52,7 +52,7 @@ export async function createAccount(data: SignUpFormData): Promise<EntityID> {
 
 export async function getAccount(): Promise<Account> {
     const cookieStore = cookies();
-    const token = cookieStore.get(TOKEN_COOKIE_KEY)?.value;
+    const token = cookieStore.get(config.cookies.token_key)?.value;
 
     const headers = {
         'Authorization': `Bearer ${token}`,
@@ -60,7 +60,7 @@ export async function getAccount(): Promise<Account> {
     };
 
     // TODO: unhardcode mainnet id out of here
-    const res = await fetch(BASEPATH + `/account`, {
+    const res = await fetch(config.api.basepath + `/account`, {
         method: 'GET',
         headers: headers,
     });
