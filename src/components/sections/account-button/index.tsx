@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useAccount } from "@/hooks/use-account";
 import Cookies from "js-cookie";
 import { revalidate } from "@/actions";
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, LogOut } from "lucide-react";
 
 const AccountButton = () => {
     let { account, loading } = useAccount();
@@ -35,7 +35,7 @@ const AccountButton = () => {
             revalidate('/');
             window.location.reload();
         }}>
-            {`@${account.username}`}
+            {`@${account.username}`} <LogOut />
         </Button>
     );
 }

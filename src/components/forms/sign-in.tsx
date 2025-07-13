@@ -30,10 +30,9 @@ export function LoginForm() {
         try {
             let response = await createSession(data);
             Cookies.set(TOKEN_COOKIE_KEY, response.token);
-            toast({ title: 'Logged in' });
             revalidate('/');
             router.push('/');
-            window.location.reload();
+            toast({ title: 'Logged in' });
         } catch (e) {
             console.error("Error:", e);
             toast({ title: 'Something went wrong. Try again later' });

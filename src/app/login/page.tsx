@@ -1,11 +1,11 @@
 import { Link } from "@/components/ui/link";
-import { LoginForm } from "@/components/forms/login";
+import { LoginForm } from "@/components/forms/sign-in";
 
 export default function LoginPage() {
     return (
         <div className="flex flex-col gap-4 justify-center items-center mt-[12vh]">
             <h1 className="text-xl font-normal">
-                Sign in to THE VOID*
+                Access the void
             </h1>
             <LoginForm />
             <div>

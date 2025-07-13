@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from '@/components/toast';
 import { useRouter } from "next/navigation";
 import { Container } from '@/components/container';
+import { BASEPATH } from '@/config';
 
 export interface FormData {
     username: string;
@@ -28,7 +29,13 @@ export function CreateAccountForm() {
 
     const onSubmit = async (data: FormData) => {
         try {
-            await createAccount(data);
+            const res = await fetch(BASEPATH + `/account`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'aaplication/json',
+                },
+                body: JSON.stringify(data),
+            });
             toast({ title: 'Account created successfully' });
             router.push('/login');
         } catch (e) {
@@ -79,7 +86,7 @@ export function CreateAccountForm() {
                         />
                     </div>
 
-                    <Button className="w-full" type='submit' disabled={!validate()}>CREATE ACCOUNT</Button>
+                    <Button className="w-full" type='submit' disabled={!validate()}>SIGN UP</Button>
                 </div>
             </form>
         </Container>
