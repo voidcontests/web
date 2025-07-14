@@ -24,6 +24,10 @@ export type ProblemList = {
     data: ProblemListItem[];
 };
 
+export type SubmissionsList = {
+    data: Submissionp[];
+};
+
 export type ContestDetailed = {
     id: number;
     creator: User;

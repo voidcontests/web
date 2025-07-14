@@ -1,6 +1,6 @@
 'use server';
 
-import { EntityID, ProblemDetailed, ProblemList } from "@/actions/dto/response";
+import { EntityID, ProblemDetailed, ProblemList, Submission, SubmissionsList } from "@/actions/dto/response";
 import { FormData as CreateProblemFormData } from "@/components/forms/create-problem";
 import { cookies } from "next/headers";
 import { ID } from ".";
@@ -100,4 +100,25 @@ export async function executeSolution(code: string): Promise<ExecutionResult> {
     }
 
     return await res.json() as ExecutionResult;
+}
+
+export async function getProblemSubmissions(contestID: ID, charcode: string, limit: number): Promise<SubmissionsList> {
+    const cookieStore = cookies();
+    const token = cookieStore.get(config.cookies.token_key)?.value;
+
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    };
+
+    const res = await fetch(config.api.basepath + `/contests/${contestID}/problems/${charcode}/submissions?limit=${limit}`, {
+        method: 'GET',
+        headers: headers,
+    });
+
+    if (!res.ok) {
+        throw new Error(`can't get admin problems`);
+    }
+
+    return await res.json() as SubmissionsList;
 }

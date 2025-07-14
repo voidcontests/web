@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { Toaster } from 'sonner';
 import "./globals.css";
 import { Rubik } from 'next/font/google';
-import { ArrowRight, ChevronRight, Egg } from "lucide-react";
+import { ChevronRight, Egg } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -17,6 +17,7 @@ export const metadata: Metadata = {
 const rubik = Rubik({
     subsets: ['latin'],
     display: 'swap',
+    preload: true,
 });
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
