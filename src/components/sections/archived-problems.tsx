@@ -2,7 +2,7 @@
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from '@/components/ui/table';
 import { DifficultyTag } from '@/components/difficulty-tag';
-import { ProblemList } from '@/actions/dto/response';
+import { ProblemList } from '@/actions/models/response';
 import { Link } from '@/components/ui/link';
 import { use } from 'react';
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { MessageBox } from '@/components/sections/message-box';
-import { Account } from '@/actions/dto/response';
+import { Account } from '@/actions/models/response';
 import { use } from 'react';
 
 export default function HubMessage({ account }: { account: Promise<Account> }) {

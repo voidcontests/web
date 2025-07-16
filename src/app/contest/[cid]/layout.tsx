@@ -1,4 +1,4 @@
-import { getContestByID } from "@/actions";
+import { getContestByID } from "@/actions/contests";
 
 export async function generateMetadata({ params }: { params: { cid: string } }) {
     const contest = await getContestByID(params.cid);

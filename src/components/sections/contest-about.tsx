@@ -1,7 +1,7 @@
 'use client';
 
 import { Widget, WidgetContent, WidgetTitle, } from "@/components/ui/widget";
-import { ContestDetailed } from "@/actions/dto/response";
+import { ContestDetailed } from "@/actions/models/response";
 import { Skeleton } from "@/components/ui/skeleton";
 import { format_duration } from "@/lib/utils";
 import { DateView } from "@/components/date";

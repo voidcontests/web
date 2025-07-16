@@ -1,23 +1,11 @@
 'use client';
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableCaption, TableTitle } from '@/components/ui/table';
-import { ProblemDetailed, Submission, SubmissionsList } from "@/actions/dto/response";
-import { SubmissionReport } from "@/components/sections/submission-report";
-import { CodeEditor } from "@/components/sections/code-editor";
-import Preview from "@/components/sections/preview";
-import { authorized } from "@/api/core/instance";
-import { Button } from "@/components/ui/button";
-import { revalidate } from "@/actions";
-import { Input } from "@/components/ui/input";
-import { use, useState } from "react";
-import { toast } from "@/components/toast";
-import { TestCase } from "@/components/sections/test-case";
-import { Separator } from "@/components/ui/separator";
-import { getInitialCode } from "@/components/sections/editor/utils";
-import { sleep } from "@/lib/utils";
-import { DateView } from '../date';
+import { Pagination, Submission } from "@/actions/models/response";
+import { use } from "react";
+import { DateView } from '@/components/date';
 
-export function LatestSubmissionsView({ submissions }: { submissions: Promise<SubmissionsList> }) {
+export function LatestSubmissionsView({ submissions }: { submissions: Promise<Pagination<Submission>> }) {
     const subs = use(submissions) || [];
 
     return (
@@ -35,7 +23,7 @@ export function LatestSubmissionsView({ submissions }: { submissions: Promise<Su
                 </TableHeader>
                 <TableBody>
                     {
-                        subs.data.map((submission, index) => (
+                        subs.items.map((submission, index) => (
                             <TableRow key={index}>
                                 <TableCell>{submission.id}</TableCell>
                                 <TableCell>{submission.verdict}</TableCell>
@@ -47,7 +35,7 @@ export function LatestSubmissionsView({ submissions }: { submissions: Promise<Su
                     }
                 </TableBody>
                 {
-                    subs.data.length === 0 && <TableCaption>No recent submissions</TableCaption>
+                    subs.items.length === 0 && <TableCaption>No recent submissions</TableCaption>
                 }
             </Table>
         </TableContainer>

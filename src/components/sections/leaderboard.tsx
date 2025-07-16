@@ -1,13 +1,13 @@
 'use client';
 
-import { Leaderboard } from "@/actions/dto/response";
+import { Leaderboard, LeaderboardItem, Pagination } from "@/actions/models/response";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableCaption, TableTitle
 } from "@/components/ui/table";
 import { use } from "react";
 
-export default function Problemset({ leaderboard }: { leaderboard: Promise<Leaderboard> }) {
+export default function Problemset({ leaderboard }: { leaderboard: Promise<Pagination<LeaderboardItem>> }) {
     const lb = use(leaderboard);
 
     return (
@@ -25,7 +25,7 @@ export default function Problemset({ leaderboard }: { leaderboard: Promise<Leade
                 </TableHeader>
                 <TableBody>
                     {
-                        lb.data.map((entry, index) => (
+                        lb.items.map((entry, index) => (
                             <TableRow key={index}>
                                 <TableCell>
                                     {entry.user_id}
@@ -41,7 +41,7 @@ export default function Problemset({ leaderboard }: { leaderboard: Promise<Leade
                     }
                 </TableBody>
                 {
-                    lb.data.length === 0 &&
+                    lb.items.length === 0 &&
                     <TableCaption>
                         No participants in this contest.
                     </TableCaption>

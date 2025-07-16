@@ -1,6 +1,7 @@
 'use client';
 
-import { createSession, revalidate }  from '@/actions';
+import { createSession } from '@/actions/account';
+import { revalidate } from '@/actions/revalidate';
 import { Button } from "@/components/ui/button";
 import { Label } from '@/components/ui/label';
 import { Input } from "@/components/ui/input";

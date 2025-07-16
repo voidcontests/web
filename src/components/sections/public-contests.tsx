@@ -1,13 +1,13 @@
 'use client';
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableCaption, TableTitle } from '@/components/ui/table';
-import { ContestList } from '@/actions/dto/response';
+import { ContestList, ContestListItem, Pagination } from '@/actions/models/response';
 import { format_duration } from '@/lib/utils';
 import { Link } from '@/components/ui/link';
 import { DateView } from '@/components/date';
 import { use } from 'react';
 
-export default function PublicContests({ contests }: { contests: Promise<ContestList> }) {
+export default function PublicContests({ contests }: { contests: Promise<Pagination<ContestListItem>> }) {
     const cs = use(contests);
 
     return (
@@ -30,7 +30,7 @@ export default function PublicContests({ contests }: { contests: Promise<Contest
                 </TableHeader>
                 <TableBody>
                     {
-                        cs.data.map((contest, index) => (
+                        cs.items.map((contest, index) => (
                             <TableRow key={index}>
                                 <TableCell>{contest.id}</TableCell>
                                 <TableCell>
@@ -67,7 +67,7 @@ export default function PublicContests({ contests }: { contests: Promise<Contest
                     }
                 </TableBody>
                 {
-                    cs.data.length === 0 && <TableCaption>No public contests</TableCaption>
+                    cs.items.length === 0 && <TableCaption>No public contests</TableCaption>
                 }
             </Table>
         </TableContainer>

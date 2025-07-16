@@ -1,13 +1,13 @@
 'use client';
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from "@/components/ui/table";
-import { Account, ProblemList } from '@/actions/dto/response';
+import { Account, Pagination, ProblemListItem } from '@/actions/models/response';
 import { DifficultyTag } from '@/components/difficulty-tag';
 import { DateView } from "@/components/date";
 import { Link } from "@/components/ui/link";
 import { use } from 'react';
 
-export default function AdminProblems({ account, problems }: { account: Promise<Account>, problems: Promise<ProblemList> }) {
+export default function AdminProblems({ account, problems }: { account: Promise<Account>, problems: Promise<Pagination<ProblemListItem>> }) {
     const acc = use(account);
     const ps = use(problems);
 
@@ -31,7 +31,7 @@ export default function AdminProblems({ account, problems }: { account: Promise<
                 </TableHeader>
                 <TableBody>
                     {
-                        ps.data.map((problem, index) => (
+                        ps.items.map((problem, index) => (
                             <TableRow key={index}>
                                 <TableCell className='text-center'>
                                     {problem.id}
@@ -52,7 +52,7 @@ export default function AdminProblems({ account, problems }: { account: Promise<
                     }
                 </TableBody>
                 {
-                    ps.data.length === 0 &&
+                    ps.items.length === 0 &&
                     <TableCaption>
                         No created problems.
                     </TableCaption>

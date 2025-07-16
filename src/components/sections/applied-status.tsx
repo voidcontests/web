@@ -1,11 +1,12 @@
 'use client';
 
-import { ContestDetailed } from "@/actions/dto/response";
+import { ContestDetailed } from "@/actions/models/response";
 import { Button } from "@/components/ui/button";
 import { use } from "react";
 import { toast } from "@/components/toast";
 import { LoaderCircle } from "lucide-react";
-import { createEntry, revalidate } from "@/actions";
+import { createEntry } from "@/actions/contests";
+import { revalidate } from "@/actions/revalidate";
 import { useAccount } from "@/hooks/use-account";
 import Link from "next/link";
 

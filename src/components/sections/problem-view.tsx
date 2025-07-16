@@ -1,7 +1,7 @@
 'use client';
 
 import { TestCase } from '@/components/sections/test-case';
-import { ProblemDetailed } from '@/actions/dto/response';
+import { ProblemDetailed } from '@/actions/models/response';
 import Preview from '@/components/sections/preview';
 import { use } from 'react';
 

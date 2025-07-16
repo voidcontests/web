@@ -5,7 +5,7 @@ import { Loading } from "@/components/sections/contest-about";
 import { Problemset } from "@/components/sections/problemset";
 import ContestInfo from "@/components/sections/contest-info";
 import Setters from "@/components/sections/contest-setters";
-import { getContestByID } from "@/actions";
+import { getContestByID } from "@/actions/contests";
 import dynamic from "next/dynamic";
 
 const ContestAbout = dynamic(async () => {

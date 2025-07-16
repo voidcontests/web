@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import { getAccount } from '@/actions';
-import { Account } from '@/actions/dto/response';
+import { getAccount } from '@/actions/account';
+import { Account } from '@/actions/models/response';
 import Cookies from 'js-cookie';
 import { config } from '@/config';
 

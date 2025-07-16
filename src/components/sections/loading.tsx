@@ -1,6 +1,6 @@
 import { Table, TableCaption, TableContainer, TableTitle } from '@/components/ui/table';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Widget, WidgetContent, WidgetTitle } from '../ui/widget';
+import { Widget, WidgetContent, WidgetTitle } from '@/components/ui/widget';
 
 export function TableTemplate({ title }: { title: string }) {
     return (

@@ -3,7 +3,8 @@
 import { DateTimePicker } from "@/components/ui/time-picker/date-time-picker";
 import { Separator } from '@/components/ui/separator';
 import { TextArea } from "@/components/ui/textarea";
-import { createContest, revalidate }  from '@/actions';
+import { createContest } from "@/actions/contests";
+import { revalidate } from "@/actions/revalidate";
 import { Button } from "@/components/ui/button";
 import { Label } from '@/components/ui/label';
 import { Input } from "@/components/ui/input";
@@ -16,7 +17,7 @@ import {
 import { DifficultyTag } from "@/components/difficulty-tag";
 import { CheckedState } from "@radix-ui/react-checkbox";
 import { Checkbox } from '@/components/ui/checkbox';
-import { ProblemList } from "@/actions/dto/response";
+import { Pagination, ProblemListItem } from "@/actions/models/response";
 import { Link } from "@/components/ui/link";
 import { ChangeEvent, use } from "react";
 import { cn } from "@/lib/utils";
@@ -32,7 +33,7 @@ export interface FormData {
     allow_late_join: boolean;
 }
 
-export function CreateContestForm({ problems }: { problems: Promise<ProblemList> }) {
+export function CreateContestForm({ problems }: { problems: Promise<Pagination<ProblemListItem>> }) {
     const problemslist = use(problems);
     const router = useRouter();
 
@@ -107,7 +108,7 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
                     <Table>
                         <TableCaption>
                             {
-                                problemslist.data.length === 0
+                                problemslist.items.length === 0
                                     ? <span>You need to create problems first <Link href="/hub/new/problem">here</Link>.</span>
                                     : <span>You can create new problems <Link href="/hub/new/problem">here</Link>.</span>
                             }
@@ -122,7 +123,7 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
                         </TableHeader>
                         <TableBody>
                             {
-                                problemslist.data.map((problem, index) => (
+                                problemslist.items.map((problem, index) => (
                                     <TableRow key={index}>
                                         <TableCell className="flex items-center">
                                             <Checkbox

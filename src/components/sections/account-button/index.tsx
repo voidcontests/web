@@ -5,7 +5,7 @@ import React from "react";
 import Link from "next/link";
 import { useAccount } from "@/hooks/use-account";
 import Cookies from "js-cookie";
-import { revalidate } from "@/actions";
+import { revalidate } from "@/actions/revalidate";
 import { LoaderCircle, LogOut } from "lucide-react";
 
 const AccountButton = () => {

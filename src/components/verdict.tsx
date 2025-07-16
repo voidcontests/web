@@ -1,15 +1,9 @@
-import { cva, type VariantProps } from "class-variance-authority";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils";
-import * as React from "react";
+import { HTMLAttributes } from "react";
 import { Tag } from "./ui/tag";
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
 
-export interface VerdictProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface VerdictProps extends HTMLAttributes<HTMLDivElement> {
     verdict: 'OK' | 'WA' | undefined;
 }
 

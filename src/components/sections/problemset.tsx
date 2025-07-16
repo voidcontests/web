@@ -2,7 +2,7 @@
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from '@/components/ui/table';
 import { DifficultyTag } from '@/components/difficulty-tag';
-import { ContestDetailed } from '@/actions/dto/response';
+import { ContestDetailed } from '@/actions/models/response';
 import { SolvedTag } from '@/components/solved-tag';
 import { Link } from '@/components/ui/link';
 import { capitalize } from '@/lib/strings';

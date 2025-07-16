@@ -1,9 +1,9 @@
 'use client';
 
-import { ContestDetailed } from "@/actions/dto/response";
+import { ContestDetailed } from "@/actions/models/response";
 import { use } from "react";
 import Timer from "@/components/timer";
-import { revalidate } from "@/actions";
+import { revalidate } from "@/actions/revalidate";
 
 export default function ContestStartingCountdown({ contest }: { contest: Promise<ContestDetailed> }) {
     const cdetailed = use(contest);

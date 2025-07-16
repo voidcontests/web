@@ -1,4 +1,4 @@
-import { ContestDetailed } from "@/actions/dto/response";
+import { ContestDetailed } from "@/actions/models/response";
 import { format_duration } from "@/lib/utils";
 import { use } from "react";
 import {

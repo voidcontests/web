@@ -1,4 +1,6 @@
-import { getAccount, getCreatedContests, getCreatedProblems } from '@/actions';
+import { getAccount } from '@/actions/account';
+import { getCreatedContests } from '@/actions/contests';
+import { getCreatedProblems } from '@/actions/problems';
 import ContentContainer from '@/components/content-container';
 import { TableTemplate } from '@/components/sections/loading';
 import HubMessage from '@/components/sections/hub-message';

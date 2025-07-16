@@ -1,3 +1,16 @@
+export type Pagination<T> = {
+    meta: Meta;
+    items: T[];
+};
+
+export type Meta = {
+    total: number;
+    limit: number;
+    offset: number;
+    has_next: boolean;
+    has_prev: boolean;
+};
+
 export type Account = {
     id: number;
     username: string;
@@ -25,7 +38,7 @@ export type ProblemList = {
 };
 
 export type SubmissionsList = {
-    data: Submissionp[];
+    data: Submission[];
 };
 
 export type ContestDetailed = {
@@ -121,3 +134,9 @@ export type LeaderboardItem = {
 export type Leaderboard = {
     data: LeaderboardItem[];
 }
+
+export type ExecutionResult = {
+	status: number;
+	stdout: string;
+	stderr: string;
+};

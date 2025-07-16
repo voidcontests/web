@@ -1,4 +1,4 @@
-import { ContestListItem } from "@/actions/dto/response";
+import { ContestListItem } from "@/actions/models/response";
 import Status from "./status";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 import { capitalize } from "@/lib/strings";

@@ -1,12 +1,12 @@
 'use client';
 
-import { ProblemDetailed, Submission } from "@/actions/dto/response";
+import { ProblemDetailed, Submission } from "@/actions/models/response";
 import { SubmissionReport } from "@/components/sections/submission-report";
 import { CodeEditor } from "@/components/sections/code-editor";
 import Preview from "@/components/sections/preview";
 import { authorized } from "@/api/core/instance";
 import { Button } from "@/components/ui/button";
-import { revalidate } from "@/actions";
+import { revalidate } from "@/actions/revalidate";
 import { Input } from "@/components/ui/input";
 import { use, useState } from "react";
 import { toast } from "@/components/toast";

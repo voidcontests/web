@@ -1,4 +1,4 @@
-import { getAccount } from "@/actions";
+import { getAccount } from "@/actions/account";
 
 export default async function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
     const account = await getAccount();

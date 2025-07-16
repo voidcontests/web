@@ -1,6 +1,6 @@
 'use client';
 
-import { ContestDetailed } from "@/actions/dto/response";
+import { ContestDetailed } from "@/actions/models/response";
 import { use } from "react";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,

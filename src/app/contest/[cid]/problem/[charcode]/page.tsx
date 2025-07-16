@@ -1,6 +1,7 @@
 import { ContestProblemView } from '@/components/sections/contest-problem-view';
 import { ProblemsetMinimal } from '@/components/sections/problemset';
-import { getContestByID, getContestProblem, getProblemSubmissions } from '@/actions';
+import { getContestByID, getContestProblem } from '@/actions/contests';
+import { getProblemSubmissions } from '@/actions/problems';
 import ContentContainer from '@/components/content-container';
 import Setters from '@/components/sections/problem-setters';
 import { LatestSubmissionsView } from '@/components/sections/latest-submissions';

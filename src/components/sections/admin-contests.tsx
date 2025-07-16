@@ -1,14 +1,14 @@
 'use client';
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from "@/components/ui/table";
-import { Account, ContestList } from '@/actions/dto/response';
+import { Account, ContestList, ContestListItem, Pagination } from '@/actions/models/response';
 import ContestStatus from '@/components/contest-status';
 import { format_duration } from '@/lib/utils';
 import { DateView } from "@/components/date";
 import { Link } from "@/components/ui/link";
 import { use } from 'react';
 
-export default function AdminContests({ account, contests }: { account: Promise<Account>, contests: Promise<ContestList> }) {
+export default function AdminContests({ account, contests }: { account: Promise<Account>, contests: Promise<Pagination<ContestListItem>> }) {
     const acc = use(account);
     const cs = use(contests);
 
@@ -39,7 +39,7 @@ export default function AdminContests({ account, contests }: { account: Promise<
                 </TableHeader>
                 <TableBody>
                     {
-                        cs.data.map((contest, index) => (
+                        cs.items.map((contest, index) => (
                             <TableRow key={index}>
                                 <TableCell className='text-center pr-5'>
                                     {contest.id}
@@ -84,7 +84,7 @@ export default function AdminContests({ account, contests }: { account: Promise<
                     }
                 </TableBody>
                 {
-                    cs.data.length === 0 &&
+                    cs.items.length === 0 &&
                     <TableCaption>
                         No created contests.
                     </TableCaption>
