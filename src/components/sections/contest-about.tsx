@@ -6,9 +6,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { format_duration } from "@/lib/utils";
 import { DateView } from "@/components/date";
 import { use } from "react";
+import { Response } from "@/actions";
 
-export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> }) {
-    const cdetailed = use(contest);
+export function ContestAbout({ contest }: { contest: Promise<Response<ContestDetailed>> }) {
+    const { data: cdetailed } = use(contest);
 
     return (
         <Widget className="flex-1">

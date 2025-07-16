@@ -8,9 +8,10 @@ import { Link } from '@/components/ui/link';
 import { capitalize } from '@/lib/strings';
 import { use } from 'react';
 import { useAccount } from '@/hooks/use-account';
+import { Response } from '@/actions';
 
-export function Problemset({ contest }: { contest: Promise<ContestDetailed> }) {
-    const cdetailed = use(contest);
+export function Problemset({ contest }: { contest: Promise<Response<ContestDetailed>> }) {
+    const { data: cdetailed, status: _ } = use(contest);
     const problemset = cdetailed.problems;
     const started = new Date(cdetailed.start_time) < new Date();
 
@@ -68,8 +69,8 @@ export function Problemset({ contest }: { contest: Promise<ContestDetailed> }) {
     );
 }
 
-export function ProblemsetMinimal({ contest }: { contest: Promise<ContestDetailed> }) {
-    const cdetailed = use(contest);
+export function ProblemsetMinimal({ contest }: { contest: Promise<Response<ContestDetailed>> }) {
+    const { data: cdetailed } = use(contest);
     const problemset = cdetailed.problems;
     const started = new Date(cdetailed.start_time) < new Date();
 

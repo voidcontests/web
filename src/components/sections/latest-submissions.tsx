@@ -4,9 +4,10 @@ import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBod
 import { Pagination, Submission } from "@/actions/models/response";
 import { use } from "react";
 import { DateView } from '@/components/date';
+import { Response } from '@/actions';
 
-export function LatestSubmissionsView({ submissions }: { submissions: Promise<Pagination<Submission>> }) {
-    const subs = use(submissions) || [];
+export function LatestSubmissionsView({ submissions }: { submissions: Promise<Response<Pagination<Submission>>> }) {
+    const { data: subs } = use(submissions) || [];
 
     return (
         <TableContainer>

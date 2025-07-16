@@ -6,9 +6,10 @@ import { format_duration } from '@/lib/utils';
 import { Link } from '@/components/ui/link';
 import { DateView } from '@/components/date';
 import { use } from 'react';
+import { Response } from "@/actions";
 
-export default function PublicContests({ contests }: { contests: Promise<Pagination<ContestListItem>> }) {
-    const cs = use(contests);
+export default function PublicContests({ contests }: { contests: Promise<Response<Pagination<ContestListItem>>> }) {
+    const { data: cs } = use(contests);
 
     return (
         <TableContainer>

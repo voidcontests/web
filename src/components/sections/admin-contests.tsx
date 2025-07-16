@@ -7,10 +7,11 @@ import { format_duration } from '@/lib/utils';
 import { DateView } from "@/components/date";
 import { Link } from "@/components/ui/link";
 import { use } from 'react';
+import { Response } from "@/actions";
 
-export default function AdminContests({ account, contests }: { account: Promise<Account>, contests: Promise<Pagination<ContestListItem>> }) {
-    const acc = use(account);
-    const cs = use(contests);
+export default function AdminContests({ account, contests }: { account: Promise<Response<Account>>, contests: Promise<Response<Pagination<ContestListItem>>> }) {
+    const { data: acc } = use(account);
+    const { data: cs } = use(contests);
 
     return (
         <TableContainer>

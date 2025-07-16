@@ -6,9 +6,10 @@ import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableTitle,
 } from "@/components/ui/table";
+import { Response } from "@/actions";
 
-export default function Setters({ contest }: { contest: Promise<ContestDetailed> }) {
-    const cdetailed = use(contest);
+export default function Setters({ contest }: { contest: Promise<Response<ContestDetailed>> }) {
+    const { data: cdetailed } = use(contest);
 
     const setters = Array.from(new Set(cdetailed.problems.map(problem => problem.writer.username)));
 

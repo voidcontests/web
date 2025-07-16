@@ -29,7 +29,7 @@ export function LoginForm() {
 
     const onSubmit = async (data: FormData) => {
         try {
-            let response = await createSession(data);
+            let { data: response } = await createSession(data);
             Cookies.set(config.cookies.token_key, response.token);
             revalidate('/');
             router.push('/');

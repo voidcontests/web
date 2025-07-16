@@ -14,11 +14,12 @@ import { TestCase } from "@/components/sections/test-case";
 import { Separator } from "@/components/ui/separator";
 import { getInitialCode } from "@/components/sections/editor/utils";
 import { sleep } from "@/lib/utils";
+import { Response } from "@/actions";
 
 const DEFAULT_LANGUAGE = "c";
 
-export function ContestProblemView({ problem }: { problem: Promise<ProblemDetailed> }) {
-    const pdetailed = use(problem);
+export function ContestProblemView({ problem }: { problem: Promise<Response<ProblemDetailed>> }) {
+    const { data: pdetailed } = use(problem);
 
     const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
     const [code, setCode] = useState(getInitialCode(DEFAULT_LANGUAGE));

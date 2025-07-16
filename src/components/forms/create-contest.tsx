@@ -22,6 +22,7 @@ import { Link } from "@/components/ui/link";
 import { ChangeEvent, use } from "react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { Response } from "@/actions";
 
 export interface FormData {
     title: string;
@@ -33,8 +34,8 @@ export interface FormData {
     allow_late_join: boolean;
 }
 
-export function CreateContestForm({ problems }: { problems: Promise<Pagination<ProblemListItem>> }) {
-    const problemslist = use(problems);
+export function CreateContestForm({ problems }: { problems: Promise<Response<Pagination<ProblemListItem>>> }) {
+    const { data: problemslist } = use(problems);
     const router = useRouter();
 
     const { register, handleSubmit, setValue, watch } = useForm<FormData>({

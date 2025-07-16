@@ -18,7 +18,7 @@ export function useAccount() {
             if (token === undefined || token === "") {
                 setAccount(null);
             } else {
-                const accountData = await getAccount();
+                const { data: accountData } = await getAccount();
                 setAccount(accountData);
             }
             setError(null);

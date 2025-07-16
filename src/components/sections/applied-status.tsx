@@ -9,11 +9,12 @@ import { createEntry } from "@/actions/contests";
 import { revalidate } from "@/actions/revalidate";
 import { useAccount } from "@/hooks/use-account";
 import Link from "next/link";
+import { Response } from "@/actions";
 
-export default function AppliedStatus({ contest }: { contest: Promise<ContestDetailed> }) {
+export default function AppliedStatus({ contest }: { contest: Promise<Response<ContestDetailed>> }) {
     const { account, loading } = useAccount();
 
-    const cdetailed = use(contest);
+    const { data: cdetailed } = use(contest);
     const start_time = new Date(cdetailed.start_time);
 
     if (loading) {

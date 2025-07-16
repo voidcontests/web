@@ -11,7 +11,9 @@ import z from 'zod';
 
 export type ID = string | number;
 
-export async function fetchWithAuth<T>(url: string, options: RequestInit, schema: z.ZodSchema<T>): Promise<T> {
+export type Response<T> = { data: T, status: number };
+
+export async function fetchWithAuth<T>(url: string, options: RequestInit, schema: z.ZodSchema<T>): Promise<Response<T>> {
     const token = cookies().get(config.cookies.token_key)?.value;
     const headers = {
         ...options.headers,
@@ -20,17 +22,19 @@ export async function fetchWithAuth<T>(url: string, options: RequestInit, schema
     };
 
     const res = await fetch(url, { ...options, headers });
+    const status = res.status;
 
     if (!res.ok) {
         const errorBody = await res.text();
-        throw new Error(`Fetch failed: ${res.status} ${res.statusText}. Body: ${errorBody}`);
+        throw new Error(`Fetch failed: ${status} ${res.statusText}. Body: ${errorBody}`);
     }
 
-    const data = await res.json();
-    const parsed = schema.safeParse(data);
+    const json = await res.json();
+    const parsed = schema.safeParse(json);
+
     if (!parsed.success) {
         throw new Error(`Response validation failed: ${parsed.error}`);
     }
 
-    return parsed.data;
+    return { data: parsed.data, status };
 }

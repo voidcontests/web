@@ -3,9 +3,10 @@
 import { MessageBox } from '@/components/sections/message-box';
 import { Account } from '@/actions/models/response';
 import { use } from 'react';
+import { Response } from "@/actions";
 
-export default function HubMessage({ account }: { account: Promise<Account> }) {
-    const acc = use(account);
+export default function HubMessage({ account }: { account: Promise<Response<Account>> }) {
+    const { data: acc } = use(account);
 
     if (acc.role.name === 'admin') {
         return (

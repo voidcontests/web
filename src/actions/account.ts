@@ -1,13 +1,13 @@
 'use server';
 
-import { fetchWithAuth } from '.';
+import { fetchWithAuth, Response } from '.';
 import { config } from '@/config';
 import { Account, EntityID, Token } from '@/actions/models/response';
 import { FormData as SignInFormData } from '@/components/forms/sign-in';
 import { FormData as SignUpFormData } from '@/components/forms/sign-up';
 import { AccountSchema, EntityIDSchema, TokenSchema } from './schemas';
 
-export async function createSession(data: SignInFormData): Promise<Token> {
+export async function createSession(data: SignInFormData): Promise<Response<Token>> {
 	const res = await fetch(config.api.basepath + '/session', {
 		method: 'POST',
 		headers: {
@@ -27,10 +27,10 @@ export async function createSession(data: SignInFormData): Promise<Token> {
 		throw new Error(`Invalid session token response: ${parsed.error}`);
 	}
 
-	return parsed.data;
+    return { data: parsed.data, status: res.status };
 }
 
-export async function createAccount(data: SignUpFormData): Promise<EntityID> {
+export async function createAccount(data: SignUpFormData): Promise<Response<EntityID>> {
 	return await fetchWithAuth(config.api.basepath + '/account',
 		{
 			method: 'POST',
@@ -40,7 +40,7 @@ export async function createAccount(data: SignUpFormData): Promise<EntityID> {
 	);
 }
 
-export async function getAccount(): Promise<Account> {
+export async function getAccount(): Promise<Response<Account>> {
 	return await fetchWithAuth(config.api.basepath + '/account',
 		{
 			method: 'GET',

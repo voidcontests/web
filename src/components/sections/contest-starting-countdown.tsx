@@ -4,9 +4,10 @@ import { ContestDetailed } from "@/actions/models/response";
 import { use } from "react";
 import Timer from "@/components/timer";
 import { revalidate } from "@/actions/revalidate";
+import { Response } from "@/actions";
 
-export default function ContestStartingCountdown({ contest }: { contest: Promise<ContestDetailed> }) {
-    const cdetailed = use(contest);
+export default function ContestStartingCountdown({ contest }: { contest: Promise<Response<ContestDetailed>> }) {
+    const { data: cdetailed } = use(contest);
     const start_time = new Date(cdetailed.start_time);
 
     if ((new Date()) > start_time) return null;

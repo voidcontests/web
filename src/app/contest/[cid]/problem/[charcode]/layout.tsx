@@ -1,7 +1,7 @@
 import { getContestProblem } from "@/actions/contests";
 
 export async function generateMetadata({ params }: { params: { cid: string, charcode: string } }) {
-    const problem = await getContestProblem(params.cid, params.charcode);
+    const { data: problem } = await getContestProblem(params.cid, params.charcode);
 
     return {
         title: `Problem ${params.charcode.toUpperCase()} - ${problem.title}`,

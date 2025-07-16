@@ -1,8 +1,9 @@
 import { ContestDetailed } from "@/actions/models/response";
 import { use } from "react";
+import { Response } from "@/actions";
 
-export default function ContestInfo({ contest }: { contest: Promise<ContestDetailed> }) {
-    const cdetailed = use(contest);
+export default function ContestInfo({ contest }: { contest: Promise<Response<ContestDetailed>> }) {
+    const { data: cdetailed } = use(contest);
 
     return (
         <div className="border rounded-xl bg-surface p-5 flex flex-col gap-2 not-dark:shadow-md">

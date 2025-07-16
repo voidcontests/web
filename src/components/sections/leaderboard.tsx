@@ -6,9 +6,10 @@ import {
     TableBody, TableRow, TableCell, TableCaption, TableTitle
 } from "@/components/ui/table";
 import { use } from "react";
+import { Response } from "@/actions";
 
-export default function Problemset({ leaderboard }: { leaderboard: Promise<Pagination<LeaderboardItem>> }) {
-    const lb = use(leaderboard);
+export default function Problemset({ leaderboard }: { leaderboard: Promise<Response<Pagination<LeaderboardItem>>> }) {
+    const { data: lb } = use(leaderboard);
 
     return (
         <TableContainer>
