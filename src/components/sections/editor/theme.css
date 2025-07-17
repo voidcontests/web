@@ -1,0 +1,125 @@
+.w-tc-editor {
+    font-family: "Ubuntu Mono", monospace;
+    font-size: 1rem;
+    color: var(--editor-gray);
+    background-color: transparent;
+}
+
+.w-tc-editor-text,
+.w-tc-editor-preview {
+    min-height: 16px;
+}
+
+.w-tc-editor-preview pre {
+    margin: 0;
+    padding: 0;
+    white-space: inherit;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.w-tc-editor-preview pre code {
+    font-family: inherit;
+}
+
+.w-tc-editor code[class*="language-"],
+.w-tc-editor pre[class*="language-"] {
+    color: var(--editor-gray);
+}
+
+.w-tc-editor code[class*="language-"] .token.property-access .token.method,
+.w-tc-editor pre[class*="language-"] .token.property-access .token.method,
+.w-tc-editor code[class*="language-"] .token.atrule,
+.w-tc-editor pre[class*="language-"] .token.atrule,
+.w-tc-editor code[class*="language-"] .namespace,
+.w-tc-editor pre[class*="language-"] .namespace,
+.w-tc-editor code[class*="language-"] .token.punctuation,
+.w-tc-editor pre[class*="language-"] .token.punctuation,
+.w-tc-editor code[class*="language-"] .token.cdata,
+.w-tc-editor pre[class*="language-"] .token.cdata,
+.w-tc-editor code[class*="language-"] .token.comment,
+.w-tc-editor pre[class*="language-"] .token.comment,
+.w-tc-editor code[class*="language-"] .token.doctype,
+.w-tc-editor pre[class*="language-"] .token.doctype,
+.w-tc-editor code[class*="language-"] .token.prolog,
+.w-tc-editor pre[class*="language-"] .token.prolog {
+    color: var(--editor-gray);
+}
+
+.w-tc-editor code[class*="language-"] .token.boolean,
+.w-tc-editor pre[class*="language-"] .token.boolean,
+.w-tc-editor code[class*="language-"] .token.property,
+.w-tc-editor pre[class*="language-"] .token.property,
+.w-tc-editor code[class*="language-"] .token.deleted,
+.w-tc-editor pre[class*="language-"] .token.deleted,
+.w-tc-editor code[class*="language-"] .token.operator,
+.w-tc-editor pre[class*="language-"] .token.operator,
+.w-tc-editor code[class*="language-"] .token.symbol,
+.w-tc-editor pre[class*="language-"] .token.symbol {
+    color: var(--editor-coral);
+}
+
+.w-tc-editor code[class*="language-"] .token.constant,
+.w-tc-editor pre[class*="language-"] .token.constant,
+.w-tc-editor code[class*="language-"] .token.number,
+.w-tc-editor pre[class*="language-"] .token.number {
+    color: var(--editor-purple);
+}
+
+.w-tc-editor code[class*="language-"] .token.char,
+.w-tc-editor pre[class*="language-"] .token.char,
+.w-tc-editor code[class*="language-"] .token.inserted,
+.w-tc-editor pre[class*="language-"] .token.inserted,
+.w-tc-editor code[class*="language-"] .token.selector,
+.w-tc-editor pre[class*="language-"] .token.selector,
+.w-tc-editor code[class*="language-"] .token.string,
+.w-tc-editor pre[class*="language-"] .token.string {
+    color: var(--editor-green);
+}
+
+.w-tc-editor code[class*="language-"] .token.keyword,
+.w-tc-editor pre[class*="language-"] .token.keyword {
+    color: var(--editor-orange);
+}
+
+.w-tc-editor code[class*="language-"] .token.builtin,
+.w-tc-editor pre[class*="language-"] .token.builtin,
+.w-tc-editor code[class*="language-"] .token.function,
+.w-tc-editor pre[class*="language-"] .token.function {
+    color: var(--editor-yellow);
+}
+
+/* DONT KNOW WTF IS THIS */
+.w-tc-editor code[class*="language-"] .style .token.string,
+.w-tc-editor pre[class*="language-"] .style .token.string,
+.w-tc-editor code[class*="language-"] .token.entity,
+.w-tc-editor pre[class*="language-"] .token.entity,
+.w-tc-editor code[class*="language-"] .token.url,
+.w-tc-editor pre[class*="language-"] .token.url,
+.w-tc-editor code[class*="language-"] .token.tag,
+.w-tc-editor pre[class*="language-"] .token.tag,
+.w-tc-editor code[class*="language-"] .token.regex,
+.w-tc-editor pre[class*="language-"] .token.regex,
+.w-tc-editor code[class*="language-"] .token.variable,
+.w-tc-editor pre[class*="language-"] .token.variable,
+.w-tc-editor code[class*="language-"] .token.attr-value,
+.w-tc-editor pre[class*="language-"] .token.attr-value,
+.w-tc-editor code[class*="language-"] .token.attr-name,
+.w-tc-editor pre[class*="language-"] .token.attr-name {
+    color: var(--editor-gray);
+}
+
+/* markdown: bold text and headings */
+.w-tc-editor code[class*="language-"] .token.important,
+.w-tc-editor pre[class*="language-"] .token.important,
+.w-tc-editor code[class*="language-"] .token.bold,
+.w-tc-editor pre[class*="language-"] .token.bold {
+    font-weight: bold;
+}
+
+.w-tc-editor code[class*="language-"] .token.selector .class,
+.w-tc-editor pre[class*="language-"] .token.selector .class,
+.w-tc-editor code[class*="language-"] .token.class-name,
+.w-tc-editor pre[class*="language-"] .token.class-name {
+    color: var(--editor-blue);
+}

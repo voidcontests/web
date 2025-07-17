@@ -1,0 +1,147 @@
+import z from "zod";
+import { ErrorSchema } from "../schemas";
+
+export type Pagination<T> = {
+    meta: Meta;
+    items: T[];
+};
+
+export type Meta = {
+    total: number;
+    limit: number;
+    offset: number;
+    has_next: boolean;
+    has_prev: boolean;
+};
+
+export type Account = {
+    id: number;
+    username: string;
+    role: {
+        name: string;
+        created_problems_limit: number;
+        created_contests_limit: number;
+    };
+};
+
+export type EntityID = {
+    id: number;
+};
+
+export type Token = {
+    token: string;
+};
+
+export type ContestList = {
+    data: ContestListItem[];
+};
+
+export type ProblemList = {
+    data: ProblemListItem[];
+};
+
+export type SubmissionsList = {
+    data: Submission[];
+};
+
+export type ContestDetailed = {
+    id: number;
+    creator: User;
+    title: string;
+    description: string;
+    start_time: Date;
+    end_time: Date;
+    duration_mins: number;
+    max_entries?: number;
+    participants: number;
+    allow_late_join: boolean;
+    is_participant?: boolean;
+    problems: ProblemListItem[];
+    created_at: Date;
+};
+
+export type ProblemListItem = {
+    id: number;
+    charcode?: string;
+    contest_id?: number;
+    writer: User;
+    title: string;
+    difficulty: string;
+    status?: 'accepted' | 'tried';
+    created_at: Date;
+};
+
+export type ContestListItem = {
+    id: number;
+    creator: User;
+    title: string;
+    start_time: Date;
+    end_time: Date;
+    duration_mins: number;
+    max_entries?: number;
+    participants: number;
+    created_at: Date;
+};
+
+export type Submission = {
+    id: number;
+    problem_id: number;
+    problem_kind: string;
+    verdict: string;
+    answer?: string;
+    code?: string;
+    language?: string;
+    testing_report?: {
+        passed: number;
+        total: number;
+        stderr?: string;
+        failed_test?: {
+            input: string;
+            expected_output: string;
+            actual_output: string;
+        },
+    };
+    created_at: Date;
+};
+
+export type User = {
+    id: number;
+    username: string;
+};
+
+export type ProblemDetailed = {
+    id: number;
+    charcode: string;
+    contest_id: number;
+    writer: User;
+    kind: string;
+    title: string;
+    difficulty: string;
+    statement: string;
+    examples?: {
+        input: string;
+        output: string;
+    }[];
+    status?: 'accepted' | 'tried';
+    time_limit_ms?: number;
+    created_at: Date;
+}
+
+
+export type LeaderboardItem = {
+    user_id: number;
+    username: string;
+    points: number;
+}
+
+export type Leaderboard = {
+    data: LeaderboardItem[];
+}
+
+export type ExecutionResult = {
+	status: number;
+	stdout: string;
+	stderr: string;
+};
+
+export type Error = z.infer<typeof ErrorSchema>;

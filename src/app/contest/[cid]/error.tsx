@@ -1,18 +1,14 @@
-'use client'
+'use client';
 
-import ContentContainer from '@/components/content-container'
-import { useEffect } from 'react'
+import { MessageBox } from '@/components/sections/message-box';
+import ContentContainer from '@/components/content-container';
 
-export default function Error({ error }: { error: Error & { digest?: string } }) {
-    useEffect(() => {
-        console.error(error)
-    }, [error])
-
+export default function Error({ error }: { error: Error }) {
     return (
         <ContentContainer>
-            <div className="py-4 px-6 rounded-lg bg-scarlet-500/20 border border-scarlet-500 text-scarlet-500">
+            <MessageBox variant='error'>
                 Contest was not found
-            </div>
+            </MessageBox>
         </ContentContainer>
     )
 }

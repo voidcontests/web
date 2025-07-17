@@ -1,13 +1,20 @@
 'use client';
 
 import { Widget, WidgetContent, WidgetTitle, } from "@/components/ui/widget";
-import { ContestDetailed } from "@/api/dto/response";
-import { format_date, format_duration } from "@/lib/utils";
+import { ContestDetailed } from "@/actions/models/response";
 import { Skeleton } from "@/components/ui/skeleton";
+import { format_duration } from "@/lib/utils";
+import { DateView } from "@/components/date";
 import { use } from "react";
+import { Result } from "@/actions";
 
-export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> }) {
-    const cdetailed = use(contest);
+export function ContestAbout({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
+    const result = use(contest);
+    if (!result.ok) {
+        throw new Error(`Fetch contest failed: ${result.error}`);
+    }
+
+    const cdetailed = result.data;
 
     return (
         <Widget className="flex-1">
@@ -20,7 +27,7 @@ export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> })
                         Starts
                     </div>
                     <div className="flex-1">
-                        {format_date(new Date(cdetailed.start_time))}
+                        <DateView date={cdetailed.start_time} />
                     </div>
                 </div>
                 <div className="flex">
@@ -28,7 +35,7 @@ export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> })
                         Deadline
                     </div>
                     <div className="flex-1">
-                        {format_date(new Date(cdetailed.end_time))}
+                        <DateView date={cdetailed.end_time} />
                     </div>
                 </div>
                 {
@@ -52,10 +59,10 @@ export function ContestAbout({ contest }: { contest: Promise<ContestDetailed> })
                 </div>
                 <div className="flex">
                     <div className="flex-1 text-secondary-foreground">
-                        Slots
+                        Total slots
                     </div>
                     <div className="flex-1">
-                        Not limited
+                        {cdetailed.max_entries || 'Not limited'}
                     </div>
                 </div>
             </WidgetContent>

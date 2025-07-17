@@ -1,76 +1,47 @@
 'use client';
 
-import { ProblemDetailed } from "@/api/dto/response";
-import { authorized } from "@/api/core/instance";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Link } from "@/components/ui/link";
-import Preview from "@/components/sections/preview";
-import { use, useState } from "react";
-import { toast } from "sonner";
+import { TestCase } from '@/components/sections/test-case';
+import { ProblemDetailed } from '@/actions/models/response';
+import Preview from '@/components/sections/preview';
+import { use } from 'react';
+import { Result } from '@/actions';
 
-export default function ProblemView({ problem }: { problem: Promise<ProblemDetailed> }) {
-    const pdetailed = use(problem);
-    const [answer, setAnswer] = useState('');
-
-    async function submitAnswer() {
-        if (answer.trim().length === 0) return;
-
-        if (pdetailed.status === 'accepted') {
-            toast.info("Solution for this problem already accepted");
-            return;
-        }
-
-        const { data, status } = await authorized.post(`/contests/${pdetailed.contest_id}/problems/${pdetailed.id}/submissions`, { answer: answer });
-
-        switch (status) {
-            case 201:
-                const verdict = data.verdict;
-                if (verdict === 'OK') {
-                    toast.success('Correct! Answer accepted');
-                } else if (verdict === 'WA') {
-                    toast.warning('Your answer is incorrect');
-                } else {
-                    toast.error(`Unknown verdict: ${verdict}`);
-                }
-                // TODO: re-fetchContest on successfull problem submission
-                // fetchContest();
-                break;
-            case 429:
-                toast.warning(`You are submitting too frequently. Wait for ${data.timeout}`);
-                break;
-            default:
-                toast.error('Something went wrong. Try again later');
-        }
+export function ProblemView({ problem }: { problem: Promise<Result<ProblemDetailed>> }) {
+    const result = use(problem);
+    if (!result.ok) {
+        throw new Error(`Fetch problem failed: ${result.error}`);
     }
 
+    const pdetailed = result.data;
+
     return (
-        <div className="flex flex-col gap-7">
-            <div className="flex justify-between items-center">
-                <div className="flex-1">
-                    <Link href={`/contest/${pdetailed.contest_id}`} size="large">
-                        BACK TO CONTEST
-                    </Link>
-                </div>
-                <h1 className="text-foreground text-xl font-medium text-center">
+        <div className='flex flex-col gap-7'>
+            <div className='flex justify-center items-center'>
+                <h1 className='text-foreground text-xl font-medium text-center'>
                     {pdetailed.title}
                 </h1>
-                <div className="flex-1"></div>
             </div>
             <Preview markdown={pdetailed.statement} />
-            <div className="flex items-center gap-4">
-                <span className="shrink-0 text-sm font-semibold">
-                    Answer:
-                </span>
-                <Input
-                    value={answer}
-                    onChange={(e) => setAnswer(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') submitAnswer();
-                    }}
-                />
-                <Button onClick={submitAnswer} disabled={answer.trim().length === 0}>SUBMIT</Button>
-            </div>
+            {
+                pdetailed.kind === 'coding_problem' &&
+                <div className='flex flex-col gap-4'>
+                    {
+                        (pdetailed.examples && pdetailed.examples.length !== 0) &&
+                        <div className='flex flex-col gap-0'>
+                            <h3 className='font-medium text-lg'>
+                                Examples
+                            </h3>
+                            <div className='flex flex-col gap-3'>
+                                {
+                                    pdetailed.examples.map((example) => (
+                                        <TestCase tc={example} />
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
         </div>
     );
 }

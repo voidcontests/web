@@ -27,5 +27,13 @@
         --code-addition-background: #62c0741f;
         --code-deletion-foreground: #f75f8f;
         --code-deletion-background: #f75f8f1f;
+
+        --editor-blue: #3c9ee5;
+        --editor-orange: #fa8d3f;
+        --editor-gray: #5c6165;
+        --editor-green: #85b300;
+        --editor-yellow: #f2ad48;
+        --editor-coral: #ed9365;
+        --editor-purple: #a37acc;
     }
 }

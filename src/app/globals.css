@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@config "../../tailwind.config.ts";
 
 @import "../styles/theme.css";
 
@@ -22,6 +23,16 @@
     body {
         font-family: "Rubik", sans-serif;
     }
+
+    .no-arrows::-webkit-inner-spin-button,
+    .no-arrows::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .no-arrows {
+        -moz-appearance: textfield;
+    }
 }
 
 @layer base {
@@ -30,14 +41,14 @@
     }
 
     body {
-        @apply bg-background text-foreground;
+        @apply bg-background text-foreground text-sm;
     }
 
-    ::selection {
+    /* ::selection {
         background-color: --alpha(var(--color-blue-400) / 20%);
     }
 
     ::-moz-selection {
         background-color: --alpha(var(--color-blue-400) / 20%);
-    }
+    } */
 }

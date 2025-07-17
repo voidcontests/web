@@ -1,24 +1,28 @@
 'use client';
 
-import { useIsConnectionRestored, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
-import { ContestDetailed } from "@/api/dto/response";
+import { ContestDetailed } from "@/actions/models/response";
 import { Button } from "@/components/ui/button";
-import * as API from '@/api';
 import { use } from "react";
-import { toast } from "sonner";
+import { toast } from "@/components/toast";
 import { LoaderCircle } from "lucide-react";
-import { revalidate } from "@/actions/actions";
+import { createEntry } from "@/actions/contests";
+import { revalidate } from "@/actions/revalidate";
+import { useAccount } from "@/hooks/use-account";
+import Link from "next/link";
+import { Result } from "@/actions";
 
-export default function AppliedStatus({ contest }: { contest: Promise<ContestDetailed> }) {
-    const cdetailed = use(contest);
+export default function AppliedStatus({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
+    const { account, loading } = useAccount();
 
-    const wallet = useTonWallet();
-    const [tonConnectUI] = useTonConnectUI();
-    const isConnectionRestored = useIsConnectionRestored();
+    const result = use(contest);
+    if (!result.ok) {
+        throw new Error(`Fetch contest information failed: ${result.error}`);
+    }
 
+    const cdetailed = result.data;
     const start_time = new Date(cdetailed.start_time);
 
-    if (!isConnectionRestored) {
+    if (loading) {
         return (
             <Button variant="link" disabled>
                 <LoaderCircle className="animate-spin" /> LOADING
@@ -26,9 +30,12 @@ export default function AppliedStatus({ contest }: { contest: Promise<ContestDet
         );
     }
 
-    if (!wallet) {
+    // TODO: for whatever freaking reason, sign in button dont work
+    if (account === null) {
         return (
-            <Button variant="link" onClick={() => tonConnectUI.openModal()}>CONNECT WALET TO APPLY</Button>
+            <Link href="/login">
+                <Button asChild variant="link">SIGN IN TO APPLY</Button>
+            </Link>
         );
     }
 
@@ -40,18 +47,24 @@ export default function AppliedStatus({ contest }: { contest: Promise<ContestDet
         return <span className="text-center font-medium">You are participating!</span>;
     }
 
-    if (new Date() > start_time) {
+    if (new Date() > start_time && !cdetailed.allow_late_join) {
         return (
-            <span className="text-center font-medium">Application time is over :/</span>
+            <span className="text-center font-medium">Application time is over.</span>
+        );
+    }
+
+    if (cdetailed.max_entries && cdetailed.max_entries >= cdetailed.participants) {
+        return (
+            <span className="text-center font-medium">There is no available slots to join.</span>
         );
     }
 
     const handleApplyClick = async () => {
         try {
-            await API.applyForContest(cdetailed.id);
+            await createEntry(cdetailed.id);
             revalidate(`/contest/${cdetailed.id}`);
         } catch (e) {
-            toast.error('Something went wrong. Try again leter');
+            toast({ title: 'Something went wrong. Try again leter' });
         }
     }
 
