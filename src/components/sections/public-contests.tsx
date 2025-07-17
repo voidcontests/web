@@ -6,10 +6,23 @@ import { format_duration } from '@/lib/utils';
 import { Link } from '@/components/ui/link';
 import { DateView } from '@/components/date';
 import { use } from 'react';
-import { Response } from "@/actions";
+import { Result } from "@/actions";
 
-export default function PublicContests({ contests }: { contests: Promise<Response<Pagination<ContestListItem>>> }) {
-    const { data: cs } = use(contests);
+export default function PublicContests({ contests }: { contests: Promise<Result<Pagination<ContestListItem>>> }) {
+    const result = use(contests);
+
+    if (!result.ok) {
+        return (
+            <TableContainer>
+                <TableTitle>PUBLIC CONTESTS</TableTitle>
+                <TableCaption>
+                    Failed to load contests: {result.error.message}
+                </TableCaption>
+            </TableContainer>
+        );
+    }
+
+    const cs = result.data;
 
     return (
         <TableContainer>

@@ -6,10 +6,15 @@ import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableTitle,
 } from "@/components/ui/table";
-import { Response } from "@/actions";
+import { Result } from "@/actions";
 
-export default function Setters({ problem }: { problem: Promise<Response<ProblemDetailed>> }) {
-    const { data: pdetailed } = use(problem);
+export default function Setters({ problem }: { problem: Promise<Result<ProblemDetailed>> }) {
+    const result = use(problem);
+    if (!result.ok) {
+        throw new Error(`Fetch problem failed: ${result.error}`);
+    }
+
+    const pdetailed = result.data;
 
     return (
         <TableContainer>

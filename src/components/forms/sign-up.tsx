@@ -8,6 +8,7 @@ import { toast } from '@/components/toast';
 import { useRouter } from "next/navigation";
 import { Container } from '@/components/container';
 import { config } from '@/config';
+import { createAccount } from "@/actions/account";
 
 export interface FormData {
     username: string;
@@ -27,18 +28,12 @@ export function CreateAccountForm() {
     });
 
     const onSubmit = async (data: FormData) => {
-        try {
-            const res = await fetch(config.api.basepath + `/account`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'aaplication/json',
-                },
-                body: JSON.stringify(data),
-            });
+        const result = await createAccount(data);
+        if (result.ok) {
             toast({ title: 'Account created successfully' });
             router.push('/login');
-        } catch (e) {
-            console.error("Error:", e);
+        } else {
+            console.error("Error:", result.error);
             toast({ title: 'Something went wrong. Try again later' });
         }
     };

@@ -6,10 +6,15 @@ import {
     TableBody, TableRow, TableCell, TableCaption, TableTitle
 } from "@/components/ui/table";
 import { use } from "react";
-import { Response } from "@/actions";
+import { Result } from "@/actions";
 
-export default function Problemset({ leaderboard }: { leaderboard: Promise<Response<Pagination<LeaderboardItem>>> }) {
-    const { data: lb } = use(leaderboard);
+export default function Problemset({ leaderboard }: { leaderboard: Promise<Result<Pagination<LeaderboardItem>>> }) {
+    const result = use(leaderboard);
+    if (!result.ok) {
+        throw new Error(`Fetch leaderboard failed: ${result.error}`);
+    }
+
+    const lb = result.data;
 
     return (
         <TableContainer>

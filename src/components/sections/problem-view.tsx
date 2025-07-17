@@ -4,10 +4,15 @@ import { TestCase } from '@/components/sections/test-case';
 import { ProblemDetailed } from '@/actions/models/response';
 import Preview from '@/components/sections/preview';
 import { use } from 'react';
-import { Response } from '@/actions';
+import { Result } from '@/actions';
 
-export function ProblemView({ problem }: { problem: Promise<Response<ProblemDetailed>> }) {
-    const { data: pdetailed } = use(problem);
+export function ProblemView({ problem }: { problem: Promise<Result<ProblemDetailed>> }) {
+    const result = use(problem);
+    if (!result.ok) {
+        throw new Error(`Fetch problem failed: ${result.error}`);
+    }
+
+    const pdetailed = result.data;
 
     return (
         <div className='flex flex-col gap-7'>

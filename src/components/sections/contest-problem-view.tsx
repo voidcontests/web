@@ -4,7 +4,6 @@ import { ProblemDetailed, Submission } from "@/actions/models/response";
 import { SubmissionReport } from "@/components/sections/submission-report";
 import { CodeEditor } from "@/components/sections/code-editor";
 import Preview from "@/components/sections/preview";
-import { authorized } from "@/api/core/instance";
 import { Button } from "@/components/ui/button";
 import { revalidate } from "@/actions/revalidate";
 import { Input } from "@/components/ui/input";
@@ -14,12 +13,18 @@ import { TestCase } from "@/components/sections/test-case";
 import { Separator } from "@/components/ui/separator";
 import { getInitialCode } from "@/components/sections/editor/utils";
 import { sleep } from "@/lib/utils";
-import { Response } from "@/actions";
+import { Result } from "@/actions";
+import { getSubmissionByID, submitCodeSolution, submitTextAnswer } from "@/actions/problems";
 
 const DEFAULT_LANGUAGE = "c";
 
-export function ContestProblemView({ problem }: { problem: Promise<Response<ProblemDetailed>> }) {
-    const { data: pdetailed } = use(problem);
+export function ContestProblemView({ problem }: { problem: Promise<Result<ProblemDetailed>> }) {
+    const result = use(problem);
+    if (!result.ok) {
+        throw new Error(`Fetch problem failed: ${result.error}`);
+    }
+
+    const pdetailed = result.data;
 
     const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
     const [code, setCode] = useState(getInitialCode(DEFAULT_LANGUAGE));
@@ -34,61 +39,68 @@ export function ContestProblemView({ problem }: { problem: Promise<Response<Prob
             return;
         }
 
-        const { data, status } = await authorized.post(
-            `/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}/submissions`,
-            {
-                problem_kind: 'text_answer_problem',
-                answer,
-            }
-        );
+        const result = await submitTextAnswer(pdetailed.contest_id, pdetailed.charcode, answer);
 
-        switch (status) {
-            case 201:
-                const verdict = data.verdict;
-                if (verdict === 'ok') {
-                    toast({ title: 'Correct! Answer accepted' });
-                } else if (verdict === 'wrong_answer') {
-                    toast({ title: 'Your answer is incorrect' });
+        if (!result.ok) {
+            if (result.status === 429) {
+                if (!result.error.timeout) {
+                    toast({ title: `You are submitting too frequently` });
                 } else {
-                    toast({ title: `Unknown verdict: ${verdict}` });
+                    toast({ title: `You are submitting too frequently. Wait for ${result.error.timeout}` });
                 }
-                revalidate(`/contest/${pdetailed.contest_id}/problem/${pdetailed.charcode}`);
+            } else {
+                toast({ title: 'Something went wrong. Try again later' });
+            }
+            return;
+        }
+
+        const verdict = result.data.verdict;
+        switch (verdict) {
+            case 'ok':
+                toast({ title: 'Correct! Answer accepted' });
                 break;
-            case 429:
-                toast({ title: `You are submitting too frequently. Wait for ${data.timeout}` });
+            case 'wrong_answer':
+                toast({ title: 'Your answer is incorrect' });
                 break;
             default:
-                toast({ title: 'Something went wrong. Try again later' });
+                toast({ title: `Unknown verdict: ${verdict}` });
         }
+        revalidate(`/contest/${pdetailed.contest_id}/problem/${pdetailed.charcode}`);
     }
 
     async function submitProgram() {
+        console.log('sssss');
         if (code.trim().length === 0) return;
 
         setSubmission(undefined);
 
-        const { data } = await authorized.post(
-            `/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}/submissions`,
-            {
-                problem_kind: "coding_problem",
-                code,
-                language,
+        const result = await submitCodeSolution(pdetailed.contest_id, pdetailed.charcode, code, language);
+
+        if (!result.ok) {
+            if (result.status === 429) {
+                if (!result.error.timeout) {
+                    toast({ title: `You are submitting too frequently` });
+                } else {
+                    toast({ title: `You are submitting too frequently. Wait for ${result.error.timeout}` });
+                }
+            } else {
+                toast({ title: 'Something went wrong. Try again later' });
             }
-        );
+            return;
+        }
 
-        const submissionID = data.id;
-        let currentSubmission = data;
+        let submission = result.data;
+        setSubmission(submission);
 
-        setSubmission(currentSubmission);
-
-        while (
-            currentSubmission.verdict === "pending" ||
-            currentSubmission.verdict === "running"
-        ) {
+        while (submission.verdict === "pending" || submission.verdict === "running") {
             await sleep(1000);
-            const { data: updated } = await authorized.get(`/submissions/${submissionID}`);
-            currentSubmission = updated;
-            setSubmission(currentSubmission);
+            const updated = await getSubmissionByID(submission.id);
+            if (!updated.ok) {
+                toast({ title: 'Something went wrong while pulling submission. Try again later' });
+                break;
+            }
+            submission = updated.data;
+            setSubmission(submission);
         }
 
         revalidate(`/contest/${pdetailed.contest_id}/problem/${pdetailed.charcode}`);

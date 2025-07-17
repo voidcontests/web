@@ -8,10 +8,15 @@ import { Link } from '@/components/ui/link';
 import { capitalize } from '@/lib/strings';
 import { use } from 'react';
 import { useAccount } from '@/hooks/use-account';
-import { Response } from '@/actions';
+import { Result } from '@/actions';
 
-export function Problemset({ contest }: { contest: Promise<Response<ContestDetailed>> }) {
-    const { data: cdetailed, status: _ } = use(contest);
+export function Problemset({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
+    const result = use(contest);
+    if (!result.ok) {
+        throw new Error(`Fetch contest failed: ${result.error}`);
+    }
+
+    const cdetailed = result.data;
     const problemset = cdetailed.problems;
     const started = new Date(cdetailed.start_time) < new Date();
 
@@ -69,8 +74,13 @@ export function Problemset({ contest }: { contest: Promise<Response<ContestDetai
     );
 }
 
-export function ProblemsetMinimal({ contest }: { contest: Promise<Response<ContestDetailed>> }) {
-    const { data: cdetailed } = use(contest);
+export function ProblemsetMinimal({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
+    const result = use(contest);
+    if (!result.ok) {
+        throw new Error(`Fetch contest failed: ${result.error}`);
+    }
+
+    const cdetailed = result.data;
     const problemset = cdetailed.problems;
     const started = new Date(cdetailed.start_time) < new Date();
 

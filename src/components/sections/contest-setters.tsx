@@ -6,10 +6,15 @@ import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableTitle,
 } from "@/components/ui/table";
-import { Response } from "@/actions";
+import { Result } from "@/actions";
 
-export default function Setters({ contest }: { contest: Promise<Response<ContestDetailed>> }) {
-    const { data: cdetailed } = use(contest);
+export default function Setters({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
+    const result = use(contest);
+    if (!result.ok) {
+        throw new Error(`Fetch contest information failed: ${result.error}`);
+    }
+
+    const cdetailed = result.data;
 
     const setters = Array.from(new Set(cdetailed.problems.map(problem => problem.writer.username)));
 

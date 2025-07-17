@@ -7,11 +7,22 @@ import { format_duration } from '@/lib/utils';
 import { DateView } from "@/components/date";
 import { Link } from "@/components/ui/link";
 import { use } from 'react';
-import { Response } from "@/actions";
+import { Result } from "@/actions";
 
-export default function AdminContests({ account, contests }: { account: Promise<Response<Account>>, contests: Promise<Response<Pagination<ContestListItem>>> }) {
-    const { data: acc } = use(account);
-    const { data: cs } = use(contests);
+export default function AdminContests({ account, contests }: { account: Promise<Result<Account>>, contests: Promise<Result<Pagination<ContestListItem>>> }) {
+    const accountResult = use(account);
+    const contestsResult = use(contests);
+
+    if (!accountResult.ok) {
+        throw new Error('unauthorized');
+    }
+
+    if (!contestsResult.ok) {
+        return TableWithError(contestsResult.error.message);
+    }
+
+    const acc = accountResult.data;
+    const cs = contestsResult.data;
 
     return (
         <TableContainer>
@@ -90,6 +101,35 @@ export default function AdminContests({ account, contests }: { account: Promise<
                         No created contests.
                     </TableCaption>
                 }
+            </Table>
+        </TableContainer>
+    );
+}
+
+export function TableWithError(message: string) {
+    return (
+        <TableContainer>
+            <TableTitle>CONTESTS</TableTitle>
+            <Table>
+                <TableHeader>
+                    <TableHeaderRow>
+                        <TableHead>ID</TableHead>
+                        <TableHead>Title</TableHead>
+                        <TableHead>Starting at</TableHead>
+                        <TableHead>Deadline</TableHead>
+                        <TableHead>Duration</TableHead>
+                        <TableHead>Participants</TableHead>
+                        <TableHead>Total slots</TableHead>
+                        <TableHead>Leaderboard</TableHead>
+                        <TableHead>Created at</TableHead>
+                        <TableHead>Status</TableHead>
+                    </TableHeaderRow>
+                </TableHeader>
+                <TableCaption>
+                    {
+                        `Failed to get problems: ${message}`
+                    }
+                </TableCaption>
             </Table>
         </TableContainer>
     );

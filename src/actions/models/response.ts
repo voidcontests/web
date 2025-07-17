@@ -1,3 +1,6 @@
+import z from "zod";
+import { ErrorSchema } from "../schemas";
+
 export type Pagination<T> = {
     meta: Meta;
     items: T[];
@@ -108,8 +111,8 @@ export type User = {
 
 export type ProblemDetailed = {
     id: number;
-    charcode?: string;
-    contest_id?: number;
+    charcode: string;
+    contest_id: number;
     writer: User;
     kind: string;
     title: string;
@@ -140,3 +143,5 @@ export type ExecutionResult = {
 	stdout: string;
 	stderr: string;
 };
+
+export type Error = z.infer<typeof ErrorSchema>;

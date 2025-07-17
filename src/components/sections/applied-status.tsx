@@ -9,12 +9,17 @@ import { createEntry } from "@/actions/contests";
 import { revalidate } from "@/actions/revalidate";
 import { useAccount } from "@/hooks/use-account";
 import Link from "next/link";
-import { Response } from "@/actions";
+import { Result } from "@/actions";
 
-export default function AppliedStatus({ contest }: { contest: Promise<Response<ContestDetailed>> }) {
+export default function AppliedStatus({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
     const { account, loading } = useAccount();
 
-    const { data: cdetailed } = use(contest);
+    const result = use(contest);
+    if (!result.ok) {
+        throw new Error(`Fetch contest information failed: ${result.error}`);
+    }
+
+    const cdetailed = result.data;
     const start_time = new Date(cdetailed.start_time);
 
     if (loading) {

@@ -50,8 +50,8 @@ export const ProblemListItemSchema = z.object({
 
 export const ProblemDetailedSchema = z.object({
     id: z.number(),
-    charcode: z.string().optional(),
-    contest_id: z.number().optional(),
+    charcode: z.string(),
+    contest_id: z.number(),
     writer: UserSchema,
     kind: z.string(),
     title: z.string(),
@@ -144,4 +144,9 @@ export const ExecutionResultSchema = z.object({
 	status: z.number(),
 	stdout: z.string(),
 	stderr: z.string(),
+});
+
+export const ErrorSchema = z.object({
+    message: z.string(),
+    timeout: z.string().optional(),
 });

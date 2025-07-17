@@ -6,11 +6,22 @@ import { DifficultyTag } from '@/components/difficulty-tag';
 import { DateView } from "@/components/date";
 import { Link } from "@/components/ui/link";
 import { use } from 'react';
-import { Response } from "@/actions";
+import { Result } from "@/actions";
 
-export default function AdminProblems({ account, problems }: { account: Promise<Response<Account>>, problems: Promise<Response<Pagination<ProblemListItem>>> }) {
-    const { data: acc } = use(account);
-    const { data: ps } = use(problems);
+export default function AdminProblems({ account, problems }: { account: Promise<Result<Account>>, problems: Promise<Result<Pagination<ProblemListItem>>> }) {
+    const accountResult = use(account);
+    const problemsResult = use(problems);
+
+    if (!accountResult.ok) {
+        throw new Error('unauthorized');
+    }
+
+    if (!problemsResult.ok) {
+        return TableWithError(problemsResult.error.message);
+    }
+
+    const acc = accountResult.data;
+    const ps = problemsResult.data;
 
     return (
         <TableContainer>
@@ -58,6 +69,29 @@ export default function AdminProblems({ account, problems }: { account: Promise<
                         No created problems.
                     </TableCaption>
                 }
+            </Table>
+        </TableContainer>
+    );
+}
+
+export function TableWithError(message: string) {
+    return (
+        <TableContainer>
+            <TableTitle>PROBLEMS</TableTitle>
+            <Table>
+                <TableHeader>
+                    <TableHeaderRow>
+                        <TableHead>ID</TableHead>
+                        <TableHead>Title</TableHead>
+                        <TableHead>Difficulty</TableHead>
+                        <TableHead className='w-3xs'>Created at</TableHead>
+                    </TableHeaderRow>
+                </TableHeader>
+                <TableCaption>
+                    {
+                        `Failed to get problems: ${message}`
+                    }
+                </TableCaption>
             </Table>
         </TableContainer>
     );

@@ -8,33 +8,75 @@
 import { config } from '@/config';
 import { cookies } from 'next/headers';
 import z from 'zod';
+import { ErrorSchema } from './schemas';
+import { Error } from './models/response';
 
 export type ID = string | number;
 
-export type Response<T> = { data: T, status: number };
+type ResultSuccess<T> = { ok: true; data: T; status: number };
+type ResultError = { ok: false, error: Error, status: number };
 
-export async function fetchWithAuth<T>(url: string, options: RequestInit, schema: z.ZodSchema<T>): Promise<Response<T>> {
-    const token = cookies().get(config.cookies.token_key)?.value;
-    const headers = {
-        ...options.headers,
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-    };
+export type Result<T> = ResultSuccess<T> | ResultError;
 
-    const res = await fetch(url, { ...options, headers });
-    const status = res.status;
+export async function fetchWithSchema<T>(url: string, opts: RequestInit, schema: z.ZodSchema<T>, token?: string): Promise<Result<T>> {
+	const headers: Record<string, string> = {
+		'Content-Type': 'application/json',
+		...(opts.headers as Record<string, string>),
+	};
 
-    if (!res.ok) {
-        const errorBody = await res.text();
-        throw new Error(`Fetch failed: ${status} ${res.statusText}. Body: ${errorBody}`);
-    }
+	if (token) {
+		headers['Authorization'] = `Bearer ${token}`;
+	}
 
-    const json = await res.json();
-    const parsed = schema.safeParse(json);
+	const res = await fetch(url, { ...opts, headers });
+	const status = res.status;
+	const text = await res.text();
 
-    if (!parsed.success) {
-        throw new Error(`Response validation failed: ${parsed.error}`);
-    }
+	let json: unknown;
+	try {
+		json = JSON.parse(text);
+	} catch {
+		return {
+			ok: false,
+			error: { message: `Invalid JSON response: ${text}` },
+			status,
+		};
+	}
 
-    return { data: parsed.data, status };
+	if (!res.ok) {
+		const parsedErr = ErrorSchema.safeParse(json);
+		if (parsedErr.success) {
+			return {
+				ok: false,
+				error: parsedErr.data,
+				status,
+			};
+		} else {
+			return {
+				ok: false,
+				error: { message: `Unknown error (${status})` },
+				status,
+			};
+		}
+	}
+
+	const parsed = schema.safeParse(json);
+	if (!parsed.success) {
+		return {
+			ok: false,
+			error: { message: `Validation failed: ${parsed.error.message}` },
+			status,
+		};
+	}
+
+	return {
+		ok: true,
+		data: parsed.data,
+		status,
+	};
+}
+
+export async function fetchWithAuth<T>(url: string, opts: RequestInit, schema: z.ZodSchema<T>): Promise<Result<T>> {
+	const token = cookies().get(config.cookies.token_key)?.value;
+	return fetchWithSchema(url, opts, schema, token);
 }
