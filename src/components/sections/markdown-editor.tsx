@@ -29,6 +29,7 @@ const MarkdownEditor = forwardRef<HTMLTextAreaElement, MarkdownEditorProps>(({ m
     const [internalValue, setInternalValue] = useState<string>(markdown);
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
     const [open, setOpen] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
 
     useEffect(() => {
         setInternalValue(markdown);
@@ -57,6 +58,14 @@ const MarkdownEditor = forwardRef<HTMLTextAreaElement, MarkdownEditorProps>(({ m
                 applyStyle('italic');
                 break;
         }
+    };
+
+    const handleFocus = () => {
+        setIsFocused(true);
+    };
+
+    const handleBlur = () => {
+        setIsFocused(false);
     };
 
     const moveCursor = (idx: number) => {
@@ -196,9 +205,6 @@ const MarkdownEditor = forwardRef<HTMLTextAreaElement, MarkdownEditorProps>(({ m
                     <Label required={props.required} optional={!props.required}>
                         {children}
                     </Label>
-                    {/* <h1 className="text-foreground text-lg font-medium">
-                        {children}
-                    </h1> */}
                     <div className="flex items-center gap-1">
                         {
                             toggle_buttons.map((toggle, index) => (
@@ -223,8 +229,17 @@ const MarkdownEditor = forwardRef<HTMLTextAreaElement, MarkdownEditorProps>(({ m
                         }
                     </div>
                 </div>
-                <div className="rounded-[10px] border bg-surface">
-                    <Editor className="min-h-40" value={internalValue} onChange={handleChange} language="markdown" ref={textAreaRef} {...props} />
+                <div className={cn("rounded-[10px] border bg-surface", isFocused ? "border-blue-400" : "")}>
+                    <Editor
+                        className="min-h-40"
+                        value={internalValue}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        language="markdown"
+                        ref={textAreaRef}
+                        {...props}
+                    />
                 </div>
                 <div className="flex justify-end">
                     <span
