@@ -1,8 +1,14 @@
-import { ContestDetailed } from "@/actions/dto/response";
+import { ContestDetailed } from "@/actions/models/response";
 import { use } from "react";
+import { Result } from "@/actions";
 
-export default function ContestInfo({ contest }: { contest: Promise<ContestDetailed> }) {
-    const cdetailed = use(contest);
+export default function ContestInfo({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
+    const result = use(contest);
+    if (!result.ok) {
+        throw new Error(`Fetch contest information failed: ${result.error}`);
+    }
+
+    const cdetailed = result.data;
 
     return (
         <div className="border rounded-xl bg-surface p-5 flex flex-col gap-2 not-dark:shadow-md">

@@ -1,14 +1,22 @@
+import z from "zod";
+import { ErrorSchema } from "../schemas";
+
+export type Pagination<T> = {
+    meta: Meta;
+    items: T[];
+};
+
+export type Meta = {
+    total: number;
+    limit: number;
+    offset: number;
+    has_next: boolean;
+    has_prev: boolean;
+};
+
 export type Account = {
     id: number;
-    ton_account: {
-        address: {
-            bounceable: string;
-            non_bounceable: string;
-            raw: string;
-        };
-        balance: number;
-        status: string;
-    };
+    username: string;
     role: {
         name: string;
         created_problems_limit: number;
@@ -20,12 +28,20 @@ export type EntityID = {
     id: number;
 };
 
+export type Token = {
+    token: string;
+};
+
 export type ContestList = {
     data: ContestListItem[];
 };
 
 export type ProblemList = {
     data: ProblemListItem[];
+};
+
+export type SubmissionsList = {
+    data: Submission[];
 };
 
 export type ContestDetailed = {
@@ -67,9 +83,10 @@ export type ContestListItem = {
     created_at: Date;
 };
 
-export type SubmissionListItem = {
+export type Submission = {
     id: number;
     problem_id: number;
+    problem_kind: string;
     verdict: string;
     answer?: string;
     code?: string;
@@ -89,13 +106,13 @@ export type SubmissionListItem = {
 
 export type User = {
     id: number;
-    address: string;
+    username: string;
 };
 
 export type ProblemDetailed = {
     id: number;
-    charcode?: string;
-    contest_id?: number;
+    charcode: string;
+    contest_id: number;
     writer: User;
     kind: string;
     title: string;
@@ -113,10 +130,18 @@ export type ProblemDetailed = {
 
 export type LeaderboardItem = {
     user_id: number;
-    user_address: string;
+    username: string;
     points: number;
 }
 
 export type Leaderboard = {
     data: LeaderboardItem[];
 }
+
+export type ExecutionResult = {
+	status: number;
+	stdout: string;
+	stderr: string;
+};
+
+export type Error = z.infer<typeof ErrorSchema>;

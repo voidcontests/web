@@ -20,3 +20,5 @@ export const format_duration = (duration_mins: number): string => {
 
     return `${formattedHours}:${formattedMinutes}`;
 }
+
+export const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));

@@ -1,10 +1,33 @@
 import { CodeBlock } from "@/components/sections/code-block";
-import { SubmissionListItem } from "@/actions/dto/response";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Submission } from "@/actions/models/response";
+import { LoaderCircle } from "lucide-react";
+import { capitalize } from "@/lib/strings";
 import { Code } from "@/components/code";
 
-export function SubmissionReport({ submission }: { submission?: SubmissionListItem }) {
+export function SubmissionReport({ submission }: { submission?: Submission }) {
     if (!submission) return;
+
+    if (submission.verdict === 'running' || submission.verdict === 'pending') {
+        return (
+            <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
+                <div className="flex items-center gap-2">
+                    <LoaderCircle className="animate-spin size-5 text-tertiary-foreground" />
+                    <span className="text-lg text-tertiary-foreground">
+                        {capitalize(submission.verdict)}...
+                    </span>
+                </div>
+                <Separator />
+                <div className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-2">
+                        <Skeleton className="h-4 w-96" />
+                        <Skeleton className="h-4 w-72" />
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     if (submission.verdict === 'wrong_answer') {
         return (
@@ -165,6 +188,9 @@ export function SubmissionReport({ submission }: { submission?: SubmissionListIt
                 <div className="flex flex-col gap-1">
                     <span className="text-lg text-scarlet-500 font-medium">
                         Compilation error
+                    </span>
+                    <span className="text-sm text-tertiary-foreground">
+                        Tests passed {submission.testing_report?.passed}/{submission.testing_report?.total}
                     </span>
                 </div>
                 <Separator />

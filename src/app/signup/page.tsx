@@ -1,15 +1,15 @@
+import { CreateAccountForm } from "@/components/forms/sign-up";
 import { Link } from "@/components/ui/link";
-import { LoginForm } from "@/components/forms/sign-in";
 
-export default function LoginPage() {
+export default function SignUpPage() {
     return (
         <div className="flex flex-col gap-4 justify-center items-center mt-[12vh]">
             <h1 className="text-xl font-normal">
-                Access the void
+                Create an account
             </h1>
-            <LoginForm />
+            <CreateAccountForm />
             <div>
-                New here? <Link href='/signup'>Create an account</Link>
+                Already have an account? <Link href='/login'>Log in</Link>
             </div>
         </div>
     );

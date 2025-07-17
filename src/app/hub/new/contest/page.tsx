@@ -3,7 +3,7 @@ import { CreateContestForm } from "@/components/forms/create-contest";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/components/ui/link";
 import { Metadata } from "next";
-import { getCreatedProblems } from "@/actions";
+import { getCreatedProblems } from "@/actions/problems";
 
 export const metadata: Metadata = {
     title: 'New contest',

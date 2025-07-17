@@ -1,152 +1,60 @@
 'use server';
 
-import { ContestDetailed, ContestList, EntityID, Leaderboard, ProblemDetailed } from "@/actions/dto/response";
-import { FormData as CreateContestFormData } from "@/components/forms/create-contest";
-import { cookies } from "next/headers";
-import { BASEPATH, COOKIE_KEY, ID } from ".";
+import { z } from 'zod';
+import { config } from '@/config';
+import { FormData as CreateContestFormData } from '@/components/forms/create-contest';
+import { ContestDetailed, ContestListItem, EntityID, LeaderboardItem, Pagination, ProblemDetailed } from '@/actions/models/response';
+import { ID, fetchWithAuth, Result } from '.';
+import { EntityIDSchema, ProblemDetailedSchema, ContestListItemSchema, PaginationSchema, ContestDetailedSchema, LeaderboardItemSchema } from './schemas';
 
-export async function createContest(data: CreateContestFormData): Promise<EntityID> {
-    const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
-
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-    };
-
-    const res = await fetch(BASEPATH + `/contests`, {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(data),
-    });
-
-    if (!res.ok) {
-        throw new Error(`can't create contest`);
-    }
-
-    return await res.json() as EntityID;
+export async function createContest(data: CreateContestFormData): Promise<Result<EntityID>> {
+    return fetchWithAuth(`${config.api.basepath}/contests`,
+        {
+            method: 'POST',
+            body: JSON.stringify(data),
+        },
+        EntityIDSchema
+    );
 }
 
-export async function getContestProblem(cid: ID, charcode: string): Promise<ProblemDetailed> {
-    const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
-
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-    };
-
-    const res = await fetch(BASEPATH + `/contests/${cid}/problems/${charcode}`, {
-        method: 'GET',
-        headers: headers,
-    });
-
-    if (!res.ok) {
-        throw new Error(`can't get problem`);
-    }
-
-    return await res.json() as ProblemDetailed;
+export async function getContestProblem(cid: ID, charcode: string): Promise<Result<ProblemDetailed>> {
+    return fetchWithAuth(`${config.api.basepath}/contests/${cid}/problems/${charcode}`,
+        { method: 'GET' },
+        ProblemDetailedSchema
+    );
 }
 
-export async function getCreatedContests(): Promise<ContestList> {
-    const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
-
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-    };
-
-    const res = await fetch(BASEPATH + `/creator/contests`, {
-        method: 'GET',
-        headers: headers,
-    });
-
-    if (!res.ok) {
-        throw new Error(`can't get admin contests`);
-    }
-
-    return await res.json() as ContestList;
+export async function getCreatedContests(): Promise<Result<Pagination<ContestListItem>>> {
+    return fetchWithAuth(`${config.api.basepath}/creator/contests`,
+        { method: 'GET' },
+        PaginationSchema(ContestListItemSchema)
+    );
 }
 
 export async function createEntry(cid: ID): Promise<void> {
-    const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
-
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-    };
-
-    const res = await fetch(BASEPATH + `/contests/${cid}/entry`, {
-        method: 'POST',
-        headers: headers,
-    });
-
-    if (!res.ok) {
-        throw new Error(`can't apply for contest`);
-    }
+    await fetchWithAuth(`${config.api.basepath}/contests/${cid}/entry`,
+        { method: 'POST' },
+        z.any()
+    );
 }
 
-export async function getContestByID(cid: ID): Promise<ContestDetailed> {
-    const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
-
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-    };
-
-    const res = await fetch(BASEPATH + `/contests/${cid}`, {
-        method: 'GET',
-        headers: headers,
-    });
-
-    if (!res.ok) {
-        throw new Error(`can't get contest`);
-    }
-
-    return await res.json() as ContestDetailed;
+export async function getContestByID(cid: ID): Promise<Result<ContestDetailed>> {
+    return fetchWithAuth(`${config.api.basepath}/contests/${cid}`,
+        { method: 'GET' },
+        ContestDetailedSchema
+    );
 }
 
-export async function getLeaderboard(cid: ID): Promise<Leaderboard> {
-    const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
-
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-    };
-
-    const res = await fetch(BASEPATH + `/contests/${cid}/leaderboard`, {
-        method: 'GET',
-        headers: headers,
-    });
-
-    if (!res.ok) {
-        throw new Error(`can't get leaderboard`);
-    }
-
-    return await res.json() as Leaderboard;
+export async function getLeaderboard(cid: ID): Promise<Result<Pagination<LeaderboardItem>>> {
+    return fetchWithAuth(`${config.api.basepath}/contests/${cid}/leaderboard`,
+        { method: 'GET' },
+        PaginationSchema(LeaderboardItemSchema)
+    );
 }
 
-export async function getAllContests(): Promise<ContestList> {
-    const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
-
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-    };
-
-    const res = await fetch(BASEPATH + `/contests`, {
-        method: 'GET',
-        headers: headers,
-    });
-
-    if (!res.ok) {
-        throw new Error(`can't get contests`);
-    }
-
-    return await res.json() as ContestList;
+export async function getAllContests(): Promise<Result<Pagination<ContestListItem>>> {
+    return fetchWithAuth(`${config.api.basepath}/contests`,
+        { method: 'GET' },
+        PaginationSchema(ContestListItemSchema)
+    );
 }

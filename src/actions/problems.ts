@@ -1,102 +1,59 @@
 'use server';
 
-import { EntityID, ProblemDetailed, ProblemList } from "@/actions/dto/response";
-import { FormData as CreateProblemFormData } from "@/components/forms/create-problem";
-import { cookies } from "next/headers";
-import { BASEPATH, COOKIE_KEY, ID } from ".";
+import { Pagination, EntityID, ProblemDetailed, Submission, ProblemListItem, ExecutionResult } from '@/actions/models/response';
+import { EntityIDSchema, ExecutionResultSchema, PaginationSchema, ProblemDetailedSchema, ProblemListItemSchema, SubmissionSchema } from '@/actions/schemas';
+import { FormData as CreateProblemFormData } from '@/components/forms/create-problem';
+import { ID, fetchWithAuth, Result } from '.';
+import { config } from '@/config';
 
-export async function createProblem(data: CreateProblemFormData): Promise<EntityID> {
-    const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
+export async function createProblem(data: CreateProblemFormData): Promise<Result<EntityID>> {
+	return fetchWithAuth(`${config.api.basepath}/problems`, {
+		method: 'POST',
+		body: JSON.stringify(data),
+	}, EntityIDSchema);
+}
 
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-    };
+export async function getCreatedProblems(): Promise<Result<Pagination<ProblemListItem>>> {
+	return fetchWithAuth(`${config.api.basepath}/creator/problems`, {
+		method: 'GET',
+	}, PaginationSchema(ProblemListItemSchema));
+}
 
-    const res = await fetch(BASEPATH + `/problems`, {
+export async function getProblemByID(id: ID): Promise<Result<ProblemDetailed>> {
+	return fetchWithAuth(`${config.api.basepath}/problems/${id}`, {
+		method: 'GET',
+	}, ProblemDetailedSchema);
+}
+
+export async function executeSolution(code: string): Promise<Result<ExecutionResult>> {
+	return fetchWithAuth(`${config.api.basepath}/run`, {
+		method: 'POST',
+		body: JSON.stringify({ code }),
+	}, ExecutionResultSchema);
+}
+
+export async function getProblemSubmissions(contestID: ID, charcode: string, limit: number): Promise<Result<Pagination<Submission>>> {
+	return fetchWithAuth(`${config.api.basepath}/contests/${contestID}/problems/${charcode}/submissions?limit=${limit}`, {
+	    method: 'GET'
+	}, PaginationSchema(SubmissionSchema));
+}
+
+export async function submitTextAnswer(contestID: ID, charcode: string, answer: string): Promise<Result<Submission>> {
+    return fetchWithAuth(`${config.api.basepath}/contests/${contestID}/problems/${charcode}/submissions`, {
         method: 'POST',
-        headers: headers,
-        body: JSON.stringify(data),
-    });
-
-    if (!res.ok) {
-        throw new Error(`can't create problem`);
-    }
-
-    return await res.json() as EntityID;
+        body: JSON.stringify({ problem_kind: 'text_answer_problem', answer }),
+    }, SubmissionSchema);
 }
 
-export async function getCreatedProblems(): Promise<ProblemList> {
-    const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
-
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-    };
-
-    const res = await fetch(BASEPATH + `/creator/problems`, {
-        method: 'GET',
-        headers: headers,
-    });
-
-    if (!res.ok) {
-        throw new Error(`can't get admin problems`);
-    }
-
-    return await res.json() as ProblemList;
-}
-
-export async function getProblemByID(id: ID): Promise<ProblemDetailed> {
-    const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
-
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-    };
-
-    const res = await fetch(BASEPATH + `/problems/${id}`, {
-        method: 'GET',
-        headers: headers,
-    });
-
-    if (!res.ok) {
-        throw new Error(`can't get problem`);
-    }
-
-    return await res.json() as ProblemDetailed;
-}
-
-export type ExecutionResult = {
-    status: number;
-    stdout: string;
-    stderr: string;
-};
-
-export async function executeSolution(code: string): Promise<ExecutionResult> {
-    const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
-
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-    };
-
-    let body = {
-        code: code,
-    }
-
-    const res = await fetch(BASEPATH + `/run`, {
+export async function submitCodeSolution(contestID: ID, charcode: string, code: string, language: string): Promise<Result<Submission>> {
+    return fetchWithAuth(`${config.api.basepath}/contests/${contestID}/problems/${charcode}/submissions`, {
         method: 'POST',
-        headers: headers,
-        body: JSON.stringify(body),
-    });
+        body: JSON.stringify({ problem_kind: 'coding_problem', code, language }),
+    }, SubmissionSchema);
+}
 
-    if (!res.ok) {
-        throw new Error(`can't get execute code`);
-    }
-
-    return await res.json() as ExecutionResult;
+export async function getSubmissionByID(submissionID: ID): Promise<Result<Submission>> {
+	return fetchWithAuth(`${config.api.basepath}/submissions/${submissionID}`, {
+	    method: 'GET'
+	}, SubmissionSchema);
 }

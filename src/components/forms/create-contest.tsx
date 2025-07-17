@@ -3,7 +3,8 @@
 import { DateTimePicker } from "@/components/ui/time-picker/date-time-picker";
 import { Separator } from '@/components/ui/separator';
 import { TextArea } from "@/components/ui/textarea";
-import { createContest, revalidate }  from '@/actions';
+import { createContest } from "@/actions/contests";
+import { revalidate } from "@/actions/revalidate";
 import { Button } from "@/components/ui/button";
 import { Label } from '@/components/ui/label';
 import { Input } from "@/components/ui/input";
@@ -16,11 +17,13 @@ import {
 import { DifficultyTag } from "@/components/difficulty-tag";
 import { CheckedState } from "@radix-ui/react-checkbox";
 import { Checkbox } from '@/components/ui/checkbox';
-import { ProblemList } from "@/actions/dto/response";
+import { Pagination, ProblemListItem } from "@/actions/models/response";
 import { Link } from "@/components/ui/link";
 import { ChangeEvent, use } from "react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { Result } from "@/actions";
+import { MessageBox } from "@/components/sections/message-box";
 
 export interface FormData {
     title: string;
@@ -32,8 +35,18 @@ export interface FormData {
     allow_late_join: boolean;
 }
 
-export function CreateContestForm({ problems }: { problems: Promise<ProblemList> }) {
-    const problemslist = use(problems);
+export function CreateContestForm({ problems }: { problems: Promise<Result<Pagination<ProblemListItem>>> }) {
+    const result = use(problems);
+
+    if (!result.ok) {
+        return (
+            <MessageBox variant='error'>
+                Failed to fetch created problems.
+            </MessageBox>
+        );
+    }
+
+    const problemslist = result.data;
     const router = useRouter();
 
     const { register, handleSubmit, setValue, watch } = useForm<FormData>({
@@ -107,7 +120,7 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
                     <Table>
                         <TableCaption>
                             {
-                                problemslist.data.length === 0
+                                problemslist.items.length === 0
                                     ? <span>You need to create problems first <Link href="/hub/new/problem">here</Link>.</span>
                                     : <span>You can create new problems <Link href="/hub/new/problem">here</Link>.</span>
                             }
@@ -122,7 +135,7 @@ export function CreateContestForm({ problems }: { problems: Promise<ProblemList>
                         </TableHeader>
                         <TableBody>
                             {
-                                problemslist.data.map((problem, index) => (
+                                problemslist.items.map((problem, index) => (
                                     <TableRow key={index}>
                                         <TableCell className="flex items-center">
                                             <Checkbox

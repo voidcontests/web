@@ -1,15 +1,28 @@
 'use client';
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableCaption, TableTitle } from '@/components/ui/table';
-import { ContestList } from '@/actions/dto/response';
+import { ContestList, ContestListItem, Pagination } from '@/actions/models/response';
 import { format_duration } from '@/lib/utils';
 import { Link } from '@/components/ui/link';
-import Address from '@/components/address';
 import { DateView } from '@/components/date';
 import { use } from 'react';
+import { Result } from "@/actions";
 
-export default function PublicContests({ contests }: { contests: Promise<ContestList> }) {
-    const cs = use(contests);
+export default function PublicContests({ contests }: { contests: Promise<Result<Pagination<ContestListItem>>> }) {
+    const result = use(contests);
+
+    if (!result.ok) {
+        return (
+            <TableContainer>
+                <TableTitle>PUBLIC CONTESTS</TableTitle>
+                <TableCaption>
+                    Failed to load contests: {result.error.message}
+                </TableCaption>
+            </TableContainer>
+        );
+    }
+
+    const cs = result.data;
 
     return (
         <TableContainer>
@@ -21,7 +34,7 @@ export default function PublicContests({ contests }: { contests: Promise<Contest
                     <TableHeaderRow>
                         <TableHead>ID</TableHead>
                         <TableHead>Title</TableHead>
-                        <TableHead>Host address</TableHead>
+                        <TableHead>Host</TableHead>
                         <TableHead>Start</TableHead>
                         <TableHead>End</TableHead>
                         <TableHead>Duration</TableHead>
@@ -31,7 +44,7 @@ export default function PublicContests({ contests }: { contests: Promise<Contest
                 </TableHeader>
                 <TableBody>
                     {
-                        cs.data.map((contest, index) => (
+                        cs.items.map((contest, index) => (
                             <TableRow key={index}>
                                 <TableCell>{contest.id}</TableCell>
                                 <TableCell>
@@ -40,7 +53,7 @@ export default function PublicContests({ contests }: { contests: Promise<Contest
                                     </Link>
                                 </TableCell>
                                 <TableCell>
-                                    <Address address={contest.creator.address} />
+                                    {`@${contest.creator.username}`}
                                 </TableCell>
                                 <TableCell>
                                     <DateView date={contest.start_time} />
@@ -68,7 +81,7 @@ export default function PublicContests({ contests }: { contests: Promise<Contest
                     }
                 </TableBody>
                 {
-                    cs.data.length === 0 && <TableCaption>No public contests</TableCaption>
+                    cs.items.length === 0 && <TableCaption>No public contests</TableCaption>
                 }
             </Table>
         </TableContainer>

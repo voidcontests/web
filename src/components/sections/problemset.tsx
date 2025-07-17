@@ -2,19 +2,25 @@
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from '@/components/ui/table';
 import { DifficultyTag } from '@/components/difficulty-tag';
-import { ContestDetailed } from '@/actions/dto/response';
-import { useTonWallet } from '@tonconnect/ui-react';
+import { ContestDetailed } from '@/actions/models/response';
 import { SolvedTag } from '@/components/solved-tag';
 import { Link } from '@/components/ui/link';
 import { capitalize } from '@/lib/strings';
 import { use } from 'react';
+import { useAccount } from '@/hooks/use-account';
+import { Result } from '@/actions';
 
-export function Problemset({ contest }: { contest: Promise<ContestDetailed> }) {
-    const cdetailed = use(contest);
+export function Problemset({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
+    const result = use(contest);
+    if (!result.ok) {
+        throw new Error(`Fetch contest failed: ${result.error}`);
+    }
+
+    const cdetailed = result.data;
     const problemset = cdetailed.problems;
     const started = new Date(cdetailed.start_time) < new Date();
 
-    const wallet = useTonWallet();
+    const { account } = useAccount();
 
     return (
         <TableContainer>
@@ -39,7 +45,7 @@ export function Problemset({ contest }: { contest: Promise<ContestDetailed> }) {
                                 </TableCell>
                                 <TableCell>
                                     {
-                                        started && (cdetailed.is_participant || (wallet && cdetailed.is_participant))
+                                        started && (cdetailed.is_participant || (account && cdetailed.is_participant))
                                             ? <Link
                                                 href={`/contest/${cdetailed.id}/problem/${problem.charcode}`}
                                                 className='flex-1 truncate w-0 max-w-fit'
@@ -68,12 +74,17 @@ export function Problemset({ contest }: { contest: Promise<ContestDetailed> }) {
     );
 }
 
-export function ProblemsetMinimal({ contest }: { contest: Promise<ContestDetailed> }) {
-    const cdetailed = use(contest);
+export function ProblemsetMinimal({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
+    const result = use(contest);
+    if (!result.ok) {
+        throw new Error(`Fetch contest failed: ${result.error}`);
+    }
+
+    const cdetailed = result.data;
     const problemset = cdetailed.problems;
     const started = new Date(cdetailed.start_time) < new Date();
 
-    const wallet = useTonWallet();
+    const { account } = useAccount();
 
     return (
         <TableContainer>
@@ -97,7 +108,7 @@ export function ProblemsetMinimal({ contest }: { contest: Promise<ContestDetaile
                                 <TableCell>
                                     <div className='flex flex-nowrap items-center pr-5'>
                                         {
-                                            started && (cdetailed.is_participant || (wallet && cdetailed.is_participant))
+                                            started && (cdetailed.is_participant || (account && cdetailed.is_participant))
                                                 ? <Link
                                                     href={`/contest/${cdetailed.id}/problem/${problem.charcode}`}
                                                     className='flex-1 truncate w-0 max-w-fit'

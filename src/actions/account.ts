@@ -1,29 +1,36 @@
 'use server';
 
-import { Account } from "@/actions/dto/response";
-import { BASEPATH, COOKIE_KEY } from ".";
-import { cookies } from "next/headers";
+import { fetchWithAuth, fetchWithSchema, Result } from '.';
+import { config } from '@/config';
+import { Account, EntityID, Token } from '@/actions/models/response';
+import { FormData as SignInFormData } from '@/components/forms/sign-in';
+import { FormData as SignUpFormData } from '@/components/forms/sign-up';
+import { AccountSchema, EntityIDSchema, TokenSchema } from './schemas';
 
-export async function create() {}
+export async function createSession(data: SignInFormData): Promise<Result<Token>> {
+    return fetchWithSchema(config.api.basepath + '/session',
+        {
+            method: 'POST',
+            body: JSON.stringify(data),
+        }, TokenSchema
+    );
+}
 
-export async function getAccount(): Promise<Account> {
-    const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_KEY)?.value;
+export async function createAccount(data: SignUpFormData): Promise<Result<EntityID>> {
+	return await fetchWithAuth(config.api.basepath + '/account',
+		{
+			method: 'POST',
+			body: JSON.stringify(data),
+		},
+		EntityIDSchema
+	);
+}
 
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-    };
-
-    // TODO: unhardcode mainnet id out of here
-    const res = await fetch(BASEPATH + `/account?network=-239`, {
-        method: 'GET',
-        headers: headers,
-    });
-
-    if (!res.ok) {
-        throw new Error(`can't get current account`);
-    }
-
-    return await res.json() as Account;
+export async function getAccount(): Promise<Result<Account>> {
+	return await fetchWithAuth(config.api.basepath + '/account',
+		{
+			method: 'GET',
+		},
+		AccountSchema
+	);
 }

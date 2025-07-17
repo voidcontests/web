@@ -119,7 +119,7 @@ const MarkdownEditor = forwardRef<HTMLTextAreaElement, MarkdownEditorProps>(({ m
                 select(selectionEnd + 3, selectionEnd + 6);
                 break;
             default:
-                throw new Error('ERROR: trying to apply unknown style');
+                throw new Error('trying to apply unknown style');
         }
     }
 

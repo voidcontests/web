@@ -1,11 +1,17 @@
 'use client';
 
 import { MessageBox } from '@/components/sections/message-box';
-import { Account } from '@/actions/dto/response';
+import { Account } from '@/actions/models/response';
 import { use } from 'react';
+import { Result } from "@/actions";
 
-export default function HubMessage({ account }: { account: Promise<Account> }) {
-    const acc = use(account);
+export default function HubMessage({ account }: { account: Promise<Result<Account>> }) {
+    const result = use(account);
+    if (!result.ok) {
+        throw new Error('unauthorized');
+    }
+
+    const acc = result.data;
 
     if (acc.role.name === 'admin') {
         return (

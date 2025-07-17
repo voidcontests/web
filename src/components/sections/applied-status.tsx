@@ -1,23 +1,28 @@
 'use client';
 
-import { useIsConnectionRestored, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
-import { ContestDetailed } from "@/actions/dto/response";
+import { ContestDetailed } from "@/actions/models/response";
 import { Button } from "@/components/ui/button";
 import { use } from "react";
 import { toast } from "@/components/toast";
 import { LoaderCircle } from "lucide-react";
-import { createEntry, revalidate } from "@/actions";
+import { createEntry } from "@/actions/contests";
+import { revalidate } from "@/actions/revalidate";
+import { useAccount } from "@/hooks/use-account";
+import Link from "next/link";
+import { Result } from "@/actions";
 
-export default function AppliedStatus({ contest }: { contest: Promise<ContestDetailed> }) {
-    const cdetailed = use(contest);
+export default function AppliedStatus({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
+    const { account, loading } = useAccount();
 
-    const wallet = useTonWallet();
-    const [tonConnectUI] = useTonConnectUI();
-    const isConnectionRestored = useIsConnectionRestored();
+    const result = use(contest);
+    if (!result.ok) {
+        throw new Error(`Fetch contest information failed: ${result.error}`);
+    }
 
+    const cdetailed = result.data;
     const start_time = new Date(cdetailed.start_time);
 
-    if (!isConnectionRestored) {
+    if (loading) {
         return (
             <Button variant="link" disabled>
                 <LoaderCircle className="animate-spin" /> LOADING
@@ -25,9 +30,12 @@ export default function AppliedStatus({ contest }: { contest: Promise<ContestDet
         );
     }
 
-    if (!wallet) {
+    // TODO: for whatever freaking reason, sign in button dont work
+    if (account === null) {
         return (
-            <Button variant="link" onClick={() => tonConnectUI.openModal()}>CONNECT WALET TO APPLY</Button>
+            <Link href="/login">
+                <Button asChild variant="link">SIGN IN TO APPLY</Button>
+            </Link>
         );
     }
 

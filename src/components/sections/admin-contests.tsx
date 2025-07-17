@@ -1,16 +1,28 @@
 'use client';
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from "@/components/ui/table";
-import { Account, ContestList } from '@/actions/dto/response';
+import { Account, ContestList, ContestListItem, Pagination } from '@/actions/models/response';
 import ContestStatus from '@/components/contest-status';
 import { format_duration } from '@/lib/utils';
 import { DateView } from "@/components/date";
 import { Link } from "@/components/ui/link";
 import { use } from 'react';
+import { Result } from "@/actions";
 
-export default function AdminContests({ account, contests }: { account: Promise<Account>, contests: Promise<ContestList> }) {
-    const acc = use(account);
-    const cs = use(contests);
+export default function AdminContests({ account, contests }: { account: Promise<Result<Account>>, contests: Promise<Result<Pagination<ContestListItem>>> }) {
+    const accountResult = use(account);
+    const contestsResult = use(contests);
+
+    if (!accountResult.ok) {
+        throw new Error('unauthorized');
+    }
+
+    if (!contestsResult.ok) {
+        return TableWithError(contestsResult.error.message);
+    }
+
+    const acc = accountResult.data;
+    const cs = contestsResult.data;
 
     return (
         <TableContainer>
@@ -39,7 +51,7 @@ export default function AdminContests({ account, contests }: { account: Promise<
                 </TableHeader>
                 <TableBody>
                     {
-                        cs.data.map((contest, index) => (
+                        cs.items.map((contest, index) => (
                             <TableRow key={index}>
                                 <TableCell className='text-center pr-5'>
                                     {contest.id}
@@ -84,11 +96,40 @@ export default function AdminContests({ account, contests }: { account: Promise<
                     }
                 </TableBody>
                 {
-                    cs.data.length === 0 &&
+                    cs.items.length === 0 &&
                     <TableCaption>
                         No created contests.
                     </TableCaption>
                 }
+            </Table>
+        </TableContainer>
+    );
+}
+
+export function TableWithError(message: string) {
+    return (
+        <TableContainer>
+            <TableTitle>CONTESTS</TableTitle>
+            <Table>
+                <TableHeader>
+                    <TableHeaderRow>
+                        <TableHead>ID</TableHead>
+                        <TableHead>Title</TableHead>
+                        <TableHead>Starting at</TableHead>
+                        <TableHead>Deadline</TableHead>
+                        <TableHead>Duration</TableHead>
+                        <TableHead>Participants</TableHead>
+                        <TableHead>Total slots</TableHead>
+                        <TableHead>Leaderboard</TableHead>
+                        <TableHead>Created at</TableHead>
+                        <TableHead>Status</TableHead>
+                    </TableHeaderRow>
+                </TableHeader>
+                <TableCaption>
+                    {
+                        `Failed to get problems: ${message}`
+                    }
+                </TableCaption>
             </Table>
         </TableContainer>
     );
