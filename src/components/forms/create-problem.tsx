@@ -11,7 +11,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { createProblem } from '@/actions/problems';
 import { revalidate } from '@/actions/revalidate';
 import { toast } from '@/components/toast';
-import { Separator } from '../ui/separator';
+import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { MessageBox } from '@/components/sections/message-box';
 import { Trash2 } from 'lucide-react';

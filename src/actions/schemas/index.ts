@@ -140,12 +140,6 @@ export const LeaderboardSchema = z.object({
     data: z.array(LeaderboardItemSchema),
 });
 
-export const ExecutionResultSchema = z.object({
-	status: z.number(),
-	stdout: z.string(),
-	stderr: z.string(),
-});
-
 export const ErrorSchema = z.object({
     message: z.string(),
     timeout: z.string().optional(),

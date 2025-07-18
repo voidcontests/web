@@ -1,138 +1,44 @@
+import {
+    AccountSchema,
+    ContestDetailedSchema,
+    ContestListItemSchema,
+    ContestListSchema,
+    EntityIDSchema,
+    ErrorSchema,
+    LeaderboardItemSchema,
+    LeaderboardSchema,
+    MetaSchema,
+    PaginationSchema,
+    ProblemDetailedSchema,
+    ProblemListItemSchema,
+    SubmissionSchema,
+    SubmissionsListSchema,
+    TokenSchema,
+    UserSchema,
+} from "@/actions/schemas";
 import z from "zod";
-import { ErrorSchema, ProblemListItemSchema } from "../schemas";
 
-export type Pagination<T> = {
-    meta: Meta;
-    items: T[];
-};
+export type Pagination<T> = z.infer<ReturnType<typeof PaginationSchema<z.ZodType<T>>>>;
+export type Meta = z.infer<typeof MetaSchema>;
 
-export type Meta = {
-    total: number;
-    limit: number;
-    offset: number;
-    has_next: boolean;
-    has_prev: boolean;
-};
+export type EntityID = z.infer<typeof EntityIDSchema>;
+export type Token = z.infer<typeof TokenSchema>;
 
-export type Account = {
-    id: number;
-    username: string;
-    role: {
-        name: string;
-        created_problems_limit: number;
-        created_contests_limit: number;
-    };
-};
+export type Account = z.infer<typeof AccountSchema>;
+export type User = z.infer<typeof UserSchema>;
 
-export type EntityID = {
-    id: number;
-};
+export type ContestList = z.infer<typeof ContestListSchema>;
+export type ContestListItem = z.infer<typeof ContestListItemSchema>;
+export type ContestDetailed = z.infer<typeof ContestDetailedSchema>;
 
-export type Token = {
-    token: string;
-};
-
-export type ContestList = {
-    data: ContestListItem[];
-};
-
-export type ProblemList = {
-    data: ProblemListItem[];
-};
-
-export type SubmissionsList = {
-    data: Submission[];
-};
-
-export type ContestDetailed = {
-    id: number;
-    creator: User;
-    title: string;
-    description: string;
-    start_time: Date;
-    end_time: Date;
-    duration_mins: number;
-    max_entries?: number;
-    participants: number;
-    allow_late_join: boolean;
-    is_participant?: boolean;
-    problems: ProblemListItem[];
-    created_at: Date;
-};
-
+export type ProblemList = z.infer<typeof ProblemListItemSchema>;
 export type ProblemListItem = z.infer<typeof ProblemListItemSchema>;
+export type ProblemDetailed = z.infer<typeof ProblemDetailedSchema>;
 
-export type ContestListItem = {
-    id: number;
-    creator: User;
-    title: string;
-    start_time: Date;
-    end_time: Date;
-    duration_mins: number;
-    max_entries?: number;
-    participants: number;
-    created_at: Date;
-};
+export type SubmissionsList = z.infer<typeof SubmissionsListSchema>;
+export type Submission = z.infer<typeof SubmissionSchema>;
 
-export type Submission = {
-    id: number;
-    problem_id: number;
-    problem_kind: string;
-    verdict: string;
-    answer?: string;
-    code?: string;
-    language?: string;
-    testing_report?: {
-        passed: number;
-        total: number;
-        stderr?: string;
-        failed_test?: {
-            input: string;
-            expected_output: string;
-            actual_output: string;
-        },
-    };
-    created_at: Date;
-};
-
-export type User = {
-    id: number;
-    username: string;
-};
-
-export type ProblemDetailed = {
-    id: number;
-    charcode: string;
-    contest_id: number;
-    writer: User;
-    kind: string;
-    title: string;
-    difficulty: string;
-    statement: string;
-    examples?: {
-        input: string;
-        output: string;
-    }[];
-    status?: string;
-    time_limit_ms?: number;
-    created_at: Date;
-}
-
-
-export type LeaderboardItem = {
-    user_id: number;
-    username: string;
-    points: number;
-}
-
-export type Leaderboard = {
-    data: LeaderboardItem[];
-}
-
-export type ExecutionResult = {
-	status: number;
-	stdout: string;
-	stderr: string;
-};
+export type Leaderboard = z.infer<typeof LeaderboardSchema>;
+export type LeaderboardItem = z.infer<typeof LeaderboardItemSchema>;
 
 export type Error = z.infer<typeof ErrorSchema>;
