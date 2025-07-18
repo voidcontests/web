@@ -44,7 +44,7 @@ export const ProblemListItemSchema = z.object({
     writer: UserSchema,
     title: z.string(),
     difficulty: z.string(),
-    status: z.enum(['accepted', 'tried']).optional(),
+    status: z.string().optional(),
     created_at: z.coerce.date(),
 });
 

@@ -33,7 +33,7 @@ echo "Resetting all changes..."
 git reset --hard && git clean -fdx
 
 echo "Downloading new dependencies..."
-bun install --frozen-lockfile
+bun install
 
 echo "Building project..."
 bun run build

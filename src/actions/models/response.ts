@@ -1,5 +1,5 @@
 import z from "zod";
-import { ErrorSchema } from "../schemas";
+import { ErrorSchema, ProblemListItemSchema } from "../schemas";
 
 export type Pagination<T> = {
     meta: Meta;
@@ -60,16 +60,7 @@ export type ContestDetailed = {
     created_at: Date;
 };
 
-export type ProblemListItem = {
-    id: number;
-    charcode?: string;
-    contest_id?: number;
-    writer: User;
-    title: string;
-    difficulty: string;
-    status?: 'accepted' | 'tried';
-    created_at: Date;
-};
+export type ProblemListItem = z.infer<typeof ProblemListItemSchema>;
 
 export type ContestListItem = {
     id: number;
@@ -122,7 +113,7 @@ export type ProblemDetailed = {
         input: string;
         output: string;
     }[];
-    status?: 'accepted' | 'tried';
+    status?: string;
     time_limit_ms?: number;
     created_at: Date;
 }

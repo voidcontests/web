@@ -4,11 +4,15 @@ import { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-    status: "accepted" | "tried" | undefined;
+    status: string | undefined;
 }
 
 function SolvedTag({ status, className, ...props }: Props) {
     if (status === undefined) {
+        return null;
+    }
+
+    if (status !== 'accepted' && status != 'tried') {
         return null;
     }
 
