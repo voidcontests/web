@@ -55,15 +55,16 @@ export function CreateProblemForm() {
     });
 
     const onSubmit = async (data: FormData) => {
-        try {
-            await createProblem(data);
-            revalidate('/hub');
-            toast({ title: 'Problem created successfully' });
-            router.push('/hub');
-        } catch (e) {
-            console.error("Error:", e);
+        const result = await createProblem(data);
+        if (!result.ok) {
+            console.error("Error:", result.error.message);
             toast({ title: 'Something went wrong. Try again later' });
+            return;
         }
+
+        revalidate('/hub');
+        toast({ title: 'Problem created successfully' });
+        router.push('/hub');
     };
 
     function validate(): boolean {

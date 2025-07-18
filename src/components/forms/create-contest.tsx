@@ -62,15 +62,16 @@ export function CreateContestForm({ problems }: { problems: Promise<Result<Pagin
     });
 
     const onSubmit = async (data: FormData) => {
-        try {
-            await createContest(data);
-            revalidate('/hub');
-            toast({ title: 'Contest created successfully' });
-            router.push('/hub');
-        } catch (e) {
-            console.error("Error:", e);
+        const result = await createContest(data);
+        if (!result.ok) {
+            console.error("Error:", result.error.message);
             toast({ title: 'Something went wrong. Try again later' });
+            return;
         }
+
+        revalidate('/hub');
+        toast({ title: 'Contest created successfully' });
+        router.push('/hub');
     };
 
     const onCheckedChange = (e: CheckedState, problemID: number) => {
