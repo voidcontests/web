@@ -5,7 +5,7 @@ import { Result } from "@/actions";
 export default function ContestInfo({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
     const result = use(contest);
     if (!result.ok) {
-        throw new Error(`Fetch contest information failed: ${result.error}`);
+        throw new Error(`Fetch contest information failed: ${result.error.message}`);
     }
 
     const cdetailed = result.data;

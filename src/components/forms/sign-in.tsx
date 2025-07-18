@@ -37,7 +37,7 @@ export function LoginForm() {
             router.push('/');
             toast({ title: 'Logged in' });
         } else {
-            console.error("Error:", result.error);
+            console.error("Error:", result.error.message);
             toast({ title: 'Something went wrong. Try again later' });
         }
     };

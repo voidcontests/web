@@ -9,7 +9,7 @@ import { Result } from '@/actions';
 export function LatestSubmissionsView({ submissions }: { submissions: Promise<Result<Pagination<Submission>>> }) {
     const result = use(submissions);
     if (!result.ok) {
-        throw new Error(`Failed to fetch submissions: ${result.error}`);
+        throw new Error(`Failed to fetch submissions: ${result.error.message}`);
     }
 
     const subs = result.data;

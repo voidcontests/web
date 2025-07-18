@@ -21,7 +21,7 @@ const DEFAULT_LANGUAGE = "c";
 export function ContestProblemView({ problem }: { problem: Promise<Result<ProblemDetailed>> }) {
     const result = use(problem);
     if (!result.ok) {
-        throw new Error(`Fetch problem failed: ${result.error}`);
+        throw new Error(`Fetch problem failed: ${result.error.message}`);
     }
 
     const pdetailed = result.data;

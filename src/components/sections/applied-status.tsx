@@ -16,7 +16,7 @@ export default function AppliedStatus({ contest }: { contest: Promise<Result<Con
 
     const result = use(contest);
     if (!result.ok) {
-        throw new Error(`Fetch contest information failed: ${result.error}`);
+        throw new Error(`Fetch contest information failed: ${result.error.message}`);
     }
 
     const cdetailed = result.data;

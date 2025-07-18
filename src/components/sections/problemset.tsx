@@ -13,7 +13,7 @@ import { Result } from '@/actions';
 export function Problemset({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
     const result = use(contest);
     if (!result.ok) {
-        throw new Error(`Fetch contest failed: ${result.error}`);
+        throw new Error(`Fetch contest failed: ${result.error.message}`);
     }
 
     const cdetailed = result.data;
@@ -77,7 +77,7 @@ export function Problemset({ contest }: { contest: Promise<Result<ContestDetaile
 export function ProblemsetMinimal({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
     const result = use(contest);
     if (!result.ok) {
-        throw new Error(`Fetch contest failed: ${result.error}`);
+        throw new Error(`Fetch contest failed: ${result.error.message}`);
     }
 
     const cdetailed = result.data;

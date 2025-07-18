@@ -9,7 +9,7 @@ import { Result } from '@/actions';
 export function ProblemView({ problem }: { problem: Promise<Result<ProblemDetailed>> }) {
     const result = use(problem);
     if (!result.ok) {
-        throw new Error(`Fetch problem failed: ${result.error}`);
+        throw new Error(`Fetch problem failed: ${result.error.message}`);
     }
 
     const pdetailed = result.data;
