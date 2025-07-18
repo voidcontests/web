@@ -52,8 +52,8 @@ export async function getLeaderboard(cid: ID): Promise<Result<Pagination<Leaderb
     );
 }
 
-export async function getAllContests(): Promise<Result<Pagination<ContestListItem>>> {
-    return fetchWithAuth(`${config.api.basepath}/contests`,
+export async function getAllContests(offset: number, limit: number): Promise<Result<Pagination<ContestListItem>>> {
+    return fetchWithAuth(`${config.api.basepath}/contests?offset=${offset}&limit=${limit}`,
         { method: 'GET' },
         PaginationSchema(ContestListItemSchema)
     );

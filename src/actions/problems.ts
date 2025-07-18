@@ -25,8 +25,8 @@ export async function getProblemByID(id: ID): Promise<Result<ProblemDetailed>> {
 	}, ProblemDetailedSchema);
 }
 
-export async function getProblemSubmissions(contestID: ID, charcode: string, limit: number): Promise<Result<Pagination<Submission>>> {
-	return fetchWithAuth(`${config.api.basepath}/contests/${contestID}/problems/${charcode}/submissions?limit=${limit}`, {
+export async function getProblemSubmissions(contestID: ID, charcode: string, offset: number, limit: number): Promise<Result<Pagination<Submission>>> {
+	return fetchWithAuth(`${config.api.basepath}/contests/${contestID}/problems/${charcode}/submissions?offset=${offset}&limit=${limit}`, {
 	    method: 'GET'
 	}, PaginationSchema(SubmissionSchema));
 }

@@ -64,7 +64,7 @@ export async function fetchWithSchema<T>(url: string, opts: RequestInit, schema:
 	if (!parsed.success) {
 		return {
 			ok: false,
-			error: { message: `Validation failed: ${parsed.error.message}` },
+			error: { message: `Validation failed: ${parsed.error.message}, ${text}` },
 			status,
 		};
 	}

@@ -11,7 +11,7 @@ import { Result } from "@/actions";
 export default function Problemset({ leaderboard }: { leaderboard: Promise<Result<Pagination<LeaderboardItem>>> }) {
     const result = use(leaderboard);
     if (!result.ok) {
-        throw new Error(`Fetch leaderboard failed: ${result.error}`);
+        throw new Error(`Fetch leaderboard failed: ${result.error.message}`);
     }
 
     const lb = result.data;
