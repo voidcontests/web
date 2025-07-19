@@ -37,7 +37,7 @@ export const AccountSchema = z.object({
     }),
 });
 
-export const ProblemListItemSchema = z.object({
+export const ContestProblemListItemSchema = z.object({
     id: z.number(),
     charcode: z.string().optional(),
     contest_id: z.number().optional(),
@@ -48,7 +48,7 @@ export const ProblemListItemSchema = z.object({
     created_at: z.coerce.date(),
 });
 
-export const ProblemDetailedSchema = z.object({
+export const ContestProblemDetailedSchema = z.object({
     id: z.number(),
     charcode: z.string(),
     contest_id: z.number(),
@@ -60,13 +60,13 @@ export const ProblemDetailedSchema = z.object({
     examples: z
         .array(z.object({ input: z.string(), output: z.string() }))
         .optional(),
-    status: z.enum(['accepted', 'tried']).optional(),
-    time_limit_ms: z.number().optional(),
+    status: z.string().optional(),
+    time_limit_ms: z.number(),
     created_at: z.coerce.date(),
 });
 
-export const ProblemListSchema = z.object({
-    data: z.array(ProblemListItemSchema),
+export const ContestProblemListSchema = z.object({
+    data: z.array(ContestProblemListItemSchema),
 });
 
 export const ContestListItemSchema = z.object({
@@ -97,7 +97,7 @@ export const ContestDetailedSchema = z.object({
     participants: z.number(),
     allow_late_join: z.boolean(),
     is_participant: z.boolean().optional(),
-    problems: z.array(ProblemListItemSchema),
+    problems: z.array(ContestProblemListItemSchema),
     created_at: z.coerce.date(),
 });
 
@@ -143,4 +143,30 @@ export const LeaderboardSchema = z.object({
 export const ErrorSchema = z.object({
     message: z.string(),
     timeout: z.string().optional(),
+});
+
+export const ProblemListItemSchema = z.object({
+    id: z.number(),
+    writer: UserSchema,
+    title: z.string(),
+    difficulty: z.string(),
+    created_at: z.coerce.date(),
+});
+
+export const ProblemDetailedSchema = z.object({
+    id: z.number(),
+    writer: UserSchema,
+    kind: z.string(),
+    title: z.string(),
+    difficulty: z.string(),
+    statement: z.string(),
+    examples: z
+        .array(z.object({ input: z.string(), output: z.string() }))
+        .optional(),
+    time_limit_ms: z.number(),
+    created_at: z.coerce.date(),
+});
+
+export const ProblemListSchema = z.object({
+    data: z.array(ProblemListItemSchema),
 });

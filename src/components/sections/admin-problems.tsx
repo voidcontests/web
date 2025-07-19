@@ -8,6 +8,7 @@ import { Link } from "@/components/ui/link";
 import { use } from 'react';
 import { Result } from "@/actions";
 
+
 export default function AdminProblems({ account, problems }: { account: Promise<Result<Account>>, problems: Promise<Result<Pagination<ProblemListItem>>> }) {
     const accountResult = use(account);
     const problemsResult = use(problems);
@@ -49,7 +50,7 @@ export default function AdminProblems({ account, problems }: { account: Promise<
                                     {problem.id}
                                 </TableCell>
                                 <TableCell>
-                                    <Link href={`/hub/problem/${problem.id}`}>
+                                    <Link href={`/hub/preview/problem/${problem.id}`}>
                                         {problem.title}
                                     </Link>
                                 </TableCell>

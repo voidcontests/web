@@ -57,7 +57,7 @@ export default function AdminContests({ account, contests }: { account: Promise<
                                     {contest.id}
                                 </TableCell>
                                 <TableCell>
-                                    <Link href={`/hub/contests/${contest.id}`}>
+                                    <Link href={`/contest/${contest.id}`}>
                                         {contest.title}
                                     </Link>
                                 </TableCell>

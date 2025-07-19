@@ -9,8 +9,12 @@ import {
     LeaderboardSchema,
     MetaSchema,
     PaginationSchema,
+    ContestProblemDetailedSchema,
+    ContestProblemListItemSchema,
+    ContestProblemListSchema,
     ProblemDetailedSchema,
     ProblemListItemSchema,
+    ProblemListSchema,
     SubmissionSchema,
     SubmissionsListSchema,
     TokenSchema,
@@ -31,9 +35,9 @@ export type ContestList = z.infer<typeof ContestListSchema>;
 export type ContestListItem = z.infer<typeof ContestListItemSchema>;
 export type ContestDetailed = z.infer<typeof ContestDetailedSchema>;
 
-export type ProblemList = z.infer<typeof ProblemListItemSchema>;
-export type ProblemListItem = z.infer<typeof ProblemListItemSchema>;
-export type ProblemDetailed = z.infer<typeof ProblemDetailedSchema>;
+export type ContestProblemList = z.infer<typeof ContestProblemListSchema>;
+export type ContestProblemListItem = z.infer<typeof ContestProblemListItemSchema>;
+export type ContestProblemDetailed = z.infer<typeof ContestProblemDetailedSchema>;
 
 export type SubmissionsList = z.infer<typeof SubmissionsListSchema>;
 export type Submission = z.infer<typeof SubmissionSchema>;
@@ -42,3 +46,7 @@ export type Leaderboard = z.infer<typeof LeaderboardSchema>;
 export type LeaderboardItem = z.infer<typeof LeaderboardItemSchema>;
 
 export type Error = z.infer<typeof ErrorSchema>;
+
+export type ProblemList = z.infer<typeof ProblemListSchema>;
+export type ProblemListItem = z.infer<typeof ProblemListItemSchema>;
+export type ProblemDetailed = z.infer<typeof ProblemDetailedSchema>;

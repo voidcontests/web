@@ -1,6 +1,6 @@
 'use client';
 
-import { ProblemDetailed, Submission } from "@/actions/models/response";
+import { ContestProblemDetailed, Submission } from "@/actions/models/response";
 import { SubmissionReport } from "@/components/sections/submission-report";
 import { CodeEditor } from "@/components/sections/code-editor";
 import Preview from "@/components/sections/preview";
@@ -18,7 +18,7 @@ import { getSubmissionByID, submitCodeSolution, submitTextAnswer } from "@/actio
 
 const DEFAULT_LANGUAGE = "c";
 
-export function ContestProblemView({ problem }: { problem: Promise<Result<ProblemDetailed>> }) {
+export function ContestProblemView({ problem }: { problem: Promise<Result<ContestProblemDetailed>> }) {
     const result = use(problem);
     if (!result.ok) {
         throw new Error(`Fetch problem failed: ${result.error.message}`);

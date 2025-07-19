@@ -1,6 +1,6 @@
 'use server';
 
-import { Pagination, EntityID, ProblemDetailed, Submission, ProblemListItem } from '@/actions/models/response';
+import { Pagination, EntityID, ContestProblemDetailed, Submission, ProblemListItem, ProblemDetailed } from '@/actions/models/response';
 import { EntityIDSchema, PaginationSchema, ProblemDetailedSchema, ProblemListItemSchema, SubmissionSchema } from '@/actions/schemas';
 import { FormData as CreateProblemFormData } from '@/components/forms/create-problem';
 import { ID, fetchWithAuth, Result } from '.';

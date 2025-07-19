@@ -3,9 +3,9 @@
 import { z } from 'zod';
 import { config } from '@/config';
 import { FormData as CreateContestFormData } from '@/components/forms/create-contest';
-import { ContestDetailed, ContestListItem, EntityID, LeaderboardItem, Pagination, ProblemDetailed } from '@/actions/models/response';
+import { ContestDetailed, ContestListItem, EntityID, LeaderboardItem, Pagination, ContestProblemDetailed } from '@/actions/models/response';
 import { ID, fetchWithAuth, Result } from '.';
-import { EntityIDSchema, ProblemDetailedSchema, ContestListItemSchema, PaginationSchema, ContestDetailedSchema, LeaderboardItemSchema } from './schemas';
+import { EntityIDSchema, ContestProblemDetailedSchema, ContestListItemSchema, PaginationSchema, ContestDetailedSchema, LeaderboardItemSchema } from './schemas';
 
 export async function createContest(data: CreateContestFormData): Promise<Result<EntityID>> {
     return fetchWithAuth(`${config.api.basepath}/contests`,
@@ -17,10 +17,10 @@ export async function createContest(data: CreateContestFormData): Promise<Result
     );
 }
 
-export async function getContestProblem(cid: ID, charcode: string): Promise<Result<ProblemDetailed>> {
+export async function getContestProblem(cid: ID, charcode: string): Promise<Result<ContestProblemDetailed>> {
     return fetchWithAuth(`${config.api.basepath}/contests/${cid}/problems/${charcode}`,
         { method: 'GET' },
-        ProblemDetailedSchema
+        ContestProblemDetailedSchema
     );
 }
 
