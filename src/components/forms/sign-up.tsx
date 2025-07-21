@@ -36,7 +36,6 @@ export function CreateAccountForm() {
             toast({ title: 'Success!', description: 'Account successfully created. You can log in now.' });
             router.push('/login');
         } else {
-            console.error("Error:", result.error.message);
             toast({ title: 'Failed to create account', description: capitalize(result.error.message) });
         }
     };

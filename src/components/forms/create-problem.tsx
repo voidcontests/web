@@ -57,8 +57,7 @@ export function CreateProblemForm() {
     const onSubmit = async (data: FormData) => {
         const result = await createProblem(data);
         if (!result.ok) {
-            console.error("Error:", result.error.message);
-            toast({ title: 'Something went wrong. Try again later' });
+            toast({ title: 'Failed to create problem', description: result.error.message });
             return;
         }
 

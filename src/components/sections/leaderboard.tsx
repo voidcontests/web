@@ -13,7 +13,6 @@ import { capitalize } from "@/lib/strings";
 export default function Problemset({ leaderboard }: { leaderboard: Promise<Result<Pagination<LeaderboardItem>>> }) {
     const result = use(leaderboard);
     if (!result.ok) {
-        console.error(result.error.message);
         toast({ title: 'Leaderboard fetch failed', description: capitalize(result.error.message) });
         return (
             <TableContainer>

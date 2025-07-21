@@ -20,6 +20,7 @@ import { Submission } from '@/actions/models/response';
 import { Button } from '../ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { toast } from '../toast';
 
 export function LatestSubmissionsView({ contestID, charcode }: { contestID: ID, charcode: string }) {
     const router = useRouter();
@@ -40,7 +41,7 @@ export function LatestSubmissionsView({ contestID, charcode }: { contestID: ID, 
                 setSubmissions(result.data.items);
                 setTotal(result.data.meta.total);
             } else {
-                console.error(`Failed to fetch submissions: ${result.error.message}`);
+                toast({ title: 'Failed to fetch submissions', description: result.error.message });
             }
         };
         load();

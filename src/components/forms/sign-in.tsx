@@ -33,7 +33,6 @@ export function LoginForm() {
             Cookies.set(config.cookies.token_key, response.token);
             window.location.href = '/';
         } else {
-            console.error("Error:", result.error.message);
             toast({ title: 'Failed to log in', description: capitalize(result.error.message) });
         }
     };

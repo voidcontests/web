@@ -21,6 +21,7 @@ import { DateView } from '@/components/date';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { toast } from '../toast';
 
 export default function PublicContests() {
     const router = useRouter();
@@ -41,7 +42,7 @@ export default function PublicContests() {
                 setContests(result.data.items);
                 setTotal(result.data.meta.total);
             } else {
-                console.error(`Failed to load contests: ${result.error.message}`);
+                toast({ title: 'Failed to load contests', description: result.error.message });
             }
         };
         load();

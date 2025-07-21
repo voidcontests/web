@@ -64,8 +64,7 @@ export function CreateContestForm({ problems }: { problems: Promise<Result<Pagin
     const onSubmit = async (data: FormData) => {
         const result = await createContest(data);
         if (!result.ok) {
-            console.error("Error:", result.error.message);
-            toast({ title: 'Something went wrong. Try again later' });
+            toast({ title: 'Failed to create contest', description: result.error.message });
             return;
         }
 
