@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { Container } from '@/components/container';
 import { config } from '@/config';
-import { createSelectScope } from '@radix-ui/react-select';
 
 export interface FormData {
     username: string;
@@ -43,7 +42,15 @@ export function LoginForm() {
     };
 
     const validate = () => {
-        return watch('username').length > 3 && watch('password').length > 8;
+        const username = (value: string): boolean => {
+            return value.length > 3 && value.length < 30;
+        }
+
+        const password = (value: string): boolean => {
+            return value.length > 7 && value.length < 101;
+        }
+
+        return username(watch('username')) && password(watch('password'));
     };
 
     return (
