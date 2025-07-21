@@ -53,7 +53,7 @@ export default function AppliedStatus({ contest }: { contest: Promise<Result<Con
         );
     }
 
-    if (cdetailed.max_entries && cdetailed.max_entries >= cdetailed.participants) {
+    if (cdetailed.max_entries && cdetailed.participants >= cdetailed.max_entries) {
         return (
             <span className="text-center font-medium">There is no available slots to join.</span>
         );
