@@ -1,6 +1,6 @@
 'use client';
 
-import { createSession } from '@/actions/account';
+import { createSession, getAccount } from '@/actions/account';
 import { revalidate } from '@/actions/revalidate';
 import { Button } from "@/components/ui/button";
 import { Label } from '@/components/ui/label';
@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { Container } from '@/components/container';
 import { config } from '@/config';
+import { capitalize } from '@/lib/strings';
 
 export interface FormData {
     username: string;
@@ -18,8 +19,6 @@ export interface FormData {
 }
 
 export function LoginForm() {
-    const router = useRouter();
-
     const { register, handleSubmit, watch } = useForm<FormData>({
         defaultValues: {
             username: '',
@@ -32,12 +31,10 @@ export function LoginForm() {
         if (result.ok) {
             const response = result.data;
             Cookies.set(config.cookies.token_key, response.token);
-            revalidate('/');
-            router.push('/');
-            toast({ title: 'Logged in' });
+            window.location.href = '/';
         } else {
             console.error("Error:", result.error.message);
-            toast({ title: 'Something went wrong. Try again later' });
+            toast({ title: 'Failed to log in', description: capitalize(result.error.message) });
         }
     };
 

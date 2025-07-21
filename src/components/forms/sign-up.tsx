@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { Container } from '@/components/container';
 import { createAccount } from "@/actions/account";
 import { Checkbox } from '@/components/ui/checkbox';
+import { capitalize } from '@/lib/strings';
 
 export interface FormData {
     username: string;
@@ -32,11 +33,11 @@ export function CreateAccountForm() {
     const onSubmit = async (data: FormData) => {
         const result = await createAccount(data);
         if (result.ok) {
-            toast({ title: 'Account created successfully' });
+            toast({ title: 'Success!', description: 'Account successfully created. You can log in now.' });
             router.push('/login');
         } else {
             console.error("Error:", result.error.message);
-            toast({ title: 'Something went wrong. Try again later' });
+            toast({ title: 'Failed to create account', description: capitalize(result.error.message) });
         }
     };
 
