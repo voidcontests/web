@@ -93,7 +93,7 @@ export default function PublicContests() {
                         <TableRow key={index}>
                             <TableCell>{contest.id}</TableCell>
                             <TableCell>
-                                <Link href={`/contest/${contest.id}`}>
+                                <Link href={`/contests/${contest.id}`}>
                                     {contest.title}
                                 </Link>
                             </TableCell>

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const ps = getCreatedProblems();
+    const ps = getCreatedProblems(0, 10);
 
     return (
         <ContentContainer className="max-w-3xl">

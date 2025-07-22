@@ -62,7 +62,7 @@ export default function AppliedStatus({ contest }: { contest: Promise<Result<Con
     const handleApplyClick = async () => {
         try {
             await createEntry(cdetailed.id);
-            revalidate(`/contest/${cdetailed.id}`);
+            revalidate(`/contests/${cdetailed.id}`);
         } catch (e) {
             toast({ title: 'Something went wrong. Try again leter' });
         }

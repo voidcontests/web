@@ -47,7 +47,7 @@ export function Problemset({ contest }: { contest: Promise<Result<ContestDetaile
                                     {
                                         started && (cdetailed.is_participant || (account && cdetailed.is_participant))
                                             ? <Link
-                                                href={`/contest/${cdetailed.id}/problem/${problem.charcode}`}
+                                                href={`/contests/${cdetailed.id}/problems/${problem.charcode}`}
                                                 className='flex-1 truncate w-0 max-w-fit'
                                             >
                                                 {problem.title}
@@ -110,7 +110,7 @@ export function ProblemsetMinimal({ contest }: { contest: Promise<Result<Contest
                                         {
                                             started && (cdetailed.is_participant || (account && cdetailed.is_participant))
                                                 ? <Link
-                                                    href={`/contest/${cdetailed.id}/problem/${problem.charcode}`}
+                                                    href={`/contests/${cdetailed.id}/problems/${problem.charcode}`}
                                                     className='flex-1 truncate w-0 max-w-fit'
                                                 >
                                                     {problem.title}
@@ -125,7 +125,7 @@ export function ProblemsetMinimal({ contest }: { contest: Promise<Result<Contest
                     }
                 </TableBody>
                 <TableCaption>
-                    Return to <Link href={`/contest/${cdetailed.id}`}>contest</Link>.
+                    Return to <Link href={`/contests/${cdetailed.id}`}>contest</Link>.
                 </TableCaption>
             </Table>
         </TableContainer>

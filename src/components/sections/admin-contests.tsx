@@ -89,7 +89,7 @@ export default function AdminContests({ account, contests }: { account: Promise<
                                     {contest.id}
                                 </TableCell>
                                 <TableCell>
-                                    <Link href={`/contest/${contest.id}`}>
+                                    <Link href={`/contests/${contest.id}`}>
                                         {contest.title}
                                     </Link>
                                 </TableCell>
@@ -113,7 +113,7 @@ export default function AdminContests({ account, contests }: { account: Promise<
                                     {contest.max_entries || 'Not limited'}
                                 </TableCell>
                                 <TableCell>
-                                    <Link href={`/contest/${contest.id}/leaderboard`}>
+                                    <Link href={`/contests/${contest.id}/leaderboard`}>
                                         View
                                     </Link>
                                 </TableCell>

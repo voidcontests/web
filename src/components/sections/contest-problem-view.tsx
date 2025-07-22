@@ -65,7 +65,7 @@ export function ContestProblemView({ problem }: { problem: Promise<Result<Contes
             default:
                 toast({ title: `Unknown verdict: ${verdict}` });
         }
-        revalidate(`/contest/${pdetailed.contest_id}/problem/${pdetailed.charcode}`);
+        revalidate(`/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}`);
     }
 
     async function submitProgram() {
@@ -103,7 +103,7 @@ export function ContestProblemView({ problem }: { problem: Promise<Result<Contes
             setSubmission(submission);
         }
 
-        revalidate(`/contest/${pdetailed.contest_id}/problem/${pdetailed.charcode}`);
+        revalidate(`/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}`);
     }
 
     return (

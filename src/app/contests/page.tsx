@@ -15,8 +15,6 @@ export const metadata: Metadata = {
 export default async function ContestsPage() {
     return (
         <ContentContainer>
-            <OfficialContests />
-            <Separator />
             <PublicContests />
         </ContentContainer>
     );

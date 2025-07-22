@@ -82,7 +82,7 @@ export default function AdminProblems({ account, problems }: { account: Promise<
                                     {problem.id}
                                 </TableCell>
                                 <TableCell>
-                                    <Link href={`/hub/preview/problem/${problem.id}`}>
+                                    <Link href={`/hub/preview/problems/${problem.id}`}>
                                         {problem.title}
                                     </Link>
                                 </TableCell>

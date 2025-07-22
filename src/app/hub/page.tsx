@@ -13,8 +13,8 @@ const AdminProblems = dynamic(() => import('@/components/sections/admin-problems
 
 export default function Page() {
     const account = getAccount();
-    const contests = getCreatedContests();
-    const problems = getCreatedProblems();
+    const contests = getCreatedContests(0, 10);
+    const problems = getCreatedProblems(0, 10);
 
     return (
         <ContentContainer>
