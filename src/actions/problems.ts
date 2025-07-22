@@ -13,8 +13,8 @@ export async function createProblem(data: CreateProblemFormData): Promise<Result
 	}, EntityIDSchema);
 }
 
-export async function getCreatedProblems(): Promise<Result<Pagination<ProblemListItem>>> {
-	return fetchWithAuth(`${config.api.basepath}/creator/problems`, {
+export async function getCreatedProblems(offset: number, limit: number): Promise<Result<Pagination<ProblemListItem>>> {
+	return fetchWithAuth(`${config.api.basepath}/creator/problems?offset=${offset}&limit=${limit}`, {
 		method: 'GET',
 	}, PaginationSchema(ProblemListItemSchema));
 }

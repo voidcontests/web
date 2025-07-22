@@ -5,8 +5,11 @@ import { Account, Pagination, ProblemListItem } from '@/actions/models/response'
 import { DifficultyTag } from '@/components/difficulty-tag';
 import { DateView } from "@/components/date";
 import { Link } from "@/components/ui/link";
-import { use } from 'react';
+import { use, useEffect, useState } from 'react';
 import { Result } from "@/actions";
+import PaginationControls from "../pagination-controls";
+import { getCreatedProblems } from "@/actions/problems";
+import { toast } from "../toast";
 
 
 export default function AdminProblems({ account, problems }: { account: Promise<Result<Account>>, problems: Promise<Result<Pagination<ProblemListItem>>> }) {
@@ -22,7 +25,36 @@ export default function AdminProblems({ account, problems }: { account: Promise<
     }
 
     const acc = accountResult.data;
-    const ps = problemsResult.data;
+
+    const [problemss, setProblemss] = useState<ProblemListItem[]>(problemsResult.data.items);
+    const [offset, setOffset] = useState(0);
+    const [total, setTotal] = useState(0);
+    const limit = 10;
+
+    useEffect(() => {
+        const load = async () => {
+            const result = await getCreatedProblems(offset, limit);
+            if (result.ok) {
+                setProblemss(result.data.items);
+                setTotal(result.data.meta.total);
+            } else {
+                toast({ title: 'Failed to load contests', description: result.error.message });
+            }
+        };
+        load();
+    }, [offset, limit]);
+
+    const handlePrev = () => {
+        const newOffset = Math.max(0, offset - limit);
+        setOffset(newOffset);
+    };
+
+    const handleNext = () => {
+        if (offset + limit < total) {
+            const newOffset = offset + limit;
+            setOffset(newOffset);
+        }
+    };
 
     return (
         <TableContainer>
@@ -44,7 +76,7 @@ export default function AdminProblems({ account, problems }: { account: Promise<
                 </TableHeader>
                 <TableBody>
                     {
-                        ps.items.map((problem, index) => (
+                        problemss.map((problem, index) => (
                             <TableRow key={index}>
                                 <TableCell className='text-center'>
                                     {problem.id}
@@ -65,10 +97,17 @@ export default function AdminProblems({ account, problems }: { account: Promise<
                     }
                 </TableBody>
                 {
-                    ps.items.length === 0 &&
-                    <TableCaption>
-                        No created problems.
-                    </TableCaption>
+                    problemss.length === 0
+                        ? <TableCaption>No created problems.</TableCaption>
+                        : <TableCaption>
+                            <PaginationControls
+                                total={total}
+                                limit={limit}
+                                offset={offset}
+                                onNext={handleNext}
+                                onPrev={handlePrev}
+                            />
+                        </TableCaption>
                 }
             </Table>
         </TableContainer>

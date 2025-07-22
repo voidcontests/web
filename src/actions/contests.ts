@@ -24,8 +24,8 @@ export async function getContestProblem(cid: ID, charcode: string): Promise<Resu
     );
 }
 
-export async function getCreatedContests(): Promise<Result<Pagination<ContestListItem>>> {
-    return fetchWithAuth(`${config.api.basepath}/creator/contests`,
+export async function getCreatedContests(offset: number, limit: number): Promise<Result<Pagination<ContestListItem>>> {
+    return fetchWithAuth(`${config.api.basepath}/creator/contests?offset=${offset}&limit=${limit}`,
         { method: 'GET' },
         PaginationSchema(ContestListItemSchema)
     );

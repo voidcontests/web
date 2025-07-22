@@ -21,6 +21,7 @@ import { Button } from '../ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from '../toast';
+import PaginationControls from '../pagination-controls';
 
 export function LatestSubmissionsView({ contestID, charcode }: { contestID: ID, charcode: string }) {
     const router = useRouter();
@@ -96,29 +97,13 @@ export function LatestSubmissionsView({ contestID, charcode }: { contestID: ID, 
                     submissions.length === 0
                         ? <TableCaption>No recent submissions</TableCaption>
                         : <TableCaption>
-                            <div className="flex justify-between items-center px-2">
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    className="min-w-0"
-                                    onClick={handlePrev}
-                                    disabled={offset === 0}
-                                >
-                                    <ArrowLeft /> Previous
-                                </Button>
-                                <span className="text-sm">
-                                    Showing {offset + 1}–{Math.min(offset + limit, total)} of {total}
-                                </span>
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    className="min-w-0"
-                                    onClick={handleNext}
-                                    disabled={offset + limit >= total}
-                                >
-                                    Next <ArrowRight />
-                                </Button>
-                            </div>
+                            <PaginationControls
+                                total={total}
+                                limit={limit}
+                                offset={offset}
+                                onNext={handleNext}
+                                onPrev={handlePrev}
+                            />
                         </TableCaption>
                 }
             </Table>

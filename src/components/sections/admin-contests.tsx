@@ -6,8 +6,11 @@ import ContestStatus from '@/components/contest-status';
 import { format_duration } from '@/lib/utils';
 import { DateView } from "@/components/date";
 import { Link } from "@/components/ui/link";
-import { use } from 'react';
+import { use, useEffect, useState } from 'react';
 import { Result } from "@/actions";
+import PaginationControls from "../pagination-controls";
+import { getCreatedContests } from "@/actions/contests";
+import { toast } from "../toast";
 
 export default function AdminContests({ account, contests }: { account: Promise<Result<Account>>, contests: Promise<Result<Pagination<ContestListItem>>> }) {
     const accountResult = use(account);
@@ -22,7 +25,36 @@ export default function AdminContests({ account, contests }: { account: Promise<
     }
 
     const acc = accountResult.data;
-    const cs = contestsResult.data;
+
+    const [contestss, setContestss] = useState<ContestListItem[]>(contestsResult.data.items);
+    const [offset, setOffset] = useState(0);
+    const [total, setTotal] = useState(0);
+    const limit = 10;
+
+    useEffect(() => {
+        const load = async () => {
+            const result = await getCreatedContests(offset, limit);
+            if (result.ok) {
+                setContestss(result.data.items);
+                setTotal(result.data.meta.total);
+            } else {
+                toast({ title: 'Failed to load contests', description: result.error.message });
+            }
+        };
+        load();
+    }, [offset, limit]);
+
+    const handlePrev = () => {
+        const newOffset = Math.max(0, offset - limit);
+        setOffset(newOffset);
+    };
+
+    const handleNext = () => {
+        if (offset + limit < total) {
+            const newOffset = offset + limit;
+            setOffset(newOffset);
+        }
+    };
 
     return (
         <TableContainer>
@@ -51,7 +83,7 @@ export default function AdminContests({ account, contests }: { account: Promise<
                 </TableHeader>
                 <TableBody>
                     {
-                        cs.items.map((contest, index) => (
+                        contestss.map((contest, index) => (
                             <TableRow key={index}>
                                 <TableCell className='text-center pr-5'>
                                     {contest.id}
@@ -96,10 +128,17 @@ export default function AdminContests({ account, contests }: { account: Promise<
                     }
                 </TableBody>
                 {
-                    cs.items.length === 0 &&
-                    <TableCaption>
-                        No created contests.
-                    </TableCaption>
+                    contestss.length === 0
+                        ? <TableCaption>No created contests</TableCaption>
+                        : <TableCaption>
+                            <PaginationControls
+                                total={total}
+                                limit={limit}
+                                offset={offset}
+                                onNext={handleNext}
+                                onPrev={handlePrev}
+                            />
+                        </TableCaption>
                 }
             </Table>
         </TableContainer>

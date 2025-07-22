@@ -28,7 +28,7 @@ export async function fetchWithSchema<T>(url: string, opts: RequestInit, schema:
 		headers['Authorization'] = `Bearer ${token}`;
 	}
 
-	const res = await fetch(url, { ...opts, headers });
+	const res = await fetch(url, { ...opts, headers, next: { revalidate: 300 } });
 	const status = res.status;
 	const text = await res.text();
 
