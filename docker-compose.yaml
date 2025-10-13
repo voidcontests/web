@@ -1,25 +1,24 @@
 services:
-  frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: void-frontend
+  web:
+    image: ghcr.io/voidcontests/web:latest
+    container_name: void-web
     restart: unless-stopped
-    ports:
-      - "3000:3000"
     environment:
       - NODE_ENV=production
-      - PORT=3000
+      - PORT=3909
       - HOSTNAME=0.0.0.0
+    ports:
+      - "3909:3909"
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health", "||", "exit", "1"]
-      interval: 30s
-      timeout: 10s
+      test: wget --no-verbose --tries=1 --spider http://127.0.0.1:3909/
+      interval: 10s
+      timeout: 3s
       retries: 3
-      start_period: 40s
+      start_period: 30s
     networks:
-      - app-network
+      - voidcontests
 
 networks:
-  app-network:
-    driver: bridge
+  voidcontests:
+    name: voidcontests
+    external: true

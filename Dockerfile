@@ -23,6 +23,5 @@ COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
 USER bun
-EXPOSE 3000
 
 CMD ["bun", "run", "server.js"]
