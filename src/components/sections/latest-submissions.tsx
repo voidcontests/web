@@ -14,9 +14,8 @@ import {
     TableTitle,
 } from '@/components/ui/table';
 import { DateView } from '@/components/date';
-import { getProblemSubmissions } from '@/actions/problems';
-import { ID } from '@/actions';
-import { Submission } from '@/actions/models/response';
+import { getProblemSubmissions, ID } from '@/lib/api';
+import { Submission } from '@/lib/models';
 import { Button } from '../ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';

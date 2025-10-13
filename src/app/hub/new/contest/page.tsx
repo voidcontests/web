@@ -1,16 +1,23 @@
+'use client';
+
 import ContentContainer from "@/components/content-container";
 import { CreateContestForm } from "@/components/forms/create-contest";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/components/ui/link";
-import { Metadata } from "next";
-import { getCreatedProblems } from "@/actions/problems";
+import { getCreatedProblems } from "@/lib/api";
+import { useEffect, useState } from "react";
+import { Result, Pagination, ProblemListItem } from "@/lib/api";
 
-export const metadata: Metadata = {
-    title: 'New contest',
-};
+export default function Page() {
+    const [ps, setPs] = useState<Promise<Result<Pagination<ProblemListItem>>> | null>(null);
 
-export default async function Page() {
-    const ps = getCreatedProblems(0, 10);
+    useEffect(() => {
+        setPs(getCreatedProblems(0, 10));
+    }, []);
+
+    if (!ps) {
+        return <ContentContainer>Loading...</ContentContainer>;
+    }
 
     return (
         <ContentContainer className="max-w-3xl">

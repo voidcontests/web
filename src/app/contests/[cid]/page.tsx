@@ -1,3 +1,5 @@
+'use client';
+
 import ContestStartingCountdown from "@/components/sections/contest-starting-countdown";
 import AppliedStatus from "@/components/sections/applied-status";
 import ContentContainer from "@/components/content-container";
@@ -5,10 +7,11 @@ import { Loading } from "@/components/sections/contest-about";
 import { Problemset } from "@/components/sections/problemset";
 import ContestInfo from "@/components/sections/contest-info";
 import Setters from "@/components/sections/contest-setters";
-import { getContestByID } from "@/actions/contests";
+import { getContestByID } from "@/lib/api";
 import dynamic from "next/dynamic";
-import { MessageBox } from "@/components/sections/message-box";
 import ContestMessage from "@/components/sections/contest-message";
+import { useEffect, useState } from "react";
+import { Result, ContestDetailed } from "@/lib/api";
 
 const ContestAbout = dynamic(async () => {
     const mod = await import('@/components/sections/contest-about');
@@ -18,8 +21,16 @@ const ContestAbout = dynamic(async () => {
     loading: () => <Loading />,
 });
 
-export default async function Page({ params }: { params: { cid: string } }) {
-    const contest = getContestByID(params.cid);
+export default function Page({ params }: { params: { cid: string } }) {
+    const [contest, setContest] = useState<Promise<Result<ContestDetailed>> | null>(null);
+
+    useEffect(() => {
+        setContest(getContestByID(params.cid));
+    }, [params.cid]);
+
+    if (!contest) {
+        return <ContentContainer>Loading...</ContentContainer>;
+    }
 
     return (
         <ContentContainer suppressHydrationWarning>

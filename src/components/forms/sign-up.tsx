@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from '@/components/toast';
 import { useRouter } from "next/navigation";
 import { Container } from '@/components/container';
-import { createAccount } from "@/actions/account";
+import { createAccount } from "@/lib/api";
 import { Checkbox } from '@/components/ui/checkbox';
 import { capitalize } from '@/lib/strings';
 

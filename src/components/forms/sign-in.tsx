@@ -1,7 +1,6 @@
 'use client';
 
-import { createSession, getAccount } from '@/actions/account';
-import { revalidate } from '@/actions/revalidate';
+import { createSession } from '@/lib/api';
 import { Button } from "@/components/ui/button";
 import { Label } from '@/components/ui/label';
 import { Input } from "@/components/ui/input";
@@ -29,8 +28,7 @@ export function LoginForm() {
     const onSubmit = async (data: FormData) => {
         const result = await createSession(data);
         if (result.ok) {
-            const response = result.data;
-            Cookies.set(config.cookies.token_key, response.token);
+            // Token is already set by createSession
             window.location.href = '/';
         } else {
             toast({ title: 'Failed to log in', description: capitalize(result.error.message) });

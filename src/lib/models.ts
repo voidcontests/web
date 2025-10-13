@@ -1,3 +1,4 @@
+import z from 'zod';
 import {
     AccountSchema,
     ContestDetailedSchema,
@@ -19,8 +20,7 @@ import {
     SubmissionsListSchema,
     TokenSchema,
     UserSchema,
-} from "@/actions/schemas";
-import z from "zod";
+} from '@/lib/schemas';
 
 export type Pagination<T> = z.infer<ReturnType<typeof PaginationSchema<z.ZodType<T>>>>;
 export type Meta = z.infer<typeof MetaSchema>;

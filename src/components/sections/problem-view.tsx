@@ -1,10 +1,10 @@
 'use client';
 
 import { TestCase } from '@/components/sections/test-case';
-import { ProblemDetailed } from '@/actions/models/response';
+import { ProblemDetailed } from '@/lib/models';
 import Preview from '@/components/sections/preview';
 import { use } from 'react';
-import { Result } from '@/actions';
+import { Result } from '@/lib/api';
 
 export function ProblemView({ problem }: { problem: Promise<Result<ProblemDetailed>> }) {
     const result = use(problem);

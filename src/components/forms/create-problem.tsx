@@ -8,8 +8,7 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { MarkdownEditor } from '@/components/sections/markdown-editor';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { createProblem } from '@/actions/problems';
-import { revalidate } from '@/actions/revalidate';
+import { createProblem } from '@/lib/api';
 import { toast } from '@/components/toast';
 import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -61,7 +60,6 @@ export function CreateProblemForm() {
             return;
         }
 
-        revalidate('/hub');
         toast({ title: 'Problem created successfully' });
         router.push('/hub');
     };

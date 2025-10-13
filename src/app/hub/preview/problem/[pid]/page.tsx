@@ -1,11 +1,23 @@
+'use client';
+
 import { ProblemView } from '@/components/sections/problem-view';
 import ContentContainer from '@/components/content-container';
 import Setters from '@/components/sections/problem-setters';
-import { getProblemByID } from '@/actions/problems';
+import { getProblemByID } from '@/lib/api';
 import { MessageBox } from '@/components/sections/message-box';
+import { useEffect, useState } from 'react';
+import { Result, ProblemDetailed } from '@/lib/api';
 
-export default async function Page({ params }: { params: { pid: string } }) {
-    const problem = getProblemByID(params.pid);
+export default function Page({ params }: { params: { pid: string } }) {
+    const [problem, setProblem] = useState<Promise<Result<ProblemDetailed>> | null>(null);
+
+    useEffect(() => {
+        setProblem(getProblemByID(params.pid));
+    }, [params.pid]);
+
+    if (!problem) {
+        return <ContentContainer>Loading...</ContentContainer>;
+    }
 
     return (
         <ContentContainer>
