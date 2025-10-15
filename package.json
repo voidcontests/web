@@ -7,7 +7,9 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "up": "docker compose -f ../infra/docker-compose.yaml --profile all up -d api coyote",
+        "down": "docker compose -f ../infra/docker-compose.yaml --profile all down"
     },
     "dependencies": {
         "@hookform/resolvers": "^3.10.0",
