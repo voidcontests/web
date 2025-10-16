@@ -5,39 +5,31 @@ import { Account, Pagination, ProblemListItem } from '@/lib/models';
 import { DifficultyTag } from '@/components/difficulty-tag';
 import { DateView } from "@/components/date";
 import { Link } from "@/components/ui/link";
-import { use, useEffect, useState } from 'react';
-import { Result, getCreatedProblems } from "@/lib/api";
+import { useEffect, useState } from 'react';
+import { getCreatedProblems } from "@/lib/api";
 import PaginationControls from "../pagination-controls";
 import { toast } from "../toast";
 
 
-export default function AdminProblems({ account, problems }: { account: Promise<Result<Account>>, problems: Promise<Result<Pagination<ProblemListItem>>> }) {
-    const accountResult = use(account);
-    const problemsResult = use(problems);
-
-    if (!accountResult.ok) {
-        throw new Error('unauthorized');
-    }
-
-    if (!problemsResult.ok) {
-        return TableWithError(problemsResult.error.message);
-    }
-
-    const acc = accountResult.data;
-
-    const [problemss, setProblemss] = useState<ProblemListItem[]>(problemsResult.data.items);
+export default function AdminProblems({ account, problems }: { account: Account, problems: Pagination<ProblemListItem> }) {
+    const [problemss, setProblemss] = useState<ProblemListItem[]>(problems.items);
     const [offset, setOffset] = useState(0);
-    const [total, setTotal] = useState(0);
+    const [total, setTotal] = useState(problems.meta.total);
     const limit = 10;
 
     useEffect(() => {
+        if (offset === 0) {
+            // Initial data is already loaded, no need to fetch again
+            return;
+        }
+
         const load = async () => {
             const result = await getCreatedProblems(offset, limit);
             if (result.ok) {
                 setProblemss(result.data.items);
                 setTotal(result.data.meta.total);
             } else {
-                toast({ title: 'Failed to load contests', description: result.error.message });
+                toast({ title: 'Failed to load problems', description: result.error.message });
             }
         };
         load();
@@ -60,7 +52,7 @@ export default function AdminProblems({ account, problems }: { account: Promise<
             <TableTitle className='flex justify-between'>
                 <span>PROBLEMS</span>
                 {
-                    acc.role.name !== 'banned' &&
+                    account.role.name !== 'banned' &&
                     <Link href='/hub/new/problem' size="large">NEW</Link>
                 }
             </TableTitle>

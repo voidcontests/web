@@ -103,3 +103,10 @@ export function ContestInfoTemplate() {
         </div>
     );
 }
+
+// TODO: create beautifull loader screen for different situations
+export function Plug() {
+    return (
+        <p className="text-foreground/80">Loading...</p>
+    );
+}
