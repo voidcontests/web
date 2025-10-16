@@ -3,7 +3,7 @@
 
 export const config = {
     api: {
-        basepath: 'https://void.ndbtea.tech/api',
+        basepath: 'http://localhost:5919/api', // TODO: Update this on production deploy
     },
     cookies: {
         token_key: 'token',

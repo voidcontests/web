@@ -1,11 +1,10 @@
 'use client';
 
-import { ContestProblemDetailed, Submission } from "@/actions/models/response";
+import { ContestProblemDetailed, Submission } from "@/lib/models";
 import { SubmissionReport } from "@/components/sections/submission-report";
 import { CodeEditor } from "@/components/sections/code-editor";
 import Preview from "@/components/sections/preview";
 import { Button } from "@/components/ui/button";
-import { revalidate } from "@/actions/revalidate";
 import { Input } from "@/components/ui/input";
 import { use, useState } from "react";
 import { toast } from "@/components/toast";
@@ -13,8 +12,7 @@ import { TestCase } from "@/components/sections/test-case";
 import { Separator } from "@/components/ui/separator";
 import { getInitialCode } from "@/components/sections/editor/utils";
 import { sleep } from "@/lib/utils";
-import { Result } from "@/actions";
-import { getSubmissionByID, submitCodeSolution, submitTextAnswer } from "@/actions/problems";
+import { Result, getSubmissionByID, submitCodeSolution, submitTextAnswer } from "@/lib/api";
 
 const DEFAULT_LANGUAGE = "c";
 
@@ -65,7 +63,7 @@ export function ContestProblemView({ problem }: { problem: Promise<Result<Contes
             default:
                 toast({ title: `Unknown verdict: ${verdict}` });
         }
-        revalidate(`/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}`);
+        // No need to revalidate in client-side rendered app
     }
 
     async function submitProgram() {
@@ -103,7 +101,7 @@ export function ContestProblemView({ problem }: { problem: Promise<Result<Contes
             setSubmission(submission);
         }
 
-        revalidate(`/contests/${pdetailed.contest_id}/problems/${pdetailed.charcode}`);
+        // No need to revalidate in client-side rendered app
     }
 
     return (

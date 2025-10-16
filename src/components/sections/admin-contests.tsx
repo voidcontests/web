@@ -1,15 +1,14 @@
 'use client';
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from "@/components/ui/table";
-import { Account, ContestList, ContestListItem, Pagination } from '@/actions/models/response';
+import { Account, ContestList, ContestListItem, Pagination } from '@/lib/models';
 import ContestStatus from '@/components/contest-status';
 import { format_duration } from '@/lib/utils';
 import { DateView } from "@/components/date";
 import { Link } from "@/components/ui/link";
 import { use, useEffect, useState } from 'react';
-import { Result } from "@/actions";
+import { Result, getCreatedContests } from "@/lib/api";
 import PaginationControls from "../pagination-controls";
-import { getCreatedContests } from "@/actions/contests";
 import { toast } from "../toast";
 
 export default function AdminContests({ account, contests }: { account: Promise<Result<Account>>, contests: Promise<Result<Pagination<ContestListItem>>> }) {

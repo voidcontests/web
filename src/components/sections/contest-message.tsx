@@ -1,9 +1,9 @@
 'use client';
 
 import { MessageBox } from '@/components/sections/message-box';
-import { Account, ContestDetailed } from '@/actions/models/response';
+import { ContestDetailed } from '@/lib/models';
 import { use } from 'react';
-import { Result } from "@/actions";
+import { Result } from "@/lib/api";
 
 export default function ContestMessage({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
     const result = use(contest);

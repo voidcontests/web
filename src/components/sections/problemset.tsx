@@ -2,13 +2,13 @@
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from '@/components/ui/table';
 import { DifficultyTag } from '@/components/difficulty-tag';
-import { ContestDetailed } from '@/actions/models/response';
+import { ContestDetailed } from '@/lib/models';
 import { SolvedTag } from '@/components/solved-tag';
 import { Link } from '@/components/ui/link';
 import { capitalize } from '@/lib/strings';
 import { use } from 'react';
 import { useAccount } from '@/hooks/use-account';
-import { Result } from '@/actions';
+import { Result } from '@/lib/api';
 
 export function Problemset({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
     const result = use(contest);

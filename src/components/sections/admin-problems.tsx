@@ -1,14 +1,13 @@
 'use client';
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from "@/components/ui/table";
-import { Account, Pagination, ProblemListItem } from '@/actions/models/response';
+import { Account, Pagination, ProblemListItem } from '@/lib/models';
 import { DifficultyTag } from '@/components/difficulty-tag';
 import { DateView } from "@/components/date";
 import { Link } from "@/components/ui/link";
 import { use, useEffect, useState } from 'react';
-import { Result } from "@/actions";
+import { Result, getCreatedProblems } from "@/lib/api";
 import PaginationControls from "../pagination-controls";
-import { getCreatedProblems } from "@/actions/problems";
 import { toast } from "../toast";
 
 

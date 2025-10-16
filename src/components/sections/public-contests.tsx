@@ -13,8 +13,8 @@ import {
     TableCaption,
     TableTitle,
 } from '@/components/ui/table';
-import { getAllContests } from '@/actions/contests';
-import { ContestListItem } from '@/actions/models/response';
+import { getAllContests } from '@/lib/api';
+import { ContestListItem } from '@/lib/models';
 import { format_duration } from '@/lib/utils';
 import { Link } from '@/components/ui/link';
 import { DateView } from '@/components/date';

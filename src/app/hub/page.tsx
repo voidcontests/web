@@ -1,20 +1,36 @@
-import { getAccount } from '@/actions/account';
-import { getCreatedContests } from '@/actions/contests';
-import { getCreatedProblems } from '@/actions/problems';
+'use client';
+
+import { getAccount, getCreatedContests, getCreatedProblems } from '@/lib/api';
 import ContentContainer from '@/components/content-container';
 import { TableTemplate } from '@/components/sections/loading';
 import HubMessage from '@/components/sections/hub-message';
 import { Separator } from '@/components/ui/separator';
-import { Suspense } from 'react';
+import { useEffect, useState } from 'react';
+import { Result, Account, Pagination, ContestListItem, ProblemListItem } from '@/lib/api';
 
 import dynamic from 'next/dynamic';
 const AdminContests = dynamic(() => import('@/components/sections/admin-contests'), { ssr: false, loading: () => <TableTemplate title='CONTESTS' /> });
 const AdminProblems = dynamic(() => import('@/components/sections/admin-problems'), { ssr: false, loading: () => <TableTemplate title='PROBLEMS' /> });
 
 export default function Page() {
-    const account = getAccount();
-    const contests = getCreatedContests(0, 10);
-    const problems = getCreatedProblems(0, 10);
+    const [account, setAccount] = useState<Promise<Result<Account>> | null>(null);
+    const [contests, setContests] = useState<Promise<Result<Pagination<ContestListItem>>> | null>(null);
+    const [problems, setProblems] = useState<Promise<Result<Pagination<ProblemListItem>>> | null>(null);
+
+    useEffect(() => {
+        setAccount(getAccount());
+        setContests(getCreatedContests(0, 10));
+        setProblems(getCreatedProblems(0, 10));
+    }, []);
+
+    if (!account || !contests || !problems) {
+        return (
+            <ContentContainer>
+                <TableTemplate title='CONTESTS' />
+                <TableTemplate title='PROBLEMS' />
+            </ContentContainer>
+        );
+    }
 
     return (
         <ContentContainer>
@@ -28,12 +44,8 @@ export default function Page() {
                 </p>
             </div>
             <Separator />
-            <Suspense fallback={<TableTemplate title='CONTESTS' />}>
-                <AdminContests account={account} contests={contests} />
-            </Suspense>
-            <Suspense fallback={<TableTemplate title='PROBLEMS' />}>
-                <AdminProblems account={account} problems={problems} />
-            </Suspense>
+            <AdminContests account={account} contests={contests} />
+            <AdminProblems account={account} problems={problems} />
         </ContentContainer>
     );
 }
