@@ -8,8 +8,8 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "up": "docker compose -f ../infra/docker-compose.yaml --profile all up -d api coyote",
-        "down": "docker compose -f ../infra/docker-compose.yaml --profile all down"
+        "up": "docker compose -f ../infra/docker-compose.yaml --profile backend up -d",
+        "down": "docker compose -f ../infra/docker-compose.yaml --profile backend down"
     },
     "dependencies": {
         "@hookform/resolvers": "^3.10.0",
