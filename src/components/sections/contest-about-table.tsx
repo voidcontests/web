@@ -1,4 +1,4 @@
-import { ContestDetailed } from "@/actions/models/response";
+import { ContestDetailed } from "@/lib/models";
 import { format_duration } from "@/lib/utils";
 import { use } from "react";
 import {
@@ -6,12 +6,12 @@ import {
     TableBody, TableRow, TableCell
 } from "@/components/ui/table-inline";
 import { DateView } from "@/components/date";
-import { Result } from "@/actions";
+import { Result } from "@/lib/api";
 
 export function ContestAboutTable({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
     const result = use(contest);
     if (!result.ok) {
-        throw new Error(`Fetch contest failed: ${result.error}`);
+        throw new Error(`Fetch contest failed: ${result.error.message}`);
     }
 
     const cdetailed = result.data;

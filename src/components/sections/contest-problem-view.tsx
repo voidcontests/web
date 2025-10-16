@@ -1,11 +1,10 @@
 'use client';
 
-import { ProblemDetailed, Submission } from "@/actions/models/response";
+import { ContestProblemDetailed, Submission } from "@/lib/models";
 import { SubmissionReport } from "@/components/sections/submission-report";
 import { CodeEditor } from "@/components/sections/code-editor";
 import Preview from "@/components/sections/preview";
 import { Button } from "@/components/ui/button";
-import { revalidate } from "@/actions/revalidate";
 import { Input } from "@/components/ui/input";
 import { use, useState } from "react";
 import { toast } from "@/components/toast";
@@ -13,15 +12,14 @@ import { TestCase } from "@/components/sections/test-case";
 import { Separator } from "@/components/ui/separator";
 import { getInitialCode } from "@/components/sections/editor/utils";
 import { sleep } from "@/lib/utils";
-import { Result } from "@/actions";
-import { getSubmissionByID, submitCodeSolution, submitTextAnswer } from "@/actions/problems";
+import { Result, getSubmissionByID, submitCodeSolution, submitTextAnswer } from "@/lib/api";
 
 const DEFAULT_LANGUAGE = "c";
 
-export function ContestProblemView({ problem }: { problem: Promise<Result<ProblemDetailed>> }) {
+export function ContestProblemView({ problem }: { problem: Promise<Result<ContestProblemDetailed>> }) {
     const result = use(problem);
     if (!result.ok) {
-        throw new Error(`Fetch problem failed: ${result.error}`);
+        throw new Error(`Fetch problem failed: ${result.error.message}`);
     }
 
     const pdetailed = result.data;
@@ -65,7 +63,7 @@ export function ContestProblemView({ problem }: { problem: Promise<Result<Proble
             default:
                 toast({ title: `Unknown verdict: ${verdict}` });
         }
-        revalidate(`/contest/${pdetailed.contest_id}/problem/${pdetailed.charcode}`);
+        // No need to revalidate in client-side rendered app
     }
 
     async function submitProgram() {
@@ -103,7 +101,7 @@ export function ContestProblemView({ problem }: { problem: Promise<Result<Proble
             setSubmission(submission);
         }
 
-        revalidate(`/contest/${pdetailed.contest_id}/problem/${pdetailed.charcode}`);
+        // No need to revalidate in client-side rendered app
     }
 
     return (

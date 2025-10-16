@@ -1,22 +1,20 @@
 'use client';
 
-import { ContestDetailed } from "@/actions/models/response";
+import { ContestDetailed } from "@/lib/models";
 import { Button } from "@/components/ui/button";
 import { use } from "react";
 import { toast } from "@/components/toast";
 import { LoaderCircle } from "lucide-react";
-import { createEntry } from "@/actions/contests";
-import { revalidate } from "@/actions/revalidate";
+import { createEntry, Result } from "@/lib/api";
 import { useAccount } from "@/hooks/use-account";
 import Link from "next/link";
-import { Result } from "@/actions";
 
 export default function AppliedStatus({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
     const { account, loading } = useAccount();
 
     const result = use(contest);
     if (!result.ok) {
-        throw new Error(`Fetch contest information failed: ${result.error}`);
+        throw new Error(`Fetch contest information failed: ${result.error.message}`);
     }
 
     const cdetailed = result.data;
@@ -53,7 +51,7 @@ export default function AppliedStatus({ contest }: { contest: Promise<Result<Con
         );
     }
 
-    if (cdetailed.max_entries && cdetailed.max_entries >= cdetailed.participants) {
+    if (cdetailed.max_entries && cdetailed.participants >= cdetailed.max_entries) {
         return (
             <span className="text-center font-medium">There is no available slots to join.</span>
         );
@@ -62,7 +60,8 @@ export default function AppliedStatus({ contest }: { contest: Promise<Result<Con
     const handleApplyClick = async () => {
         try {
             await createEntry(cdetailed.id);
-            revalidate(`/contest/${cdetailed.id}`);
+            // Refresh the page to show updated status
+            window.location.reload();
         } catch (e) {
             toast({ title: 'Something went wrong. Try again leter' });
         }

@@ -3,8 +3,7 @@
 import { DateTimePicker } from "@/components/ui/time-picker/date-time-picker";
 import { Separator } from '@/components/ui/separator';
 import { TextArea } from "@/components/ui/textarea";
-import { createContest } from "@/actions/contests";
-import { revalidate } from "@/actions/revalidate";
+import { createContest } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Label } from '@/components/ui/label';
 import { Input } from "@/components/ui/input";
@@ -17,12 +16,12 @@ import {
 import { DifficultyTag } from "@/components/difficulty-tag";
 import { CheckedState } from "@radix-ui/react-checkbox";
 import { Checkbox } from '@/components/ui/checkbox';
-import { Pagination, ProblemListItem } from "@/actions/models/response";
+import { Pagination, ProblemListItem } from "@/lib/models";
 import { Link } from "@/components/ui/link";
 import { ChangeEvent, use } from "react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import { Result } from "@/actions";
+import { Result } from "@/lib/api";
 import { MessageBox } from "@/components/sections/message-box";
 
 export interface FormData {
@@ -62,15 +61,14 @@ export function CreateContestForm({ problems }: { problems: Promise<Result<Pagin
     });
 
     const onSubmit = async (data: FormData) => {
-        try {
-            await createContest(data);
-            revalidate('/hub');
-            toast({ title: 'Contest created successfully' });
-            router.push('/hub');
-        } catch (e) {
-            console.error("Error:", e);
-            toast({ title: 'Something went wrong. Try again later' });
+        const result = await createContest(data);
+        if (!result.ok) {
+            toast({ title: 'Failed to create contest', description: result.error.message });
+            return;
         }
+
+        toast({ title: 'Contest created successfully' });
+        router.push('/hub');
     };
 
     const onCheckedChange = (e: CheckedState, problemID: number) => {
@@ -113,6 +111,7 @@ export function CreateContestForm({ problems }: { problems: Promise<Result<Pagin
                     />
                 </div>
 
+                {/* TODO: Add pagination here */}
                 <TableContainer>
                     <TableTitle>
                         SELECT PROBLEMS

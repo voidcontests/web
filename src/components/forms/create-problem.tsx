@@ -8,10 +8,9 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { MarkdownEditor } from '@/components/sections/markdown-editor';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { createProblem } from '@/actions/problems';
-import { revalidate } from '@/actions/revalidate';
+import { createProblem } from '@/lib/api';
 import { toast } from '@/components/toast';
-import { Separator } from '../ui/separator';
+import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { MessageBox } from '@/components/sections/message-box';
 import { Trash2 } from 'lucide-react';
@@ -55,15 +54,14 @@ export function CreateProblemForm() {
     });
 
     const onSubmit = async (data: FormData) => {
-        try {
-            await createProblem(data);
-            revalidate('/hub');
-            toast({ title: 'Problem created successfully' });
-            router.push('/hub');
-        } catch (e) {
-            console.error("Error:", e);
-            toast({ title: 'Something went wrong. Try again later' });
+        const result = await createProblem(data);
+        if (!result.ok) {
+            toast({ title: 'Failed to create problem', description: result.error.message });
+            return;
         }
+
+        toast({ title: 'Problem created successfully' });
+        router.push('/hub');
     };
 
     function validate(): boolean {
@@ -92,7 +90,6 @@ export function CreateProblemForm() {
                 </div>
 
                 <MarkdownEditor
-                    placeholder="Write problem's statement here (Markdown supported)"
                     markdown={watch("statement")}
                     setMarkdown={(s: string) => setValue("statement", s)}
                     required

@@ -1,11 +1,11 @@
-import { ContestDetailed } from "@/actions/models/response";
+import { ContestDetailed } from "@/lib/models";
 import { use } from "react";
-import { Result } from "@/actions";
+import { Result } from "@/lib/api";
 
 export default function ContestInfo({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
     const result = use(contest);
     if (!result.ok) {
-        throw new Error(`Fetch contest information failed: ${result.error}`);
+        throw new Error(`Fetch contest information failed: ${result.error.message}`);
     }
 
     const cdetailed = result.data;

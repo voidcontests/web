@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Label } from '@/components/ui/label';
 import { Input } from "@/components/ui/input";
@@ -7,8 +8,9 @@ import { useForm } from 'react-hook-form';
 import { toast } from '@/components/toast';
 import { useRouter } from "next/navigation";
 import { Container } from '@/components/container';
-import { config } from '@/config';
-import { createAccount } from "@/actions/account";
+import { createAccount } from "@/lib/api";
+import { Checkbox } from '@/components/ui/checkbox';
+import { capitalize } from '@/lib/strings';
 
 export interface FormData {
     username: string;
@@ -18,7 +20,6 @@ export interface FormData {
 
 export function CreateAccountForm() {
     const router = useRouter();
-
     const { register, handleSubmit, watch } = useForm<FormData>({
         defaultValues: {
             username: '',
@@ -27,20 +28,23 @@ export function CreateAccountForm() {
         }
     });
 
+    const [showPasswords, setShowPasswords] = useState(false);
+
     const onSubmit = async (data: FormData) => {
         const result = await createAccount(data);
         if (result.ok) {
-            toast({ title: 'Account created successfully' });
+            toast({ title: 'Success!', description: 'Account successfully created. You can log in now.' });
             router.push('/login');
         } else {
-            console.error("Error:", result.error);
-            toast({ title: 'Something went wrong. Try again later' });
+            toast({ title: 'Failed to create account', description: capitalize(result.error.message) });
         }
     };
 
     const validate = () => {
-        return watch('username').length > 3 &&
-            watch('password').length > 8 &&
+        const username = (value: string): boolean => value.length > 3 && value.length < 30;
+        const password = (value: string): boolean => value.length > 7 && value.length < 101;
+        return username(watch('username')) &&
+            password(watch('password')) &&
             watch('password') === watch('repeat_password');
     };
 
@@ -49,38 +53,48 @@ export function CreateAccountForm() {
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 items-center">
                 <div className="flex flex-col gap-6 w-72">
                     <div className="flex flex-col gap-2">
-                        <Label required>
-                            Username
-                        </Label>
-                        <Input
-                            {...register("username")}
-                            required
-                        />
+                        <Label required>Username</Label>
+                        <Input {...register("username")} required />
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <Label required>
-                            Password
-                        </Label>
+                        <Label required>Password</Label>
                         <Input
                             {...register("password")}
-                            type='password'
+                            type={showPasswords ? 'text' : 'password'}
                             required
                         />
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <Label required>
-                            Repeat password
-                        </Label>
+                        <Label required>Repeat password</Label>
                         <Input
                             {...register("repeat_password")}
-                            type='password'
+                            type={showPasswords ? 'text' : 'password'}
                             required
                         />
                     </div>
 
-                    <Button className="w-full" type='submit' disabled={!validate()}>SIGN UP</Button>
+                    <div className="flex flex-row justify-between -mt-2">
+                        <div className='flex items-center gap-2'>
+                            <Checkbox
+                                id='show-passwords'
+                                checked={showPasswords}
+                                onCheckedChange={() => setShowPasswords(prev => !prev)}
+                            />
+                            <Label htmlFor="show-passwords" className="cursor-pointer">Show password</Label>
+                        </div>
+                        {
+                            (watch('password') === watch('repeat_password') && watch('password').length > 0) &&
+                            <span className='text-green-500 font-medium text-sm'>
+                                Matches
+                            </span>
+                        }
+                    </div>
+
+                    <Button className="w-full" type='submit' disabled={!validate()}>
+                        SIGN UP
+                    </Button>
                 </div>
             </form>
         </Container>

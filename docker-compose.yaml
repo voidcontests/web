@@ -1,0 +1,24 @@
+services:
+  web:
+    image: ghcr.io/voidcontests/web:latest
+    container_name: void-web
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3909
+      - HOSTNAME=0.0.0.0
+    ports:
+      - "3909:3909"
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://127.0.0.1:3909/
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
+    networks:
+      - voidcontests
+
+networks:
+  voidcontests:
+    name: voidcontests
+    external: true

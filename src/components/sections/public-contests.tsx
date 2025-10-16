@@ -1,28 +1,74 @@
 'use client';
 
-import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableCaption, TableTitle } from '@/components/ui/table';
-import { ContestList, ContestListItem, Pagination } from '@/actions/models/response';
+import { useEffect, useState } from 'react';
+import {
+    TableContainer,
+    Table,
+    TableHeader,
+    TableHeaderRow,
+    TableHead,
+    TableBody,
+    TableRow,
+    TableCell,
+    TableCaption,
+    TableTitle,
+} from '@/components/ui/table';
+import { getAllContests } from '@/lib/api';
+import { ContestListItem } from '@/lib/models';
 import { format_duration } from '@/lib/utils';
 import { Link } from '@/components/ui/link';
 import { DateView } from '@/components/date';
-import { use } from 'react';
-import { Result } from "@/actions";
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { toast } from '../toast';
+import PaginationControls from '../pagination-controls';
 
-export default function PublicContests({ contests }: { contests: Promise<Result<Pagination<ContestListItem>>> }) {
-    const result = use(contests);
+export default function PublicContests() {
+    const router = useRouter();
+    const searchParams = useSearchParams();
 
-    if (!result.ok) {
-        return (
-            <TableContainer>
-                <TableTitle>PUBLIC CONTESTS</TableTitle>
-                <TableCaption>
-                    Failed to load contests: {result.error.message}
-                </TableCaption>
-            </TableContainer>
-        );
-    }
+    const initialOffset = parseInt(searchParams.get('offset') || '0', 10);
+    const initialLimit = parseInt(searchParams.get('limit') || '10', 10);
 
-    const cs = result.data;
+    const [contests, setContests] = useState<ContestListItem[]>([]);
+    const [offset, setOffset] = useState(initialOffset);
+    const [total, setTotal] = useState(0);
+    const limit = initialLimit;
+
+    useEffect(() => {
+        const load = async () => {
+            const result = await getAllContests(offset, limit);
+            if (result.ok) {
+                setContests(result.data.items);
+                setTotal(result.data.meta.total);
+            } else {
+                toast({ title: 'Failed to load contests', description: result.error.message });
+            }
+        };
+        load();
+    }, [offset, limit]);
+
+    const updateQueryParams = (newOffset: number, newLimit: number) => {
+        const params = new URLSearchParams(searchParams);
+        params.set('offset', String(newOffset));
+        params.set('limit', String(newLimit));
+        router.replace(`?${params.toString()}`);
+    };
+
+    const handlePrev = () => {
+        const newOffset = Math.max(0, offset - limit);
+        setOffset(newOffset);
+        updateQueryParams(newOffset, limit);
+    };
+
+    const handleNext = () => {
+        if (offset + limit < total) {
+            const newOffset = offset + limit;
+            setOffset(newOffset);
+            updateQueryParams(newOffset, limit);
+        }
+    };
 
     return (
         <TableContainer>
@@ -43,45 +89,45 @@ export default function PublicContests({ contests }: { contests: Promise<Result<
                     </TableHeaderRow>
                 </TableHeader>
                 <TableBody>
-                    {
-                        cs.items.map((contest, index) => (
-                            <TableRow key={index}>
-                                <TableCell>{contest.id}</TableCell>
-                                <TableCell>
-                                    <Link href={`/contest/${contest.id}`}>
-                                        {contest.title}
-                                    </Link>
-                                </TableCell>
-                                <TableCell>
-                                    {`@${contest.creator.username}`}
-                                </TableCell>
-                                <TableCell>
-                                    <DateView date={contest.start_time} />
-                                </TableCell>
-                                <TableCell>
-                                    <DateView date={contest.end_time} />
-                                </TableCell>
-                                <TableCell>
-                                    {
-                                        contest.duration_mins !== 0
-                                            ? format_duration(contest.duration_mins)
-                                            : '-'
-                                    }
-                                </TableCell>
-                                <TableCell>
-                                    {contest.participants}
-                                </TableCell>
-                                <TableCell>
-                                    {
-                                        contest.max_entries || 'Not limited'
-                                    }
-                                </TableCell>
-                            </TableRow>
-                        ))
-                    }
+                    {contests.map((contest, index) => (
+                        <TableRow key={index}>
+                            <TableCell>{contest.id}</TableCell>
+                            <TableCell>
+                                <Link href={`/contests/${contest.id}`}>
+                                    {contest.title}
+                                </Link>
+                            </TableCell>
+                            <TableCell>
+                                @{contest.creator.username}
+                            </TableCell>
+                            <TableCell>
+                                <DateView date={contest.start_time} />
+                            </TableCell>
+                            <TableCell>
+                                <DateView date={contest.end_time} />
+                            </TableCell>
+                            <TableCell>
+                                {contest.duration_mins !== 0
+                                    ? format_duration(contest.duration_mins)
+                                    : '-'}
+                            </TableCell>
+                            <TableCell>{contest.participants}</TableCell>
+                            <TableCell>{contest.max_entries || 'Not limited'}</TableCell>
+                        </TableRow>
+                    ))}
                 </TableBody>
                 {
-                    cs.items.length === 0 && <TableCaption>No public contests</TableCaption>
+                    contests.length === 0
+                        ? <TableCaption>No public contests</TableCaption>
+                        : <TableCaption>
+                            <PaginationControls
+                                total={total}
+                                limit={limit}
+                                offset={offset}
+                                onNext={handleNext}
+                                onPrev={handlePrev}
+                            />
+                        </TableCaption>
                 }
             </Table>
         </TableContainer>

@@ -2,18 +2,18 @@
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from '@/components/ui/table';
 import { DifficultyTag } from '@/components/difficulty-tag';
-import { ContestDetailed } from '@/actions/models/response';
+import { ContestDetailed } from '@/lib/models';
 import { SolvedTag } from '@/components/solved-tag';
 import { Link } from '@/components/ui/link';
 import { capitalize } from '@/lib/strings';
 import { use } from 'react';
 import { useAccount } from '@/hooks/use-account';
-import { Result } from '@/actions';
+import { Result } from '@/lib/api';
 
 export function Problemset({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
     const result = use(contest);
     if (!result.ok) {
-        throw new Error(`Fetch contest failed: ${result.error}`);
+        throw new Error(`Fetch contest failed: ${result.error.message}`);
     }
 
     const cdetailed = result.data;
@@ -47,7 +47,7 @@ export function Problemset({ contest }: { contest: Promise<Result<ContestDetaile
                                     {
                                         started && (cdetailed.is_participant || (account && cdetailed.is_participant))
                                             ? <Link
-                                                href={`/contest/${cdetailed.id}/problem/${problem.charcode}`}
+                                                href={`/contests/${cdetailed.id}/problems/${problem.charcode}`}
                                                 className='flex-1 truncate w-0 max-w-fit'
                                             >
                                                 {problem.title}
@@ -77,7 +77,7 @@ export function Problemset({ contest }: { contest: Promise<Result<ContestDetaile
 export function ProblemsetMinimal({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
     const result = use(contest);
     if (!result.ok) {
-        throw new Error(`Fetch contest failed: ${result.error}`);
+        throw new Error(`Fetch contest failed: ${result.error.message}`);
     }
 
     const cdetailed = result.data;
@@ -110,7 +110,7 @@ export function ProblemsetMinimal({ contest }: { contest: Promise<Result<Contest
                                         {
                                             started && (cdetailed.is_participant || (account && cdetailed.is_participant))
                                                 ? <Link
-                                                    href={`/contest/${cdetailed.id}/problem/${problem.charcode}`}
+                                                    href={`/contests/${cdetailed.id}/problems/${problem.charcode}`}
                                                     className='flex-1 truncate w-0 max-w-fit'
                                                 >
                                                     {problem.title}
@@ -125,7 +125,7 @@ export function ProblemsetMinimal({ contest }: { contest: Promise<Result<Contest
                     }
                 </TableBody>
                 <TableCaption>
-                    Return to <Link href={`/contest/${cdetailed.id}`}>contest</Link>.
+                    Return to <Link href={`/contests/${cdetailed.id}`}>contest</Link>.
                 </TableCaption>
             </Table>
         </TableContainer>

@@ -1,17 +1,38 @@
 'use client';
 
-import { Leaderboard, LeaderboardItem, Pagination } from "@/actions/models/response";
+import { toast } from "@/components/toast";
+import { LeaderboardItem, Pagination } from "@/lib/models";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableCaption, TableTitle
 } from "@/components/ui/table";
 import { use } from "react";
-import { Result } from "@/actions";
+import { Result } from "@/lib/api";
+import { capitalize } from "@/lib/strings";
 
 export default function Problemset({ leaderboard }: { leaderboard: Promise<Result<Pagination<LeaderboardItem>>> }) {
     const result = use(leaderboard);
     if (!result.ok) {
-        throw new Error(`Fetch leaderboard failed: ${result.error}`);
+        toast({ title: 'Leaderboard fetch failed', description: capitalize(result.error.message) });
+        return (
+            <TableContainer>
+                <TableTitle>
+                    LEADERBOARD
+                </TableTitle>
+                <Table>
+                    <TableHeader>
+                        <TableHeaderRow>
+                            <TableHead>ID</TableHead>
+                            <TableHead>Address</TableHead>
+                            <TableHead>Points</TableHead>
+                        </TableHeaderRow>
+                    </TableHeader>
+                    <TableCaption>
+                        Failed to fetch leaderboard.
+                    </TableCaption>
+                </Table>
+            </TableContainer>
+        );
     }
 
     const lb = result.data;

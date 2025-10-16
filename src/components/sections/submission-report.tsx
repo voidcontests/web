@@ -1,7 +1,7 @@
 import { CodeBlock } from "@/components/sections/code-block";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Submission } from "@/actions/models/response";
+import { Submission } from "@/lib/models";
 import { LoaderCircle } from "lucide-react";
 import { capitalize } from "@/lib/strings";
 import { Code } from "@/components/code";

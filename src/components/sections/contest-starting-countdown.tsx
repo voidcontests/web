@@ -1,10 +1,9 @@
 'use client';
 
-import { ContestDetailed } from "@/actions/models/response";
+import { ContestDetailed } from "@/lib/models";
 import { use } from "react";
 import Timer from "@/components/timer";
-import { revalidate } from "@/actions/revalidate";
-import { Result } from "@/actions";
+import { Result } from "@/lib/api";
 
 export default function ContestStartingCountdown({ contest }: { contest: Promise<Result<ContestDetailed>> }) {
     const result = use(contest);
@@ -21,7 +20,7 @@ export default function ContestStartingCountdown({ contest }: { contest: Promise
                 <div className="text-secondary-foreground text-lg">
                     STARTING IN
                 </div>
-                <Timer target={start_time} onComplete={() => revalidate(`/contest/${cdetailed.id}`) } />
+                <Timer target={start_time} onComplete={() => window.location.reload()} />
             </div>
         </div>
     );

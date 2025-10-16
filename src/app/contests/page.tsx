@@ -2,7 +2,6 @@ import OfficialContests from '@/components/sections/official-contests';
 import ContentContainer from '@/components/content-container';
 import { TableTemplate } from '@/components/sections/loading';
 import { Separator } from '@/components/ui/separator';
-import { getAllContests } from '@/actions/contests';
 import { Metadata } from 'next';
 
 // NOTE: dynamic import here for prevent rendering on the server (to not display server time)
@@ -14,13 +13,9 @@ export const metadata: Metadata = {
 };
 
 export default async function ContestsPage() {
-    const contests = getAllContests();
-
     return (
         <ContentContainer>
-            <OfficialContests />
-            <Separator />
-            <PublicContests contests={contests} />
+            <PublicContests />
         </ContentContainer>
     );
 }

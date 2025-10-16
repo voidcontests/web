@@ -5,9 +5,12 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
+        "local": "bun run up && next dev && bun run down",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "up": "docker compose -f ../infra/docker-compose.yaml --profile backend up -d",
+        "down": "docker compose -f ../infra/docker-compose.yaml --profile backend down"
     },
     "dependencies": {
         "@hookform/resolvers": "^3.10.0",
@@ -32,7 +35,7 @@
         "lucide-react": "^0.469.0",
         "marked": "^15.0.6",
         "marked-highlight": "^2.2.1",
-        "next": "14.2.30",
+        "next": "14.2.32",
         "next-themes": "^0.4.4",
         "react": "^18",
         "react-day-picker": "8.10.1",

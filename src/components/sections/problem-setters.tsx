@@ -1,17 +1,17 @@
 'use client';
 
-import { ProblemDetailed } from "@/actions/models/response";
+import { ProblemDetailed } from "@/lib/models";
 import { use } from "react";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableTitle,
 } from "@/components/ui/table";
-import { Result } from "@/actions";
+import { Result } from "@/lib/api";
 
 export default function Setters({ problem }: { problem: Promise<Result<ProblemDetailed>> }) {
     const result = use(problem);
     if (!result.ok) {
-        throw new Error(`Fetch problem failed: ${result.error}`);
+        throw new Error(`Fetch problem failed: ${result.error.message}`);
     }
 
     const pdetailed = result.data;
