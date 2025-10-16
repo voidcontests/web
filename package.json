@@ -5,6 +5,7 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
+        "local": "bun run up && next dev && bun run down",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
