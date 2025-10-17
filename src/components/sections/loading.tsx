@@ -1,6 +1,7 @@
 import { Table, TableCaption, TableContainer, TableTitle } from '@/components/ui/table';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Widget, WidgetContent, WidgetTitle } from '@/components/ui/widget';
+import { Asterisk } from '@/components/ui/asterisk';
 
 export function TableTemplate({ title }: { title: string }) {
     return (
@@ -104,9 +105,22 @@ export function ContestInfoTemplate() {
     );
 }
 
-// TODO: create beautifull loader screen for different situations
-export function Plug() {
+export function Screen({ message }: { message?: string }) {
     return (
-        <p className="text-foreground/80">Loading...</p>
+        <div className="flex flex-col gap-1 justify-center items-center mt-[25vh]">
+            <Asterisk className="size-32" />
+            <hr />
+            <div className='flex flex-col gap-3 justify-center items-center'>
+                <h1 className="text-xl text-foreground font-medium leading-none">
+                    Loading...
+                </h1>
+                {
+                    message &&
+                    <div className="text-base text-tertiary-foreground">
+                        {message}
+                    </div>
+                }
+            </div>
+        </div>
     );
 }

@@ -5,7 +5,7 @@ import { BannedLayout } from "@/components/layouts/banned";
 import { UnauthorizedLayout } from "@/components/layouts/unauthorized";
 import { useEffect, useState } from "react";
 import { Account } from "@/lib/models";
-import { Plug } from "@/components/sections/loading";
+import { Screen } from "@/components/sections/loading";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const [account, setAccount] = useState<Account | null | undefined>(undefined);
@@ -24,11 +24,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     if (account === undefined) {
         return (
-            <div className="mt-[35vh] flex items-center justify-center">
-                <div className="text-center">
-                    <Plug />
-                </div>
-            </div>
+            <Screen message="We are loading your dashboard"/>
         );
     }
 
