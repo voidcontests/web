@@ -24,7 +24,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     if (account === undefined) {
         return (
-            <Screen message="We are loading your dashboard"/>
+            <Screen />
         );
     }
 

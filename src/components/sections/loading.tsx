@@ -108,18 +108,15 @@ export function ContestInfoTemplate() {
 export function Screen({ message }: { message?: string }) {
     return (
         <div className="flex flex-col gap-1 justify-center items-center mt-[25vh]">
-            <Asterisk className="size-32" />
+            <Asterisk className="size-32 stroke-yellow-500" />
             <hr />
             <div className='flex flex-col gap-3 justify-center items-center'>
                 <h1 className="text-xl text-foreground font-medium leading-none">
                     Loading...
                 </h1>
-                {
-                    message &&
-                    <div className="text-base text-tertiary-foreground">
-                        {message}
-                    </div>
-                }
+                <div className="text-base text-tertiary-foreground">
+                    {message ?? "We're grunting and groaning to get this loaded"}
+                </div>
             </div>
         </div>
     );
