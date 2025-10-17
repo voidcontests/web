@@ -9,6 +9,7 @@ import * as strings from '@/lib/strings';
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import Editor from "./editor";
+import { TextArea } from "../ui/textarea";
 
 type StyleKind = 'bold' | 'italic' | 'code' | 'heading' | 'link' | 'quote';
 
@@ -229,18 +230,15 @@ const MarkdownEditor = forwardRef<HTMLTextAreaElement, MarkdownEditorProps>(({ m
                         }
                     </div>
                 </div>
-                <div className={cn("rounded-[10px] border bg-surface", isFocused ? "border-blue-400" : "")}>
-                    <Editor
-                        className="min-h-40"
-                        value={internalValue}
-                        onChange={handleChange}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        language="markdown"
-                        ref={textAreaRef}
-                        {...props}
-                    />
-                </div>
+                <TextArea
+                    ref={textAreaRef}
+                    className={cn("min-h-40", className)}
+                    value={internalValue}
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    {...props}
+                />
                 <div className="flex justify-end">
                     <span
                         className={cn(
