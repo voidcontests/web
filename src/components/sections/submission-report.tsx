@@ -6,6 +6,16 @@ import { LoaderCircle } from "lucide-react";
 import { capitalize } from "@/lib/strings";
 import { Code } from "@/components/code";
 
+const titles = {
+    'running': 'Running...',
+    'pending': 'In queue...',
+    'wrong_answer': 'Wrong answer',
+    'ok': 'Accepted',
+    'runtime_error': 'Runtime error',
+    'compilation_error': 'Compilation error',
+    'time_limit_exceeded': 'Time limit exceeded',
+};
+
 export function SubmissionReport({ submission }: { submission?: Submission }) {
     if (!submission) return;
 
@@ -15,7 +25,7 @@ export function SubmissionReport({ submission }: { submission?: Submission }) {
                 <div className="flex items-center gap-2">
                     <LoaderCircle className="animate-spin size-5 text-tertiary-foreground" />
                     <span className="text-lg text-tertiary-foreground">
-                        {capitalize(submission.verdict)}...
+                        {titles[submission.verdict]}
                     </span>
                 </div>
                 <Separator />
@@ -34,7 +44,7 @@ export function SubmissionReport({ submission }: { submission?: Submission }) {
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex flex-col gap-1">
                     <span className="text-lg text-scarlet-500 font-medium">
-                        Wrong answer
+                        {titles[submission.verdict]}
                     </span>
                     <span className="text-sm text-tertiary-foreground">
                         Tests passed {submission.testing_report?.passed}/{submission.testing_report?.total}
@@ -76,7 +86,7 @@ export function SubmissionReport({ submission }: { submission?: Submission }) {
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex flex-col gap-1">
                     <span className="text-lg text-green-500 font-medium">
-                        Accepted
+                        {titles[submission.verdict]}
                     </span>
                     <span className="text-sm text-tertiary-foreground">
                         Tests passed {submission.testing_report?.passed}/{submission.testing_report?.total}
@@ -98,7 +108,7 @@ export function SubmissionReport({ submission }: { submission?: Submission }) {
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex flex-col gap-1">
                     <span className="text-lg text-scarlet-500 font-medium">
-                        Runtime error
+                        {titles[submission.verdict]}
                     </span>
                 </div>
                 <Separator />
@@ -145,7 +155,7 @@ export function SubmissionReport({ submission }: { submission?: Submission }) {
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex flex-col gap-1">
                     <span className="text-lg text-scarlet-500 font-medium">
-                        Time Limit Exceeded
+                        {titles[submission.verdict]}
                     </span>
                 </div>
                 <Separator />
@@ -187,7 +197,7 @@ export function SubmissionReport({ submission }: { submission?: Submission }) {
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex flex-col gap-1">
                     <span className="text-lg text-scarlet-500 font-medium">
-                        Compilation error
+                        {titles[submission.verdict]}
                     </span>
                     <span className="text-sm text-tertiary-foreground">
                         Tests passed {submission.testing_report?.passed}/{submission.testing_report?.total}
