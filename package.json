@@ -4,8 +4,8 @@
     "type": "module",
     "private": true,
     "scripts": {
-        "dev": "next dev",
-        "local": "bun run up && next dev && bun run down",
+        "dev": "next dev --port 3909",
+        "local": "bun run up && next dev --port 3909 && bun run down",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
