@@ -5,7 +5,7 @@
     "private": true,
     "scripts": {
         "dev": "next dev --port 3909",
-        "local": "bun run up && next dev --port 3909 && bun run down",
+        "dev:up": "bun run up && next dev --port 3909 && bun run down",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
