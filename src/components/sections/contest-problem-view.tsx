@@ -14,7 +14,7 @@ import { getInitialCode } from "@/components/sections/editor/utils";
 import { sleep } from "@/lib/utils";
 import { Result, getSubmissionByID, submitCodeSolution, submitTextAnswer } from "@/lib/api";
 
-const DEFAULT_LANGUAGE = "c";
+const DEFAULT_LANGUAGE = "cpp";
 
 export function ContestProblemView({ problem }: { problem: Promise<Result<ContestProblemDetailed>> }) {
     const result = use(problem);
@@ -67,7 +67,6 @@ export function ContestProblemView({ problem }: { problem: Promise<Result<Contes
     }
 
     async function submitProgram() {
-        console.log('sssss');
         if (code.trim().length === 0) return;
 
         setSubmission(undefined);

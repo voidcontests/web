@@ -30,12 +30,15 @@ export function stopPropagation(e: React.KeyboardEvent<HTMLTextAreaElement>) {
 
 export function getInitialCode(language: string): string {
     switch (language) {
-        case 'c':
-            return `int main(void) {
-    // write your \`C\` code here
+        case 'cpp':
+            return `#include <iostream>
+
+int main() {
+    // std::cout << "hello!" << std::endl;
+    // return 0;
 }`;
         case 'python':
-            return `# write your \`python\` code here`;
+            return `# print("hello!")`;
     }
 
     return '';
