@@ -68,7 +68,9 @@ export function SubmissionReport({ submission }: { submission?: Submission }) {
                 <div className="flex flex-col gap-5">
                     {
                         submission.verdict === 'runtime_error' &&
-                        <Field content='Exited with non-zero exit code' error />
+                            submission.testing_report?.stderr?.trim().length === 0
+                                ? <Field content='Exited with non-zero exit code' error />
+                                : <Field content={submission.testing_report?.stderr} error />
                     }
                     {
                         submission.verdict === 'compilation_error'
