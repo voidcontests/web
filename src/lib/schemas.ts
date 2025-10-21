@@ -105,6 +105,7 @@ export const SubmissionSchema = z.object({
     id: z.number(),
     problem_id: z.number(),
     problem_kind: z.string(),
+    status: z.string(),
     verdict: z.string(),
     answer: z.string().optional(),
     code: z.string().optional(),

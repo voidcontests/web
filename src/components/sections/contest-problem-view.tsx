@@ -89,7 +89,7 @@ export function ContestProblemView({ problem }: { problem: Promise<Result<Contes
         let submission = result.data;
         setSubmission(submission);
 
-        while (submission.verdict === "pending" || submission.verdict === "running") {
+        while (submission.status === "pending" || submission.status === "running") {
             await sleep(1000);
             const updated = await getSubmissionByID(submission.id);
             if (!updated.ok) {
@@ -99,8 +99,6 @@ export function ContestProblemView({ problem }: { problem: Promise<Result<Contes
             submission = updated.data;
             setSubmission(submission);
         }
-
-        // No need to revalidate in client-side rendered app
     }
 
     return (

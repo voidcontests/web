@@ -14,18 +14,19 @@ const titles = {
     'runtime_error': 'Runtime error',
     'compilation_error': 'Compilation error',
     'time_limit_exceeded': 'Time limit exceeded',
+    'internal_error': 'Internal error'
 };
 
 export function SubmissionReport({ submission }: { submission?: Submission }) {
     if (!submission) return;
 
-    if (submission.verdict === 'running' || submission.verdict === 'pending') {
+    if (submission.status === 'running' || submission.status === 'pending') {
         return (
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex items-center gap-2">
                     <LoaderCircle className="animate-spin size-5 text-tertiary-foreground" />
                     <span className="text-lg text-tertiary-foreground">
-                        {titles[submission.verdict]}
+                        {titles[submission.status]}
                     </span>
                 </div>
                 <Separator />
@@ -66,22 +67,41 @@ export function SubmissionReport({ submission }: { submission?: Submission }) {
                 </div>
                 <Separator />
                 <div className="flex flex-col gap-5">
-                    {
-                        submission.verdict === 'runtime_error' &&
-                            submission.testing_report?.stderr?.trim().length === 0
-                                ? <Field content='Exited with non-zero exit code' error />
-                                : <Field content={submission.testing_report?.stderr} error />
-                    }
-                    {
-                        submission.verdict === 'compilation_error'
-                        ? <Field content={submission.testing_report?.stderr} error />
-                        : <TestCaseOutputs
+                    {submission.verdict === 'compilation_error' && (
+                        <Field content={submission.testing_report?.stderr} error />
+                    )}
+
+                    {submission.verdict === 'runtime_error' && (
+                        <>
+                            {!submission.testing_report?.stderr?.trim() ? (
+                                <Field content='Exited with non-zero exit code' error />
+                            ) : (
+                                <Field content={submission.testing_report?.stderr} error />
+                            )}
+                        </>
+                    )}
+
+                    {(submission.verdict === 'runtime_error' || submission.verdict === 'wrong_answer' || submission.verdict === 'time_limit_exceeded') && (
+                        <TestCaseOutputs
                             input={submission.testing_report?.failed_test?.input}
                             actual={submission.testing_report?.failed_test?.actual_output}
                             expected={submission.testing_report?.failed_test?.expected_output}
                         />
-                    }
+                    )}
                 </div>
+            </div>
+        );
+    }
+
+    if (submission.verdict === 'internal_error') {
+        return (
+            <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
+                <div className="flex flex-col gap-1">
+                    <Title text={titles[submission.verdict]} variant="error" />
+                    <TestStats passed={submission.testing_report?.passed} total={submission.testing_report?.total} />
+                </div>
+                <Separator />
+                <Field content='Something went wrong while executing your solution. Please, try again later' error />
             </div>
         );
     }
