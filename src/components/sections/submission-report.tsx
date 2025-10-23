@@ -7,20 +7,18 @@ import { cn } from "@/lib/utils";
 import { Code } from "@/components/code";
 
 const titles = {
-    'running': 'Running...',
+    'judging': 'Judging...',
     'pending': 'In queue...',
     'wrong_answer': 'Wrong answer',
-    'ok': 'Accepted',
     'runtime_error': 'Runtime error',
     'compilation_error': 'Compilation error',
     'time_limit_exceeded': 'Time limit exceeded',
-    'internal_error': 'Internal error'
 };
 
 export function SubmissionReport({ submission }: { submission?: Submission }) {
     if (!submission) return;
 
-    if (submission.status === 'running' || submission.status === 'pending') {
+    if (submission.status === 'judging' || submission.status === 'pending') {
         return (
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex items-center gap-2">
@@ -40,12 +38,24 @@ export function SubmissionReport({ submission }: { submission?: Submission }) {
         );
     }
 
+    if (submission.status === 'failed' || submission.verdict === 'internal_error') {
+        return (
+            <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
+                <div className="flex flex-col gap-1">
+                    <Title text='Something went wrong' variant="error" />
+                </div>
+                <Separator />
+                <Field content="Something went wrong while executing your solution. We are trying to do our best, to fix this as soon as possible" error />
+            </div>
+        );
+    }
+
     if (submission.verdict === 'ok') {
         return (
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex flex-col gap-1">
-                    <Title text={titles[submission.verdict]} />
-                    <TestStats passed={submission.testing_report?.passed} total={submission.testing_report?.total} />
+                    <Title text='Accepted' />
+                    <TestStats passed={submission.testing_report?.passed_tests_count} total={submission.testing_report?.total_tests_count} />
                 </div>
                 <Separator />
                 <div className="flex flex-col gap-1">
@@ -63,7 +73,7 @@ export function SubmissionReport({ submission }: { submission?: Submission }) {
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex flex-col gap-1">
                     <Title text={titles[submission.verdict]} variant="error" />
-                    <TestStats passed={submission.testing_report?.passed} total={submission.testing_report?.total} />
+                    <TestStats passed={submission.testing_report?.passed_tests_count} total={submission.testing_report?.total_tests_count} />
                 </div>
                 <Separator />
                 <div className="flex flex-col gap-5">
@@ -89,19 +99,6 @@ export function SubmissionReport({ submission }: { submission?: Submission }) {
                         />
                     )}
                 </div>
-            </div>
-        );
-    }
-
-    if (submission.verdict === 'internal_error') {
-        return (
-            <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
-                <div className="flex flex-col gap-1">
-                    <Title text={titles[submission.verdict]} variant="error" />
-                    <TestStats passed={submission.testing_report?.passed} total={submission.testing_report?.total} />
-                </div>
-                <Separator />
-                <Field content='Something went wrong while executing your solution. Please, try again later' error />
             </div>
         );
     }

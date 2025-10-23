@@ -89,9 +89,10 @@ export function ContestProblemView({ problem }: { problem: Promise<Result<Contes
         let submission = result.data;
         setSubmission(submission);
 
-        while (submission.status === "pending" || submission.status === "running") {
+        while (submission.status !== "success" && submission.status !== "failed") {
             await sleep(1000);
             const updated = await getSubmissionByID(submission.id);
+            console.log(JSON.stringify(updated));
             if (!updated.ok) {
                 toast({ title: 'Something went wrong while pulling submission. Try again later' });
                 break;
