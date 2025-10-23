@@ -5,6 +5,7 @@ import { BannedLayout } from "@/components/layouts/banned";
 import { UnauthorizedLayout } from "@/components/layouts/unauthorized";
 import { useEffect, useState } from "react";
 import { Account } from "@/lib/models";
+import { Screen } from "@/components/sections/loading";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const [account, setAccount] = useState<Account | null | undefined>(undefined);
@@ -22,8 +23,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     }, []);
 
     if (account === undefined) {
-        // TODO: Remove this ugly loading
-        return <div>Loading...</div>;
+        return (
+            <Screen />
+        );
     }
 
     if (account === null) {

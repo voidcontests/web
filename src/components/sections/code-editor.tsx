@@ -33,7 +33,7 @@ const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({ code, set
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                <SelectItem value="c">C17 (gcc 10.2.1)</SelectItem>
+                                <SelectItem value="cpp">C++17 (g++ 10.2.1)</SelectItem>
                                 <SelectItem value="python">Python (3.9.2)</SelectItem>
                             </SelectGroup>
                         </SelectContent>

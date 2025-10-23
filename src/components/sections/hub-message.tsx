@@ -2,18 +2,9 @@
 
 import { MessageBox } from '@/components/sections/message-box';
 import { Account } from '@/lib/models';
-import { use } from 'react';
-import { Result } from "@/lib/api";
 
-export default function HubMessage({ account }: { account: Promise<Result<Account>> }) {
-    const result = use(account);
-    if (!result.ok) {
-        throw new Error('unauthorized');
-    }
-
-    const acc = result.data;
-
-    if (acc.role.name === 'admin') {
+export default function HubMessage({ account }: { account: Account }) {
+    if (account.role.name === 'admin') {
         return (
             <MessageBox>
                 <span className='font-medium'>
@@ -27,7 +18,7 @@ export default function HubMessage({ account }: { account: Promise<Result<Accoun
         );
     }
 
-    if (acc.role.name === 'banned') {
+    if (account.role.name === 'banned') {
         return (
             <MessageBox variant='error'>
                 <span className='font-medium'>
@@ -40,14 +31,14 @@ export default function HubMessage({ account }: { account: Promise<Result<Accoun
         );
     }
 
-    if (acc.role.name === 'limited') {
+    if (account.role.name === 'limited') {
         return (
             <MessageBox variant='warning'>
                 <span className='font-medium'>
                     LIMITED MODE
                 </span>
                 <span>
-                    {`You are in kinda limited mode. You can create up to ${acc.role.created_contests_limit} contests and ${acc.role.created_problems_limit} problems.
+                    {`You are in kinda limited mode. You can create up to ${account.role.created_contests_limit} contests and ${account.role.created_problems_limit} problems.
                     I didn't figured out how to upgrade limitations yet, so for now just enjoy
                     this situation or contact me somewhere`}
                 </span>

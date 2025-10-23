@@ -1,6 +1,7 @@
 'use client';
 
 import ContestStartingCountdown from "@/components/sections/contest-starting-countdown";
+import { ContestAbout } from "@/components/sections/contest-about";
 import AppliedStatus from "@/components/sections/applied-status";
 import ContentContainer from "@/components/content-container";
 import { Loading } from "@/components/sections/contest-about";
@@ -8,18 +9,9 @@ import { Problemset } from "@/components/sections/problemset";
 import ContestInfo from "@/components/sections/contest-info";
 import Setters from "@/components/sections/contest-setters";
 import { getContestByID } from "@/lib/api";
-import dynamic from "next/dynamic";
 import ContestMessage from "@/components/sections/contest-message";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Result, ContestDetailed } from "@/lib/api";
-
-const ContestAbout = dynamic(async () => {
-    const mod = await import('@/components/sections/contest-about');
-    return mod.ContestAbout;
-}, {
-    ssr: false,
-    loading: () => <Loading />,
-});
 
 export default function Page({ params }: { params: { cid: string } }) {
     const [contest, setContest] = useState<Promise<Result<ContestDetailed>> | null>(null);
@@ -43,7 +35,13 @@ export default function Page({ params }: { params: { cid: string } }) {
                 </div>
                 <div className="col-span-3">
                     <div className="flex flex-col gap-5">
-                        <ContestAbout contest={contest} />
+                        <Suspense
+                            fallback={
+                                <Loading />
+                            }
+                        >
+                            <ContestAbout contest={contest} />
+                        </Suspense>
                         <Setters contest={contest} />
                         <AppliedStatus contest={contest} />
                     </div>

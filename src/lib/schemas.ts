@@ -101,28 +101,29 @@ export const ContestDetailedSchema = z.object({
     created_at: z.coerce.date(),
 });
 
+export const Test = z.object({
+    input: z.string(),
+    expected_output: z.string(),
+    actual_output: z.string(),
+});
+
+export const TestingReport = z.object({
+    id: z.number(),
+    passed_tests_count: z.number(),
+    total_tests_count: z.number(),
+    failed_test: Test.optional(),
+    stderr: z.string().optional(),
+    created_at: z.coerce.date(),
+});
+
 export const SubmissionSchema = z.object({
     id: z.number(),
     problem_id: z.number(),
-    problem_kind: z.string(),
+    status: z.string(),
     verdict: z.string(),
-    answer: z.string().optional(),
     code: z.string().optional(),
     language: z.string().optional(),
-    testing_report: z
-        .object({
-            passed: z.number(),
-            total: z.number(),
-            stderr: z.string().optional(),
-            failed_test: z
-                .object({
-                    input: z.string(),
-                    expected_output: z.string(),
-                    actual_output: z.string(),
-                })
-                .optional(),
-        })
-        .optional(),
+    testing_report: TestingReport.optional(),
     created_at: z.coerce.date(),
 });
 

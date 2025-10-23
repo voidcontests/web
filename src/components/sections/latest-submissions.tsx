@@ -57,14 +57,19 @@ export function LatestSubmissionsView({ contestID, charcode }: { contestID: ID, 
     const handlePrev = () => {
         const newOffset = Math.max(0, offset - limit);
         setOffset(newOffset);
-        updateQueryParams(newOffset, limit);
+
+        // TODO: this section is commented for now,
+        // because when query parameters are updated,
+        // the entire page scrolls up, this is weird.
+
+        // updateQueryParams(newOffset, limit);
     };
 
     const handleNext = () => {
         if (offset + limit < total) {
             const newOffset = offset + limit;
             setOffset(newOffset);
-            updateQueryParams(newOffset, limit);
+            // updateQueryParams(newOffset, limit);
         }
     };
 

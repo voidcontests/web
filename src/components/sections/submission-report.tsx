@@ -3,19 +3,28 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Submission } from "@/lib/models";
 import { LoaderCircle } from "lucide-react";
-import { capitalize } from "@/lib/strings";
+import { cn } from "@/lib/utils";
 import { Code } from "@/components/code";
+
+const titles = {
+    'judging': 'Judging...',
+    'pending': 'In queue...',
+    'wrong_answer': 'Wrong answer',
+    'runtime_error': 'Runtime error',
+    'compilation_error': 'Compilation error',
+    'time_limit_exceeded': 'Time limit exceeded',
+};
 
 export function SubmissionReport({ submission }: { submission?: Submission }) {
     if (!submission) return;
 
-    if (submission.verdict === 'running' || submission.verdict === 'pending') {
+    if (submission.status === 'judging' || submission.status === 'pending') {
         return (
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex items-center gap-2">
                     <LoaderCircle className="animate-spin size-5 text-tertiary-foreground" />
                     <span className="text-lg text-tertiary-foreground">
-                        {capitalize(submission.verdict)}...
+                        {titles[submission.status]}
                     </span>
                 </div>
                 <Separator />
@@ -29,44 +38,14 @@ export function SubmissionReport({ submission }: { submission?: Submission }) {
         );
     }
 
-    if (submission.verdict === 'wrong_answer') {
+    if (submission.status === 'failed' || submission.verdict === 'internal_error') {
         return (
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex flex-col gap-1">
-                    <span className="text-lg text-scarlet-500 font-medium">
-                        Wrong answer
-                    </span>
-                    <span className="text-sm text-tertiary-foreground">
-                        Tests passed {submission.testing_report?.passed}/{submission.testing_report?.total}
-                    </span>
+                    <Title text='Something went wrong' variant="error" />
                 </div>
                 <Separator />
-                <div className="flex flex-col gap-5">
-                    <div className="flex flex-col gap-1 bg-surface-secondary p-3 rounded-xl not-dark:border border-border-secondary">
-                        <span className="text-sm text-tertiary-foreground">
-                            Input
-                        </span>
-                        <Code className="text-foreground">
-                            {submission.testing_report?.failed_test?.input}
-                        </Code>
-                    </div>
-                    <div className="flex flex-col gap-1 bg-surface-secondary p-3 rounded-xl not-dark:border border-border-secondary">
-                        <span className="text-sm text-tertiary-foreground">
-                            Stdout
-                        </span>
-                        <Code className="text-foreground">
-                            {submission.testing_report?.failed_test?.actual_output}
-                        </Code>
-                    </div>
-                    <div className="flex flex-col gap-1 bg-surface-secondary p-3 rounded-xl not-dark:border border-border-secondary">
-                        <span className="text-sm text-tertiary-foreground">
-                            Expected output
-                        </span>
-                        <Code className="text-foreground">
-                            {submission.testing_report?.failed_test?.expected_output}
-                        </Code>
-                    </div>
-                </div>
+                <Field content="Something went wrong while executing your solution. We are trying to do our best, to fix this as soon as possible" error />
             </div>
         );
     }
@@ -75,12 +54,8 @@ export function SubmissionReport({ submission }: { submission?: Submission }) {
         return (
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex flex-col gap-1">
-                    <span className="text-lg text-green-500 font-medium">
-                        Accepted
-                    </span>
-                    <span className="text-sm text-tertiary-foreground">
-                        Tests passed {submission.testing_report?.passed}/{submission.testing_report?.total}
-                    </span>
+                    <Title text='Accepted' />
+                    <TestStats passed={submission.testing_report?.passed_tests_count} total={submission.testing_report?.total_tests_count} />
                 </div>
                 <Separator />
                 <div className="flex flex-col gap-1">
@@ -93,113 +68,97 @@ export function SubmissionReport({ submission }: { submission?: Submission }) {
         );
     }
 
-    if (submission.verdict === 'runtime_error') {
+    if (submission.verdict === 'wrong_answer' || submission.verdict === 'time_limit_exceeded' || submission.verdict === 'compilation_error' || submission.verdict === 'runtime_error') {
         return (
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex flex-col gap-1">
-                    <span className="text-lg text-scarlet-500 font-medium">
-                        Runtime error
-                    </span>
+                    <Title text={titles[submission.verdict]} variant="error" />
+                    <TestStats passed={submission.testing_report?.passed_tests_count} total={submission.testing_report?.total_tests_count} />
                 </div>
                 <Separator />
                 <div className="flex flex-col gap-5">
-                    <div className="flex flex-col gap-1 bg-scarlet-500/10 py-3 px-4 rounded-xl not-dark:border border-border-secondary">
-                        <Code className="text-scarlet-500">
-                            {submission.testing_report?.stderr}
-                        </Code>
-                    </div>
-                    <div className="flex flex-col gap-1 bg-surface-secondary p-3 rounded-xl not-dark:border border-border-secondary">
-                        <span className="text-sm text-tertiary-foreground">
-                            Input
-                        </span>
-                        <Code className="text-foreground">
-                            {submission.testing_report?.failed_test?.input}
-                        </Code>
-                    </div>
-                    {
-                        submission.testing_report?.failed_test?.actual_output.trim().length !== 0 &&
-                        <div className="flex flex-col gap-1 bg-surface-secondary p-3 rounded-xl not-dark:border border-border-secondary">
-                            <span className="text-sm text-tertiary-foreground">
-                                Stdout
-                            </span>
-                            <Code className="text-foreground">
-                                {submission.testing_report?.failed_test?.actual_output}
-                            </Code>
-                        </div>
-                    }
-                    <div className="flex flex-col gap-1 bg-surface-secondary p-3 rounded-xl not-dark:border border-border-secondary">
-                        <span className="text-sm text-tertiary-foreground">
-                            Expected output
-                        </span>
-                        <Code className="text-foreground">
-                            {submission.testing_report?.failed_test?.expected_output}
-                        </Code>
-                    </div>
+                    {submission.verdict === 'compilation_error' && (
+                        <Field content={submission.testing_report?.stderr} error />
+                    )}
+
+                    {submission.verdict === 'runtime_error' && (
+                        <>
+                            {!submission.testing_report?.stderr?.trim() ? (
+                                <Field content='Exited with non-zero exit code' error />
+                            ) : (
+                                <Field content={submission.testing_report?.stderr} error />
+                            )}
+                        </>
+                    )}
+
+                    {(submission.verdict === 'runtime_error' || submission.verdict === 'wrong_answer' || submission.verdict === 'time_limit_exceeded') && (
+                        <TestCaseOutputs
+                            input={submission.testing_report?.failed_test?.input}
+                            actual={submission.testing_report?.failed_test?.actual_output}
+                            expected={submission.testing_report?.failed_test?.expected_output}
+                        />
+                    )}
                 </div>
+            </div>
+        );
+    }
+}
+
+function Title({ text, variant = 'success' }: { text: string, variant?: 'success' | 'error' }) {
+    return (
+        <span className={cn(
+            "text-lg font-medium",
+            variant === 'error' ? "text-scarlet-500" : "text-green-500"
+        )}>
+            {text}
+        </span>
+    );
+}
+
+function Field({ label, content, error }: { label?: string, content?: string, error?: boolean }) {
+    if (!content || content.trim().length === 0) return;
+
+    if (error) {
+        return (
+            <div className="flex flex-col gap-1 bg-scarlet-500/10 py-3 px-4 rounded-xl not-dark:border border-border-secondary">
+                <Code className="text-scarlet-500">
+                    {content}
+                </Code>
             </div>
         );
     }
 
-    if (submission.verdict === 'time_limit_exceeded') {
-        return (
-            <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
-                <div className="flex flex-col gap-1">
-                    <span className="text-lg text-scarlet-500 font-medium">
-                        Time Limit Exceeded
-                    </span>
-                </div>
-                <Separator />
-                <div className="flex flex-col gap-5">
-                    <div className="flex flex-col gap-1 bg-surface-secondary p-3 rounded-xl not-dark:border border-border-secondary">
-                        <span className="text-sm text-tertiary-foreground">
-                            Input
-                        </span>
-                        <Code className="text-foreground">
-                            {submission.testing_report?.failed_test?.input}
-                        </Code>
-                    </div>
-                    {
-                        submission.testing_report?.failed_test?.actual_output.trim().length !== 0 &&
-                        <div className="flex flex-col gap-1 bg-surface-secondary p-3 rounded-xl not-dark:border border-border-secondary">
-                            <span className="text-sm text-tertiary-foreground">
-                                Stdout
-                            </span>
-                            <Code className="text-foreground">
-                                {submission.testing_report?.failed_test?.actual_output}
-                            </Code>
-                        </div>
-                    }
-                    <div className="flex flex-col gap-1 bg-surface-secondary p-3 rounded-xl not-dark:border border-border-secondary">
-                        <span className="text-sm text-tertiary-foreground">
-                            Expected output
-                        </span>
-                        <Code className="text-foreground">
-                            {submission.testing_report?.failed_test?.expected_output}
-                        </Code>
-                    </div>
-                </div>
-            </div>
-        );
-    }
+    return (
+        <div className="flex flex-col gap-1 bg-surface-secondary p-3 rounded-xl not-dark:border border-border-secondary">
+            {
+                label &&
+                <span className="text-sm text-tertiary-foreground">
+                    {label}
+                </span>
+            }
+            <Code className="text-foreground">
+                {content}
+            </Code>
+        </div>
+    );
+}
 
-    if (submission.verdict === 'compilation_error') {
-        return (
-            <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
-                <div className="flex flex-col gap-1">
-                    <span className="text-lg text-scarlet-500 font-medium">
-                        Compilation error
-                    </span>
-                    <span className="text-sm text-tertiary-foreground">
-                        Tests passed {submission.testing_report?.passed}/{submission.testing_report?.total}
-                    </span>
-                </div>
-                <Separator />
-                <div className="flex flex-col gap-1 bg-scarlet-500/10 py-3 px-4 rounded-xl not-dark:border border-border-secondary">
-                    <Code className="text-scarlet-500">
-                        {submission.testing_report?.stderr}
-                    </Code>
-                </div>
-            </div>
-        );
-    }
+function TestStats({ passed, total }: { passed?: number, total?: number }) {
+    if (passed === undefined || total  === undefined) return;
+
+    return (
+        <span className="text-sm text-tertiary-foreground">
+            Tests passed {passed}/{total}
+        </span>
+    );
+}
+
+function TestCaseOutputs({ input, actual, expected }: { input?: string, actual?: string, expected?: string }) {
+    return (
+        <div className="flex flex-col gap-5">
+            <Field label="Input" content={input} />
+            <Field label="Stdout" content={actual} />
+            <Field label="Expected output" content={expected} />
+        </div>
+    );
 }

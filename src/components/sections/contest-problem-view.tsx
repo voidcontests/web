@@ -14,7 +14,7 @@ import { getInitialCode } from "@/components/sections/editor/utils";
 import { sleep } from "@/lib/utils";
 import { Result, getSubmissionByID, submitCodeSolution, submitTextAnswer } from "@/lib/api";
 
-const DEFAULT_LANGUAGE = "c";
+const DEFAULT_LANGUAGE = "cpp";
 
 export function ContestProblemView({ problem }: { problem: Promise<Result<ContestProblemDetailed>> }) {
     const result = use(problem);
@@ -67,7 +67,6 @@ export function ContestProblemView({ problem }: { problem: Promise<Result<Contes
     }
 
     async function submitProgram() {
-        console.log('sssss');
         if (code.trim().length === 0) return;
 
         setSubmission(undefined);
@@ -90,9 +89,10 @@ export function ContestProblemView({ problem }: { problem: Promise<Result<Contes
         let submission = result.data;
         setSubmission(submission);
 
-        while (submission.verdict === "pending" || submission.verdict === "running") {
+        while (submission.status !== "success" && submission.status !== "failed") {
             await sleep(1000);
             const updated = await getSubmissionByID(submission.id);
+            console.log(JSON.stringify(updated));
             if (!updated.ok) {
                 toast({ title: 'Something went wrong while pulling submission. Try again later' });
                 break;
@@ -100,8 +100,6 @@ export function ContestProblemView({ problem }: { problem: Promise<Result<Contes
             submission = updated.data;
             setSubmission(submission);
         }
-
-        // No need to revalidate in client-side rendered app
     }
 
     return (

@@ -1,12 +1,8 @@
-import OfficialContests from '@/components/sections/official-contests';
+import PublicContests from '@/components/sections/public-contests';
 import ContentContainer from '@/components/content-container';
 import { TableTemplate } from '@/components/sections/loading';
-import { Separator } from '@/components/ui/separator';
+import { Suspense } from 'react';
 import { Metadata } from 'next';
-
-// NOTE: dynamic import here for prevent rendering on the server (to not display server time)
-import dynamic from 'next/dynamic';
-const PublicContests = dynamic(() => import('@/components/sections/public-contests'), { ssr: false, loading: () => <TableTemplate title='PUBLIC CONTESTS' /> });
 
 export const metadata: Metadata = {
     title: 'Contests :: THE VOID*',
@@ -15,7 +11,13 @@ export const metadata: Metadata = {
 export default async function ContestsPage() {
     return (
         <ContentContainer>
-            <PublicContests />
+            <Suspense
+                fallback={
+                    <TableTemplate title='PUBLIC CONTESTS' />
+                }
+            >
+                <PublicContests />
+            </Suspense>
         </ContentContainer>
     );
 }

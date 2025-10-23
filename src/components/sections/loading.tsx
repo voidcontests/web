@@ -1,6 +1,7 @@
 import { Table, TableCaption, TableContainer, TableTitle } from '@/components/ui/table';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Widget, WidgetContent, WidgetTitle } from '@/components/ui/widget';
+import { Asterisk } from '@/components/ui/asterisk';
 
 export function TableTemplate({ title }: { title: string }) {
     return (
@@ -99,6 +100,23 @@ export function ContestInfoTemplate() {
             <div className="flex flex-col gap-2">
                 <Skeleton className="h-4 w-full" />
                 <Skeleton className="h-4 w-10/11" />
+            </div>
+        </div>
+    );
+}
+
+export function Screen({ message }: { message?: string }) {
+    return (
+        <div className="flex flex-col gap-1 justify-center items-center mt-[25vh]">
+            <Asterisk className="size-32 stroke-yellow-500" />
+            <hr />
+            <div className='flex flex-col gap-3 justify-center items-center'>
+                <h1 className="text-xl text-foreground font-medium leading-none">
+                    Loading...
+                </h1>
+                <div className="text-base text-tertiary-foreground">
+                    {message ?? "We're grunting and groaning to get this loaded"}
+                </div>
             </div>
         </div>
     );

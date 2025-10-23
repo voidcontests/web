@@ -1,36 +1,27 @@
 'use client';
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from "@/components/ui/table";
-import { Account, ContestList, ContestListItem, Pagination } from '@/lib/models';
+import { Account, ContestListItem, Pagination } from '@/lib/models';
 import ContestStatus from '@/components/contest-status';
 import { format_duration } from '@/lib/utils';
 import { DateView } from "@/components/date";
 import { Link } from "@/components/ui/link";
-import { use, useEffect, useState } from 'react';
-import { Result, getCreatedContests } from "@/lib/api";
+import { useEffect, useState } from 'react';
+import { getCreatedContests } from "@/lib/api";
 import PaginationControls from "../pagination-controls";
 import { toast } from "../toast";
 
-export default function AdminContests({ account, contests }: { account: Promise<Result<Account>>, contests: Promise<Result<Pagination<ContestListItem>>> }) {
-    const accountResult = use(account);
-    const contestsResult = use(contests);
-
-    if (!accountResult.ok) {
-        throw new Error('unauthorized');
-    }
-
-    if (!contestsResult.ok) {
-        return TableWithError(contestsResult.error.message);
-    }
-
-    const acc = accountResult.data;
-
-    const [contestss, setContestss] = useState<ContestListItem[]>(contestsResult.data.items);
+export default function AdminContests({ account, contests }: { account: Account, contests: Pagination<ContestListItem> }) {
+    const [contestss, setContestss] = useState<ContestListItem[]>(contests.items);
     const [offset, setOffset] = useState(0);
-    const [total, setTotal] = useState(0);
+    const [total, setTotal] = useState(contests.meta.total);
     const limit = 10;
 
     useEffect(() => {
+        if (offset === 0) {
+            return;
+        }
+
         const load = async () => {
             const result = await getCreatedContests(offset, limit);
             if (result.ok) {
@@ -61,7 +52,7 @@ export default function AdminContests({ account, contests }: { account: Promise<
                 {/* TODO: hide new button, if user already created maximum contests */}
                 <span>CONTESTS</span>
                 {
-                    acc.role.name !== 'banned' &&
+                    account.role.name !== 'banned' &&
                     <Link href='/hub/new/contest' size="large">NEW</Link>
                 }
             </TableTitle>
