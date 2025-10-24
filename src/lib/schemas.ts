@@ -40,7 +40,6 @@ export const AccountSchema = z.object({
 export const ContestProblemListItemSchema = z.object({
     id: z.number(),
     charcode: z.string().optional(),
-    contest_id: z.number().optional(),
     writer: UserSchema,
     title: z.string(),
     difficulty: z.string(),
@@ -53,7 +52,6 @@ export const ContestProblemDetailedSchema = z.object({
     charcode: z.string(),
     contest_id: z.number(),
     writer: UserSchema,
-    kind: z.string(),
     title: z.string(),
     difficulty: z.string(),
     statement: z.string(),
@@ -157,7 +155,6 @@ export const ProblemListItemSchema = z.object({
 export const ProblemDetailedSchema = z.object({
     id: z.number(),
     writer: UserSchema,
-    kind: z.string(),
     title: z.string(),
     difficulty: z.string(),
     statement: z.string(),

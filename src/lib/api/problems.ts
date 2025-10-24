@@ -20,10 +20,8 @@ export type CreateProblemFormData = {
     title: string;
     statement: string;
     difficulty: string;
-    kind: string;
     time_limit_ms: number;
     examples?: Array<{ input: string; output: string }>;
-    answer?: string;
     test_cases?: Array<{ input: string; output: string }>;
 };
 
@@ -76,22 +74,7 @@ export async function getProblemSubmissions(
     );
 }
 
-export async function submitTextAnswer(
-    contestID: ID,
-    charcode: string,
-    answer: string
-): Promise<Result<Submission>> {
-    return fetchWithAuth(
-        `${config.api.basepath}/contests/${contestID}/problems/${charcode}/submissions`,
-        {
-            method: 'POST',
-            body: JSON.stringify({ problem_kind: 'text_answer_problem', answer }),
-        },
-        SubmissionSchema
-    );
-}
-
-export async function submitCodeSolution(
+export async function submitSolution(
     contestID: ID,
     charcode: string,
     code: string,
@@ -101,7 +84,7 @@ export async function submitCodeSolution(
         `${config.api.basepath}/contests/${contestID}/problems/${charcode}/submissions`,
         {
             method: 'POST',
-            body: JSON.stringify({ problem_kind: 'coding_problem', code, language }),
+            body: JSON.stringify({ code, language }),
         },
         SubmissionSchema
     );

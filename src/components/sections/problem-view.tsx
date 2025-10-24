@@ -22,26 +22,23 @@ export function ProblemView({ problem }: { problem: Promise<Result<ProblemDetail
                 </h1>
             </div>
             <Preview markdown={pdetailed.statement} />
-            {
-                pdetailed.kind === 'coding_problem' &&
-                <div className='flex flex-col gap-4'>
-                    {
-                        (pdetailed.examples && pdetailed.examples.length !== 0) &&
-                        <div className='flex flex-col gap-0'>
-                            <h3 className='font-medium text-lg'>
-                                Examples
-                            </h3>
-                            <div className='flex flex-col gap-3'>
-                                {
-                                    pdetailed.examples.map((example) => (
-                                        <TestCase tc={example} />
-                                    ))
-                                }
-                            </div>
+            <div className='flex flex-col gap-4'>
+                {
+                    (pdetailed.examples && pdetailed.examples.length !== 0) &&
+                    <div className='flex flex-col gap-0'>
+                        <h3 className='font-medium text-lg'>
+                            Examples
+                        </h3>
+                        <div className='flex flex-col gap-3'>
+                            {
+                                pdetailed.examples.map((example) => (
+                                    <TestCase tc={example} />
+                                ))
+                            }
                         </div>
-                    }
-                </div>
-            }
+                    </div>
+                }
+            </div>
         </div>
     );
 }

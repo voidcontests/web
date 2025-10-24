@@ -5,14 +5,13 @@ import { SubmissionReport } from "@/components/sections/submission-report";
 import { CodeEditor } from "@/components/sections/code-editor";
 import Preview from "@/components/sections/preview";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { use, useState } from "react";
 import { toast } from "@/components/toast";
 import { TestCase } from "@/components/sections/test-case";
 import { Separator } from "@/components/ui/separator";
 import { getInitialCode } from "@/components/sections/editor/utils";
 import { sleep } from "@/lib/utils";
-import { Result, getSubmissionByID, submitCodeSolution, submitTextAnswer } from "@/lib/api";
+import { Result, getSubmissionByID, submitSolution } from "@/lib/api";
 
 const DEFAULT_LANGUAGE = "cpp";
 
@@ -27,51 +26,13 @@ export function ContestProblemView({ problem }: { problem: Promise<Result<Contes
     const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
     const [code, setCode] = useState(getInitialCode(DEFAULT_LANGUAGE));
     const [submission, setSubmission] = useState<Submission>();
-    const [answer, setAnswer] = useState('');
 
-    async function submitAnswer() {
-        if (answer.trim().length === 0) return;
-
-        if (pdetailed.status === 'accepted') {
-            toast({ title: "Solution for this problem already accepted" });
-            return;
-        }
-
-        const result = await submitTextAnswer(pdetailed.contest_id, pdetailed.charcode, answer);
-
-        if (!result.ok) {
-            if (result.status === 429) {
-                if (!result.error.timeout) {
-                    toast({ title: `You are submitting too frequently` });
-                } else {
-                    toast({ title: `You are submitting too frequently. Wait for ${result.error.timeout}` });
-                }
-            } else {
-                toast({ title: 'Something went wrong. Try again later' });
-            }
-            return;
-        }
-
-        const verdict = result.data.verdict;
-        switch (verdict) {
-            case 'ok':
-                toast({ title: 'Correct! Answer accepted' });
-                break;
-            case 'wrong_answer':
-                toast({ title: 'Your answer is incorrect' });
-                break;
-            default:
-                toast({ title: `Unknown verdict: ${verdict}` });
-        }
-        // No need to revalidate in client-side rendered app
-    }
-
-    async function submitProgram() {
+    async function submit() {
         if (code.trim().length === 0) return;
 
         setSubmission(undefined);
 
-        const result = await submitCodeSolution(pdetailed.contest_id, pdetailed.charcode, code, language);
+        const result = await submitSolution(pdetailed.contest_id, pdetailed.charcode, code, language);
 
         if (!result.ok) {
             if (result.status === 429) {
@@ -112,48 +73,33 @@ export function ContestProblemView({ problem }: { problem: Promise<Result<Contes
 
             <Preview markdown={pdetailed.statement} />
 
-            {pdetailed.kind === 'text_answer_problem' && (
-                <div className="flex items-center gap-4">
-                    <span className="shrink-0 text-sm font-semibold">Answer:</span>
-                    <Input
-                        value={answer}
-                        onChange={(e) => setAnswer(e.target.value)}
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter') submitAnswer();
-                        }}
-                    />
-                    <Button onClick={submitAnswer} disabled={answer.trim().length === 0}>SUBMIT</Button>
-                </div>
-            )}
 
-            {pdetailed.kind === 'coding_problem' && (
-                <div className="flex flex-col gap-4">
-                    {pdetailed.examples && pdetailed.examples.length > 0 && (
-                        <div className="flex flex-col gap-0">
-                            <h3 className="font-medium text-lg">Examples</h3>
-                            <div className="flex flex-col gap-3">
-                                {pdetailed.examples.map((example) => (
-                                    <TestCase key={example.input + example.output} tc={example} />
-                                ))}
-                            </div>
+            <div className="flex flex-col gap-4">
+                {pdetailed.examples && pdetailed.examples.length > 0 && (
+                    <div className="flex flex-col gap-0">
+                        <h3 className="font-medium text-lg">Examples</h3>
+                        <div className="flex flex-col gap-3">
+                            {pdetailed.examples.map((example) => (
+                                <TestCase key={example.input + example.output} tc={example} />
+                            ))}
                         </div>
-                    )}
-                    <Separator />
-                    <CodeEditor
-                        code={code}
-                        setCode={setCode}
-                        language={language}
-                        setLanguage={(value) => {
-                            setLanguage(value);
-                            setCode(getInitialCode(value));
-                        }}
-                    />
-                    <Button onClick={submitProgram} disabled={code.trim().length === 0}>
-                        SUBMIT
-                    </Button>
-                    <SubmissionReport submission={submission} />
-                </div>
-            )}
+                    </div>
+                )}
+                <Separator />
+                <CodeEditor
+                    code={code}
+                    setCode={setCode}
+                    language={language}
+                    setLanguage={(value) => {
+                        setLanguage(value);
+                        setCode(getInitialCode(value));
+                    }}
+                />
+                <Button onClick={submit} disabled={code.trim().length === 0}>
+                    SUBMIT
+                </Button>
+                <SubmissionReport submission={submission} />
+            </div>
         </div>
     );
 }

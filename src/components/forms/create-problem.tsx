@@ -26,8 +26,6 @@ export interface TestCase {
 export interface FormData {
     title: string;
     statement: string;
-    kind: string;
-    answer: string;
     difficulty: string;
     test_cases: TestCase[];
     time_limit_ms: number;
@@ -40,8 +38,6 @@ export function CreateProblemForm() {
         defaultValues: {
             title: "",
             statement: "",
-            kind: "",
-            answer: "",
             difficulty: "",
             test_cases: [],
             time_limit_ms: 5000,
@@ -65,19 +61,14 @@ export function CreateProblemForm() {
     };
 
     function validate(): boolean {
-        const { title, statement, kind, answer, difficulty, test_cases } = watch();
+        const { title, statement, difficulty, test_cases } = watch();
 
         return (
             !!title.trim() &&
             !!statement.trim() &&
-            !!kind.trim() &&
             !!difficulty.trim() &&
             !(isNaN(watch('time_limit_ms')) || watch('time_limit_ms').toString().includes('.') || watch('time_limit_ms').toString().includes(',') || watch('time_limit_ms') < 500 || watch('time_limit_ms') > 10000) &&
-            (
-              kind === "text_answer_problem" ||
-              (test_cases.length > 0 && test_cases.every(tc => !!tc.input.trim() && !!tc.output.trim()))
-            ) &&
-            (kind === "coding_problem" || !!answer.trim())
+            (test_cases.length > 0 && test_cases.every(tc => !!tc.input.trim() && !!tc.output.trim()))
         );
     }
 
@@ -97,91 +88,64 @@ export function CreateProblemForm() {
                     Add statement
                 </MarkdownEditor>
 
-                <div className="flex flex-col gap-2">
-                    <Label required>Select problem's type</Label>
-                    <Select value={watch('kind')} onValueChange={(value) => setValue('kind', value)}>
-                        <SelectTrigger className="w-96">
-                            <SelectValue placeholder="Choose one" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectItem value="text_answer_problem">TEXT ANSWER PROBLEM</SelectItem>
-                                <SelectItem value="coding_problem">CODING PROBLEM</SelectItem>
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </div>
-
-                {watch('kind') === 'text_answer_problem' && (
-                    <div className="flex flex-col gap-2">
-                        <Label required>Add answer</Label>
-                        <Input {...register("answer")} placeholder="Answer" />
-                    </div>
-                )}
-
-                {watch('kind') === 'coding_problem' && (
-                    <>
-
-                        <div className="flex flex-col gap-4">
-                            <Label required>Test cases</Label>
-                            <MessageBox>
-                                Be very precise with spaces and new lines. Be sure NOT to accidentally include extra whitespaces. On judging step they will be treated exactly as provided!
-                            </MessageBox>
-                            {fields.map((field, index) => (
-                                <div key={field.id} className={cn("flex flex-col gap-4 pb-4", (index !== watch('test_cases').length-1) && 'border-b')}>
-                                    <div className='flex items-center justify-between'>
-                                        <span className="text-base font-medium">TC #{index + 1}</span>
-                                        <Button variant="ghost" size="icon" className='text-secondary-foreground hover:text-scarlet-500' type="button" onClick={() => remove(index)}>
-                                            <Trash2 />
-                                        </Button>
-                                    </div>
-                                    <div className="flex flex-col gap-2">
-                                        <Label required>Input</Label>
-                                        <TextArea
-                                            {...register(`test_cases.${index}.input` as const, { required: true })}
-                                            resizable
-                                        />
-                                    </div>
-                                    <div className="flex flex-col gap-2">
-                                        <Label required>Output</Label>
-                                        <TextArea
-                                            {...register(`test_cases.${index}.output` as const, { required: true })}
-                                            resizable
-                                        />
-                                    </div>
-                                    <Label className='flex flex-row gap-2 hover:cursor-pointer'>
-                                        <Checkbox
-                                            checked={watch(`test_cases.${index}.is_example`)}
-                                            onCheckedChange={(value) => setValue(`test_cases.${index}.is_example`, Boolean(value))}
-                                        />
-                                        <span className='font-normal'>Use as example</span>
-                                    </Label>
-                                </div>
-                            ))}
-                            <Button
-                                variant="dashed"
-                                type="button"
-                                onClick={() => append({ input: "", output: "", is_example: false })}
-                            >
-                                New test case
-                            </Button>
-                            <Separator />
-                            <div className="flex flex-col gap-2">
-                                <Label required>Time limit</Label>
-                                <div className='flex flex-col gap-1'>
-                                    <div className='flex flex-row gap-1 items-center max-w-72'>
-                                        <Input {...register("time_limit_ms", { valueAsNumber: true })} placeholder="Time limit" required />
-                                        <span className=''>ms</span>
-                                    </div>
-                                    {
-                                        (isNaN(watch('time_limit_ms')) || watch('time_limit_ms').toString().includes('.') || watch('time_limit_ms').toString().includes(',') || watch('time_limit_ms') < 500 || watch('time_limit_ms') > 10000) &&
-                                        <span className="text-scarlet-500">Time limit should be a valid integer between 1000ms and 10000ms</span>
-                                    }
-                                </div>
+                <div className="flex flex-col gap-4">
+                    <Label required>Test cases</Label>
+                    <MessageBox>
+                        Be very precise with spaces and new lines. Be sure NOT to accidentally include extra whitespaces. On judging step they will be treated exactly as provided!
+                    </MessageBox>
+                    {fields.map((field, index) => (
+                        <div key={field.id} className={cn("flex flex-col gap-4 pb-4", (index !== watch('test_cases').length-1) && 'border-b')}>
+                            <div className='flex items-center justify-between'>
+                                <span className="text-base font-medium">TC #{index + 1}</span>
+                                <Button variant="ghost" size="icon" className='text-secondary-foreground hover:text-scarlet-500' type="button" onClick={() => remove(index)}>
+                                    <Trash2 />
+                                </Button>
                             </div>
+                            <div className="flex flex-col gap-2">
+                                <Label required>Input</Label>
+                                <TextArea
+                                    {...register(`test_cases.${index}.input` as const, { required: true })}
+                                    resizable
+                                />
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                <Label required>Output</Label>
+                                <TextArea
+                                    {...register(`test_cases.${index}.output` as const, { required: true })}
+                                    resizable
+                                />
+                            </div>
+                            <Label className='flex flex-row gap-2 hover:cursor-pointer'>
+                                <Checkbox
+                                    checked={watch(`test_cases.${index}.is_example`)}
+                                    onCheckedChange={(value) => setValue(`test_cases.${index}.is_example`, Boolean(value))}
+                                />
+                                <span className='font-normal'>Use as example</span>
+                            </Label>
                         </div>
-                    </>
-                )}
+                    ))}
+                    <Button
+                        variant="dashed"
+                        type="button"
+                        onClick={() => append({ input: "", output: "", is_example: false })}
+                    >
+                        New test case
+                    </Button>
+                    <Separator />
+                    <div className="flex flex-col gap-2">
+                        <Label required>Time limit</Label>
+                        <div className='flex flex-col gap-1'>
+                            <div className='flex flex-row gap-1 items-center max-w-72'>
+                                <Input {...register("time_limit_ms", { valueAsNumber: true })} placeholder="Time limit" required />
+                                <span className=''>ms</span>
+                            </div>
+                            {
+                                (isNaN(watch('time_limit_ms')) || watch('time_limit_ms').toString().includes('.') || watch('time_limit_ms').toString().includes(',') || watch('time_limit_ms') < 500 || watch('time_limit_ms') > 10000) &&
+                                <span className="text-scarlet-500">Time limit should be a valid integer between 1000ms and 10000ms</span>
+                            }
+                        </div>
+                    </div>
+                </div>
 
                 <Separator />
 
