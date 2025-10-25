@@ -7,7 +7,7 @@ import { getLeaderboard } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { Pagination, LeaderboardItem } from "@/lib/api";
 import { toast } from "@/components/toast";
-import TableLoading from "@/components/loading/table";
+import TableTemplate from "@/components/templates/table";
 
 export default function Page({ params }: { params: { contestid: string } }) {
     const [leaderboard, setLeaderboard] = useState<Pagination<LeaderboardItem> | null>(null);
@@ -19,7 +19,7 @@ export default function Page({ params }: { params: { contestid: string } }) {
             if (result.ok) {
                 setLeaderboard(result.data);
             } else {
-                toast({ title: 'Loading leaderboard failed', description: result.error.message });
+                toast({ title: 'Fetching leaderboard failed', description: result.error.message });
             }
             setLoading(false);
         }
@@ -29,7 +29,7 @@ export default function Page({ params }: { params: { contestid: string } }) {
     if (loading) {
         return (
             <ContentContainer>
-                <TableLoading title='LEADERBOARD' />
+                <TableTemplate title='LEADERBOARD' caption='Loading...' />
             </ContentContainer>
         );
     }
@@ -37,16 +37,7 @@ export default function Page({ params }: { params: { contestid: string } }) {
     if (!leaderboard) {
         return (
             <ContentContainer>
-                <TableContainer>
-                    <TableTitle>
-                        LEADERBOARD
-                    </TableTitle>
-                    <Table>
-                        <TableCaption>
-                            Loading leaderboard failed...
-                        </TableCaption>
-                    </Table>
-                </TableContainer>
+                <TableTemplate title='LEADERBOARD' caption='Fetching leaderboard failed' />
             </ContentContainer>
         );
     }

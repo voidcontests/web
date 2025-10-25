@@ -1,4 +1,4 @@
-import TableLoading from "@/components/loading/table";
+import TableTemplate from "@/components/templates/table";
 import ContentContainer from "@/containers/content";
 import { Container } from "@/containers/default";
 import { Separator } from "@/ui/separator";
@@ -20,11 +20,11 @@ export default function Loading() {
                             <Skeleton className="h-4 w-3/5" />
                         </div>
                     </Container>
-                    <TableLoading title='LATEST SUBMISSIONS' />
+                    <TableTemplate title='LATEST SUBMISSIONS' caption='Loading...' />
                 </div>
                 <div className='col-span-3 flex flex-col gap-5'>
-                    <TableLoading title='PROBLEMSET' />
-                    <TableLoading title='SETTERS' />
+                    <TableTemplate title='PROBLEMSET' caption='Loading...' />
+                    <TableTemplate title='SETTERS' caption='Loading...' />
                 </div>
             </div>
         </ContentContainer>

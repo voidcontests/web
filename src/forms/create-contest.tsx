@@ -22,7 +22,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { ResultError } from "@/lib/client";
-import TableLoading from "@/components/loading/table";
+import TableTemplate from "@/components/templates/table";
 
 export interface FormData {
     title: string;
@@ -48,7 +48,7 @@ export function CreateContestForm() {
                 setProblems(result.data.items);
             } else {
                 setError(result);
-                toast({ title: 'Loading created problems failed', description: result.error.message });
+                toast({ title: 'Fetching problems failed', description: result.error.message });
             }
 
             setLoading(false);
@@ -211,22 +211,13 @@ interface IncludeProblemsProps {
 function IncludeProblems({ problems, loading, error, selectedIds, onCheckedChange }: IncludeProblemsProps) {
     if (loading) {
         return (
-            <TableLoading title='SELECT PROBLEMS' />
+            <TableTemplate title='SELECT PROBLEMS' caption='Loading...' />
         );
     }
 
     if (error !== null) {
         return (
-            <TableContainer>
-                <TableTitle>
-                    SELECT PROBLEMS
-                </TableTitle>
-                <Table>
-                    <TableCaption>
-                        {`Loading problems failed: ${error.error.message}`}
-                    </TableCaption>
-                </Table>
-            </TableContainer>
+            <TableTemplate title='INCLUDE PROBLEMS' caption='Fetching created problems failed' />
         );
     }
 

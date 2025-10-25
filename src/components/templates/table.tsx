@@ -1,6 +1,11 @@
 import { Table, TableCaption, TableContainer, TableTitle } from '@/ui/table';
 
-export default function Loading({ title }: { title: string }) {
+interface Props {
+    title: string,
+    caption: string,
+}
+
+export default function TableTemplate({ title, caption }: Props) {
     return (
         <TableContainer>
             <TableTitle>
@@ -8,7 +13,7 @@ export default function Loading({ title }: { title: string }) {
             </TableTitle>
             <Table>
                 <TableCaption>
-                    Loading...
+                    {caption}
                 </TableCaption>
             </Table>
         </TableContainer>

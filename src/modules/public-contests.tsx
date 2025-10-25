@@ -2,7 +2,7 @@
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableCaption, TableTitle } from '@/ui/table';
 import PaginationControls from '@/components/pagination-controls';
-import TableLoading from '@/components/loading/table';
+import TableTemplate from "@/components/templates/table";
 import { ContestListItem } from '@/lib/models';
 import { format_duration } from '@/lib/utils';
 import { DateView } from '@/components/date';
@@ -47,7 +47,7 @@ export default function PublicContests() {
     };
 
     if (loading) {
-        <TableLoading title={TITLE} />
+        <TableTemplate title={TITLE} caption='Loading...' />
     }
 
     return (

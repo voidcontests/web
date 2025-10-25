@@ -1,7 +1,7 @@
 'use client';
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from "@/ui/table";
-import { Account, ContestListItem, Pagination } from '@/lib/models';
+import { ContestListItem } from '@/lib/models';
 import Status from '@/modules/contest/status';
 import { format_duration } from '@/lib/utils';
 import { DateView } from "@/components/date";
@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { getCreatedContests } from "@/lib/api";
 import PaginationControls from "@/components/pagination-controls";
 import { toast } from "@/components/toast";
-import TableLoading from "@/components/loading/table";
+import TableTemplate from "@/components/templates/table";
 
 export default function CreatedContests() {
     const [contests, setContests] = useState<ContestListItem[]>([]);
@@ -47,7 +47,7 @@ export default function CreatedContests() {
 
     if (loading) {
         return (
-            <TableLoading title='CONTESTS' />
+            <TableTemplate title='CONTESTS' caption='Loading...'/>
         );
     }
 
@@ -132,35 +132,6 @@ export default function CreatedContests() {
                             />
                         </TableCaption>
                 }
-            </Table>
-        </TableContainer>
-    );
-}
-
-export function TableWithError(message: string) {
-    return (
-        <TableContainer>
-            <TableTitle>CONTESTS</TableTitle>
-            <Table>
-                <TableHeader>
-                    <TableHeaderRow>
-                        <TableHead>ID</TableHead>
-                        <TableHead>Title</TableHead>
-                        <TableHead>Starting at</TableHead>
-                        <TableHead>Deadline</TableHead>
-                        <TableHead>Duration</TableHead>
-                        <TableHead>Participants</TableHead>
-                        <TableHead>Total slots</TableHead>
-                        <TableHead>Leaderboard</TableHead>
-                        <TableHead>Created at</TableHead>
-                        <TableHead>Status</TableHead>
-                    </TableHeaderRow>
-                </TableHeader>
-                <TableCaption>
-                    {
-                        `Failed to get problems: ${message}`
-                    }
-                </TableCaption>
             </Table>
         </TableContainer>
     );

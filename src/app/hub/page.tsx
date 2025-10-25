@@ -20,8 +20,6 @@ export default function Page() {
         }
     }, [loading]);
 
-    // just for better convinience, return loading screen here as well
-    // but it is not really necessary, because it redirects to /login pretty fast
     if (!account) {
         return <Loading />
     }

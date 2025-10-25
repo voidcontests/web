@@ -1,11 +1,7 @@
 import { Widget, WidgetContent, WidgetTitle } from '@/ui/widget';
 import ContentContainer from "@/containers/content";
-import Problemset from "@/modules/contest/problemset";
-import Details from "@/modules/contest/details";
-import Setters from "@/modules/contest/setters";
-import AppliedStatus from "@/modules/contest/applied-status";
 import { Skeleton } from "@/ui/skeleton";
-import TableLoading from "@/components/loading/table";
+import TableTemplate from "@/components/templates/table";
 
 export default function Loading() {
     return (
@@ -19,7 +15,7 @@ export default function Loading() {
                             <Skeleton className="h-4 w-10/11" />
                         </div>
                     </div>
-                    <TableLoading title="PROBLEMSET" />
+                    <TableTemplate title="PROBLEMSET" caption='Loading...' />
                 </div>
                 <div className="col-span-3">
                     <div className="flex flex-col gap-5">
@@ -62,8 +58,7 @@ export default function Loading() {
                                 </div>
                             </WidgetContent>
                         </Widget>
-                        <TableLoading title="SETTERS" />
-                        {/*<AppliedStatus contest={contest} account={account} />*/}
+                        <TableTemplate title="SETTERS" caption='Loading...' />
                     </div>
                 </div>
             </div>

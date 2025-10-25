@@ -9,8 +9,7 @@ import { useEffect, useState } from 'react';
 import { getCreatedProblems } from "@/lib/api";
 import PaginationControls from "@/components/pagination-controls";
 import { toast } from "@/components/toast";
-import TableLoading from "@/components/loading/table";
-
+import TableTemplate from "@/components/templates/table";
 
 export default function CreatedProblems() {
     const [problems, setProblems] = useState<ProblemListItem[]>([]);
@@ -47,7 +46,7 @@ export default function CreatedProblems() {
 
     if (loading) {
         return (
-            <TableLoading title='CONTESTS' />
+            <TableTemplate title='CONTESTS' caption='Loading...' />
         );
     }
 
@@ -102,29 +101,6 @@ export default function CreatedProblems() {
                             />
                         </TableCaption>
                 }
-            </Table>
-        </TableContainer>
-    );
-}
-
-export function TableWithError(message: string) {
-    return (
-        <TableContainer>
-            <TableTitle>PROBLEMS</TableTitle>
-            <Table>
-                <TableHeader>
-                    <TableHeaderRow>
-                        <TableHead>ID</TableHead>
-                        <TableHead>Title</TableHead>
-                        <TableHead>Difficulty</TableHead>
-                        <TableHead className='w-3xs'>Created at</TableHead>
-                    </TableHeaderRow>
-                </TableHeader>
-                <TableCaption>
-                    {
-                        `Failed to get problems: ${message}`
-                    }
-                </TableCaption>
             </Table>
         </TableContainer>
     );
