@@ -11,6 +11,7 @@ const titles = {
     'pending': 'In queue...',
     'wrong_answer': 'Wrong answer',
     'runtime_error': 'Runtime error',
+    'presentation_error': 'Presentation error',
     'compilation_error': 'Compilation error',
     'time_limit_exceeded': 'Time limit exceeded',
 };
@@ -68,7 +69,7 @@ export default function Report({ submission }: { submission?: Submission }) {
         );
     }
 
-    if (submission.verdict === 'wrong_answer' || submission.verdict === 'time_limit_exceeded' || submission.verdict === 'compilation_error' || submission.verdict === 'runtime_error') {
+    if (submission.verdict === 'wrong_answer' || submission.verdict === 'time_limit_exceeded' || submission.verdict === 'compilation_error' || submission.verdict === 'runtime_error' || submission.verdict === 'presentation_error') {
         return (
             <div className="border bg-surface rounded-xl p-5 flex flex-col gap-5 not-dark:shadow-md">
                 <div className="flex flex-col gap-1">
@@ -91,7 +92,7 @@ export default function Report({ submission }: { submission?: Submission }) {
                         </>
                     )}
 
-                    {(submission.verdict === 'runtime_error' || submission.verdict === 'wrong_answer' || submission.verdict === 'time_limit_exceeded') && (
+                    {(submission.verdict === 'runtime_error' || submission.verdict === 'wrong_answer' || submission.verdict === 'time_limit_exceeded' || submission.verdict === 'presentation_error') && (
                         <TestCaseOutputs
                             input={submission.testing_report?.failed_test?.input}
                             actual={submission.testing_report?.failed_test?.actual_output}
