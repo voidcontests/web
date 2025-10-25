@@ -5,6 +5,7 @@ import { Submission } from "@/lib/models";
 import { LoaderCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Code from "@/components/code";
+import { useState, useRef, useEffect } from "react";
 
 const titles = {
     'judging': 'Judging...',
@@ -118,29 +119,80 @@ function Title({ text, variant = 'success' }: { text: string, variant?: 'success
 }
 
 function Field({ label, content, error }: { label?: string, content?: string, error?: boolean }) {
+    const [isExpanded, setIsExpanded] = useState(false);
+    const codeRef = useRef<HTMLSpanElement>(null);
+    const [isMeasured, setIsMeasured] = useState(false);
+    const [shouldTruncate, setShouldTruncate] = useState(false);
+
+    useEffect(() => {
+        if (!codeRef.current || !content) return;
+
+        requestAnimationFrame(() => {
+            if (!codeRef.current) return;
+
+            const element = codeRef.current;
+            const style = getComputedStyle(element);
+            const lineHeight = parseFloat(style.lineHeight);
+
+            const fullHeight = element.scrollHeight;
+            const lines = Math.round(fullHeight / lineHeight);
+
+            setShouldTruncate(lines > 10);
+            setIsMeasured(true);
+        });
+    }, [content]);
+
     if (!content || content.trim().length === 0) return;
 
     if (error) {
         return (
-            <div className="flex flex-col gap-1 bg-scarlet-500/10 py-3 px-4 rounded-xl not-dark:border border-border-secondary">
-                <Code className="text-scarlet-500">
+            <div className="flex flex-col gap-2 bg-scarlet-500/10 py-3 px-4 rounded-xl not-dark:border border-border-secondary">
+                <Code
+                    ref={codeRef}
+                    className={cn(
+                        "text-scarlet-500 block",
+                        isMeasured && !isExpanded && shouldTruncate && "line-clamp-10"
+                    )}
+                >
                     {content}
                 </Code>
+                {isMeasured && shouldTruncate && (
+                    <button
+                        onClick={() => setIsExpanded(!isExpanded)}
+                        className="text-sm text-scarlet-400 hover:text-scarlet-600 dark:hover:text-scarlet-300 transition-colors text-left hover:cursor-pointer"
+                    >
+                        {isExpanded ? 'show less' : 'show more...'}
+                    </button>
+                )}
             </div>
         );
     }
 
     return (
-        <div className="flex flex-col gap-1 bg-surface-secondary p-3 rounded-xl not-dark:border border-border-secondary">
+        <div className="flex flex-col gap-2 bg-surface-secondary p-3 rounded-xl not-dark:border border-border-secondary">
             {
                 label &&
                 <span className="text-sm text-tertiary-foreground">
                     {label}
                 </span>
             }
-            <Code className="text-foreground">
+            <Code
+                ref={codeRef}
+                className={cn(
+                    "text-foreground block",
+                    isMeasured && !isExpanded && shouldTruncate && "line-clamp-10"
+                )}
+            >
                 {content}
             </Code>
+            {isMeasured && shouldTruncate && (
+                <button
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    className="text-sm text-tertiary-foreground hover:text-foreground transition-colors text-left hover:cursor-pointer"
+                >
+                    {isExpanded ? 'show less' : 'show more...'}
+                </button>
+            )}
         </div>
     );
 }
