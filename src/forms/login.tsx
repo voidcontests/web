@@ -8,6 +8,9 @@ import { useForm } from 'react-hook-form';
 import { toast } from '@/components/toast';
 import { Container } from '@/containers/default';
 import { capitalize } from '@/lib/strings';
+import { useSearchParams } from '@/hooks/search-params';
+import { useRouter } from 'next/navigation';
+import { useAccount } from '@/hooks/use-account';
 
 export interface FormData {
     username: string;
@@ -15,6 +18,9 @@ export interface FormData {
 }
 
 export function LoginForm() {
+    const { authorized, loading } = useAccount();
+    const params = useSearchParams();
+
     const { register, handleSubmit, watch } = useForm<FormData>({
         defaultValues: {
             username: '',
@@ -23,14 +29,21 @@ export function LoginForm() {
     });
 
     const onSubmit = async (data: FormData) => {
+        // TODO: redirect out of here, if user already logged in
+
         const result = await createSession(data);
         if (result.ok) {
-            // Token is already set by createSession
-            window.location.href = '/';
+            redirectNext();
         } else {
             toast({ title: 'Failed to log in', description: capitalize(result.error.message) });
         }
     };
+
+    const redirectNext = () => {
+        // NOTE: used `window.location.href` because we need to reload page to update account button
+        const next = params.get('next') ?? '/';
+        window.location.href = next;
+    }
 
     const validate = () => {
         const username = (value: string): boolean => {
@@ -43,6 +56,10 @@ export function LoginForm() {
 
         return username(watch('username')) && password(watch('password'));
     };
+
+    if (!loading && authorized) {
+        redirectNext();
+    }
 
     return (
         <Container className='p-5'>

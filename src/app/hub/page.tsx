@@ -16,7 +16,7 @@ export default function Page() {
 
     useEffect(() => {
         if (!loading && !authorized) {
-            router.push('/login');
+            router.push('/login?next=/hub');
         }
     }, [loading]);
 

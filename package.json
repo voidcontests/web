@@ -6,10 +6,12 @@
     "scripts": {
         "dev": "next dev --port 3909",
         "dev:up": "bun run up && next dev --port 3909 && bun run down",
+        "dev:up:build": "bun run up:build && next dev --port 3909 && bun run down",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "up": "docker compose -f ../infra/docker-compose.yaml --profile backend up --build -d",
+        "up": "docker compose -f ../infra/docker-compose.yaml --profile backend up -d",
+        "up:build": "docker compose -f ../infra/docker-compose.yaml --profile backend up --build -d",
         "down": "docker compose -f ../infra/docker-compose.yaml --profile backend down"
     },
     "dependencies": {
