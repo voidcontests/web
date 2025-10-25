@@ -60,6 +60,7 @@ export const ContestProblemDetailedSchema = z.object({
         .optional(),
     status: z.string().optional(),
     time_limit_ms: z.number(),
+    submission_deadline: z.coerce.date().optional(),
     created_at: z.coerce.date(),
 });
 
@@ -95,6 +96,7 @@ export const ContestDetailedSchema = z.object({
     participants: z.number(),
     allow_late_join: z.boolean(),
     is_participant: z.boolean().optional(),
+    submission_deadline: z.coerce.date().optional(),
     problems: z.array(ContestProblemListItemSchema),
     created_at: z.coerce.date(),
 });
