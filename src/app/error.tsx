@@ -1,7 +1,7 @@
 'use client'
 
-import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { Button } from '@/ui/button';
 import Link from 'next/link';
 
 export default function Error({ error, reset }: { error: Error; reset: () => void }) {
@@ -11,7 +11,7 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
                 {'ERROR: {500}'}
             </h1>
             <div className="text-xl text-tertiary-foreground">
-                Something went wrong
+                { error.message }
             </div>
             <div className='flex flex-row gap-5'>
                 <Button onClick={reset}>

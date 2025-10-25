@@ -1,9 +1,9 @@
 'use client';
 
-import ContentContainer from "@/components/content-container";
-import { CreateContestForm } from "@/components/forms/create-contest";
-import { Separator } from "@/components/ui/separator";
-import { Link } from "@/components/ui/link";
+import ContentContainer from "@/containers/content";
+import { CreateContestForm } from "@/forms/create-contest";
+import { Separator } from "@/ui/separator";
+import { Link } from "@/ui/link";
 import { getCreatedProblems } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { Result, Pagination, ProblemListItem } from "@/lib/api";

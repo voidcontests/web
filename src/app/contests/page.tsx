@@ -1,8 +1,7 @@
-import PublicContests from '@/components/sections/public-contests';
-import ContentContainer from '@/components/content-container';
-import { TableTemplate } from '@/components/sections/loading';
-import { Suspense } from 'react';
+import PublicContests from '@/modules/public-contests';
+import ContentContainer from '@/containers/content';
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
     title: 'Contests :: THE VOID*',
@@ -11,13 +10,7 @@ export const metadata: Metadata = {
 export default async function ContestsPage() {
     return (
         <ContentContainer>
-            <Suspense
-                fallback={
-                    <TableTemplate title='PUBLIC CONTESTS' />
-                }
-            >
-                <PublicContests />
-            </Suspense>
+            <PublicContests />
         </ContentContainer>
     );
 }

@@ -1,40 +1,37 @@
 'use client';
 
 import { getAccount } from "@/lib/api";
-import { BannedLayout } from "@/components/layouts/banned";
-import { UnauthorizedLayout } from "@/components/layouts/unauthorized";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Account } from "@/lib/models";
-import { Screen } from "@/components/sections/loading";
+import Loading from "@/components/loading/plug";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const [account, setAccount] = useState<Account | null | undefined>(undefined);
+    const router = useRouter();
 
     useEffect(() => {
-        const fetchAccount = async () => {
+        const load = async () => {
             const result = await getAccount();
             if (!result.ok) {
                 setAccount(null);
+                router.push('/login');
             } else {
                 setAccount(result.data);
             }
         };
-        fetchAccount();
-    }, []);
+        load();
+    }, [router]);
 
     if (account === undefined) {
-        return (
-            <Screen />
-        );
+        return <Loading />;
     }
 
     if (account === null) {
-        return <UnauthorizedLayout />;
+        return <Loading />;
     }
 
-    if (account.role.name === 'banned') {
-        return <BannedLayout />;
-    }
+    // TODO: show something for banned users
 
     return children;
 }

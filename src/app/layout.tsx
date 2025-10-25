@@ -1,6 +1,6 @@
-import { ThemeProvider } from "@/components/theme-provider";
-import { Footer } from "@/components/sections/footer";
-import Header from "@/components/sections/header";
+import { ThemeProvider } from "@/components/layout/theme-provider";
+import { Footer } from "@/components/layout/footer";
+import Header from "@/components/layout/header";
 import { Toaster } from 'sonner';
 
 import { Rubik } from 'next/font/google';
