@@ -1,0 +1,37 @@
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/ui/tooltip";
+import { Tag } from "@/ui/tag";
+import { HTMLAttributes } from "react";
+import { cn } from "@/lib/utils";
+
+interface Props extends HTMLAttributes<HTMLDivElement> {
+    status: string | undefined;
+}
+
+export default function SolvedStatus({ status, className, ...props }: Props) {
+    if (status === undefined) {
+        return null;
+    }
+
+    if (status !== 'accepted' && status != 'tried') {
+        return null;
+    }
+
+    return (
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger>
+                    <Tag variant={status === "accepted" ? "green" : "orange"} className={cn("hover:cursor-pointer", className)} {...props}>
+                        {status === "accepted" ? "AC" : "TR"}
+                    </Tag>
+                </TooltipTrigger>
+                <TooltipContent>
+                    {
+                        status === "accepted"
+                            ? "You've submitted an accepted solution."
+                            : "You've tried this problem."
+                    }
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
+    );
+}

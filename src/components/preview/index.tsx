@@ -1,0 +1,35 @@
+import { parse } from "@/lib/markdown";
+import { cn } from "@/lib/utils";
+import { ComponentProps, forwardRef } from "react";
+
+import './theme.css';
+
+interface PreviewProps extends ComponentProps<"div"> {
+    markdown: string;
+}
+
+const Preview = forwardRef<HTMLDivElement, PreviewProps>(({ markdown, className, ...props }, ref) => {
+    const parsed = parse(markdown);
+
+    return (
+        <div
+            ref={ref}
+            className={cn(
+                'prose dark:prose-invert',
+                'prose-headings:font-normal',
+                'prose-code:bg-zinc-50 dark:prose-code:bg-surface prose-code:border prose-code:p-1 prose-code:rounded-lg',
+                'prose-a:text-blue-400 prose-a:no-underline prose-a:hover:underline underline-offset-2 prose-a:font-normal',
+                'prose-hr:border-border prose-hr:w-full',
+                'prose-strong:font-medium',
+                'prose-img:rounded',
+                'codeblock',
+                'w-full max-w-none',
+                'text-sm mt-1',
+                className,
+            )} dangerouslySetInnerHTML={{ __html: parsed }}
+            {...props}
+        />
+    );
+});
+
+export default Preview;

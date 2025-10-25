@@ -1,4 +1,4 @@
-import Soon from "@/components/sections/soon";
+import Soon from "@/components/soon";
 
 export default function Page() {
     return (

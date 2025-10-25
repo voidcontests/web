@@ -1,7 +1,7 @@
-import { CreateProblemForm } from '@/components/forms/create-problem';
-import ContentContainer from "@/components/content-container";
-import { Separator } from '@/components/ui/separator';
-import { Link } from '@/components/ui/link';
+import CreateProblemForm from '@/forms/create-problem';
+import ContentContainer from '@/containers/content';
+import { Separator } from '@/ui/separator';
+import { Link } from '@/ui/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

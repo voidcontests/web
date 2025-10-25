@@ -4,7 +4,7 @@ import z from 'zod';
 export type ID = string | number;
 
 type ResultSuccess<T> = { ok: true; data: T; status: number };
-type ResultError = { ok: false; error: { message: string; timeout?: string }; status: number };
+export type ResultError = { ok: false; error: { message: string; timeout?: string }; status: number };
 
 export type Result<T> = ResultSuccess<T> | ResultError;
 
@@ -13,11 +13,11 @@ export type Result<T> = ResultSuccess<T> | ResultError;
  */
 function getToken(): string | undefined {
     if (typeof document === 'undefined') return undefined;
-    
+
     const name = config.cookies.token_key + '=';
     const decodedCookie = decodeURIComponent(document.cookie);
     const cookieArray = decodedCookie.split(';');
-    
+
     for (let cookie of cookieArray) {
         cookie = cookie.trim();
         if (cookie.indexOf(name) === 0) {
@@ -32,7 +32,7 @@ function getToken(): string | undefined {
  */
 export function setToken(token: string, expiresInDays: number = 30): void {
     if (typeof document === 'undefined') return;
-    
+
     const date = new Date();
     date.setTime(date.getTime() + expiresInDays * 24 * 60 * 60 * 1000);
     const expires = 'expires=' + date.toUTCString();
@@ -44,7 +44,7 @@ export function setToken(token: string, expiresInDays: number = 30): void {
  */
 export function removeToken(): void {
     if (typeof document === 'undefined') return;
-    
+
     document.cookie = `${config.cookies.token_key}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
 }
 

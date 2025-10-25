@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 interface TimerProps {
     target: Date;
@@ -35,7 +35,7 @@ const get_countdown_label = (distance: number): string => {
 }
 
 // TODO: Extract move starting in out from this component
-const Timer: React.FC<TimerProps> = ({ target, onComplete }) => {
+export default function Timer({ target, onComplete }: TimerProps) {
     const [timeLeft, setTimeLeft] = useState<string>(get_countdown_label(get_distance(target)));
     let docomplete = false;
 
@@ -62,6 +62,4 @@ const Timer: React.FC<TimerProps> = ({ target, onComplete }) => {
             {timeLeft}
         </div>
     );
-};
-
-export default Timer;
+}
