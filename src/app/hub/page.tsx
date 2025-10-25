@@ -7,6 +7,8 @@ import { Separator } from "@/ui/separator";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Loading from "@/components/loading/plug";
+import CreatedContests from "@/modules/hub/created-contests";
+import CreatedProblems from "@/modules/hub/created-problems";
 
 export default function Page() {
     const { account, authorized, loading } = useAccount();
@@ -36,8 +38,8 @@ export default function Page() {
                 </p>
             </div>
             <Separator />
-            {/*<AdminContests account={account} contests={contests} />*/}
-            {/*<AdminProblems account={account} problems={problems} />*/}
+            <CreatedContests />
+            <CreatedProblems />
         </ContentContainer>
   );
 }
