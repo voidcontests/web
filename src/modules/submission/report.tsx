@@ -1,11 +1,10 @@
+import { CollapsibleField } from "@/components/collapsible-field";
 import CodeBlock from "@/components/code-block";
 import { Separator } from "@/ui/separator";
 import { Skeleton } from "@/ui/skeleton";
 import { Submission } from "@/lib/models";
 import { LoaderCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import Code from "@/components/code";
-import { useState, useRef, useEffect } from "react";
 
 const titles = {
     'judging': 'Judging...',
@@ -48,7 +47,10 @@ export default function Report({ submission }: { submission?: Submission }) {
                     <Title text='Something went wrong' variant="error" />
                 </div>
                 <Separator />
-                <Field content="Something went wrong while executing your solution. We are trying to do our best, to fix this as soon as possible" error />
+                <CollapsibleField
+                    variant='error'
+                    content="Something went wrong while executing your solution. We are trying to do our best, to fix this as soon as possible"
+                />
             </div>
         );
     }
@@ -81,15 +83,24 @@ export default function Report({ submission }: { submission?: Submission }) {
                 <Separator />
                 <div className="flex flex-col gap-5">
                     {submission.verdict === 'compilation_error' && (
-                        <Field content={submission.testing_report?.stderr} error />
+                        <CollapsibleField
+                            variant='error'
+                            content={submission.testing_report?.stderr}
+                        />
                     )}
 
                     {submission.verdict === 'runtime_error' && (
                         <>
                             {!submission.testing_report?.stderr?.trim() ? (
-                                <Field content='Exited with non-zero exit code' error />
+                                <CollapsibleField
+                                    variant='error'
+                                    content='Exited with non-zero exit code'
+                                />
                             ) : (
-                                <Field content={submission.testing_report?.stderr} error />
+                                <CollapsibleField
+                                    content={submission.testing_report?.stderr}
+                                    variant='error'
+                                />
                             )}
                         </>
                     )}
@@ -118,85 +129,6 @@ function Title({ text, variant = 'success' }: { text: string, variant?: 'success
     );
 }
 
-function Field({ label, content, error }: { label?: string, content?: string, error?: boolean }) {
-    const [isExpanded, setIsExpanded] = useState(false);
-    const codeRef = useRef<HTMLSpanElement>(null);
-    const [isMeasured, setIsMeasured] = useState(false);
-    const [shouldTruncate, setShouldTruncate] = useState(false);
-
-    useEffect(() => {
-        if (!codeRef.current || !content) return;
-
-        requestAnimationFrame(() => {
-            if (!codeRef.current) return;
-
-            const element = codeRef.current;
-            const style = getComputedStyle(element);
-            const lineHeight = parseFloat(style.lineHeight);
-
-            const fullHeight = element.scrollHeight;
-            const lines = Math.round(fullHeight / lineHeight);
-
-            setShouldTruncate(lines > 10);
-            setIsMeasured(true);
-        });
-    }, [content]);
-
-    if (!content || content.trim().length === 0) return;
-
-    if (error) {
-        return (
-            <div className="flex flex-col gap-2 bg-scarlet-500/10 py-3 px-4 rounded-xl not-dark:border border-border-secondary">
-                <Code
-                    ref={codeRef}
-                    className={cn(
-                        "text-scarlet-500 block",
-                        isMeasured && !isExpanded && shouldTruncate && "line-clamp-10"
-                    )}
-                >
-                    {content}
-                </Code>
-                {isMeasured && shouldTruncate && (
-                    <button
-                        onClick={() => setIsExpanded(!isExpanded)}
-                        className="text-sm text-scarlet-400 hover:text-scarlet-600 dark:hover:text-scarlet-300 transition-colors text-left hover:cursor-pointer"
-                    >
-                        {isExpanded ? 'show less' : 'show more...'}
-                    </button>
-                )}
-            </div>
-        );
-    }
-
-    return (
-        <div className="flex flex-col gap-2 bg-surface-secondary p-3 rounded-xl not-dark:border border-border-secondary">
-            {
-                label &&
-                <span className="text-sm text-tertiary-foreground">
-                    {label}
-                </span>
-            }
-            <Code
-                ref={codeRef}
-                className={cn(
-                    "text-foreground block",
-                    isMeasured && !isExpanded && shouldTruncate && "line-clamp-10"
-                )}
-            >
-                {content}
-            </Code>
-            {isMeasured && shouldTruncate && (
-                <button
-                    onClick={() => setIsExpanded(!isExpanded)}
-                    className="text-sm text-tertiary-foreground hover:text-foreground transition-colors text-left hover:cursor-pointer"
-                >
-                    {isExpanded ? 'show less' : 'show more...'}
-                </button>
-            )}
-        </div>
-    );
-}
-
 function TestStats({ passed, total }: { passed?: number, total?: number }) {
     if (passed === undefined || total  === undefined) return;
 
@@ -210,9 +142,9 @@ function TestStats({ passed, total }: { passed?: number, total?: number }) {
 function TestCaseOutputs({ input, actual, expected }: { input?: string, actual?: string, expected?: string }) {
     return (
         <div className="flex flex-col gap-5">
-            <Field label="Input" content={input} />
-            <Field label="Stdout" content={actual} />
-            <Field label="Expected output" content={expected} />
+            <CollapsibleField label="input" content={input} />
+            <CollapsibleField label="stdout" content={actual} />
+            <CollapsibleField label="expected output" content={expected} />
         </div>
     );
 }
