@@ -4,9 +4,6 @@ import ContentContainer from "@/containers/content";
 import { CreateContestForm } from "@/forms/create-contest";
 import { Separator } from "@/ui/separator";
 import { Link } from "@/ui/link";
-import { getCreatedProblems } from "@/lib/api";
-import { useEffect, useState } from "react";
-import { Result, Pagination, ProblemListItem } from "@/lib/api";
 
 export default function Page() {
     return (

@@ -16,13 +16,11 @@ import {
 import Difficulty from "@/components/difficulty";
 import { CheckedState } from "@radix-ui/react-checkbox";
 import { Checkbox } from '@/ui/checkbox';
-import { Pagination, ProblemListItem } from "@/lib/models";
+import { ProblemListItem } from "@/lib/models";
 import { Link } from "@/ui/link";
-import { ChangeEvent, use, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import { Result } from "@/lib/api";
-import { MessageBox } from "@/components/message-box";
 import { ResultError } from "@/lib/client";
 import TableLoading from "@/components/loading/table";
 
@@ -96,79 +94,6 @@ export function CreateContestForm() {
         return watch('start_time') && watch('end_time') && watch('title').length !== 0 && watch('problems_ids').length !== 0 && watch('start_time') < watch('end_time');
     };
 
-    function IncludeProblems({ problems, loading, error }: { problems: ProblemListItem[], loading: boolean, error: ResultError | null}) {
-        if (loading) {
-            return (
-                <TableLoading title='SELECT PROBLEMS' />
-            );
-        }
-
-        if (error !== null) {
-            return (
-                <TableContainer>
-                    <TableTitle>
-                        SELECT PROBLEMS
-                    </TableTitle>
-                    <Table>
-                        <TableCaption>
-                            {`Loading problems failed: ${error.error.message}`}
-                        </TableCaption>
-                    </Table>
-                </TableContainer>
-            );
-        }
-
-        return (
-            <TableContainer>
-                <TableTitle>
-                    SELECT PROBLEMS
-                </TableTitle>
-                <Table>
-                    <TableCaption>
-                        {
-                            problems.length === 0
-                                ? <span>You need to create problems first <Link href="/hub/new/problem">here</Link>.</span>
-                                : <span>You can create new problems <Link href="/hub/new/problem">here</Link>.</span>
-                        }
-                    </TableCaption>
-                    <TableHeader>
-                        <TableHeaderRow>
-                            <TableHead>Inc.</TableHead>
-                            <TableHead>ID</TableHead>
-                            <TableHead>Name</TableHead>
-                            <TableHead>Difficulty</TableHead>
-                        </TableHeaderRow>
-                    </TableHeader>
-                    <TableBody>
-                        {
-                            problems.map((problem, index) => (
-                                <TableRow key={index}>
-                                    <TableCell className="align-middle">
-                                        <div className="flex items-center justify-center">
-                                            <Checkbox
-                                                checked={watch('problems_ids').includes(problem.id)}
-                                                onCheckedChange={(e) => onCheckedChange(e, problem.id)}
-                                            />
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        {problem.id}
-                                    </TableCell>
-                                    <TableCell>
-                                        {problem.title}
-                                    </TableCell>
-                                    <TableCell>
-                                        <Difficulty difficulty={problem.difficulty} />
-                                    </TableCell>
-                                </TableRow>
-                            ))
-                        }
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        );
-    }
-
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
             <div className="flex flex-col gap-6">
@@ -195,7 +120,13 @@ export function CreateContestForm() {
                 </div>
 
                 {/* TODO: Add pagination here */}
-                <IncludeProblems problems={problems} loading={loading} error={error} />
+                <IncludeProblems
+                    problems={problems}
+                    loading={loading}
+                    error={error}
+                    selectedIds={watch('problems_ids')}
+                    onCheckedChange={onCheckedChange}
+                />
 
                 <Separator />
 
@@ -266,5 +197,86 @@ export function CreateContestForm() {
                 </div>
             </div>
         </form>
+    );
+}
+
+interface IncludeProblemsProps {
+    problems: ProblemListItem[],
+    loading: boolean,
+    error: ResultError | null,
+    selectedIds: number[],
+    onCheckedChange: (e: CheckedState, problemID: number) => void
+};
+
+function IncludeProblems({ problems, loading, error, selectedIds, onCheckedChange }: IncludeProblemsProps) {
+    if (loading) {
+        return (
+            <TableLoading title='SELECT PROBLEMS' />
+        );
+    }
+
+    if (error !== null) {
+        return (
+            <TableContainer>
+                <TableTitle>
+                    SELECT PROBLEMS
+                </TableTitle>
+                <Table>
+                    <TableCaption>
+                        {`Loading problems failed: ${error.error.message}`}
+                    </TableCaption>
+                </Table>
+            </TableContainer>
+        );
+    }
+
+    return (
+        <TableContainer>
+            <TableTitle>
+                SELECT PROBLEMS
+            </TableTitle>
+            <Table>
+                <TableCaption>
+                    {
+                        problems.length === 0
+                            ? <span>You need to create problems first <Link href="/hub/new/problem">here</Link>.</span>
+                            : <span>You can create new problems <Link href="/hub/new/problem">here</Link>.</span>
+                    }
+                </TableCaption>
+                <TableHeader>
+                    <TableHeaderRow>
+                        <TableHead>Inc.</TableHead>
+                        <TableHead>ID</TableHead>
+                        <TableHead>Name</TableHead>
+                        <TableHead>Difficulty</TableHead>
+                    </TableHeaderRow>
+                </TableHeader>
+                <TableBody>
+                    {
+                        problems.map((problem, index) => (
+                            <TableRow key={index}>
+                                <TableCell className="align-middle">
+                                    <div className="flex items-center justify-center">
+                                        <Checkbox
+                                            checked={selectedIds.includes(problem.id)}
+                                            onCheckedChange={(e) => onCheckedChange(e, problem.id)}
+                                        />
+                                    </div>
+                                </TableCell>
+                                <TableCell>
+                                    {problem.id}
+                                </TableCell>
+                                <TableCell>
+                                    {problem.title}
+                                </TableCell>
+                                <TableCell>
+                                    <Difficulty difficulty={problem.difficulty} />
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    }
+                </TableBody>
+            </Table>
+        </TableContainer>
     );
 }
