@@ -9,16 +9,6 @@ import { useEffect, useState } from "react";
 import { Result, Pagination, ProblemListItem } from "@/lib/api";
 
 export default function Page() {
-    const [ps, setPs] = useState<Promise<Result<Pagination<ProblemListItem>>> | null>(null);
-
-    useEffect(() => {
-        setPs(getCreatedProblems(0, 10));
-    }, []);
-
-    if (!ps) {
-        return <ContentContainer>Loading...</ContentContainer>;
-    }
-
     return (
         <ContentContainer className="max-w-3xl">
             <div className='flex flex-col gap-1'>
@@ -30,7 +20,7 @@ export default function Page() {
                 </p>
             </div>
             <Separator />
-            <CreateContestForm problems={ps} />
+            <CreateContestForm />
         </ContentContainer>
     );
 }
