@@ -136,11 +136,13 @@ export function CreateContestForm({ problems }: { problems: Promise<Result<Pagin
                             {
                                 problemslist.items.map((problem, index) => (
                                     <TableRow key={index}>
-                                        <TableCell className="flex items-center">
-                                            <Checkbox
-                                                checked={watch('problems_ids').includes(problem.id)}
-                                                onCheckedChange={(e) => onCheckedChange(e, problem.id)}
-                                            />
+                                        <TableCell className="align-middle">
+                                            <div className="flex items-center justify-center">
+                                                <Checkbox
+                                                    checked={watch('problems_ids').includes(problem.id)}
+                                                    onCheckedChange={(e) => onCheckedChange(e, problem.id)}
+                                                />
+                                            </div>
                                         </TableCell>
                                         <TableCell>
                                             {problem.id}
