@@ -60,7 +60,7 @@ export default function CreatedProblems() {
             <Table>
                 <TableHeader>
                     <TableHeaderRow>
-                        <TableHead>ID</TableHead>
+                        <TableHead>#</TableHead>
                         <TableHead>Title</TableHead>
                         <TableHead>Difficulty</TableHead>
                         <TableHead className='w-3xs'>Created at</TableHead>
@@ -71,7 +71,7 @@ export default function CreatedProblems() {
                         problems.map((problem, index) => (
                             <TableRow key={index}>
                                 <TableCell className='text-center'>
-                                    {problem.id}
+                                    {index}/
                                 </TableCell>
                                 <TableCell>
                                     <Link href={`/hub/preview/problems/${problem.id}`}>

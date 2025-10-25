@@ -61,7 +61,7 @@ export default function CreatedContests() {
             <Table>
                 <TableHeader>
                     <TableHeaderRow>
-                        <TableHead>ID</TableHead>
+                        <TableHead>#</TableHead>
                         <TableHead>Title</TableHead>
                         <TableHead>Starting at</TableHead>
                         <TableHead>Deadline</TableHead>
@@ -78,7 +78,7 @@ export default function CreatedContests() {
                         contests.map((contest, index) => (
                             <TableRow key={index}>
                                 <TableCell className='text-center pr-5'>
-                                    {contest.id}
+                                    {index}/
                                 </TableCell>
                                 <TableCell>
                                     <Link href={`/contests/${contest.id}`}>

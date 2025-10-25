@@ -4,7 +4,6 @@ import { getProblemByID, ProblemDetailed } from '@/lib/api';
 import ContentContainer from '@/containers/content';
 import Setters from '@/modules/problem/setters';
 import { useEffect, useState } from 'react';
-import { capitalize } from '@/lib/strings';
 import Statement from '@/modules/problem/statement';
 import ProblemLoading from '@/components/loading/problem';
 import { MessageBox } from '@/components/message-box';
@@ -58,7 +57,7 @@ export default function Page({ params }: { params: { problemid: string } }) {
                 <div className='col-span-9 flex flex-col gap-5'>
                     <Statement problem={problem} />
                 </div>
-                <div className='col-span-3 flex flex-col gap-5'>
+                <div className='col-span-3 flex flex-col gap-5 sticky top-5 self-start'>
                     <Setters problem={problem} />
                 </div>
             </div>

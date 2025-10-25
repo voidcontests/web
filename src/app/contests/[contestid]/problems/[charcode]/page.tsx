@@ -64,7 +64,7 @@ export default function Page({ params }: { params: { contestid: string, charcode
                     <SubmitView problem={problem} />
                     <SubmissionHistory contestID={params.contestid} charcode={params.charcode} />
                 </div>
-                <div className='col-span-3 flex flex-col gap-5'>
+                <div className='col-span-3 flex flex-col gap-5  sticky top-5 self-start'>
                     <Problemset contest={contest} />
                     <Setters problem={problem} />
                 </div>
