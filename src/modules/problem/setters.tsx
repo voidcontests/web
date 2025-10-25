@@ -13,7 +13,7 @@ export default function Setters({ problem }: { problem: ProblemDetailed }) {
                 <TableHeader>
                     <TableHeaderRow>
                         <TableHead>#</TableHead>
-                        <TableHead>Writer</TableHead>
+                        <TableHead>Username</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
                 <TableBody>
