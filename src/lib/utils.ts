@@ -7,6 +7,7 @@ export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 // Converts a number to its corresponding letetr in capital english alphabet
 export const itoc = (i: number) => String.fromCharCode(65 + i);
 
+// TODO: deprecated, migrate to <Duration />
 export const format_duration = (duration_mins: number): string => {
     if (duration_mins < 0) {
         return "00:00";

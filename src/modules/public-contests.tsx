@@ -4,12 +4,12 @@ import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBod
 import PaginationControls from '@/components/pagination-controls';
 import TableTemplate from "@/components/templates/table";
 import { ContestListItem } from '@/lib/models';
-import { format_duration } from '@/lib/utils';
 import { DateView } from '@/components/date';
 import { useEffect, useState } from 'react';
 import { toast } from '@/components/toast';
 import { getAllContests } from '@/lib/api';
 import { Link } from '@/ui/link';
+import Duration from '@/components/duration';
 
 const TITLE = 'PUBLIC CONTESTS';
 
@@ -87,9 +87,7 @@ export default function PublicContests() {
                                 <DateView date={contest.end_time} />
                             </TableCell>
                             <TableCell>
-                                {contest.duration_mins !== 0
-                                    ? format_duration(contest.duration_mins)
-                                    : '-'}
+                                <Duration value={contest.duration_mins} as='minutes' strict />
                             </TableCell>
                             <TableCell>{contest.participants}</TableCell>
                             <TableCell>{contest.max_entries || 'Not limited'}</TableCell>

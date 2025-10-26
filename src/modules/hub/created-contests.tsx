@@ -11,6 +11,7 @@ import { getCreatedContests } from "@/lib/api";
 import PaginationControls from "@/components/pagination-controls";
 import { toast } from "@/components/toast";
 import TableTemplate from "@/components/templates/table";
+import Duration from "@/components/duration";
 
 export default function CreatedContests() {
     const [contests, setContests] = useState<ContestListItem[]>([]);
@@ -92,11 +93,7 @@ export default function CreatedContests() {
                                     <DateView date={contest.end_time} />
                                 </TableCell>
                                 <TableCell>
-                                    {
-                                        contest.duration_mins !== 0
-                                            ? format_duration(contest.duration_mins)
-                                            : 'Not limited'
-                                    }
+                                    <Duration value={contest.duration_mins} as='minutes' strict />
                                 </TableCell>
                                 <TableCell>
                                     {contest.participants}

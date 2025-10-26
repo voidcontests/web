@@ -26,7 +26,7 @@ export default function Loading() {
                                 </WidgetTitle>
                                 <div className="flex h-5">
                                     <div className="flex-1 text-secondary-foreground">
-                                        Starts
+                                        Starts at
                                     </div>
                                     <div className="flex-1">
                                         <Skeleton className="h-4 w-[80px]" />
@@ -34,7 +34,7 @@ export default function Loading() {
                                 </div>
                                 <div className="flex h-5">
                                     <div className="flex-1 text-secondary-foreground">
-                                        Deadline
+                                        Ends at
                                     </div>
                                     <div className="flex-1">
                                         <Skeleton className="h-4 w-[80px]" />
