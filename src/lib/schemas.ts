@@ -60,6 +60,7 @@ export const ContestProblemDetailedSchema = z.object({
         .optional(),
     status: z.string().optional(),
     time_limit_ms: z.number(),
+    memory_limit_mb: z.number(),
     submission_deadline: z.coerce.date().optional(),
     created_at: z.coerce.date(),
 });
@@ -164,6 +165,7 @@ export const ProblemDetailedSchema = z.object({
         .array(z.object({ input: z.string(), output: z.string() }))
         .optional(),
     time_limit_ms: z.number(),
+    memory_limit_mb: z.number(),
     created_at: z.coerce.date(),
 });
 

@@ -30,7 +30,7 @@ export default function Details({ problem }: { problem: ProblemDetailed | Contes
                         Memory limit
                     </div>
                     <div className="flex-1">
-                        128 MB
+                        {problem.memory_limit_mb} MB
                     </div>
                 </div>
                 {

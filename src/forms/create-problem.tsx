@@ -28,6 +28,7 @@ export interface FormData {
     difficulty: string;
     test_cases: TestCase[];
     time_limit_ms: number;
+    memory_limit_mb: number;
 }
 
 export default function CreateProblemForm() {
@@ -39,7 +40,8 @@ export default function CreateProblemForm() {
             statement: "",
             difficulty: "",
             test_cases: [],
-            time_limit_ms: 5000,
+            time_limit_ms: 2000,
+            memory_limit_mb: 128,
         }
     });
 
@@ -67,6 +69,7 @@ export default function CreateProblemForm() {
             !!statement.trim() &&
             !!difficulty.trim() &&
             !(isNaN(watch('time_limit_ms')) || watch('time_limit_ms').toString().includes('.') || watch('time_limit_ms').toString().includes(',') || watch('time_limit_ms') < 500 || watch('time_limit_ms') > 10000) &&
+            !(isNaN(watch('memory_limit_mb')) || watch('memory_limit_mb').toString().includes('.') || watch('memory_limit_mb').toString().includes(',') || watch('memory_limit_mb') < 1 || watch('memory_limit_mb') > 1024) &&
             (test_cases.length > 0 && test_cases.every(tc => !!tc.input.trim() && !!tc.output.trim()))
         );
     }
@@ -140,7 +143,24 @@ export default function CreateProblemForm() {
                             </div>
                             {
                                 (isNaN(watch('time_limit_ms')) || watch('time_limit_ms').toString().includes('.') || watch('time_limit_ms').toString().includes(',') || watch('time_limit_ms') < 500 || watch('time_limit_ms') > 10000) &&
-                                <span className="text-scarlet-500">Time limit should be a valid integer between 1000ms and 10000ms</span>
+                                <span className="text-xs text-scarlet-500">
+                                    Integer value in milliseconds between 500 and 10,000
+                                </span>
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <Label required>Memory limit</Label>
+                        <div className='flex flex-col gap-1'>
+                            <div className='flex flex-row gap-1 items-center max-w-72'>
+                                <Input {...register("memory_limit_mb", { valueAsNumber: true })} placeholder="Memory limit" required />
+                                <span className=''>MB</span>
+                            </div>
+                            {
+                                (isNaN(watch('memory_limit_mb')) || watch('memory_limit_mb').toString().includes('.') || watch('memory_limit_mb').toString().includes(',') || watch('memory_limit_mb') < 16 || watch('memory_limit_mb') > 512) &&
+                                <span className="text-xs text-scarlet-500">
+                                    Integer value in megabytes between 16 and 512
+                                </span>
                             }
                         </div>
                     </div>
