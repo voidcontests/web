@@ -5,9 +5,9 @@ import ContentContainer from '@/containers/content';
 import Setters from '@/modules/problem/setters';
 import { useEffect, useState } from 'react';
 import Statement from '@/modules/problem/statement';
-import ProblemLoading from '@/components/loading/problem';
 import { MessageBox } from '@/components/message-box';
 import { ResultError } from '@/lib/client';
+import ProblemPreviewLoading from '@/components/loading/problem-preview';
 
 export default function Page({ params }: { params: { problemid: string } }) {
     const [problem, setProblem] = useState<ProblemDetailed | null>(null);
@@ -31,7 +31,7 @@ export default function Page({ params }: { params: { problemid: string } }) {
     }, [params.problemid]);
 
     if (loading) {
-        return <ProblemLoading />;
+        return <ProblemPreviewLoading />;
     }
 
     if (error != null) {

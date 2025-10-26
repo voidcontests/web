@@ -87,7 +87,7 @@ export default function PublicContests() {
                                 <DateView date={contest.end_time} />
                             </TableCell>
                             <TableCell>
-                                <Duration value={contest.duration_mins} as='minutes' strict />
+                                <Duration value={contest.duration_mins} as='minutes' full />
                             </TableCell>
                             <TableCell>{contest.participants}</TableCell>
                             <TableCell>{contest.max_entries || 'Not limited'}</TableCell>

@@ -15,7 +15,7 @@ export default function Setters({ contest }: { contest: ContestDetailed }) {
                 <TableHeader>
                     <TableHeaderRow>
                         <TableHead>#</TableHead>
-                        <TableHead>Writer</TableHead>
+                        <TableHead>Username</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
                 <TableBody>

@@ -46,7 +46,9 @@ interface ExpandableCodeBlockProps extends VariantProps<typeof containerVariants
     content?: string;
 }
 
-export function CollapsibleField({ label, content, variant }: ExpandableCodeBlockProps) {
+export function CollapsibleField({ label, content = '', variant }: ExpandableCodeBlockProps) {
+    if (content.trim().length === 0) return null;
+
     return (
         <div className={containerVariants({ variant })}>
             <div className="flex flex-col gap-2">

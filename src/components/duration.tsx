@@ -3,10 +3,10 @@ import { HTMLAttributes } from "react";
 interface Props extends HTMLAttributes<HTMLSpanElement> {
     value: number;
     as: "seconds" | "minutes" | "hours";
-    strict?: boolean;
+    full?: boolean;
 }
 
-export default function Duration({ value, as, strict = false, className, ...props }: Props) {
+export default function Duration({ value, as, full = false, className, ...props }: Props) {
     let totalSeconds = 0;
     switch (as) {
         case "hours":
@@ -37,7 +37,7 @@ export default function Duration({ value, as, strict = false, className, ...prop
 
     const parts: string[] = [];
 
-    if (strict) {
+    if (full) {
         if (days > 0) parts.push(`${days}d`);
         if (hours > 0) parts.push(`${hours}h`);
         if (minutes > 0) parts.push(`${minutes}m`);

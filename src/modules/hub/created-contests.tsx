@@ -3,7 +3,6 @@
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from "@/ui/table";
 import { ContestListItem } from '@/lib/models';
 import Status from '@/modules/contest/status';
-import { format_duration } from '@/lib/utils';
 import { DateView } from "@/components/date";
 import { Link } from "@/ui/link";
 import { useEffect, useState } from 'react';
@@ -93,7 +92,7 @@ export default function CreatedContests() {
                                     <DateView date={contest.end_time} />
                                 </TableCell>
                                 <TableCell>
-                                    <Duration value={contest.duration_mins} as='minutes' strict />
+                                    <Duration value={contest.duration_mins} as='minutes' full />
                                 </TableCell>
                                 <TableCell>
                                     {contest.participants}

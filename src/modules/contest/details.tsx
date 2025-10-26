@@ -3,7 +3,7 @@
 import { Widget, WidgetContent, WidgetTitle, } from "@/ui/widget";
 import { ContestDetailed } from "@/lib/models";
 import { DateView } from "@/components/date";
-import Countdown from "@/components/countdown";
+import Timer from "@/components/timer";
 
 export default function Details({ contest }: { contest: ContestDetailed }) {
     return (
@@ -35,7 +35,7 @@ export default function Details({ contest }: { contest: ContestDetailed }) {
                             Deadline
                         </div>
                         <div className="flex-1">
-                            <Countdown target={contest.submission_deadline} />
+                            <Timer target={contest.submission_deadline} expiredLabel="expired" />
                         </div>
                     </div>
                 }

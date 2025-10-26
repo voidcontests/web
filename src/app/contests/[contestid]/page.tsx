@@ -11,7 +11,7 @@ import { getContestByID } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { ContestDetailed } from "@/lib/api";
 import ContestLoading from "@/components/loading/contest";
-import Countdown from "@/modules/contest/countdown";
+import StartingIn from "@/modules/contest/starting-in";
 import { capitalize } from "@/lib/strings";
 
 export default function Page({ params }: { params: { contestid: string } }) {
@@ -46,7 +46,7 @@ export default function Page({ params }: { params: { contestid: string } }) {
                 <div className="col-span-9 flex flex-col gap-5">
                     <Overview contest={contest} />
                     <Problemset contest={contest} account={account} />
-                    <Countdown contest={contest} />
+                    <StartingIn contest={contest} />
                 </div>
                 <div className="col-span-3">
                     <div className="flex flex-col gap-5">

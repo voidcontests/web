@@ -3,7 +3,7 @@
 import { ContestDetailed } from "@/lib/models";
 import Timer from "@/components/timer";
 
-export default function Countdown({ contest }: { contest: ContestDetailed }) {
+export default function StartingIn({ contest }: { contest: ContestDetailed }) {
     const start_time = new Date(contest.start_time);
 
     if ((new Date()) > start_time) return null;
@@ -14,7 +14,7 @@ export default function Countdown({ contest }: { contest: ContestDetailed }) {
                 <div className="text-secondary-foreground text-lg">
                     STARTING IN
                 </div>
-                <Timer target={start_time} onComplete={() => window.location.reload()} />
+                <Timer className='text-4xl font-medium' target={start_time} onComplete={() => window.location.reload()} />
             </div>
         </div>
     );

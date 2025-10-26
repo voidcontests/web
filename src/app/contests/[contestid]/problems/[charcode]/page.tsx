@@ -14,6 +14,7 @@ import ProblemLoading from '@/components/loading/problem';
 import { MessageBox } from '@/components/message-box';
 import If from '@/components/if';
 import { format } from 'date-fns';
+import Details from '@/modules/problem/details';
 
 export default function Page({ params }: { params: { contestid: string, charcode: string } }) {
     const [problem, setProblem] = useState<ContestProblemDetailed | null>(null);
@@ -74,6 +75,7 @@ export default function Page({ params }: { params: { contestid: string, charcode
                     <SubmissionHistory contestID={params.contestid} charcode={params.charcode} />
                 </div>
                 <div className='col-span-3 flex flex-col gap-5  sticky top-5 self-start'>
+                    <Details problem={problem} />
                     <Problemset contest={contest} />
                     <Setters problem={problem} />
                 </div>

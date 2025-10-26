@@ -1,22 +1,24 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, HTMLAttributes } from 'react';
 
-interface TimerProps {
+interface Props extends HTMLAttributes<HTMLSpanElement> {
     target: Date;
     onComplete?: () => void;
+    full?: boolean;
+    expiredLabel?: string;
 }
 
-const get_distance = (target: Date): number => {
+const getDistance = (target: Date): number => {
     const now = new Date();
     const distance = target.getTime() - now.getTime();
 
     return distance;
 }
 
-const get_countdown_label = (distance: number): string => {
+const getLabel = ( distance: number, full: boolean, expiredLabel: string ): string => {
     if (distance < 0) {
-        return '0s';
+        return expiredLabel;
     }
 
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -24,42 +26,59 @@ const get_countdown_label = (distance: number): string => {
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    const parts: string[] = [];
+    if (full) {
+        const parts: string[] = [];
+        if (days > 0) parts.push(`${days}d`);
+        if (hours > 0) parts.push(`${hours}h`);
+        if (minutes > 0) parts.push(`${minutes}m`);
+        if (seconds > 0) parts.push(`${seconds}s`);
+        return parts.length > 0 ? parts.join(' ') : '0s';
+    } else {
+        if (distance >= 1000 * 60 * 60 * 24) {
+            const parts = [];
+            if (days > 0) parts.push(`${days}d`);
+            if (hours > 0) parts.push(`${hours}h`);
+            return parts.join(' ') || '0s';
+        }
+        if (distance >= 1000 * 60 * 60) {
+            const parts = [];
+            if (hours > 0) parts.push(`${hours}h`);
+            if (minutes > 0) parts.push(`${minutes}m`);
+            return parts.join(' ') || '0s';
+        }
+        const parts = [];
+        if (minutes > 0) parts.push(`${minutes}m`);
+        if (seconds > 0) parts.push(`${seconds}s`);
+        return parts.join(' ') || '0s';
+    }
+};
 
-    if (days > 0) parts.push(`${days}d`);
-    if (hours > 0) parts.push(`${hours}h`);
-    if (minutes > 0) parts.push(`${minutes}m`);
-    if (seconds > 0) parts.push(`${seconds}s`);
 
-    return parts.length > 0 ? parts.join(' ') : '0s';
-}
-
-// TODO: Extract move starting in out from this component
-export default function Timer({ target, onComplete }: TimerProps) {
-    const [timeLeft, setTimeLeft] = useState<string>(get_countdown_label(get_distance(target)));
-    let docomplete = false;
+export default function Timer({ target, onComplete, full = false, expiredLabel = '0s', ...props }: Props) {
+    const d = getDistance(target);
+    const initialLabel = getLabel(d, full, expiredLabel)
+    const [label, setLabel] = useState<string>(initialLabel);
+    let doCallback = false;
 
     useEffect(() => {
         const interval = setInterval(() => {
-            const distance = get_distance(target);
-            if (distance > 0 && !docomplete) docomplete = true;
+            const distance = getDistance(target);
+            if (distance > 0 && !doCallback) doCallback = true;
 
             if (distance < 0) {
                 clearInterval(interval);
-                if (onComplete && docomplete) onComplete();
+                if (onComplete && doCallback) onComplete();
                 return;
             }
 
-            const label = get_countdown_label(distance);
-            setTimeLeft(label);
+            const label = getLabel(distance, full, expiredLabel);
+            setLabel(label);
         }, 1000);
 
         return () => clearInterval(interval);
     }, [target]);
 
     return (
-        <div className="text-4xl font-medium" suppressHydrationWarning>
-            {timeLeft}
-        </div>
+        <span {...props}>{label}</span>
     );
 }

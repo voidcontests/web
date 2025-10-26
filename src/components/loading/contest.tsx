@@ -3,7 +3,7 @@ import ContentContainer from "@/containers/content";
 import { Skeleton } from "@/ui/skeleton";
 import TableTemplate from "@/components/templates/table";
 
-export default function Loading() {
+export default function ContestLoading() {
     return (
         <ContentContainer>
             <div className="grid grid-cols-12 gap-5">
