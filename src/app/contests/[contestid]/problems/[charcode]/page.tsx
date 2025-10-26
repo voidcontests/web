@@ -12,6 +12,8 @@ import { capitalize } from '@/lib/strings';
 import Statement from '@/modules/problem/statement';
 import ProblemLoading from '@/components/loading/problem';
 import { MessageBox } from '@/components/message-box';
+import If from '@/components/if';
+import { format } from 'date-fns';
 
 export default function Page({ params }: { params: { contestid: string, charcode: string } }) {
     const [problem, setProblem] = useState<ContestProblemDetailed | null>(null);
@@ -57,28 +59,18 @@ export default function Page({ params }: { params: { contestid: string, charcode
         throw new Error(capitalize(error ?? 'Contest or problem not found'));
     }
 
-    const deadline_reached = problem.submission_deadline && (new Date()) > problem.submission_deadline;
+    // TODO: clean this mess with `deadline_reached` and `Deadline` up
+    const deadline_reached = problem.submission_deadline !== undefined && (new Date()) > problem.submission_deadline;
 
     return (
         <ContentContainer>
             <div className='grid grid-cols-12 gap-5'>
                 <div className='col-span-9 flex flex-col gap-5'>
-                    {
-                        deadline_reached &&
-                        <MessageBox variant='warning'>
-                            <span className='font-medium'>
-                                DEADLINE IS GONE
-                            </span>
-                            <span>
-                                {`You can no longer submit — the deadline for this problem was ${problem.submission_deadline}.`}
-                            </span>
-                        </MessageBox>
-                    }
+                    <DeadlineWarning deadline={problem.submission_deadline} />
                     <Statement problem={problem} />
-                    {
-                        !deadline_reached &&
+                    <If condition={!deadline_reached}>
                         <SubmitView problem={problem} />
-                    }
+                    </If>
                     <SubmissionHistory contestID={params.contestid} charcode={params.charcode} />
                 </div>
                 <div className='col-span-3 flex flex-col gap-5  sticky top-5 self-start'>
@@ -87,5 +79,23 @@ export default function Page({ params }: { params: { contestid: string, charcode
                 </div>
             </div>
         </ContentContainer>
+    );
+}
+
+
+function DeadlineWarning({ deadline }: { deadline?: Date }) {
+    if (!deadline) return null;
+
+    return (
+        <If condition={new Date() >= deadline}>
+            <MessageBox variant='warning'>
+                <span className='font-medium'>
+                    DEADLINE IS GONE
+                </span>
+                <span>
+                  {`You can no longer submit - the deadline for this problem was ${format(new Date(deadline), "d MMM, HH:mm")}.`}
+                </span>
+            </MessageBox>
+        </If>
     );
 }
