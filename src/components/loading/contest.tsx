@@ -26,7 +26,7 @@ export default function Loading() {
                                 </WidgetTitle>
                                 <div className="flex h-5">
                                     <div className="flex-1 text-secondary-foreground">
-                                        Starts at
+                                        Start
                                     </div>
                                     <div className="flex-1">
                                         <Skeleton className="h-4 w-[80px]" />
@@ -34,10 +34,18 @@ export default function Loading() {
                                 </div>
                                 <div className="flex h-5">
                                     <div className="flex-1 text-secondary-foreground">
-                                        Ends at
+                                        End
                                     </div>
                                     <div className="flex-1">
                                         <Skeleton className="h-4 w-[80px]" />
+                                    </div>
+                                </div>
+                                <div className="flex h-5">
+                                    <div className="flex-1 text-secondary-foreground">
+                                        Deadline
+                                    </div>
+                                    <div className="flex-1">
+                                        <Skeleton className="h-4 w-[35px]" />
                                     </div>
                                 </div>
                                 <div className="flex h-5">
@@ -50,7 +58,7 @@ export default function Loading() {
                                 </div>
                                 <div className="flex h-5">
                                     <div className="flex-1 text-secondary-foreground">
-                                        Total slots
+                                        Total seats
                                     </div>
                                     <div className="flex-1">
                                         <Skeleton className="h-4 w-[70px]" />
