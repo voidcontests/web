@@ -5,9 +5,9 @@ import * as React from "react";
 
 const buttonVariants = cva(
     cn(
-        "font-medium inline-flex items-center justify-center gap-[10px] rounded-lg transition duration-300",
+        "font-medium inline-flex items-center justify-center gap-[10px] rounded-lg transition-colors duration-300",
         "[&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
-        "focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-blue-400",
+        "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-400",
         "disabled:pointer-events-none disabled:opacity-50",
         "hover:cursor-pointer",
     ),

@@ -11,7 +11,6 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { createProblem } from '@/lib/api';
 import { toast } from '@/components/toast';
 import { Separator } from '@/ui/separator';
-import { MessageBox } from '@/components/message-box';
 import { Trash2 } from 'lucide-react';
 import { TextArea } from '@/ui/textarea';
 import { useRouter } from 'next/navigation';
@@ -83,6 +82,7 @@ export default function CreateProblemForm() {
                 </div>
 
                 <MarkdownEditor
+                    placeholder='Statement'
                     markdown={watch("statement")}
                     setMarkdown={(s: string) => setValue("statement", s)}
                     required
@@ -92,9 +92,6 @@ export default function CreateProblemForm() {
 
                 <div className="flex flex-col gap-4">
                     <Label required>Test cases</Label>
-                    <MessageBox>
-                        Be very precise with spaces and new lines. Be sure NOT to accidentally include extra whitespaces. On judging step they will be treated exactly as provided!
-                    </MessageBox>
                     {fields.map((field, index) => (
                         <div key={field.id} className={cn("flex flex-col gap-4 pb-4", (index !== watch('test_cases').length-1) && 'border-b')}>
                             <div className='flex items-center justify-between'>
@@ -176,7 +173,7 @@ export default function CreateProblemForm() {
                             className={cn(
                                 'flex items-start gap-3 rounded-xl border p-3 hover:cursor-pointer',
                                 'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4',
-                                'has-[[data-state=checked]]:border-green-500',
+                                'has-[[data-state=checked]]:outline-2 has-[[data-state=checked]]:outline-green-500',
                                 'has-[[data-state=checked]]:bg-green-50 dark:has-[[data-state=checked]]:bg-green-500/16'
                             )}
                         >
@@ -200,7 +197,7 @@ export default function CreateProblemForm() {
                             className={cn(
                                 'flex items-start gap-3 rounded-xl border p-3 hover:cursor-pointer',
                                 'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4',
-                                'has-[[data-state=checked]]:border-amber-500',
+                                'has-[[data-state=checked]]:outline-2 has-[[data-state=checked]]:outline-amber-500',
                                 'has-[[data-state=checked]]:bg-amber-50 dark:has-[[data-state=checked]]:bg-amber-500/16'
                             )}
                         >
@@ -224,7 +221,7 @@ export default function CreateProblemForm() {
                             className={cn(
                                 'flex items-start gap-3 rounded-xl border p-3 hover:cursor-pointer',
                                 'hover:bg-zinc-950/3 dark:hover:bg-zinc-50/4',
-                                'has-[[data-state=checked]]:border-scarlet-500',
+                                'has-[[data-state=checked]]:outline-2 has-[[data-state=checked]]:outline-scarlet-500',
                                 'has-[[data-state=checked]]:bg-scarlet-50 dark:has-[[data-state=checked]]:bg-scarlet-500/16'
                             )}
                         >

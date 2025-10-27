@@ -3,13 +3,13 @@ import { cva, VariantProps } from "class-variance-authority";
 import { forwardRef, HTMLAttributes } from "react";
 
 const messageBoxVariants = cva(
-    "py-4 px-6 rounded-xl flex flex-col gap-1 border",
+    "py-4 px-6 rounded-xl flex flex-col gap-1",
     {
         variants: {
             variant: {
-                default: "bg-blue-400/15 border-blue-500 text-blue-500 dark:border-blue-400 dark:text-blue-400",
-                warning: "bg-amber-400/15 dark:border-amber-400 dark:text-amber-400 border-amber-600 text-amber-600",
-                error: "bg-scarlet-600/15 border-scarlet-600 text-scarlet-600 dark:bg-scarlet-500/15 dark:border-scarlet-500 dark:text-scarlet-500",
+                default: "bg-blue-400/15 text-blue-500 dark:text-blue-400",
+                warning: "bg-amber-400/15 dark:text-amber-400 text-amber-600",
+                error: "bg-scarlet-600/15 text-scarlet-600 dark:bg-scarlet-500/15 dark:text-scarlet-500",
             },
         },
         defaultVariants: {

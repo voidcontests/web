@@ -100,7 +100,7 @@ export default function CreatedProblems() {
                 </TableBody>
                 {
                     problems.length === 0
-                        ? <TableCaption>No created problems.</TableCaption>
+                        ? <TableCaption>No created problems</TableCaption>
                         : <TableCaption>
                             <PaginationControls
                                 total={total}
