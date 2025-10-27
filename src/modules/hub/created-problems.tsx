@@ -62,12 +62,11 @@ export default function CreatedProblems() {
             <Table>
                 <TableHeader>
                     <TableHeaderRow>
-                        <TableHead>#</TableHead>
+                        <TableHead className="w-12">#</TableHead>
                         <TableHead>Title</TableHead>
-                        <TableHead>Difficulty</TableHead>
-                        <TableHead>Time limit</TableHead>
-                        <TableHead>Memory limit</TableHead>
-                        <TableHead className='w-3xs'>Created at</TableHead>
+                        <TableHead className="w-64 sm:hidden">Difficulty</TableHead>
+                        <TableHead className="w-64 sm:hidden lg:hidden">Time limit</TableHead>
+                        <TableHead className="w-64 sm:hidden lg:hidden">Memory limit</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
                 <TableBody>
@@ -90,9 +89,6 @@ export default function CreatedProblems() {
                                 </TableCell>
                                 <TableCell>
                                     <MemoryLimit mb={problem.memory_limit_mb} />
-                                </TableCell>
-                                <TableCell className='w-3xs'>
-                                    <DateView date={problem.created_at} />
                                 </TableCell>
                             </TableRow>
                         ))

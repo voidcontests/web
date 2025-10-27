@@ -5,6 +5,7 @@ import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableCaption, TableTitle
 } from "@/ui/table";
+import { Username } from "@/components/username";
 
 export default function Problemset({ leaderboard }: { leaderboard: LeaderboardItem[] }) {
     return (
@@ -28,7 +29,7 @@ export default function Problemset({ leaderboard }: { leaderboard: LeaderboardIt
                                     {entry.user_id}
                                 </TableCell>
                                 <TableCell>
-                                    {`@${entry.username}`}
+                                    <Username username={entry.username} />
                                 </TableCell>
                                 <TableCell>
                                     {entry.points}

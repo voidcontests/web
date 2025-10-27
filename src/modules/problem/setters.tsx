@@ -2,6 +2,7 @@
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle } from "@/ui/table";
 import { ProblemDetailed } from "@/lib/models";
+import { Username } from "@/components/username";
 
 export default function Setters({ problem }: { problem: ProblemDetailed }) {
     return (
@@ -23,7 +24,7 @@ export default function Setters({ problem }: { problem: ProblemDetailed }) {
                             <TableRow key={index}>
                                 <TableCell>{`${index + 1}/`}</TableCell>
                                 <TableCell>
-                                    {`@${username}`}
+                                    <Username username={username} />
                                 </TableCell>
                             </TableRow>
                         ))

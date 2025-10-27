@@ -10,6 +10,7 @@ import { toast } from '@/components/toast';
 import { getAllContests } from '@/lib/api';
 import { Link } from '@/ui/link';
 import Duration from '@/components/duration';
+import { Username } from '@/components/username';
 
 const TITLE = 'PUBLIC CONTESTS';
 
@@ -58,14 +59,14 @@ export default function PublicContests() {
             <Table>
                 <TableHeader>
                     <TableHeaderRow>
-                        <TableHead>ID</TableHead>
-                        <TableHead className='min-w-36'>Title</TableHead>
-                        <TableHead>Host</TableHead>
-                        <TableHead>Start</TableHead>
-                        <TableHead>End</TableHead>
-                        <TableHead>Duration</TableHead>
-                        <TableHead>Participants</TableHead>
-                        <TableHead>Total slots</TableHead>
+                        <TableHead className='w-32'>ID</TableHead>
+                        <TableHead>Title</TableHead>
+                        <TableHead className='w-32 sm:hidden'>Host</TableHead>
+                        <TableHead className='w-32 sm:hidden'>Start</TableHead>
+                        <TableHead className='w-32 sm:hidden md:hidden'>End</TableHead>
+                        <TableHead className='w-32 sm:hidden lg:hidden'>Duration</TableHead>
+                        <TableHead className='w-32 sm:hidden lg:hidden'>Participants</TableHead>
+                        <TableHead className='w-32 sm:hidden lg:hidden'>Total slots</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
                 <TableBody>
@@ -78,7 +79,7 @@ export default function PublicContests() {
                                 </Link>
                             </TableCell>
                             <TableCell>
-                                @{contest.creator.username}
+                                <Username username={contest.creator.username} />
                             </TableCell>
                             <TableCell>
                                 <DateView date={contest.start_time} />

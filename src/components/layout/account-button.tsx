@@ -6,6 +6,7 @@ import { useAccount } from "@/hooks/use-account";
 import { removeToken } from "@/lib/api";
 import { LogOut } from "lucide-react";
 import { Spinner } from "@/ui/spinner";
+import { Username } from "@/components/username";
 
 const AccountButton = () => {
     let { account, loading } = useAccount();
@@ -36,7 +37,7 @@ const AccountButton = () => {
             removeToken();
             window.location.reload();
         }}>
-            {`@${account.username}`} <LogOut />
+            <Username username={account.username} /> <LogOut />
         </Button>
     );
 }

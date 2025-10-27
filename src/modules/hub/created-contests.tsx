@@ -61,16 +61,14 @@ export default function CreatedContests() {
             <Table>
                 <TableHeader>
                     <TableHeaderRow>
-                        <TableHead>#</TableHead>
+                        <TableHead className="w-12">#</TableHead>
                         <TableHead>Title</TableHead>
-                        <TableHead>Starting at</TableHead>
-                        <TableHead>Deadline</TableHead>
-                        <TableHead>Duration</TableHead>
-                        <TableHead>Participants</TableHead>
-                        <TableHead>Total slots</TableHead>
-                        <TableHead>Leaderboard</TableHead>
-                        <TableHead>Created at</TableHead>
-                        <TableHead>Status</TableHead>
+                        <TableHead className="w-32 sm:hidden">Start</TableHead>
+                        <TableHead className="w-32 sm:hidden">End</TableHead>
+                        <TableHead className="w-32 sm:hidden md:hidden">Duration</TableHead>
+                        <TableHead className="w-32 sm:hidden lg:hidden">Participants</TableHead>
+                        <TableHead className="w-32 sm:hidden lg:hidden">Leaderboard</TableHead>
+                        <TableHead className="w-32 sm:hidden lg:hidden">Status</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
                 <TableBody>
@@ -95,18 +93,16 @@ export default function CreatedContests() {
                                     <Duration value={contest.duration_mins} as='minutes' full />
                                 </TableCell>
                                 <TableCell>
-                                    {contest.participants}
-                                </TableCell>
-                                <TableCell>
-                                    {contest.max_entries || 'Not limited'}
+                                    {
+                                        contest.max_entries === undefined
+                                            ? contest.participants
+                                            : `${contest.participants}/${contest.max_entries}`
+                                    }
                                 </TableCell>
                                 <TableCell>
                                     <Link href={`/contests/${contest.id}/leaderboard`}>
                                         View
                                     </Link>
-                                </TableCell>
-                                <TableCell>
-                                    <DateView date={contest.created_at} />
                                 </TableCell>
                                 <TableCell>
                                     <Status contest={contest} />

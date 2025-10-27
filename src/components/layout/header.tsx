@@ -14,19 +14,19 @@ const Header = () => {
         <header className={cn(
             'h-14 w-full mb-6',
             pathname === '/'
-                ? 'sticky max-sm:static top-0 bg-background border-t border-t-transparent border-b border-b-transparent'
+                ? 'sticky sm:static top-0 bg-background border-t border-t-transparent border-b border-b-transparent'
                 : 'bg-surface border-t border-t-transparent border-b border-b-border not-dark:shadow-md',
         )}>
             <div className='h-full max-w-7xl mx-auto flex justify-center'>
                 <div className='w-full flex items-center mx-4'>
                     <div className='h-full flex items-center gap-8 mr-auto'>
-                        <NavItem href='/' underlineActive={false} className="max-sm:text-base">
+                        <NavItem href='/' underlineActive={false}>
                             VOID
                         </NavItem>
-                        <NavItem href='/contests' className="max-sm:hidden">
+                        <NavItem href='/contests' className="sm:hidden">
                             CONTESTS
                         </NavItem>
-                        <NavItem href='/hub' className="max-sm:hidden">
+                        <NavItem href='/hub' className="sm:hidden">
                             HUB
                         </NavItem>
                     </div>
