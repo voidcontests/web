@@ -44,6 +44,8 @@ export const ContestProblemListItemSchema = z.object({
     title: z.string(),
     difficulty: z.string(),
     status: z.string().optional(),
+    time_limit_ms: z.number(),
+    memory_limit_mb: z.number(),
     created_at: z.coerce.date(),
 });
 
@@ -152,6 +154,8 @@ export const ProblemListItemSchema = z.object({
     writer: UserSchema,
     title: z.string(),
     difficulty: z.string(),
+    time_limit_ms: z.number(),
+    memory_limit_mb: z.number(),
     created_at: z.coerce.date(),
 });
 

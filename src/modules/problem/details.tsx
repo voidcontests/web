@@ -4,7 +4,8 @@ import { ContestProblemDetailed, ProblemDetailed } from "@/lib/models";
 import { Widget, WidgetContent, WidgetTitle, } from "@/ui/widget";
 import { ContestProblemDetailedSchema } from "@/lib/schemas";
 import Timer from "@/components/timer";
-import TimeLimit from "./time-limit";
+import TimeLimit from "@/modules/problem/time-limit";
+import MemoryLimit from "@/modules/problem/memory-limit";
 
 function isContestProblem(problem: ContestProblemDetailed | ProblemDetailed): problem is ContestProblemDetailed {
     return ContestProblemDetailedSchema.safeParse(problem).success;
@@ -30,7 +31,7 @@ export default function Details({ problem }: { problem: ProblemDetailed | Contes
                         Memory limit
                     </div>
                     <div className="flex-1">
-                        {problem.memory_limit_mb} MB
+                        <MemoryLimit mb={problem.memory_limit_mb} />
                     </div>
                 </div>
                 {

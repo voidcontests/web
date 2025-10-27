@@ -20,7 +20,6 @@ export default function ProblemPreviewLoading() {
                             <Skeleton className="h-4 w-3/5" />
                         </div>
                     </Container>
-                    <TableTemplate title='LATEST SUBMISSIONS' caption='Loading...' />
                 </div>
                 <div className='col-span-3 flex flex-col gap-5'>
                     <TableTemplate title='SETTERS' caption='Loading...' />

@@ -5,6 +5,8 @@ import Difficulty from '@/components/difficulty';
 import { Account, ContestDetailed } from '@/lib/models';
 import { Link } from '@/ui/link';
 import { capitalize } from '@/lib/strings';
+import TimeLimit from '@/modules/problem/time-limit';
+import MemoryLimit from '@/modules/problem/memory-limit';
 
 export default function Problemset({ contest, account }: { contest: ContestDetailed, account: Account | null }) {
     const problemset = contest.problems;
@@ -19,9 +21,11 @@ export default function Problemset({ contest, account }: { contest: ContestDetai
                 <TableHeader>
                     <TableHeaderRow>
                         <TableHead>#</TableHead>
-                        <TableHead>Title</TableHead>
+                        <TableHead className='min-w-40'>Title</TableHead>
                         <TableHead>Difficulty</TableHead>
                         <TableHead>Status</TableHead>
+                        <TableHead>Time limit</TableHead>
+                        <TableHead>Memory limit</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
                 <TableBody>
@@ -52,6 +56,12 @@ export default function Problemset({ contest, account }: { contest: ContestDetai
                                             ? 'None'
                                             : capitalize(problem.status)
                                     }
+                                </TableCell>
+                                <TableCell>
+                                    <TimeLimit ms={problem.time_limit_ms}  />
+                                </TableCell>
+                                <TableCell>
+                                    <MemoryLimit mb={problem.memory_limit_mb} />
                                 </TableCell>
                             </TableRow>
                         ))

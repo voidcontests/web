@@ -1,9 +1,7 @@
-// TODO: MOVE THIS SHIT OUT OF HERE TO ENV FILE OR KINDA
-// I ALWAYS FORGOT TO CHANGE IT FROM LOCALHOST
-
 export const config = {
     api: {
-        basepath: 'http://localhost:5919/api', // TODO: Update this on production deploy
+        // TODO: use a domain name later (when deployed)
+        basepath: process.env.NEXT_PUBLIC_API_BASEPATH || 'https://contests.fckn.engineer/api',
     },
     cookies: {
         token_key: 'token',

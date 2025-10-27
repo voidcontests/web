@@ -1,7 +1,7 @@
 'use client';
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from "@/ui/table";
-import { Account, Pagination, ProblemListItem } from '@/lib/models';
+import { ProblemListItem } from '@/lib/models';
 import Difficulty from '@/components/difficulty';
 import { DateView } from "@/components/date";
 import { Link } from "@/ui/link";
@@ -10,6 +10,8 @@ import { getCreatedProblems } from "@/lib/api";
 import PaginationControls from "@/components/pagination-controls";
 import { toast } from "@/components/toast";
 import TableTemplate from "@/components/templates/table";
+import TimeLimit from "@/modules/problem/time-limit";
+import MemoryLimit from "@/modules/problem/memory-limit";
 
 export default function CreatedProblems() {
     const [problems, setProblems] = useState<ProblemListItem[]>([]);
@@ -63,6 +65,8 @@ export default function CreatedProblems() {
                         <TableHead>#</TableHead>
                         <TableHead>Title</TableHead>
                         <TableHead>Difficulty</TableHead>
+                        <TableHead>Time limit</TableHead>
+                        <TableHead>Memory limit</TableHead>
                         <TableHead className='w-3xs'>Created at</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
@@ -80,6 +84,12 @@ export default function CreatedProblems() {
                                 </TableCell>
                                 <TableCell>
                                     <Difficulty difficulty={problem.difficulty} />
+                                </TableCell>
+                                <TableCell>
+                                    <TimeLimit ms={problem.time_limit_ms}  />
+                                </TableCell>
+                                <TableCell>
+                                    <MemoryLimit mb={problem.memory_limit_mb} />
                                 </TableCell>
                                 <TableCell className='w-3xs'>
                                     <DateView date={problem.created_at} />

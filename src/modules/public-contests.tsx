@@ -59,7 +59,7 @@ export default function PublicContests() {
                 <TableHeader>
                     <TableHeaderRow>
                         <TableHead>ID</TableHead>
-                        <TableHead>Title</TableHead>
+                        <TableHead className='min-w-36'>Title</TableHead>
                         <TableHead>Host</TableHead>
                         <TableHead>Start</TableHead>
                         <TableHead>End</TableHead>
