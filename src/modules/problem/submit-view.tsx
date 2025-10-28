@@ -10,6 +10,7 @@ import TestCase from "@/modules/problem/test-case";
 import { getInitialCode } from "@/modules/editor/utils";
 import { sleep } from "@/lib/utils";
 import { getSubmissionByID, submitSolution } from "@/lib/api";
+import { useSubmissionsStore } from "@/stores/submissions";
 
 const DEFAULT_LANGUAGE = "cpp";
 
@@ -17,6 +18,7 @@ export function SubmitView({ problem }: { problem: ContestProblemDetailed }) {
     const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
     const [code, setCode] = useState(getInitialCode(DEFAULT_LANGUAGE));
     const [submission, setSubmission] = useState<Submission>();
+    const { onSubmissionCreated, onSubmissionJudged } = useSubmissionsStore();
 
     async function submit() {
         if (code.trim().length === 0) return;
@@ -41,6 +43,8 @@ export function SubmitView({ problem }: { problem: ContestProblemDetailed }) {
         let submission = result.data;
         setSubmission(submission);
 
+        onSubmissionCreated();
+
         while (submission.status !== "success" && submission.status !== "failed") {
             await sleep(1000);
             const updated = await getSubmissionByID(submission.id);
@@ -52,6 +56,8 @@ export function SubmitView({ problem }: { problem: ContestProblemDetailed }) {
             submission = updated.data;
             setSubmission(submission);
         }
+
+        onSubmissionJudged();
     }
 
     return (
@@ -79,7 +85,7 @@ export function SubmitView({ problem }: { problem: ContestProblemDetailed }) {
                 <Button onClick={submit} disabled={code.trim().length === 0}>
                     SUBMIT
                 </Button>
-                <SubmissionReport submission={submission} />
+                {/*<SubmissionReport submission={submission} />*/}
             </div>
         </div>
     );

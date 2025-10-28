@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
     TableContainer,
     Table,
@@ -14,29 +14,21 @@ import {
     TableTitle,
 } from '@/ui/table';
 import { DateView } from '@/components/date';
-import { getProblemSubmissions, ID } from '@/lib/api';
-import { Submission } from '@/lib/models';
-import { toast } from '@/components/toast';
+import { ID } from '@/lib/api';
 import PaginationControls from '@/components/pagination-controls';
+import { useSubmissionsStore } from '@/stores/submissions';
 
 export default function SubmissionHistory({ contestID, charcode }: { contestID: ID, charcode: string }) {
-    const [submissions, setSubmissions] = useState<Submission[]>([]);
-    const [offset, setOffset] = useState(0);
-    const [total, setTotal] = useState(0);
-    const limit = 10;
+    const { submissions, offset, total, limit, setContext, setOffset, refetchHistory } = useSubmissionsStore();
 
     useEffect(() => {
-        const load = async () => {
-            const result = await getProblemSubmissions(contestID, charcode, offset, limit);
-            if (result.ok) {
-                setSubmissions(result.data.items);
-                setTotal(result.data.meta.total);
-            } else {
-                toast({ title: 'Failed to fetch submissions', description: result.error.message });
-            }
-        };
-        load();
-    }, [contestID, charcode, offset, limit]);
+        setContext(contestID, charcode);
+        refetchHistory();
+    }, [contestID, charcode, setContext, refetchHistory]);
+
+    useEffect(() => {
+        refetchHistory();
+    }, [offset, refetchHistory]);
 
     const handlePrev = () => {
         const newOffset = Math.max(0, offset - limit);
