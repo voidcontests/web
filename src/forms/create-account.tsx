@@ -92,7 +92,7 @@ export function CreateAccountForm() {
                         }
                     </div>
 
-                    <Button className="w-full" type='submit' disabled={!validate()}>
+                    <Button className="font-medium w-full" type='submit' disabled={!validate()}>
                         SIGN UP
                     </Button>
                 </div>

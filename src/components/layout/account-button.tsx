@@ -13,7 +13,7 @@ const AccountButton = () => {
 
     if (loading) {
         return (
-            <Button variant="secondary" disabled>
+            <Button disabled className="font-medium bg-blue-400 text-zinc-50 dark:bg-blue-400 dark:text-zinc-50">
                 <Spinner className="size-4" />
                 <span className="font-normal text-base">
                     loading
@@ -25,7 +25,7 @@ const AccountButton = () => {
     if (account === null) {
         return (
             <Link href="/login">
-                <Button className="bg-blue-400 text-zinc-50 dark:bg-blue-400 dark:text-zinc-50">
+                <Button className="font-medium bg-blue-400 text-zinc-50 dark:bg-blue-400 dark:text-zinc-50">
                     Sign in
                 </Button>
             </Link>

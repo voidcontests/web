@@ -86,7 +86,7 @@ export function LoginForm() {
                         />
                     </div>
 
-                    <Button className="w-full" type='submit' disabled={!validate()}>SIGN IN</Button>
+                    <Button className="font-medium w-full" type='submit' disabled={!validate()}>SIGN IN</Button>
                 </div>
             </form>
         </Container>

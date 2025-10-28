@@ -387,7 +387,7 @@ export default function CreateProblemForm() {
                 </div>
 
                 <div className="flex justify-end">
-                    <Button type='submit' disabled={!validate()}>CREATE</Button>
+                    <Button className='font-medium' type='submit' disabled={!validate()}>CREATE</Button>
                 </div>
             </div>
         </form>
