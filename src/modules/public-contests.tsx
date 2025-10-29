@@ -61,12 +61,12 @@ export default function PublicContests() {
                     <TableHeaderRow>
                         <TableHead className='w-32'>ID</TableHead>
                         <TableHead>Title</TableHead>
-                        <TableHead className='w-32 sm:hidden'>Host</TableHead>
-                        <TableHead className='w-32 sm:hidden'>Start</TableHead>
-                        <TableHead className='w-32 sm:hidden md:hidden'>End</TableHead>
-                        <TableHead className='w-32 sm:hidden lg:hidden'>Duration</TableHead>
-                        <TableHead className='w-32 sm:hidden lg:hidden'>Participants</TableHead>
-                        <TableHead className='w-32 sm:hidden lg:hidden'>Total slots</TableHead>
+                        <TableHead className='w-32'>Host</TableHead>
+                        <TableHead className='w-32'>Start</TableHead>
+                        <TableHead className='w-32'>End</TableHead>
+                        <TableHead className='w-32'>Duration</TableHead>
+                        <TableHead className='w-32'>Participants</TableHead>
+                        <TableHead className='w-32'>Total slots</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
                 <TableBody>

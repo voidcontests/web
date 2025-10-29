@@ -63,12 +63,12 @@ export default function CreatedContests() {
                     <TableHeaderRow>
                         <TableHead className="w-12">#</TableHead>
                         <TableHead>Title</TableHead>
-                        <TableHead className="w-32 sm:hidden">Start</TableHead>
-                        <TableHead className="w-32 sm:hidden">End</TableHead>
-                        <TableHead className="w-32 sm:hidden md:hidden">Duration</TableHead>
-                        <TableHead className="w-32 sm:hidden lg:hidden">Participants</TableHead>
-                        <TableHead className="w-32 sm:hidden lg:hidden">Leaderboard</TableHead>
-                        <TableHead className="w-32 sm:hidden lg:hidden">Status</TableHead>
+                        <TableHead className="w-32">Start</TableHead>
+                        <TableHead className="w-32">End</TableHead>
+                        <TableHead className="w-32">Duration</TableHead>
+                        <TableHead className="w-32">Participants</TableHead>
+                        <TableHead className="w-32">Leaderboard</TableHead>
+                        <TableHead className="w-32">Status</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
                 <TableBody>

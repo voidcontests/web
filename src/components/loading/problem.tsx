@@ -34,7 +34,7 @@ export default function ProblemLoading() {
                                     Time limit
                                 </div>
                                 <div className="flex-1">
-                                    <Skeleton className="h-4 w-[60px]" />
+                                    <Skeleton className="h-4 w-[30px]" />
                                 </div>
                             </div>
                             <div className="flex">

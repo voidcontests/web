@@ -10,6 +10,7 @@ import { ResultError } from '@/lib/client';
 import ProblemPreviewLoading from '@/components/loading/problem-preview';
 import ProblemNotFound from '@/modules/errors/problem-not-found';
 import ErrorMessage from '@/modules/errors/message';
+import Details from '@/modules/problem/details';
 
 export default function Page({ params }: { params: { problemid: string } }) {
     const [problem, setProblem] = useState<ProblemDetailed | null>(null);
@@ -60,6 +61,7 @@ export default function Page({ params }: { params: { problemid: string } }) {
                     <Statement problem={problem} />
                 </div>
                 <div className='col-span-3 flex flex-col gap-5 sticky top-5 self-start'>
+                    <Details problem={problem} />
                     <Setters problem={problem} />
                 </div>
             </div>

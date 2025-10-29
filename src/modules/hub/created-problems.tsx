@@ -64,9 +64,9 @@ export default function CreatedProblems() {
                     <TableHeaderRow>
                         <TableHead className="w-12">#</TableHead>
                         <TableHead>Title</TableHead>
-                        <TableHead className="w-64 sm:hidden">Difficulty</TableHead>
-                        <TableHead className="w-64 sm:hidden lg:hidden">Time limit</TableHead>
-                        <TableHead className="w-64 sm:hidden lg:hidden">Memory limit</TableHead>
+                        <TableHead className="w-64">Difficulty</TableHead>
+                        <TableHead className="w-64">Time limit</TableHead>
+                        <TableHead className="w-64">Memory limit</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
                 <TableBody>

@@ -16,7 +16,7 @@ export default function Statement({ problem }: StatementProps) {
     const points = problem.difficulty === 'easy' ? 1 : problem.difficulty === 'mid' ? 2 : 3;
     const title = isContestProblem(problem)
         ? `${problem.charcode}/ ${problem.title}`
-        : `${problem.id}/ ${problem.title}`;
+        : problem.title;
 
     return (
         <Container className="py-5 px-7">
