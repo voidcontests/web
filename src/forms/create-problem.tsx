@@ -5,12 +5,11 @@ import { Button } from "@/ui/button";
 import { Label } from '@/ui/label';
 import { Input } from '@/ui/input';
 import { cn } from '@/lib/utils';
-import MarkdownEditor from '@/modules/markdown-editor';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { createProblem } from '@/lib/api';
 import { toast } from '@/components/toast';
 import { Separator } from '@/ui/separator';
-import { Trash2, Upload, ChevronDown, ChevronUp } from 'lucide-react';
+import { Trash2, Upload } from 'lucide-react';
 import { TextArea } from '@/ui/textarea';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
@@ -161,14 +160,17 @@ export default function CreateProblemForm() {
                     <Input {...register("title")} placeholder="Title" required />
                 </div>
 
-                <MarkdownEditor
-                    placeholder='Statement'
-                    markdown={watch("statement")}
-                    setMarkdown={(s: string) => setValue("statement", s)}
-                    required
-                >
-                    Add statement
-                </MarkdownEditor>
+                <div className="flex flex-col gap-2">
+                    <Label required>
+                        Add statement
+                    </Label>
+                    <TextArea
+                        {...register("statement")}
+                        className='min-h-40'
+                        placeholder="Statement"
+                        resizable
+                    />
+                </div>
 
                 <div className="flex flex-col gap-4">
                     <div className="flex items-center justify-between">
