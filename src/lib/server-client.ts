@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import z from 'zod';
 import { config } from '@/config';
-import { Result } from './client';
+import { Result } from '@/lib/client';
 
 /**
  * Get the authentication token from server-side cookies
