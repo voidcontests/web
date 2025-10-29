@@ -18,7 +18,6 @@ export {
     getProblemSubmissions,
     submitSolution,
     getSubmissionByID,
-    type CreateProblemFormData,
 } from './problems';
 
 // Contests API
