@@ -1,9 +1,12 @@
-'use client';
-
 import ContentContainer from "@/containers/content";
 import { CreateContestForm } from "@/forms/create-contest";
 import { Separator } from "@/ui/separator";
 import { Link } from "@/ui/link";
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'New contest \\ Void',
+};
 
 export default function Page() {
     return (

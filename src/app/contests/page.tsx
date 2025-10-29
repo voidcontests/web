@@ -3,7 +3,7 @@ import ContentContainer from '@/containers/content';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Contests :: THE VOID*',
+    title: 'Contests \\ Void',
 };
 
 export default async function ContestsPage() {

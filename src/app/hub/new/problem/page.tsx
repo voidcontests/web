@@ -5,7 +5,7 @@ import { Link } from '@/ui/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'New problem',
+    title: 'New problem \\ Void',
 };
 
 export default async function Page() {

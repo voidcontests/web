@@ -1,5 +1,10 @@
 import { CreateAccountForm } from "@/forms/create-account";
 import { Link } from "@/ui/link";
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Create account \\ Void',
+};
 
 export default function SignUpPage() {
     return (

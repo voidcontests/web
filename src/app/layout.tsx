@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-    title: 'THE VOID*',
+    title: 'Home \\ Void',
     description: 'Avoid a void in your head',
     metadataBase: new URL('https://void.ndbtea.tech'),
 };
