@@ -236,6 +236,7 @@ const MarkdownEditor = forwardRef<HTMLTextAreaElement, MarkdownEditorProps>(({ m
                     onChange={handleChange}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
+                    resizable
                     {...props}
                 />
                 <div className="flex justify-end">
