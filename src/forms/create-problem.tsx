@@ -14,6 +14,7 @@ import { Trash2, Upload, ChevronDown, ChevronUp } from 'lucide-react';
 import { TextArea } from '@/ui/textarea';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 
 export interface TestCase {
     input: string;
@@ -27,6 +28,7 @@ export interface FormData {
     test_cases: TestCase[];
     time_limit_ms: number;
     memory_limit_mb: number;
+    checker: string;
 }
 
 const EXAMPLE_TCS = `[
@@ -54,6 +56,7 @@ export default function CreateProblemForm() {
             test_cases: [],
             time_limit_ms: 2000,
             memory_limit_mb: 128,
+            checker: "tokens",
         }
     });
 
@@ -137,12 +140,13 @@ export default function CreateProblemForm() {
     };
 
     function validate(): boolean {
-        const { title, statement, difficulty, test_cases } = watch();
+        const { title, statement, difficulty, test_cases, checker } = watch();
 
         return (
             !!title.trim() &&
             !!statement.trim() &&
             !!difficulty.trim() &&
+            !!checker.trim() &&
             !(isNaN(watch('time_limit_ms')) || watch('time_limit_ms').toString().includes('.') || watch('time_limit_ms').toString().includes(',') || watch('time_limit_ms') < 500 || watch('time_limit_ms') > 10000) &&
             !(isNaN(watch('memory_limit_mb')) || watch('memory_limit_mb').toString().includes('.') || watch('memory_limit_mb').toString().includes(',') || watch('memory_limit_mb') < 1 || watch('memory_limit_mb') > 1024) &&
             (test_cases.length > 0 && test_cases.every(tc => !!tc.input.trim() && !!tc.output.trim()))
@@ -313,6 +317,50 @@ export default function CreateProblemForm() {
                                 </span>
                             }
                         </div>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <Label required>Checker</Label>
+                        <Select value={watch('checker')} onValueChange={(value) => setValue('checker', value)}>
+                            <SelectTrigger className="max-w-72">
+                                <SelectValue placeholder="Select checker" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectItem value="tokens">Tokens</SelectItem>
+                                    <SelectItem value="integers">Integers</SelectItem>
+                                    <SelectItem value="floats4">Floats (precision 4)</SelectItem>
+                                    <SelectItem value="floats6">Floats (precision 6)</SelectItem>
+                                    <SelectItem value="floats9">Floats (precision 9)</SelectItem>
+                                    <SelectItem value="yesno">Yes/No</SelectItem>
+                                    <SelectItem value="full">Full match</SelectItem>
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                        {watch('checker') && (
+                            <div className="text-sm text-secondary-foreground">
+                                {watch('checker') === 'tokens' && (
+                                    <p>Compares output as whitespace-separated tokens. Ignores extra whitespace and line breaks.</p>
+                                )}
+                                {watch('checker') === 'integers' && (
+                                    <p>Compares sequences of integers. Validates that outputs contain the same integers in the same order.</p>
+                                )}
+                                {watch('checker') === 'floats4' && (
+                                    <p>Compares floating-point numbers with 4 decimal places precision (0.0001 tolerance).</p>
+                                )}
+                                {watch('checker') === 'floats6' && (
+                                    <p>Compares floating-point numbers with 6 decimal places precision (0.000001 tolerance).</p>
+                                )}
+                                {watch('checker') === 'floats9' && (
+                                    <p>Compares floating-point numbers with 9 decimal places precision (0.000000001 tolerance).</p>
+                                )}
+                                {watch('checker') === 'yesno' && (
+                                    <p>Validates Yes/No answers. Accepts variations like yes/no, YES/NO, y/n (case-insensitive).</p>
+                                )}
+                                {watch('checker') === 'full' && (
+                                    <p>Requires exact character-by-character match including whitespace and line breaks.</p>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
 

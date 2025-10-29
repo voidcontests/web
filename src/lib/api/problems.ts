@@ -7,23 +7,8 @@ import {
     ProblemListItemSchema,
     SubmissionSchema,
 } from '@/lib/schemas';
-import {
-    Pagination,
-    EntityID,
-    ContestProblemDetailed,
-    Submission,
-    ProblemListItem,
-    ProblemDetailed,
-} from '@/lib/models';
-
-export type CreateProblemFormData = {
-    title: string;
-    statement: string;
-    difficulty: string;
-    time_limit_ms: number;
-    examples?: Array<{ input: string; output: string }>;
-    test_cases?: Array<{ input: string; output: string }>;
-};
+import { Pagination, EntityID, Submission, ProblemListItem, ProblemDetailed } from '@/lib/models';
+import type { FormData as CreateProblemFormData } from '@/forms/create-problem';
 
 export async function createProblem(data: CreateProblemFormData): Promise<Result<EntityID>> {
     return fetchWithAuth(
@@ -36,10 +21,7 @@ export async function createProblem(data: CreateProblemFormData): Promise<Result
     );
 }
 
-export async function getCreatedProblems(
-    offset: number,
-    limit: number
-): Promise<Result<Pagination<ProblemListItem>>> {
+export async function getCreatedProblems(offset: number, limit: number): Promise<Result<Pagination<ProblemListItem>>> {
     return fetchWithAuth(
         `${config.api.basepath}/creator/problems?offset=${offset}&limit=${limit}`,
         {

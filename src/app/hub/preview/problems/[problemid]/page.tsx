@@ -36,12 +36,12 @@ export default function Page({ params }: { params: { problemid: string } }) {
         return <ProblemPreviewLoading />;
     }
 
-    if (!problem || (error && error.status === 404)) {
-        return <ProblemNotFound />
+    if (error !== null && error.status !== 404) {
+        return <ErrorMessage message={error.error.message} />
     }
 
-    if (error !== null) {
-        return <ErrorMessage message={error.error.message} />
+    if (!problem || error) {
+        return <ProblemNotFound />
     }
 
     return (

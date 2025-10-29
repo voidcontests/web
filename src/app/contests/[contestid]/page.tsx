@@ -38,13 +38,14 @@ export default function Page({ params }: { params: { contestid: string } }) {
         return <ContestLoading />
     }
 
-    if (!contest || (error && error.status === 404)) {
+    if (error !== null && error.status !== 404) {
+        return <ErrorMessage message={error.error.message} />
+    }
+
+    if (!contest || error) {
         return <ContestNotFound />;
     }
 
-    if (error !== null) {
-        return <ErrorMessage message={error.error.message} />
-    }
 
     return (
         <ContentContainer>

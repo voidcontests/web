@@ -85,7 +85,7 @@ export function SubmitView({ problem }: { problem: ContestProblemDetailed }) {
                 <Button onClick={submit} disabled={code.trim().length === 0}>
                     SUBMIT
                 </Button>
-                {/*<SubmissionReport submission={submission} />*/}
+                <SubmissionReport submission={submission} />
             </div>
         </div>
     );

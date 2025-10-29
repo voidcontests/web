@@ -60,7 +60,11 @@ export default function Page({ params }: { params: { contestid: string, charcode
         return <ProblemLoading />;
     }
 
-    if (!contest || !problem || (error && error.status === 404)) {
+    if (error && error.status !== 404) {
+        return <ErrorMessage message={error.error.message} />
+    }
+
+    if (!contest || !problem || error) {
         if (!contest) {
             return <ContestNotFound />;
         }
@@ -68,10 +72,6 @@ export default function Page({ params }: { params: { contestid: string, charcode
         if (!problem) {
             return <ContestProblemNotFound />
         }
-    }
-
-    if (error !== null) {
-        return <ErrorMessage message={error.error.message} />
     }
 
     // TODO: clean this mess with `deadline_reached` and `Deadline` up

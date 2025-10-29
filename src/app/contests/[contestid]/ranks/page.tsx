@@ -36,12 +36,12 @@ export default function Page({ params }: { params: { contestid: string } }) {
         );
     }
 
-    if (error && error.status === 404) {
-        return <RanksNotFound />
+    if (error !== null && error.status !== 404) {
+        return <ErrorMessage message={error.error.message} />
     }
 
-    if (error !== null) {
-        return <ErrorMessage message={error.error.message} />
+    if (error) {
+        return <RanksNotFound />
     }
 
     return (
