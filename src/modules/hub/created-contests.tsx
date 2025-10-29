@@ -100,7 +100,7 @@ export default function CreatedContests() {
                                     }
                                 </TableCell>
                                 <TableCell>
-                                    <Link href={`/contests/${contest.id}/leaderboard`}>
+                                    <Link href={`/contests/${contest.id}/ranks`}>
                                         View
                                     </Link>
                                 </TableCell>

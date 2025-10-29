@@ -8,6 +8,8 @@ import Statement from '@/modules/problem/statement';
 import { MessageBox } from '@/components/message-box';
 import { ResultError } from '@/lib/client';
 import ProblemPreviewLoading from '@/components/loading/problem-preview';
+import ProblemNotFound from '@/modules/errors/problem-not-found';
+import ErrorMessage from '@/modules/errors/message';
 
 export default function Page({ params }: { params: { problemid: string } }) {
     const [problem, setProblem] = useState<ProblemDetailed | null>(null);
@@ -34,12 +36,12 @@ export default function Page({ params }: { params: { problemid: string } }) {
         return <ProblemPreviewLoading />;
     }
 
-    if (error != null) {
-        throw new Error(error.status >= 500 ? 'Something went wrong, try again later...' : 'Problem not found');
+    if (!problem || (error && error.status === 404)) {
+        return <ProblemNotFound />
     }
 
-    if (!problem) {
-        throw new Error('Something went wrong, try again later...');
+    if (error !== null) {
+        return <ErrorMessage message={error.error.message} />
     }
 
     return (

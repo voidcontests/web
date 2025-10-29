@@ -15,12 +15,16 @@ import { MessageBox } from '@/components/message-box';
 import If from '@/components/if';
 import { format } from 'date-fns';
 import Details from '@/modules/problem/details';
+import ErrorMessage from '@/modules/errors/message';
+import { ResultError } from '@/lib/client';
+import ContestNotFound from '@/modules/errors/contest-not-found';
+import ContestProblemNotFound from '@/modules/errors/contest-problem-not-found';
 
 export default function Page({ params }: { params: { contestid: string, charcode: string } }) {
     const [problem, setProblem] = useState<ContestProblemDetailed | null>(null);
     const [contest, setContest] = useState<ContestDetailed | null>(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<ResultError | null>(null);
 
     useEffect(() => {
         const load = async () => {
@@ -33,13 +37,13 @@ export default function Page({ params }: { params: { contestid: string, charcode
             ]);
 
             if (!rproblem.ok) {
-                setError(rproblem.error.message);
+                setError(rproblem);
                 setLoading(false);
                 return;
             }
 
             if (!rcontest.ok) {
-                setError(rcontest.error.message);
+                setError(rcontest);
                 setLoading(false);
                 return;
             }
@@ -56,8 +60,18 @@ export default function Page({ params }: { params: { contestid: string, charcode
         return <ProblemLoading />;
     }
 
-    if (!problem || !contest || error != null) {
-        throw new Error(capitalize(error ?? 'Contest or problem not found'));
+    if (!contest || !problem || (error && error.status === 404)) {
+        if (!contest) {
+            return <ContestNotFound />;
+        }
+
+        if (!problem) {
+            return <ContestProblemNotFound />
+        }
+    }
+
+    if (error !== null) {
+        return <ErrorMessage message={error.error.message} />
     }
 
     // TODO: clean this mess with `deadline_reached` and `Deadline` up

@@ -51,12 +51,7 @@ export function removeToken(): void {
 /**
  * Fetch with schema validation
  */
-export async function fetchWithSchema<T>(
-    url: string,
-    opts: RequestInit,
-    schema: z.ZodSchema<T>,
-    token?: string
-): Promise<Result<T>> {
+export async function fetchWithSchema<T>(url: string, opts: RequestInit, schema: z.ZodSchema<T>, token?: string): Promise<Result<T>> {
     const headers: Record<string, string> = {
         'Content-Type': 'application/json',
         ...(opts.headers as Record<string, string>),
@@ -118,11 +113,7 @@ export async function fetchWithSchema<T>(
 /**
  * Fetch with authentication
  */
-export async function fetchWithAuth<T>(
-    url: string,
-    opts: RequestInit,
-    schema: z.ZodSchema<T>
-): Promise<Result<T>> {
+export async function fetchWithAuth<T>(url: string, opts: RequestInit, schema: z.ZodSchema<T>): Promise<Result<T>> {
     const token = getToken();
     return fetchWithSchema(url, opts, schema, token);
 }

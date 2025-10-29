@@ -12,19 +12,21 @@ import { useEffect, useState } from "react";
 import { ContestDetailed } from "@/lib/api";
 import ContestLoading from "@/components/loading/contest";
 import StartingIn from "@/modules/contest/starting-in";
-import { capitalize } from "@/lib/strings";
+import { ResultError } from "@/lib/client";
+import ErrorMessage from "@/modules/errors/message";
+import ContestNotFound from "@/modules/errors/contest-not-found";
 
 export default function Page({ params }: { params: { contestid: string } }) {
-    const [contest, setContest] = useState<ContestDetailed | null>(null);
+    const [contest, setContest] = useState<ContestDetailed | null>();
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<ResultError | null>(null);
     const { account } = useAccount(); // TODO: handler error and loading
 
     useEffect(() => {
         (async () => {
             const rcontest = await getContestByID(params.contestid);
             if (!rcontest.ok) {
-                setError(rcontest.error.message);
+                setError(rcontest);
             } else {
                 setContest(rcontest.data);
             }
@@ -36,8 +38,12 @@ export default function Page({ params }: { params: { contestid: string } }) {
         return <ContestLoading />
     }
 
-    if (!contest || error !== null) {
-        throw new Error(capitalize(error ?? 'Contest not found'));
+    if (!contest || (error && error.status === 404)) {
+        return <ContestNotFound />;
+    }
+
+    if (error !== null) {
+        return <ErrorMessage message={error.error.message} />
     }
 
     return (
