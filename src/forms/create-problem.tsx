@@ -214,17 +214,26 @@ export default function CreateProblemForm() {
                         </div>
                     </div>
                     {fields.length === 0 && (
-                        <div className="text-sm text-secondary-foreground p-4 bg-surface rounded-lg border border-dashed">
-                            <p className="mb-2">You can upload a JSON file with test cases in the following format:</p>
-                            <pre className="text-xs bg-zinc-100 dark:bg-zinc-900 p-2 rounded overflow-x-auto">
-                                {EXAMPLE_TCS}
-                            </pre>
-                            <p className="mt-2 text-xs">
-                                <a href="/test-cases-example.json" download className="text-blue-400 hover:underline">
-                                    Download example file
-                                </a>
-                            </p>
-                        </div>
+                        <>
+                            <div className="text-sm text-secondary-foreground p-4 bg-surface rounded-lg border border-dashed">
+                                <p className="mb-2">You can upload a JSON file with test cases in the following format:</p>
+                                <pre className="text-xs bg-zinc-100 dark:bg-zinc-900 p-2 rounded overflow-x-auto">
+                                    {EXAMPLE_TCS}
+                                </pre>
+                                <p className="mt-2 text-xs">
+                                    <a href="/test-cases-example.json" download className="text-blue-400 hover:underline">
+                                        Download example file
+                                    </a>
+                                </p>
+                            </div>
+                            <div className='flex flex-row items-center gap-5'>
+                                <Separator />
+                                <span className='text-sm'>
+                                    OR
+                                </span>
+                                <Separator />
+                            </div>
+                        </>
                     )}
                     {!testCasesCollapsed && fields.map((field, index) => (
                         <div key={field.id} className={cn("flex flex-col gap-4 pb-4", (index !== watch('test_cases').length-1) && 'border-b')}>
