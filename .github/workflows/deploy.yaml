@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      IMAGE_NAME: ghcr.io/voidcontests/runner
+      IMAGE_NAME: ghcr.io/voidcontests/web
 
     steps:
       - name: Checkout code
