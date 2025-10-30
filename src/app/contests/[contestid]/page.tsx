@@ -1,51 +1,53 @@
-'use client';
-
 import Problemset from "@/modules/contest/problemset";
 import ContentContainer from "@/containers/content";
 import Overview from "@/modules/contest/overview";
 import Details from "@/modules/contest/details";
 import Setters from "@/modules/contest/setters";
 import AppliedStatus from "@/modules/contest/applied-status";
-import { useAccount } from "@/hooks/use-account";
-import { getContestByID } from "@/lib/api";
-import { useEffect, useState } from "react";
-import { ContestDetailed } from "@/lib/api";
-import ContestLoading from "@/components/loading/contest";
 import StartingIn from "@/modules/contest/starting-in";
-import { ResultError } from "@/lib/client";
 import ErrorMessage from "@/modules/errors/message";
 import ContestNotFound from "@/modules/errors/contest-not-found";
+import { fetchContestByID } from "@/actions/contests";
+import { fetchAccount } from "@/actions/account";
+import { Metadata } from "next";
 
-export default function Page({ params }: { params: { contestid: string } }) {
-    const [contest, setContest] = useState<ContestDetailed | null>();
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<ResultError | null>(null);
-    const { account } = useAccount(); // TODO: handler error and loading
+type Props = {
+    params: Promise<{ contestid: string }>;
+};
 
-    useEffect(() => {
-        (async () => {
-            const rcontest = await getContestByID(params.contestid);
-            if (!rcontest.ok) {
-                setError(rcontest);
-            } else {
-                setContest(rcontest.data);
-            }
-            setLoading(false);
-        })();
-    }, [params.contestid]);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { contestid } = await params;
+    const result = await fetchContestByID(contestid);
 
-    if (loading) {
-        return <ContestLoading />
+    if (!result.ok) {
+        return {
+            title: 'Contest Not Found \\ Void',
+        };
     }
 
-    if (error !== null && error.status !== 404) {
-        return <ErrorMessage message={error.error.message} />
-    }
+    return {
+        title: `${result.data.title} \\ Void`,
+    };
+}
 
-    if (!contest || error) {
+export default async function Page({ params }: Props) {
+    const { contestid } = await params;
+
+    const [contestResult, accountResult] = await Promise.all([
+        fetchContestByID(contestid),
+        fetchAccount(),
+    ]);
+
+    if (contestResult.status === 404) {
         return <ContestNotFound />;
     }
 
+    if (!contestResult.ok) {
+        return <ErrorMessage message={contestResult.error.message} />;
+    }
+
+    const contest = contestResult.data;
+    const account = accountResult.ok ? accountResult.data : null;
 
     return (
         <ContentContainer>

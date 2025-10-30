@@ -1,80 +1,62 @@
-'use client';
-
 import { SubmitView } from '@/modules/problem/submit-view';
 import ContentContainer from '@/containers/content';
 import SubmissionHistory from '@/modules/problem/submission-history';
 import Setters from '@/modules/problem/setters';
 import Problemset from '@/modules/contest/problemset-minimal';
-import { ContestProblemDetailed, ContestDetailed } from '@/lib/api';
-import { getContestByID, getContestProblem } from '@/lib/api';
-import { useEffect, useState } from 'react';
-import { capitalize } from '@/lib/strings';
 import Statement from '@/modules/problem/statement';
-import ProblemLoading from '@/components/loading/problem';
-import { MessageBox } from '@/components/message-box';
-import If from '@/components/if';
-import { format } from 'date-fns';
 import Details from '@/modules/problem/details';
 import ErrorMessage from '@/modules/errors/message';
-import { ResultError } from '@/lib/client';
 import ContestNotFound from '@/modules/errors/contest-not-found';
 import ContestProblemNotFound from '@/modules/errors/contest-problem-not-found';
+import { fetchContestByID, fetchContestProblem } from '@/actions/contests';
+import { DeadlineWarning } from '@/modules/problem/deadline-warning';
+import { Metadata } from 'next';
 
-export default function Page({ params }: { params: { contestid: string, charcode: string } }) {
-    const [problem, setProblem] = useState<ContestProblemDetailed | null>(null);
-    const [contest, setContest] = useState<ContestDetailed | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<ResultError | null>(null);
+type Props = {
+    params: Promise<{ contestid: string; charcode: string }>;
+};
 
-    useEffect(() => {
-        const load = async () => {
-            setLoading(true);
-            setError(null);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { contestid, charcode } = await params;
+    const result = await fetchContestProblem(contestid, charcode);
 
-            const [rproblem, rcontest] = await Promise.all([
-                getContestProblem(params.contestid, params.charcode),
-                getContestByID(params.contestid)
-            ]);
-
-            if (!rproblem.ok) {
-                setError(rproblem);
-                setLoading(false);
-                return;
-            }
-
-            if (!rcontest.ok) {
-                setError(rcontest);
-                setLoading(false);
-                return;
-            }
-
-            setProblem(rproblem.data);
-            setContest(rcontest.data);
-            setLoading(false);
+    if (!result.ok) {
+        return {
+            title: 'Problem Not Found \\ Void',
         };
-
-        load();
-    }, [params.contestid, params.charcode]);
-
-    if (loading) {
-        return <ProblemLoading />;
     }
 
-    if (error && error.status !== 404) {
-        return <ErrorMessage message={error.error.message} />
+    return {
+        title: `${result.data.charcode?.toUpperCase()}. ${result.data.title} \\ Void`,
+    };
+}
+
+export default async function Page({ params }: Props) {
+    const { contestid, charcode } = await params;
+
+    const [problemResult, contestResult] = await Promise.all([
+        fetchContestProblem(contestid, charcode),
+        fetchContestByID(contestid),
+    ]);
+
+    if (contestResult.status === 404) {
+        return <ContestNotFound />;
     }
 
-    if (!contest || !problem || error) {
-        if (!contest) {
-            return <ContestNotFound />;
-        }
-
-        if (!problem) {
-            return <ContestProblemNotFound />
-        }
+    if (problemResult.status === 404) {
+        return <ContestProblemNotFound />;
     }
 
-    // TODO: clean this mess with `deadline_reached` and `Deadline` up
+    if (!problemResult.ok) {
+        return <ErrorMessage message={problemResult.error.message} />;
+    }
+
+    if (!contestResult.ok) {
+        return <ErrorMessage message={contestResult.error.message} />;
+    }
+
+    const problem = problemResult.data;
+    const contest = contestResult.data;
     const deadline_reached = problem.submission_deadline !== undefined && (new Date()) > problem.submission_deadline;
 
     return (
@@ -83,35 +65,15 @@ export default function Page({ params }: { params: { contestid: string, charcode
                 <div className='col-span-9 flex flex-col gap-5'>
                     <DeadlineWarning deadline={problem.submission_deadline} />
                     <Statement problem={problem} />
-                    <If condition={!deadline_reached}>
-                        <SubmitView problem={problem} />
-                    </If>
-                    <SubmissionHistory contestID={params.contestid} charcode={params.charcode} />
+                    {!deadline_reached && <SubmitView problem={problem} />}
+                    <SubmissionHistory contestID={contestid} charcode={charcode} />
                 </div>
-                <div className='col-span-3 flex flex-col gap-5  sticky top-5 self-start'>
+                <div className='col-span-3 flex flex-col gap-5 sticky top-5 self-start'>
                     <Details problem={problem} />
                     <Problemset contest={contest} />
                     <Setters problem={problem} />
                 </div>
             </div>
         </ContentContainer>
-    );
-}
-
-
-function DeadlineWarning({ deadline }: { deadline?: Date }) {
-    if (!deadline) return null;
-
-    return (
-        <If condition={new Date() >= deadline}>
-            <MessageBox variant='warning'>
-                <span className='font-medium'>
-                    DEADLINE IS GONE
-                </span>
-                <span>
-                  {`You can no longer submit - the deadline for this problem was ${format(new Date(deadline), "d MMM, HH:mm")}.`}
-                </span>
-            </MessageBox>
-        </If>
     );
 }

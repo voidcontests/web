@@ -1,4 +1,7 @@
+'use client';
+
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/ui/tooltip";
+import { useEffect, useState } from "react";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -40,6 +43,16 @@ const format_relative = (date: Date): string => {
 }
 
 export function DateView({ date, relative = false }: { date: Date, relative?: boolean }) {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) {
+        return <span>-</span>;
+    }
+
     return (
         <TooltipProvider>
             <Tooltip>
