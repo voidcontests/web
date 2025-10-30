@@ -10,6 +10,7 @@ export function useAccount() {
     const [account, setAccount] = useState<Account | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [isAuthorized, setIsAuthorized] = useState(false);
 
     const fetchAccount = async () => {
         setLoading(true);
@@ -17,6 +18,7 @@ export function useAccount() {
         if (token === undefined || token === "") {
             setAccount(null);
             setError(null);
+            setIsAuthorized(false);
             setLoading(false);
             return;
         }
@@ -25,12 +27,14 @@ export function useAccount() {
         if (!result.ok) {
             setAccount(null);
             setError(result.error.message);
+            setIsAuthorized(false);
             setLoading(false);
             return;
         }
 
         setAccount(result.data);
         setError(null);
+        setIsAuthorized(true);
         setLoading(false);
     };
 
@@ -38,5 +42,5 @@ export function useAccount() {
         fetchAccount();
     }, []);
 
-    return { account, loading, error };
+    return { account, authorized: isAuthorized, loading, error };
 }

@@ -1,0 +1,15 @@
+import { cn } from "@/lib/utils";
+
+interface UsernameProps {
+    username: string;
+    className?: string;
+    withAt?: boolean;
+}
+
+export function Username({ username, className, withAt = true }: UsernameProps) {
+    return (
+        <span className={cn("inline-block max-w-[100px] truncate", className)}>
+            {withAt ? `@${username}` : username}
+        </span>
+    );
+}

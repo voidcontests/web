@@ -1,35 +1,27 @@
 'use client';
 
-import { getAccount, getCreatedContests, getCreatedProblems } from '@/lib/api';
-import ContentContainer from '@/components/content-container';
-import { TableTemplate } from '@/components/sections/loading';
-import HubMessage from '@/components/sections/hub-message';
-import { Separator } from '@/components/ui/separator';
-import { useEffect, useState } from 'react';
-import { Result, Account, Pagination, ContestListItem, ProblemListItem } from '@/lib/api';
-
-import dynamic from 'next/dynamic';
-const AdminContests = dynamic(() => import('@/components/sections/admin-contests'), { ssr: false, loading: () => <TableTemplate title='CONTESTS' /> });
-const AdminProblems = dynamic(() => import('@/components/sections/admin-problems'), { ssr: false, loading: () => <TableTemplate title='PROBLEMS' /> });
+import ContentContainer from "@/containers/content";
+import { useAccount } from "@/hooks/use-account";
+import HubMessage from "@/modules/hub/message";
+import { Separator } from "@/ui/separator";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import Loading from "@/components/loading/plug";
+import CreatedContests from "@/modules/hub/created-contests";
+import CreatedProblems from "@/modules/hub/created-problems";
 
 export default function Page() {
-    const [account, setAccount] = useState<Promise<Result<Account>> | null>(null);
-    const [contests, setContests] = useState<Promise<Result<Pagination<ContestListItem>>> | null>(null);
-    const [problems, setProblems] = useState<Promise<Result<Pagination<ProblemListItem>>> | null>(null);
+    const { account, authorized, loading } = useAccount();
+    const router = useRouter();
 
     useEffect(() => {
-        setAccount(getAccount());
-        setContests(getCreatedContests(0, 10));
-        setProblems(getCreatedProblems(0, 10));
-    }, []);
+        if (!loading && !authorized) {
+            router.push('/login?next=/hub');
+        }
+    }, [loading]);
 
-    if (!account || !contests || !problems) {
-        return (
-            <ContentContainer>
-                <TableTemplate title='CONTESTS' />
-                <TableTemplate title='PROBLEMS' />
-            </ContentContainer>
-        );
+    if (!account) {
+        return <Loading />
     }
 
     return (
@@ -44,8 +36,8 @@ export default function Page() {
                 </p>
             </div>
             <Separator />
-            <AdminContests account={account} contests={contests} />
-            <AdminProblems account={account} problems={problems} />
+            <CreatedContests />
+            <CreatedProblems />
         </ContentContainer>
-    );
+  );
 }

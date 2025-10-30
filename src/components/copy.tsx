@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export function Copy({ data }: { data: string }) {
+export default function Copy({ data }: { data: string }) {
     const [copied, setCopied] = useState(false);
 
     const onClick = () => {

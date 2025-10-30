@@ -40,11 +40,12 @@ export const AccountSchema = z.object({
 export const ContestProblemListItemSchema = z.object({
     id: z.number(),
     charcode: z.string().optional(),
-    contest_id: z.number().optional(),
     writer: UserSchema,
     title: z.string(),
     difficulty: z.string(),
     status: z.string().optional(),
+    time_limit_ms: z.number(),
+    memory_limit_mb: z.number(),
     created_at: z.coerce.date(),
 });
 
@@ -53,7 +54,6 @@ export const ContestProblemDetailedSchema = z.object({
     charcode: z.string(),
     contest_id: z.number(),
     writer: UserSchema,
-    kind: z.string(),
     title: z.string(),
     difficulty: z.string(),
     statement: z.string(),
@@ -62,6 +62,8 @@ export const ContestProblemDetailedSchema = z.object({
         .optional(),
     status: z.string().optional(),
     time_limit_ms: z.number(),
+    memory_limit_mb: z.number(),
+    submission_deadline: z.coerce.date().optional(),
     created_at: z.coerce.date(),
 });
 
@@ -97,32 +99,34 @@ export const ContestDetailedSchema = z.object({
     participants: z.number(),
     allow_late_join: z.boolean(),
     is_participant: z.boolean().optional(),
+    submission_deadline: z.coerce.date().optional(),
     problems: z.array(ContestProblemListItemSchema),
+    created_at: z.coerce.date(),
+});
+
+export const Test = z.object({
+    input: z.string(),
+    expected_output: z.string(),
+    actual_output: z.string(),
+});
+
+export const TestingReport = z.object({
+    id: z.number(),
+    passed_tests_count: z.number(),
+    total_tests_count: z.number(),
+    failed_test: Test.optional(),
+    stderr: z.string().optional(),
     created_at: z.coerce.date(),
 });
 
 export const SubmissionSchema = z.object({
     id: z.number(),
     problem_id: z.number(),
-    problem_kind: z.string(),
+    status: z.string(),
     verdict: z.string(),
-    answer: z.string().optional(),
     code: z.string().optional(),
     language: z.string().optional(),
-    testing_report: z
-        .object({
-            passed: z.number(),
-            total: z.number(),
-            stderr: z.string().optional(),
-            failed_test: z
-                .object({
-                    input: z.string(),
-                    expected_output: z.string(),
-                    actual_output: z.string(),
-                })
-                .optional(),
-        })
-        .optional(),
+    testing_report: TestingReport.optional(),
     created_at: z.coerce.date(),
 });
 
@@ -150,13 +154,14 @@ export const ProblemListItemSchema = z.object({
     writer: UserSchema,
     title: z.string(),
     difficulty: z.string(),
+    time_limit_ms: z.number(),
+    memory_limit_mb: z.number(),
     created_at: z.coerce.date(),
 });
 
 export const ProblemDetailedSchema = z.object({
     id: z.number(),
     writer: UserSchema,
-    kind: z.string(),
     title: z.string(),
     difficulty: z.string(),
     statement: z.string(),
@@ -164,6 +169,7 @@ export const ProblemDetailedSchema = z.object({
         .array(z.object({ input: z.string(), output: z.string() }))
         .optional(),
     time_limit_ms: z.number(),
+    memory_limit_mb: z.number(),
     created_at: z.coerce.date(),
 });
 

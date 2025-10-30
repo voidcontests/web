@@ -1,17 +1,20 @@
-import { forwardRef } from "react";
+import { forwardRef, HTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-interface CodeProps extends React.HTMLAttributes<HTMLSpanElement> {
-    children?: React.ReactNode;
+interface CodeProps extends HTMLAttributes<HTMLSpanElement> {
+    children?: ReactNode;
 }
 
-export const Code = forwardRef<HTMLSpanElement, CodeProps>(({ className, ...props }, ref) => (
+const Code = forwardRef<HTMLSpanElement, CodeProps>(({ className, ...props }, ref) => (
     <span
         className={cn(
-            'font-mono whitespace-pre-wrap',
+            'font-mono whitespace-pre-wrap break-words overflow-wrap-anywhere',
             className,
         )}
         {...props}
         ref={ref}
     />
 ));
+Code.displayName = 'Code';
+
+export default Code;

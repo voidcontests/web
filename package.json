@@ -4,12 +4,14 @@
     "type": "module",
     "private": true,
     "scripts": {
-        "dev": "next dev",
-        "local": "bun run up && next dev && bun run down",
+        "dev": "next dev --port 3909",
+        "dev:up": "bun run up && next dev --port 3909 && bun run down",
+        "dev:up:build": "bun run up:build && next dev --port 3909 && bun run down",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
         "up": "docker compose -f ../infra/docker-compose.yaml --profile backend up -d",
+        "up:build": "docker compose -f ../infra/docker-compose.yaml --profile backend up --build -d",
         "down": "docker compose -f ../infra/docker-compose.yaml --profile backend down"
     },
     "dependencies": {
@@ -51,7 +53,8 @@
         "tailwindcss-animate": "^1.0.7",
         "unified": "^11.0.5",
         "vaul": "^1.1.2",
-        "zod": "^4.0.5"
+        "zod": "^4.0.5",
+        "zustand": "^5.0.8"
     },
     "devDependencies": {
         "@tailwindcss/postcss": "^4.0.0",
