@@ -18,16 +18,25 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { contestid, charcode } = await params;
-    const result = await fetchContestProblem(contestid, charcode);
+    const [contest, problem] = await Promise.all([
+        fetchContestByID(contestid),
+        fetchContestProblem(contestid, charcode),
+    ]);
 
-    if (!result.ok) {
+    if (!problem.ok) {
         return {
             title: 'Problem Not Found \\ Void',
         };
     }
 
+    if (!contest.ok) {
+        return {
+            title: 'Contest Not Found \\ Void',
+        };
+    }
+
     return {
-        title: `${result.data.charcode?.toUpperCase()}. ${result.data.title} \\ Void`,
+        title: `${problem.data.charcode?.toUpperCase()}. ${problem.data.title} - ${contest.data.title} \\ Void`,
     };
 }
 

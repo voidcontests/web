@@ -15,7 +15,7 @@ function isContestProblem(problem: ContestProblemDetailed | ProblemDetailed): pr
 export default function Statement({ problem }: StatementProps) {
     const points = problem.difficulty === 'easy' ? 1 : problem.difficulty === 'mid' ? 2 : 3;
     const title = isContestProblem(problem)
-        ? `${problem.charcode}/ ${problem.title}`
+        ? `${problem.charcode}. ${problem.title}`
         : problem.title;
 
     return (
