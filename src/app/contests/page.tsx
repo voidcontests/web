@@ -3,6 +3,7 @@ import ContentContainer from '@/containers/content';
 import { Metadata } from 'next';
 import { fetchAllContests } from '@/actions/contests';
 import { redirect } from 'next/navigation';
+import ErrorMessage from '@/modules/errors/message';
 
 export const metadata: Metadata = {
     title: 'Contests \\ Void',
@@ -28,7 +29,7 @@ export default async function ContestsPage({ searchParams }: ContestsPageProps) 
     if (!result.ok) {
         return (
             <ContentContainer>
-                <div>Error loading contests: {result.error.message}</div>
+                <ErrorMessage title='Failed to fetch contests' message={result.error.message}/>
             </ContentContainer>
         );
     }
