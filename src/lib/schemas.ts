@@ -39,13 +39,14 @@ export const AccountSchema = z.object({
 
 export const ContestProblemListItemSchema = z.object({
     id: z.number(),
-    charcode: z.string().optional(),
+    charcode: z.string(),
     writer: UserSchema,
     title: z.string(),
     difficulty: z.string(),
     status: z.string().optional(),
     time_limit_ms: z.number(),
     memory_limit_mb: z.number(),
+    checker: z.string(),
     created_at: z.coerce.date(),
 });
 
@@ -63,6 +64,7 @@ export const ContestProblemDetailedSchema = z.object({
     status: z.string().optional(),
     time_limit_ms: z.number(),
     memory_limit_mb: z.number(),
+    checker: z.string(),
     submission_deadline: z.coerce.date().optional(),
     created_at: z.coerce.date(),
 });
@@ -75,6 +77,8 @@ export const ContestListItemSchema = z.object({
     id: z.number(),
     creator: UserSchema,
     title: z.string(),
+    award_type: z.string(),
+    entry_price_ton_nanos: z.number(),
     start_time: z.coerce.date(),
     end_time: z.coerce.date(),
     duration_mins: z.number(),
@@ -87,11 +91,18 @@ export const ContestListSchema = z.object({
     data: z.array(ContestListItemSchema),
 });
 
+export const PrizesSchema = z.object({
+    ton_nanos: z.number(),
+});
+
 export const ContestDetailedSchema = z.object({
     id: z.number(),
     creator: UserSchema,
     title: z.string(),
     description: z.string(),
+    award_type: z.string(),
+    entry_price_ton_nanos: z.number(),
+    address: z.string().optional(),
     start_time: z.coerce.date(),
     end_time: z.coerce.date(),
     duration_mins: z.number(),
@@ -101,6 +112,7 @@ export const ContestDetailedSchema = z.object({
     is_participant: z.boolean().optional(),
     submission_deadline: z.coerce.date().optional(),
     problems: z.array(ContestProblemListItemSchema),
+    prizes: PrizesSchema,
     created_at: z.coerce.date(),
 });
 
@@ -156,6 +168,7 @@ export const ProblemListItemSchema = z.object({
     difficulty: z.string(),
     time_limit_ms: z.number(),
     memory_limit_mb: z.number(),
+    checker: z.string(),
     created_at: z.coerce.date(),
 });
 
@@ -170,9 +183,21 @@ export const ProblemDetailedSchema = z.object({
         .optional(),
     time_limit_ms: z.number(),
     memory_limit_mb: z.number(),
+    checker: z.string(),
     created_at: z.coerce.date(),
 });
 
 export const ProblemListSchema = z.object({
     data: z.array(ProblemListItemSchema),
+});
+
+export const EntrySchema = z.object({
+    id: z.number(),
+    contest_id: z.number(),
+    user_id: z.number(),
+    is_paid: z.boolean(),
+    tx_hash: z.string().optional(),
+    is_admitted: z.boolean(),
+    message: z.string().optional(),
+    created_at: z.coerce.date(),
 });
