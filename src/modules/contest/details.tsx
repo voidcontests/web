@@ -4,6 +4,8 @@ import { Widget, WidgetContent, WidgetTitle, } from "@/ui/widget";
 import { ContestDetailed } from "@/lib/models";
 import { DateView } from "@/components/date";
 import Timer from "@/components/timer";
+import Address from "@/components/address";
+import TonPrizes from "@/components/ton-prizes";
 
 export default function Details({ contest }: { contest: ContestDetailed }) {
     return (
@@ -39,20 +41,49 @@ export default function Details({ contest }: { contest: ContestDetailed }) {
                         </div>
                     </div>
                 }
+                {
+                    contest.address &&
+                    <div className="flex">
+                        <div className="flex-1 text-secondary-foreground">
+                            Address
+                        </div>
+                        <div className="flex-1">
+                            <Address address={contest.address} length={4} />
+                        </div>
+                    </div>
+                }
+                {
+                    contest.prizes.ton_nanos >= 0 &&
+                    <div className="flex">
+                        <div className="flex-1 text-secondary-foreground">
+                            Prizes
+                        </div>
+                        <div className="flex-1">
+                            <TonPrizes nanos={contest.prizes.ton_nanos} />
+                        </div>
+                    </div>
+                }
+                {
+                    contest.entry_price_ton_nanos >= 0 &&
+                    <div className="flex">
+                        <div className="flex-1 text-secondary-foreground">
+                            Pay for entry
+                        </div>
+                        <div className="flex-1">
+                            <TonPrizes nanos={contest.entry_price_ton_nanos} />
+                        </div>
+                    </div>
+                }
                 <div className="flex">
                     <div className="flex-1 text-secondary-foreground">
                         Participants
                     </div>
                     <div className="flex-1">
-                        {contest.participants}
-                    </div>
-                </div>
-                <div className="flex">
-                    <div className="flex-1 text-secondary-foreground">
-                        Total seats
-                    </div>
-                    <div className="flex-1">
-                        {contest.max_entries || 'Not limited'}
+                        {
+                            contest.max_entries === undefined
+                                ? contest.participants
+                                : `${contest.participants}/${contest.max_entries}`
+                        }
                     </div>
                 </div>
             </WidgetContent>

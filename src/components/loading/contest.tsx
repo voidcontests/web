@@ -56,14 +56,6 @@ export default function ContestLoading() {
                                         <Skeleton className="h-4 w-[35px]" />
                                     </div>
                                 </div>
-                                <div className="flex h-5">
-                                    <div className="flex-1 text-secondary-foreground">
-                                        Total seats
-                                    </div>
-                                    <div className="flex-1">
-                                        <Skeleton className="h-4 w-[70px]" />
-                                    </div>
-                                </div>
                             </WidgetContent>
                         </Widget>
                         <TableTemplate title="SETTERS" caption='Loading...' />
