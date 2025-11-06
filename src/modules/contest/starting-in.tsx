@@ -12,7 +12,7 @@ export default function StartingIn({ contest }: { contest: ContestDetailed }) {
         <div className="flex flex-col items-center mt-12">
             <div className='flex flex-col items-center'>
                 <div className="text-secondary-foreground text-lg">
-                    STARTING IN
+                    Starting In
                 </div>
                 <Timer className='text-4xl font-medium' target={start_time} onComplete={() => window.location.reload()} />
             </div>

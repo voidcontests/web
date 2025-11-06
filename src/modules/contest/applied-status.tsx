@@ -1,13 +1,17 @@
 'use client';
 
-import { Account, ContestDetailed } from "@/lib/models";
+import { Account, ContestDetailed, Entry } from "@/lib/models";
 import { Button } from "@/ui/button";
 import { toast } from "@/components/toast";
 import { createEntry } from "@/lib/api";
 import Link from "next/link";
+import { useState } from "react";
+import { Dialog, DialogContent, DialogTrigger } from "@/ui/dialog";
+import { QRCodeSVG } from "qrcode.react";
 
-export default function AppliedStatus({ account, contest }: { account: Account | null, contest: ContestDetailed }) {
+export default function AppliedStatus({ account, contest, entry }: { account: Account | null, contest: ContestDetailed, entry: Entry | null }) {
     const start_time = new Date(contest.start_time);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     if (account === null) {
         return (
@@ -16,6 +20,49 @@ export default function AppliedStatus({ account, contest }: { account: Account |
                     Sign in to apply
                 </Link>
             </Button>
+        );
+    }
+
+    const apply = async () => {
+        try {
+            await createEntry(contest.id);
+            window.location.reload();
+        } catch (e) {
+            toast({ title: 'Something went wrong. Try again leter' });
+        }
+    }
+
+    if (entry === null) {
+        return (
+            <Button variant="link" onClick={apply}>APPLY</Button>
+        );
+    }
+
+    if (contest.award_type === 'pool' && entry.is_paid === false) {
+        const paymentUrl = `ton://transfer/${contest.address}?amount=${contest.entry_price_ton_nanos}&text=Pay+for+entry`;
+
+        return (
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogTrigger asChild>
+                    <Button variant="link">
+                        Pay for entry
+                    </Button>
+                </DialogTrigger>
+                <DialogContent>
+                    <div className="flex flex-col items-center gap-6 p-6">
+                        <h2 className="text-xl font-medium">Pay for Entry</h2>
+                        <div className="bg-white p-4 rounded-xl">
+                            <QRCodeSVG
+                                value={paymentUrl}
+                                size={256}
+                            />
+                        </div>
+                        <p className="text-sm text-center text-muted-foreground max-w-md">
+                            Scan this QR code to process payment
+                        </p>
+                    </div>
+                </DialogContent>
+            </Dialog>
         );
     }
 
@@ -37,15 +84,6 @@ export default function AppliedStatus({ account, contest }: { account: Account |
         return (
             <span className="text-center font-medium">There is no available slots to join.</span>
         );
-    }
-
-    const apply = async () => {
-        try {
-            await createEntry(contest.id);
-            window.location.reload();
-        } catch (e) {
-            toast({ title: 'Something went wrong. Try again leter' });
-        }
     }
 
     return (

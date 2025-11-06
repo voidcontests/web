@@ -6,6 +6,7 @@
       "dependencies": {
         "@hookform/resolvers": "^3.10.0",
         "@radix-ui/react-checkbox": "^1.1.4",
+        "@radix-ui/react-dialog": "^1.1.15",
         "@radix-ui/react-dropdown-menu": "^2.1.4",
         "@radix-ui/react-label": "^2.1.2",
         "@radix-ui/react-popover": "^1.1.6",
@@ -28,6 +29,7 @@
         "marked-highlight": "^2.2.1",
         "next": "14.2.32",
         "next-themes": "^0.4.4",
+        "qrcode.react": "^4.2.0",
         "react": "^18",
         "react-day-picker": "8.10.1",
         "react-dom": "^18",
@@ -462,6 +464,8 @@
     "property-information": ["property-information@7.1.0", "", {}, "sha512-TwEZ+X+yCJmYfL7TPUOcvBZ4QfoT5YenQiJuX//0th53DE6w0xxLEtfK3iyryQFddXuvkIk51EEgrJQ0WJkOmQ=="],
 
     "proxy-from-env": ["proxy-from-env@1.1.0", "", {}, "sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg=="],
+
+    "qrcode.react": ["qrcode.react@4.2.0", "", { "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-QpgqWi8rD9DsS9EP3z7BT+5lY5SFhsqGjpgW5DY/i3mK4M9DTBNz3ErMi8BWYEfI3L0d8GIbGmcdFAS1uIRGjA=="],
 
     "react": ["react@18.3.1", "", { "dependencies": { "loose-envify": "^1.1.0" } }, "sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ=="],
 

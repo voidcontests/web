@@ -5,6 +5,7 @@ import {
     ContestListItemSchema,
     ContestListSchema,
     EntityIDSchema,
+    EntrySchema,
     ErrorSchema,
     LeaderboardItemSchema,
     LeaderboardSchema,
@@ -50,3 +51,5 @@ export type Error = z.infer<typeof ErrorSchema>;
 export type ProblemList = z.infer<typeof ProblemListSchema>;
 export type ProblemListItem = z.infer<typeof ProblemListItemSchema>;
 export type ProblemDetailed = z.infer<typeof ProblemDetailedSchema>;
+
+export type Entry = z.infer<typeof EntrySchema>;

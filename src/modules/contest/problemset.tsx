@@ -2,15 +2,16 @@
 
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle } from '@/ui/table';
 import Difficulty from '@/components/difficulty';
-import { Account, ContestDetailed } from '@/lib/models';
+import { ContestDetailed, Entry } from '@/lib/models';
 import { Link } from '@/ui/link';
 import { capitalize } from '@/lib/strings';
 import TimeLimit from '@/modules/problem/time-limit';
 import MemoryLimit from '@/modules/problem/memory-limit';
 
-export default function Problemset({ contest, account }: { contest: ContestDetailed, account: Account | null }) {
+export default function Problemset({ contest, entry }: { contest: ContestDetailed, entry: Entry | null }) {
     const problemset = contest.problems;
     const started = new Date(contest.start_time) < new Date();
+    const is_admitted = entry?.is_admitted === true;
 
     return (
         <TableContainer>
@@ -37,7 +38,7 @@ export default function Problemset({ contest, account }: { contest: ContestDetai
                                 </TableCell>
                                 <TableCell>
                                     {
-                                        started && (contest.is_participant || (account && contest.is_participant))
+                                        started && is_admitted
                                             ? <Link
                                                 href={`/contests/${contest.id}/problems/${problem.charcode}`}
                                                 className='flex-1 truncate w-0 max-w-fit'
