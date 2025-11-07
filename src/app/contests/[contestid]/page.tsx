@@ -47,9 +47,12 @@ export default async function Page({ params }: Props) {
         return <ErrorMessage message={contestResult.error.message} />;
     }
 
+    if (!entryResult.ok && entryResult.status !== 404) {
+        return <ErrorMessage message={entryResult.error.message} />;
+    }
+
     const contest = contestResult.data;
     const account = accountResult.ok ? accountResult.data : null;
-    console.log(entryResult);
     const entry = entryResult.ok ? entryResult.data : null;
 
     return (

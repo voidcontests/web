@@ -24,14 +24,15 @@ export default function PublicContests({ contests, total, offset }: Props) {
             <Table>
                 <TableHeader>
                     <TableHeaderRow>
-                        <TableHead className='w-32'>ID</TableHead>
+                        <TableHead>ID</TableHead>
                         <TableHead>Title</TableHead>
-                        <TableHead className='w-32'>Host</TableHead>
-                        <TableHead className='w-32'>Start</TableHead>
-                        <TableHead className='w-32'>End</TableHead>
-                        <TableHead className='w-32'>Duration</TableHead>
-                        <TableHead className='w-32'>Participants</TableHead>
-                        <TableHead className='w-32'>Total slots</TableHead>
+                        <TableHead className='w-30'>Host</TableHead>
+                        <TableHead className='w-30'>Award</TableHead>
+                        <TableHead className='w-30'>Start</TableHead>
+                        <TableHead className='w-30'>End</TableHead>
+                        <TableHead className='w-30'>Duration</TableHead>
+                        <TableHead className='w-30'>Participants</TableHead>
+                        <TableHead className='w-30'>Total slots</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
                 <TableBody>
@@ -46,6 +47,7 @@ export default function PublicContests({ contests, total, offset }: Props) {
                             <TableCell>
                                 <Username username={contest.creator.username} />
                             </TableCell>
+                            <TableCell>{contest.award_type}</TableCell>
                             <TableCell>
                                 <DateView date={contest.start_time} />
                             </TableCell>

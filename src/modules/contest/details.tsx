@@ -42,7 +42,7 @@ export default function Details({ contest }: { contest: ContestDetailed }) {
                     </div>
                 }
                 {
-                    contest.address &&
+                    contest.award_type !== 'no' && contest.address && <>
                     <div className="flex">
                         <div className="flex-1 text-secondary-foreground">
                             Address
@@ -51,9 +51,6 @@ export default function Details({ contest }: { contest: ContestDetailed }) {
                             <Address address={contest.address} length={4} />
                         </div>
                     </div>
-                }
-                {
-                    contest.prizes.ton_nanos >= 0 &&
                     <div className="flex">
                         <div className="flex-1 text-secondary-foreground">
                             Prizes
@@ -62,9 +59,6 @@ export default function Details({ contest }: { contest: ContestDetailed }) {
                             <TonPrizes nanos={contest.prizes.ton_nanos} />
                         </div>
                     </div>
-                }
-                {
-                    contest.entry_price_ton_nanos >= 0 &&
                     <div className="flex">
                         <div className="flex-1 text-secondary-foreground">
                             Pay for entry
@@ -72,7 +66,7 @@ export default function Details({ contest }: { contest: ContestDetailed }) {
                         <div className="flex-1">
                             <TonPrizes nanos={contest.entry_price_ton_nanos} />
                         </div>
-                    </div>
+                    </div></>
                 }
                 <div className="flex">
                     <div className="flex-1 text-secondary-foreground">
