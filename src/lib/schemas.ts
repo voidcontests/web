@@ -95,6 +95,27 @@ export const PrizesSchema = z.object({
     ton_nanos: z.number(),
 });
 
+export const PaymentSchema = z.object({
+  tx_hash: z.string(),
+  created_at: z.coerce.date(),
+});
+
+export const EntrySchema = z.discriminatedUnion("is_paid", [
+  z.object({
+    is_admitted: z.boolean(),
+    message: z.string().optional(),
+    is_paid: z.literal(false),
+    created_at: z.coerce.date(),
+  }),
+  z.object({
+    is_admitted: z.boolean(),
+    message: z.string().optional(),
+    is_paid: z.literal(true),
+    created_at: z.coerce.date(),
+    payment: PaymentSchema,
+  }),
+]);
+
 export const ContestDetailedSchema = z.object({
     id: z.number(),
     creator: UserSchema,
@@ -111,6 +132,7 @@ export const ContestDetailedSchema = z.object({
     allow_late_join: z.boolean(),
     is_participant: z.boolean().optional(),
     submission_deadline: z.coerce.date().optional(),
+    entry: EntrySchema.optional(),
     problems: z.array(ContestProblemListItemSchema),
     prizes: PrizesSchema,
     created_at: z.coerce.date(),
@@ -189,15 +211,4 @@ export const ProblemDetailedSchema = z.object({
 
 export const ProblemListSchema = z.object({
     data: z.array(ProblemListItemSchema),
-});
-
-export const EntrySchema = z.object({
-    id: z.number(),
-    contest_id: z.number(),
-    user_id: z.number(),
-    is_paid: z.boolean(),
-    tx_hash: z.string().optional(),
-    is_admitted: z.boolean(),
-    message: z.string().optional(),
-    created_at: z.coerce.date(),
 });

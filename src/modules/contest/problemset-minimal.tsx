@@ -5,10 +5,10 @@ import SolvedStatus from '@/components/solved-status';
 import { ContestDetailed, Entry } from '@/lib/models';
 import { Link } from '@/ui/link';
 
-export default function ProblemsetMinimal({ contest, entry }: { contest: ContestDetailed, entry: Entry | null }) {
+export default function ProblemsetMinimal({ contest }: { contest: ContestDetailed }) {
     const problemset = contest.problems;
     const started = new Date(contest.start_time) < new Date();
-    const is_admitted = entry?.is_admitted === true;
+    const is_admitted = contest.entry?.is_admitted === true;
 
     return (
         <TableContainer>

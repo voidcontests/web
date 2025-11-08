@@ -1,6 +1,6 @@
 'use client';
 
-import { Account, ContestDetailed, Entry } from "@/lib/models";
+import { Account, ContestDetailed } from "@/lib/models";
 import { Button } from "@/ui/button";
 import { toast } from "@/components/toast";
 import { createEntry } from "@/lib/api";
@@ -9,7 +9,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/ui/dialog";
 import { QRCodeSVG } from "qrcode.react";
 
-export default function AppliedStatus({ account, contest, entry }: { account: Account | null, contest: ContestDetailed, entry: Entry | null }) {
+export default function AppliedStatus({ account, contest }: { account: Account | null, contest: ContestDetailed }) {
     const start_time = new Date(contest.start_time);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -23,6 +23,18 @@ export default function AppliedStatus({ account, contest, entry }: { account: Ac
         );
     }
 
+    if (new Date() > start_time && !contest.allow_late_join) {
+        return (
+            <span className="text-center font-medium">Application time is over.</span>
+        );
+    }
+
+    if (contest.max_entries && contest.participants >= contest.max_entries) {
+        return (
+            <span className="text-center font-medium">There is no available slots to join.</span>
+        );
+    }
+
     const apply = async () => {
         try {
             await createEntry(contest.id);
@@ -32,14 +44,15 @@ export default function AppliedStatus({ account, contest, entry }: { account: Ac
         }
     }
 
-    if (entry === null) {
+    if (!contest.entry) {
         return (
             <Button variant="link" onClick={apply}>APPLY</Button>
         );
     }
 
-    if (contest.award_type === 'pool' && entry.is_paid === false) {
-        const paymentUrl = `ton://transfer/${contest.address}?amount=${contest.entry_price_ton_nanos}&text=Pay+for+entry`;
+    if (contest.award_type === 'pool' && contest.entry?.is_paid === false) {
+        const comment = `contests.fckn.engineer: Pay for entry to contest with ID: ${contest.id}`.replaceAll(" ", "%20");
+        const paymentUrl = `ton://transfer/${contest.address}?amount=${contest.entry_price_ton_nanos}&text=${comment}`;
 
         return (
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -72,18 +85,6 @@ export default function AppliedStatus({ account, contest, entry }: { account: Ac
         }
 
         return <span className="text-center font-medium">You are participating!</span>;
-    }
-
-    if (new Date() > start_time && !contest.allow_late_join) {
-        return (
-            <span className="text-center font-medium">Application time is over.</span>
-        );
-    }
-
-    if (contest.max_entries && contest.participants >= contest.max_entries) {
-        return (
-            <span className="text-center font-medium">There is no available slots to join.</span>
-        );
     }
 
     return (

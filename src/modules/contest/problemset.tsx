@@ -8,10 +8,10 @@ import { capitalize } from '@/lib/strings';
 import TimeLimit from '@/modules/problem/time-limit';
 import MemoryLimit from '@/modules/problem/memory-limit';
 
-export default function Problemset({ contest, entry }: { contest: ContestDetailed, entry: Entry | null }) {
+export default function Problemset({ contest }: { contest: ContestDetailed }) {
     const problemset = contest.problems;
     const started = new Date(contest.start_time) < new Date();
-    const is_admitted = entry?.is_admitted === true;
+    const is_admitted = contest.entry?.is_admitted === true;
 
     return (
         <TableContainer>

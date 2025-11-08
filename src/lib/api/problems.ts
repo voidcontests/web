@@ -23,7 +23,7 @@ export async function createProblem(data: CreateProblemFormData): Promise<Result
 
 export async function getCreatedProblems(offset: number, limit: number): Promise<Result<Pagination<ProblemListItem>>> {
     return fetchWithAuth(
-        `${config.api.basepath}/creator/problems?offset=${offset}&limit=${limit}`,
+        `${config.api.basepath}/account/problems?offset=${offset}&limit=${limit}`,
         {
             method: 'GET',
         },
@@ -41,12 +41,7 @@ export async function getProblemByID(id: ID): Promise<Result<ProblemDetailed>> {
     );
 }
 
-export async function getProblemSubmissions(
-    contestID: ID,
-    charcode: string,
-    offset: number,
-    limit: number
-): Promise<Result<Pagination<Submission>>> {
+export async function getProblemSubmissions(contestID: ID, charcode: string, offset: number, limit: number): Promise<Result<Pagination<Submission>>> {
     return fetchWithAuth(
         `${config.api.basepath}/contests/${contestID}/problems/${charcode}/submissions?offset=${offset}&limit=${limit}`,
         {
@@ -56,12 +51,7 @@ export async function getProblemSubmissions(
     );
 }
 
-export async function submitSolution(
-    contestID: ID,
-    charcode: string,
-    code: string,
-    language: string
-): Promise<Result<Submission>> {
+export async function submitSolution(contestID: ID, charcode: string, code: string, language: string): Promise<Result<Submission>> {
     return fetchWithAuth(
         `${config.api.basepath}/contests/${contestID}/problems/${charcode}/submissions`,
         {

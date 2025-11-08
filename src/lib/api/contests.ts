@@ -39,10 +39,7 @@ export async function createContest(data: CreateContestFormData): Promise<Result
     );
 }
 
-export async function getContestProblem(
-    cid: ID,
-    charcode: string
-): Promise<Result<ContestProblemDetailed>> {
+export async function getContestProblem(cid: ID, charcode: string): Promise<Result<ContestProblemDetailed>> {
     return fetchWithAuth(
         `${config.api.basepath}/contests/${cid}/problems/${charcode}`,
         { method: 'GET' },
@@ -50,12 +47,9 @@ export async function getContestProblem(
     );
 }
 
-export async function getCreatedContests(
-    offset: number,
-    limit: number
-): Promise<Result<Pagination<ContestListItem>>> {
+export async function getCreatedContests(offset: number, limit: number): Promise<Result<Pagination<ContestListItem>>> {
     return fetchWithAuth(
-        `${config.api.basepath}/creator/contests?offset=${offset}&limit=${limit}`,
+        `${config.api.basepath}/account/contests?offset=${offset}&limit=${limit}`,
         { method: 'GET' },
         PaginationSchema(ContestListItemSchema)
     );
@@ -77,9 +71,7 @@ export async function getContestByID(cid: ID): Promise<Result<ContestDetailed>> 
     );
 }
 
-export async function getLeaderboard(
-    cid: ID
-): Promise<Result<Pagination<LeaderboardItem>>> {
+export async function getLeaderboard(cid: ID): Promise<Result<Pagination<LeaderboardItem>>> {
     return fetchWithAuth(
         `${config.api.basepath}/contests/${cid}/leaderboard`,
         { method: 'GET' },
@@ -87,10 +79,7 @@ export async function getLeaderboard(
     );
 }
 
-export async function getAllContests(
-    offset: number,
-    limit: number
-): Promise<Result<Pagination<ContestListItem>>> {
+export async function getAllContests(offset: number, limit: number): Promise<Result<Pagination<ContestListItem>>> {
     return fetchWithAuth(
         `${config.api.basepath}/contests?offset=${offset}&limit=${limit}`,
         { method: 'GET' },

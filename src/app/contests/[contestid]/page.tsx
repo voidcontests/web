@@ -7,7 +7,7 @@ import AppliedStatus from "@/modules/contest/applied-status";
 import StartingIn from "@/modules/contest/starting-in";
 import ErrorMessage from "@/modules/errors/message";
 import ContestNotFound from "@/modules/errors/contest-not-found";
-import { fetchContestByID, fetchContestEntry } from "@/actions/contests";
+import { fetchContestByID } from "@/actions/contests";
 import { fetchAccount } from "@/actions/account";
 import { Metadata } from "next";
 
@@ -33,10 +33,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
     const { contestid } = await params;
 
-    const [contestResult, accountResult, entryResult] = await Promise.all([
+    const [contestResult, accountResult] = await Promise.all([
         fetchContestByID(contestid),
         fetchAccount(),
-        fetchContestEntry(contestid),
     ]);
 
     if (contestResult.status === 404) {
@@ -47,27 +46,22 @@ export default async function Page({ params }: Props) {
         return <ErrorMessage message={contestResult.error.message} />;
     }
 
-    if (!entryResult.ok && entryResult.status !== 404) {
-        return <ErrorMessage message={entryResult.error.message} />;
-    }
-
     const contest = contestResult.data;
     const account = accountResult.ok ? accountResult.data : null;
-    const entry = entryResult.ok ? entryResult.data : null;
 
     return (
         <ContentContainer>
             <div className="grid grid-cols-12 gap-5">
                 <div className="col-span-9 flex flex-col gap-5">
                     <Overview contest={contest} />
-                    <Problemset contest={contest} entry={entry} />
+                    <Problemset contest={contest} />
                     <StartingIn contest={contest} />
                 </div>
                 <div className="col-span-3">
                     <div className="flex flex-col gap-5">
                         <Details contest={contest} />
                         <Setters contest={contest} />
-                        <AppliedStatus contest={contest} account={account} entry={entry} />
+                        <AppliedStatus contest={contest} account={account} />
                     </div>
                 </div>
             </div>

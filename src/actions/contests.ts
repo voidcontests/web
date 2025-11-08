@@ -48,18 +48,3 @@ export async function fetchContestProblem(contestID: string, charcode: string): 
         token
     );
 }
-
-export async function fetchContestEntry(contestID: string): Promise<Result<Entry>> {
-    const cookieStore = cookies();
-    const token = cookieStore.get('token')?.value;
-
-    return fetchWithSchema(
-        `${config.api.basepath}/contests/${contestID}/entry`,
-        {
-            method: 'GET',
-            cache: 'no-store'
-        },
-        EntrySchema,
-        token
-    );
-}

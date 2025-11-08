@@ -8,9 +8,10 @@ import Details from '@/modules/problem/details';
 import ErrorMessage from '@/modules/errors/message';
 import ContestNotFound from '@/modules/errors/contest-not-found';
 import ContestProblemNotFound from '@/modules/errors/contest-problem-not-found';
-import { fetchContestByID, fetchContestEntry, fetchContestProblem } from '@/actions/contests';
+import { fetchContestByID, fetchContestProblem } from '@/actions/contests';
 import { DeadlineWarning } from '@/modules/problem/deadline-warning';
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
 type Props = {
     params: Promise<{ contestid: string; charcode: string }>;
@@ -43,14 +44,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
     const { contestid, charcode } = await params;
 
-    const [problemResult, contestResult, entryResult] = await Promise.all([
+    const [problemResult, contestResult] = await Promise.all([
         fetchContestProblem(contestid, charcode),
         fetchContestByID(contestid),
-        fetchContestEntry(contestid),
     ]);
 
     if (contestResult.status === 404) {
         return <ContestNotFound />;
+    }
+
+    if (!contestResult.ok) {
+        return <ErrorMessage message={contestResult.error.message} />;
+    }
+
+    const contest = contestResult.data;
+    if (!contest.entry || !contest.entry.is_admitted) {
+        redirect(`/contests/${contest.id}`);
     }
 
     if (problemResult.status === 404) {
@@ -61,16 +70,7 @@ export default async function Page({ params }: Props) {
         return <ErrorMessage message={problemResult.error.message} />;
     }
 
-    if (!contestResult.ok) {
-        return <ErrorMessage message={contestResult.error.message} />;
-    }
-
-    if (!entryResult.ok) {
-        return <ErrorMessage message='Entry not found' />;
-    }
-
     const problem = problemResult.data;
-    const contest = contestResult.data;
     const deadline_reached = problem.submission_deadline !== undefined && (new Date()) > problem.submission_deadline;
 
     return (
@@ -84,7 +84,7 @@ export default async function Page({ params }: Props) {
                 </div>
                 <div className='col-span-3 flex flex-col gap-5 sticky top-5 self-start'>
                     <Details problem={problem} />
-                    <Problemset contest={contest} entry={entryResult.data} />
+                    <Problemset contest={contest} />
                     <Setters problem={problem} />
                 </div>
             </div>
