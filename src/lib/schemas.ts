@@ -103,38 +103,43 @@ export const PaymentSchema = z.object({
 export const EntrySchema = z.discriminatedUnion("is_paid", [
   z.object({
     is_admitted: z.boolean(),
+    submission_deadline: z.coerce.date(),
     message: z.string().optional(),
     is_paid: z.literal(false),
     created_at: z.coerce.date(),
   }),
   z.object({
     is_admitted: z.boolean(),
+    submission_deadline: z.coerce.date(),
     message: z.string().optional(),
     is_paid: z.literal(true),
-    created_at: z.coerce.date(),
     payment: PaymentSchema,
+    created_at: z.coerce.date(),
   }),
 ]);
 
+export const AwardsSchema = z.object({
+    kind: z.string(),
+    nanocoins: z.number(),
+    is_distributed: z.boolean(),
+});
+
 export const ContestDetailedSchema = z.object({
     id: z.number(),
-    creator: UserSchema,
     title: z.string(),
     description: z.string(),
-    award_type: z.string(),
-    entry_price_ton_nanos: z.number(),
+    creator: UserSchema,
     address: z.string().optional(),
     start_time: z.coerce.date(),
     end_time: z.coerce.date(),
     duration_mins: z.number(),
-    max_entries: z.number().optional(),
     participants: z.number(),
-    allow_late_join: z.boolean(),
-    is_participant: z.boolean().optional(),
-    submission_deadline: z.coerce.date().optional(),
+    max_entries: z.number().optional(),
+    is_registration_open: z.boolean(),
+    entry_price_ton_nanos: z.number(),
     entry: EntrySchema.optional(),
+    awards: AwardsSchema,
     problems: z.array(ContestProblemListItemSchema),
-    prizes: PrizesSchema,
     created_at: z.coerce.date(),
 });
 

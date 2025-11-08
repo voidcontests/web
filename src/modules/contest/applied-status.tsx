@@ -10,10 +10,11 @@ import { Dialog, DialogContent, DialogTrigger } from "@/ui/dialog";
 import { QRCodeSVG } from "qrcode.react";
 
 export default function AppliedStatus({ account, contest }: { account: Account | null, contest: ContestDetailed }) {
-    const start_time = new Date(contest.start_time);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const now = new Date();
+    const is_started = contest.start_time < now;
 
-    if (account === null) {
+    if (!account) {
         return (
             <Button asChild variant="link">
                 <Link href="/login">
@@ -23,7 +24,7 @@ export default function AppliedStatus({ account, contest }: { account: Account |
         );
     }
 
-    if (new Date() > start_time && !contest.allow_late_join) {
+    if (!contest.is_registration_open) {
         return (
             <span className="text-center font-medium">Application time is over.</span>
         );
@@ -36,11 +37,11 @@ export default function AppliedStatus({ account, contest }: { account: Account |
     }
 
     const apply = async () => {
-        try {
-            await createEntry(contest.id);
+        const result = await createEntry(contest.id);
+        if (result.ok) {
             window.location.reload();
-        } catch (e) {
-            toast({ title: 'Something went wrong. Try again leter' });
+        } else {
+            toast({ title: 'Failed to create entry', description: result.error.message });
         }
     }
 
@@ -50,7 +51,7 @@ export default function AppliedStatus({ account, contest }: { account: Account |
         );
     }
 
-    if (contest.award_type === 'pool' && contest.entry?.is_paid === false) {
+    if (contest.awards.kind === 'pool' && contest.entry.is_paid === false) {
         const comment = `contests.fckn.engineer: Pay for entry to contest with ID: ${contest.id}`.replaceAll(" ", "%20");
         const paymentUrl = `ton://transfer/${contest.address}?amount=${contest.entry_price_ton_nanos}&text=${comment}`;
 
@@ -79,15 +80,9 @@ export default function AppliedStatus({ account, contest }: { account: Account |
         );
     }
 
-    if (contest.is_participant) {
-        if (new Date() < start_time) {
-            return <span className="text-center font-medium">You are applied!</span>;
-        }
-
+    if (is_started) {
         return <span className="text-center font-medium">You are participating!</span>;
     }
 
-    return (
-        <Button variant="link" onClick={apply}>APPLY</Button>
-    );
+    return <span className="text-center font-medium">You are applied!</span>;
 }

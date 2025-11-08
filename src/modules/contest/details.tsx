@@ -31,18 +31,18 @@ export default function Details({ contest }: { contest: ContestDetailed }) {
                     </div>
                 </div>
                 {
-                    contest.submission_deadline &&
+                    contest.entry && contest.entry.submission_deadline &&
                     <div className="flex">
                         <div className="flex-1 text-secondary-foreground">
                             Deadline
                         </div>
                         <div className="flex-1">
-                            <Timer target={contest.submission_deadline} expiredLabel="expired" />
+                            <Timer target={contest.entry.submission_deadline} expiredLabel="expired" />
                         </div>
                     </div>
                 }
                 {
-                    contest.award_type !== 'no' && contest.address && <>
+                    contest.awards.kind !== 'no' && contest.address && <>
                     <div className="flex">
                         <div className="flex-1 text-secondary-foreground">
                             Address
@@ -56,7 +56,7 @@ export default function Details({ contest }: { contest: ContestDetailed }) {
                             Prizes
                         </div>
                         <div className="flex-1">
-                            <TonPrizes nanos={contest.prizes.ton_nanos} />
+                            <TonPrizes nanos={contest.awards.nanocoins} />
                         </div>
                     </div>
                     <div className="flex">

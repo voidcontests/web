@@ -55,8 +55,8 @@ export async function getCreatedContests(offset: number, limit: number): Promise
     );
 }
 
-export async function createEntry(cid: ID): Promise<void> {
-    await fetchWithAuth(
+export async function createEntry(cid: ID): Promise<Result<void>> {
+    return fetchWithAuth(
         `${config.api.basepath}/contests/${cid}/entry`,
         { method: 'POST' },
         z.any()
