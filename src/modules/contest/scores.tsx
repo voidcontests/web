@@ -11,7 +11,7 @@ export default function Problemset({ leaderboard }: { leaderboard: LeaderboardIt
     return (
         <TableContainer>
             <TableTitle>
-                LEADERBOARD
+                SCORES
             </TableTitle>
             <Table>
                 <TableHeader>

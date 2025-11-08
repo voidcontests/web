@@ -31,7 +31,7 @@ export default function Page({ params }: { params: { contestid: string } }) {
     if (loading) {
         return (
             <ContentContainer>
-                <TableTemplate title='LEADERBOARD' caption='Loading...' />
+                <TableTemplate title='SCORES' caption='Loading...' />
             </ContentContainer>
         );
     }
