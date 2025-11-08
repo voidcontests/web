@@ -59,7 +59,7 @@ export async function createEntry(cid: ID): Promise<Result<void>> {
     return fetchWithAuth(
         `${config.api.basepath}/contests/${cid}/entry`,
         { method: 'POST' },
-        z.any()
+        z.void()
     );
 }
 

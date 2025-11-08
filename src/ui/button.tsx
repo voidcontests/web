@@ -13,21 +13,21 @@ const buttonVariants = cva(
     ),
     {
         variants: {
-        variant: {
-            default: "bg-zinc-950 text-zinc-50 dark:bg-zinc-50 dark:text-zinc-950 hover:opacity-90",
-            secondary: "bg-zinc-950/4 dark:bg-zinc-50/7 hover:bg-zinc-950/7 hover:dark:bg-zinc-50/9",
-            destructive: "bg-scarlet-500 text-zinc-50 hover:bg-scarlet-500/90",
-            link: "bg-blue-400/15 text-blue-400 hover:bg-blue-400/20",
-            outline: "border bg-transparent hover:bg-zinc-950/3 dark:hover:bg-zinc-50/5",
-            dashed: "border border-dashed bg-transparent hover:bg-zinc-950/3 dark:hover:bg-zinc-50/5",
-            ghost: "bg-transparent hover:bg-zinc-950/3 dark:hover:bg-zinc-50/5",
-        },
-        size: {
-            sm: "h-7 px-3 min-w-32 text-xs",
-            default: "h-8 px-4 min-w-36 text-sm",
-            lg: "h-9 px-5 min-w-40 text-base",
-            icon: "size-8",
-        },
+            variant: {
+                default: "bg-zinc-950 text-zinc-50 dark:bg-zinc-50 dark:text-zinc-950 hover:opacity-90",
+                secondary: "bg-zinc-950/4 dark:bg-zinc-50/7 hover:bg-zinc-950/7 hover:dark:bg-zinc-50/9",
+                destructive: "bg-scarlet-500 text-zinc-50 hover:bg-scarlet-500/90",
+                link: "bg-blue-400/15 text-blue-400 hover:bg-blue-400/20",
+                outline: "border bg-transparent hover:bg-zinc-950/3 dark:hover:bg-zinc-50/5",
+                dashed: "border border-dashed bg-transparent hover:bg-zinc-950/3 dark:hover:bg-zinc-50/5",
+                ghost: "bg-transparent hover:bg-zinc-950/3 dark:hover:bg-zinc-50/5",
+            },
+            size: {
+                sm: "h-7 px-3 min-w-32 text-xs",
+                default: "h-8 px-4 min-w-36 text-sm",
+                lg: "h-9 px-5 min-w-40 text-base",
+                icon: "size-8",
+            },
         },
         defaultVariants: {
         variant: "default",

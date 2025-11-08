@@ -67,6 +67,32 @@ export async function fetchWithSchema<T>(url: string, opts: RequestInit, schema:
         const text = await res.text();
 
         let json: unknown;
+
+        if (text === '' || text.trim() === '') {
+            if (!res.ok) {
+                return {
+                    ok: false,
+                    error: { message: `Request failed with status ${status}` },
+                    status,
+                };
+            }
+
+            const parsed = schema.safeParse(undefined);
+            if (!parsed.success) {
+                return {
+                    ok: false,
+                    error: { message: `Validation failed: ${parsed.error.message}` },
+                    status,
+                };
+            }
+
+            return {
+                ok: true,
+                data: parsed.data,
+                status,
+            };
+        }
+
         try {
             json = JSON.parse(text);
         } catch {
