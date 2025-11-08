@@ -71,9 +71,9 @@ export async function getContestByID(cid: ID): Promise<Result<ContestDetailed>> 
     );
 }
 
-export async function getLeaderboard(cid: ID): Promise<Result<Pagination<LeaderboardItem>>> {
+export async function getScores(cid: ID): Promise<Result<Pagination<LeaderboardItem>>> {
     return fetchWithAuth(
-        `${config.api.basepath}/contests/${cid}/leaderboard`,
+        `${config.api.basepath}/contests/${cid}/scores`,
         { method: 'GET' },
         PaginationSchema(LeaderboardItemSchema)
     );

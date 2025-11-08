@@ -67,7 +67,7 @@ export default function CreatedContests() {
                         <TableHead className="w-32">End</TableHead>
                         <TableHead className="w-32">Duration</TableHead>
                         <TableHead className="w-32">Participants</TableHead>
-                        <TableHead className="w-32">Leaderboard</TableHead>
+                        <TableHead className="w-32">Scores</TableHead>
                         <TableHead className="w-32">Status</TableHead>
                     </TableHeaderRow>
                 </TableHeader>
@@ -100,7 +100,7 @@ export default function CreatedContests() {
                                     }
                                 </TableCell>
                                 <TableCell>
-                                    <Link href={`/contests/${contest.id}/ranks`}>
+                                    <Link href={`/contests/${contest.id}/scores`}>
                                         View
                                     </Link>
                                 </TableCell>

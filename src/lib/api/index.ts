@@ -27,7 +27,7 @@ export {
     getCreatedContests,
     createEntry,
     getContestByID,
-    getLeaderboard,
+    getScores,
     getAllContests,
     type CreateContestFormData,
 } from './contests';

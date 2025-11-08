@@ -1,6 +1,6 @@
 'use client';
 
-import { LeaderboardItem, Pagination } from "@/lib/models";
+import { LeaderboardItem } from "@/lib/models";
 import {
     TableContainer, Table, TableHeader, TableHeaderRow, TableHead,
     TableBody, TableRow, TableCell, TableCaption, TableTitle

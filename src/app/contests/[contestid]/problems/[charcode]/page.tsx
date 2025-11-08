@@ -9,7 +9,7 @@ import ErrorMessage from '@/modules/errors/message';
 import ContestNotFound from '@/modules/errors/contest-not-found';
 import ContestProblemNotFound from '@/modules/errors/contest-problem-not-found';
 import { fetchContestByID, fetchContestProblem } from '@/actions/contests';
-import { DeadlineWarning } from '@/modules/problem/deadline-warning';
+import { DeadlineWarning } from '@/modules/contest/deadline-warning';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 

@@ -1,86 +1,130 @@
 'use client';
 
-import { Widget, WidgetContent, WidgetTitle, } from "@/ui/widget";
+import { Widget, WidgetContent, WidgetTitle } from "@/ui/widget";
 import { ContestDetailed } from "@/lib/models";
 import { DateView } from "@/components/date";
 import Timer from "@/components/timer";
 import Address from "@/components/address";
 import TonPrizes from "@/components/ton-prizes";
+import Tx from "@/components/tx";
+
+// --- Shared row layout component ---
+function DetailRow({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="flex">
+      <div className="flex-1 text-secondary-foreground">{label}</div>
+      <div className="flex-1">{children}</div>
+    </div>
+  );
+}
+
+// --- Individual point components ---
+
+function StartTime({ date }: { date: Date }) {
+  return (
+    <DetailRow label="Start">
+      <DateView date={date} />
+    </DetailRow>
+  );
+}
+
+function EndTime({ date }: { date: Date }) {
+  return (
+    <DetailRow label="End">
+      <DateView date={date} />
+    </DetailRow>
+  );
+}
+
+function SubmissionDeadline({ date }: { date: Date }) {
+  return (
+    <DetailRow label="Deadline">
+      <Timer target={date} expiredLabel="expired" />
+    </DetailRow>
+  );
+}
+
+function ContestAddress({ address }: { address: string }) {
+  return (
+    <DetailRow label="Address">
+      <Address address={address} length={4} />
+    </DetailRow>
+  );
+}
+
+function DistributionTx({ tx }: { tx: string }) {
+  return (
+    <DetailRow label="Distribution tx">
+      <Tx tx={tx} length={5} />
+    </DetailRow>
+  );
+}
+
+function Prizes({ nanos }: { nanos: number }) {
+  return (
+    <DetailRow label="Prizes">
+      <TonPrizes nanos={nanos} />
+    </DetailRow>
+  );
+}
+
+function EntryPrice({ nanos }: { nanos: number }) {
+  return (
+    <DetailRow label="Pay for entry">
+      <TonPrizes nanos={nanos} />
+    </DetailRow>
+  );
+}
+
+function Participants({
+  participants,
+  max_entries,
+}: {
+  participants: number;
+  max_entries?: number;
+}) {
+  return (
+    <DetailRow label="Participants">
+      {max_entries === undefined ? participants : `${participants}/${max_entries}`}
+    </DetailRow>
+  );
+}
+
+// --- Main component ---
 
 export default function Details({ contest }: { contest: ContestDetailed }) {
-    return (
-        <Widget className="flex-1">
-            <WidgetContent>
-                <WidgetTitle className="text-foreground">
-                    ABOUT
-                </WidgetTitle>
-                <div className="flex">
-                    <div className="flex-1 text-secondary-foreground">
-                        Start
-                    </div>
-                    <div className="flex-1">
-                        <DateView date={contest.start_time} />
-                    </div>
-                </div>
-                <div className="flex">
-                    <div className="flex-1 text-secondary-foreground">
-                        End
-                    </div>
-                    <div className="flex-1">
-                        <DateView date={contest.end_time} />
-                    </div>
-                </div>
-                {
-                    contest.entry && contest.entry.submission_deadline &&
-                    <div className="flex">
-                        <div className="flex-1 text-secondary-foreground">
-                            Deadline
-                        </div>
-                        <div className="flex-1">
-                            <Timer target={contest.entry.submission_deadline} expiredLabel="expired" />
-                        </div>
-                    </div>
-                }
-                {
-                    contest.awards.kind !== 'no' && contest.address && <>
-                    <div className="flex">
-                        <div className="flex-1 text-secondary-foreground">
-                            Address
-                        </div>
-                        <div className="flex-1">
-                            <Address address={contest.address} length={4} />
-                        </div>
-                    </div>
-                    <div className="flex">
-                        <div className="flex-1 text-secondary-foreground">
-                            Prizes
-                        </div>
-                        <div className="flex-1">
-                            <TonPrizes nanos={contest.awards.nanocoins} />
-                        </div>
-                    </div>
-                    <div className="flex">
-                        <div className="flex-1 text-secondary-foreground">
-                            Pay for entry
-                        </div>
-                        <div className="flex-1">
-                            <TonPrizes nanos={contest.entry_price_ton_nanos} />
-                        </div>
-                    </div></>
-                }
-                <div className="flex">
-                    <div className="flex-1 text-secondary-foreground">
-                        Participants
-                    </div>
-                    <div className="flex-1">
-                        {
-                            contest.max_entries === undefined
-                                ? contest.participants
-                                : `${contest.participants}/${contest.max_entries}`
-                        }
-                    </div>
-                </div>
-            </WidgetContent>
-        </Widget>
-    );
+  return (
+    <Widget className="flex-1">
+      <WidgetContent>
+        <WidgetTitle className="text-foreground">ABOUT</WidgetTitle>
+
+        <StartTime date={contest.start_time} />
+        <EndTime date={contest.end_time} />
+
+        {contest.entry?.submission_deadline && (
+          <SubmissionDeadline date={contest.entry.submission_deadline} />
+        )}
+
+        {contest.awards.kind !== "no" && contest.address && (
+          <>
+            <ContestAddress address={contest.address} />
+
+            {contest.awards.is_distributed ? (
+              <DistributionTx tx={contest.awards.distribution_tx_hash} />
+            ) : (
+              <>
+                <Prizes nanos={contest.awards.nanocoins} />
+                <EntryPrice nanos={contest.entry_price_ton_nanos} />
+              </>
+            )}
+          </>
+        )}
+
+        <Participants
+          participants={contest.participants}
+          max_entries={contest.max_entries}
+        />
+      </WidgetContent>
+    </Widget>
+  );
 }

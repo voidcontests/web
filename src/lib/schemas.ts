@@ -118,11 +118,20 @@ export const EntrySchema = z.discriminatedUnion("is_paid", [
   }),
 ]);
 
-export const AwardsSchema = z.object({
+export const AwardsSchema = z.discriminatedUnion("is_distributed", [
+  z.object({
     kind: z.string(),
     nanocoins: z.number(),
-    is_distributed: z.boolean(),
-});
+    is_distributed: z.literal(false),
+  }),
+  z.object({
+    kind: z.string(),
+    nanocoins: z.number(),
+    is_distributed: z.literal(true),
+    distribution_tx_hash: z.string(),
+  }),
+]);
+
 
 export const ContestDetailedSchema = z.object({
     id: z.number(),

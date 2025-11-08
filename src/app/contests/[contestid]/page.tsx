@@ -10,6 +10,7 @@ import ContestNotFound from "@/modules/errors/contest-not-found";
 import { fetchContestByID } from "@/actions/contests";
 import { fetchAccount } from "@/actions/account";
 import { Metadata } from "next";
+import { DeadlineWarning } from "@/modules/contest/deadline-warning";
 
 type Props = {
     params: Promise<{ contestid: string }>;
@@ -53,6 +54,7 @@ export default async function Page({ params }: Props) {
         <ContentContainer>
             <div className="grid grid-cols-12 gap-5">
                 <div className="col-span-9 flex flex-col gap-5">
+                    <DeadlineWarning deadline={contest.entry?.submission_deadline} />
                     <Overview contest={contest} />
                     <Problemset contest={contest} />
                     <StartingIn contest={contest} />
