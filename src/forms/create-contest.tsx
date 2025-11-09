@@ -25,6 +25,8 @@ import { ResultError } from "@/lib/client";
 import TableTemplate from "@/components/templates/table";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 
+// TODO: cleanup
+
 export interface FormData {
     title: string;
     description: string;
@@ -183,14 +185,12 @@ export function CreateContestForm() {
                                     return;
                                 }
 
-                                // Forbid negative sign
                                 if (inputValue.includes('-')) {
                                     return;
                                 }
 
                                 const val = parseFloat(inputValue);
 
-                                // Forbid negative values
                                 if (val < 0) {
                                     return;
                                 }
@@ -204,7 +204,6 @@ export function CreateContestForm() {
                                 if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
                                     e.preventDefault();
                                 }
-                                // Prevent entering negative sign
                                 if (e.key === '-') {
                                     e.preventDefault();
                                 }
@@ -272,19 +271,16 @@ export function CreateContestForm() {
                                 return;
                             }
 
-                            // Forbid negative sign and decimal point
                             if (val.includes('-') || val.includes('.') || val.includes(',')) {
                                 return;
                             }
 
-                            // Only allow digits
                             if (!/^\d+$/.test(val)) {
                                 return;
                             }
 
                             const numVal = Number(val);
 
-                            // Forbid negative values
                             if (numVal < 0) {
                                 return;
                             }
