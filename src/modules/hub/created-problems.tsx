@@ -1,61 +1,36 @@
-'use client';
-
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from "@/ui/table";
-import { ProblemListItem } from '@/lib/models';
 import Difficulty from '@/components/difficulty';
-import { DateView } from "@/components/date";
 import { Link } from "@/ui/link";
-import { useEffect, useState } from 'react';
-import { getCreatedProblems } from "@/lib/api";
-import PaginationControls from "@/components/pagination-controls";
-import { toast } from "@/components/toast";
-import TableTemplate from "@/components/templates/table";
+import { fetchCreatedProblems } from "@/actions/problems";
 import TimeLimit from "@/modules/problem/time-limit";
 import MemoryLimit from "@/modules/problem/memory-limit";
+import PaginationControlsClient from "@/components/pagination-controls-client";
 
-export default function CreatedProblems() {
-    const [problems, setProblems] = useState<ProblemListItem[]>([]);
-    const [offset, setOffset] = useState(0);
-    const [total, setTotal] = useState(0);
-    const [loading, setLoading] = useState(true);
+type Props = {
+    page: number;
+};
+
+export default async function CreatedProblems({ page }: Props) {
     const limit = 10;
+    const offset = (page - 1) * limit;
 
-    useEffect(() => {
-        const load = async () => {
-            const result = await getCreatedProblems(offset, limit);
-            if (result.ok) {
-                setProblems(result.data.items);
-                setTotal(result.data.meta.total);
-            } else {
-                toast({ title: 'Failed to load problems', description: result.error.message });
-            }
-            setLoading(false);
-        };
-        load();
-    }, [offset, limit]);
+    const result = await fetchCreatedProblems(offset, limit);
 
-    const handlePrev = () => {
-        const newOffset = Math.max(0, offset - limit);
-        setOffset(newOffset);
-    };
-
-    const handleNext = () => {
-        if (offset + limit < total) {
-            const newOffset = offset + limit;
-            setOffset(newOffset);
-        }
-    };
-
-    if (loading) {
+    if (!result.ok) {
         return (
-            <TableTemplate title='CONTESTS' caption='Loading...' />
+            <TableContainer>
+                <TableTitle>PROBLEMS</TableTitle>
+                <TableCaption>Failed to load problems: {result.error.message}</TableCaption>
+            </TableContainer>
         );
     }
+
+    const problems = result.data.items;
+    const total = result.data.meta.total;
 
     return (
         <TableContainer>
             <TableTitle className='flex justify-between'>
-                {/* TODO: hide new button if banned or user already created maximum contests */}
                 <span>PROBLEMS</span>
                 <Link href='/hub/new/problem' size="large">NEW</Link>
             </TableTitle>
@@ -74,7 +49,7 @@ export default function CreatedProblems() {
                         problems.map((problem, index) => (
                             <TableRow key={index}>
                                 <TableCell className='text-center'>
-                                    {index}/
+                                    {offset + index}/
                                 </TableCell>
                                 <TableCell>
                                     <Link href={`/hub/preview/problems/${problem.id}`}>
@@ -98,12 +73,10 @@ export default function CreatedProblems() {
                     problems.length === 0
                         ? <TableCaption>No created problems</TableCaption>
                         : <TableCaption>
-                            <PaginationControls
+                            <PaginationControlsClient
                                 total={total}
                                 limit={limit}
                                 offset={offset}
-                                onNext={handleNext}
-                                onPrev={handlePrev}
                             />
                         </TableCaption>
                 }

@@ -1,60 +1,36 @@
-'use client';
-
 import { TableContainer, Table, TableHeader, TableHeaderRow, TableHead, TableBody, TableRow, TableCell, TableTitle, TableCaption } from "@/ui/table";
-import { ContestListItem } from '@/lib/models';
 import Status from '@/modules/contest/status';
 import { DateView } from "@/components/date";
 import { Link } from "@/ui/link";
-import { useEffect, useState } from 'react';
-import { getCreatedContests } from "@/lib/api";
-import PaginationControls from "@/components/pagination-controls";
-import { toast } from "@/components/toast";
-import TableTemplate from "@/components/templates/table";
+import { fetchCreatedContests } from "@/actions/contests";
 import Duration from "@/components/duration";
+import PaginationControlsClient from "@/components/pagination-controls-client";
 
-export default function CreatedContests() {
-    const [contests, setContests] = useState<ContestListItem[]>([]);
-    const [offset, setOffset] = useState(0);
-    const [total, setTotal] = useState(0);
-    const [loading, setLoading] = useState(true);
+type Props = {
+    page: number;
+};
+
+export default async function CreatedContests({ page }: Props) {
     const limit = 10;
+    const offset = (page - 1) * limit;
 
-    useEffect(() => {
-        const load = async () => {
-            const result = await getCreatedContests(offset, limit);
-            if (result.ok) {
-                setContests(result.data.items);
-                setTotal(result.data.meta.total);
-            } else {
-                toast({ title: 'Failed to load contests', description: result.error.message });
-            }
-            setLoading(false);
-        };
-        load();
-    }, [offset, limit]);
+    const result = await fetchCreatedContests(offset, limit);
 
-    const handlePrev = () => {
-        const newOffset = Math.max(0, offset - limit);
-        setOffset(newOffset);
-    };
-
-    const handleNext = () => {
-        if (offset + limit < total) {
-            const newOffset = offset + limit;
-            setOffset(newOffset);
-        }
-    };
-
-    if (loading) {
+    if (!result.ok) {
         return (
-            <TableTemplate title='CONTESTS' caption='Loading...'/>
+            <TableContainer>
+                <TableTitle>CONTESTS</TableTitle>
+                <TableCaption>Failed to load contests: {result.error.message}</TableCaption>
+            </TableContainer>
         );
     }
+
+    const contests = result.data.items;
+    const total = result.data.meta.total;
 
     return (
         <TableContainer>
             <TableTitle className='flex justify-between'>
-                {/* TODO: hide new button if banned or user already created maximum contests */}
                 <span>CONTESTS</span>
                 <Link href='/hub/new/contest' size="large">NEW</Link>
             </TableTitle>
@@ -76,7 +52,7 @@ export default function CreatedContests() {
                         contests.map((contest, index) => (
                             <TableRow key={index}>
                                 <TableCell className='text-center pr-5'>
-                                    {index}/
+                                    {offset + index}/
                                 </TableCell>
                                 <TableCell>
                                     <Link href={`/contests/${contest.id}`}>
@@ -115,12 +91,10 @@ export default function CreatedContests() {
                     contests.length === 0
                         ? <TableCaption>No created contests</TableCaption>
                         : <TableCaption>
-                            <PaginationControls
+                            <PaginationControlsClient
                                 total={total}
                                 limit={limit}
                                 offset={offset}
-                                onNext={handleNext}
-                                onPrev={handlePrev}
                             />
                         </TableCaption>
                 }

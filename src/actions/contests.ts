@@ -59,3 +59,18 @@ export async function fetchScores(contestID: string): Promise<Result<Pagination<
         PaginationSchema(LeaderboardItemSchema)
     );
 }
+
+export async function fetchCreatedContests(offset: number, limit: number): Promise<Result<Pagination<ContestListItem>>> {
+    const cookieStore = await cookies();
+    const token = cookieStore.get('token')?.value;
+
+    return fetchWithSchema(
+        `${config.api.basepath}/account/contests?offset=${offset}&limit=${limit}`,
+        {
+            method: 'GET',
+            cache: 'no-store'
+        },
+        PaginationSchema(ContestListItemSchema),
+        token
+    );
+}

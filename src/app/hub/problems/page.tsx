@@ -1,11 +1,11 @@
 import ContentContainer from "@/containers/content";
-import { Separator } from "@/ui/separator";
 import { redirect } from "next/navigation";
-import CreatedContests from "@/modules/hub/created-contests";
+import CreatedProblems from "@/modules/hub/created-problems";
 import { fetchAccount } from "@/actions/account";
 import { Suspense } from "react";
 import TableTemplate from "@/components/templates/table";
 import { Link } from "@/ui/link";
+import { Separator } from "@/ui/separator";
 
 type Props = {
     searchParams: Promise<{ page?: string }>;
@@ -29,13 +29,13 @@ export default async function Page({ searchParams }: Props) {
                 </h1>
                 <p className='text-base text-foreground/80'>
                     Here you can control all of your created competitions, create new problems and contests.
-                    You can view your problems <Link href="/hub/problems">here</Link>.
+                    You can view your contests <Link href="/hub">here</Link>.
                 </p>
             </div>
             <Separator />
-            <Suspense fallback={<TableTemplate title='CONTESTS' caption='Loading...' />}>
-                <CreatedContests page={page} />
+            <Suspense fallback={<TableTemplate title='PROBLEMS' caption='Loading...' />}>
+                <CreatedProblems page={page} />
             </Suspense>
         </ContentContainer>
-  );
+    );
 }

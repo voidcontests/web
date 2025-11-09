@@ -1,5 +1,3 @@
-'use client';
-
 import { MessageBox } from '@/components/message-box';
 import { Account } from '@/lib/models';
 
