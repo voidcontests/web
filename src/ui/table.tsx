@@ -63,7 +63,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
   <tr
     ref={ref}
     className={cn(
-      "h-[46px] transition-colors border-t",
+      "h-10 transition-colors border-t",
       className,
     )}
     {...props}
@@ -75,7 +75,7 @@ const TableCell = React.forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<
   <td
     ref={ref}
     className={cn(
-      "first:px-5 first:w-[1%] first:whitespace-nowrap h-10 py-2 text-left text-sm align-middle",
+      "first:px-5 first:w-[1%] first:whitespace-nowrap h-10 text-left text-sm align-middle",
       className,
     )}
     {...props}
