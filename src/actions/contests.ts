@@ -3,8 +3,8 @@
 import { cookies } from 'next/headers';
 import { config } from '@/config';
 
-import { PaginationSchema, ContestListItemSchema, ContestDetailedSchema, ContestProblemDetailedSchema, EntrySchema } from '@/lib/schemas';
-import { Pagination, ContestListItem, ContestDetailed, ContestProblemDetailed, Entry } from '@/lib/models';
+import { PaginationSchema, ContestListItemSchema, ContestDetailedSchema, ContestProblemDetailedSchema, EntrySchema, LeaderboardItemSchema } from '@/lib/schemas';
+import { Pagination, ContestListItem, ContestDetailed, ContestProblemDetailed, Entry, LeaderboardItem } from '@/lib/models';
 import { fetchWithSchema } from '@/lib/client';
 import { Result } from '@/lib/api';
 
@@ -46,5 +46,16 @@ export async function fetchContestProblem(contestID: string, charcode: string): 
         },
         ContestProblemDetailedSchema,
         token
+    );
+}
+
+export async function fetchScores(contestID: string): Promise<Result<Pagination<LeaderboardItem>>> {
+    return fetchWithSchema(
+        `${config.api.basepath}/contests/${contestID}/scores`,
+        {
+            method: 'GET',
+            cache: 'no-store'
+        },
+        PaginationSchema(LeaderboardItemSchema)
     );
 }

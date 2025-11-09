@@ -1,52 +1,38 @@
-'use client';
-
-import TableTemplate from "@/components/templates/table";
 import Scores from "@/modules/contest/scores";
-import { LeaderboardItem } from "@/lib/api";
 import ErrorMessage from "@/modules/errors/message";
 import ContentContainer from "@/containers/content";
-import { useEffect, useState } from "react";
-import { getScores } from "@/lib/api";
-import { ResultError } from "@/lib/client";
 import ScoresNotFound from "@/modules/errors/scores-not-found";
+import { fetchScores } from "@/actions/contests";
+import { Metadata } from "next";
 
-export default function Page({ params }: { params: { contestid: string } }) {
-    const [leaderboard, setLeaderboard] = useState<LeaderboardItem[]>([]);
-    const [error, setError] = useState<ResultError | null>(null);
-    const [loading, setLoading] = useState(true);
+type Props = {
+    params: Promise<{ contestid: string }>;
+};
 
-    useEffect(() => {
-        const load = async () => {
-            const result = await getScores(params.contestid);
-            if (result.ok) {
-                setLeaderboard(result.data.items);
-            } else {
-                setError(result);
-            }
-            setLoading(false);
-        }
-        load();
-    }, [params.contestid]);
+export const metadata: Metadata = {
+    title: 'Scores \\ Void',
+};
 
-    if (loading) {
+export default async function Page({ params }: Props) {
+    const { contestid } = await params;
+
+    const result = await fetchScores(contestid);
+
+    if (result.status === 404) {
+        return <ScoresNotFound />;
+    }
+
+    if (!result.ok) {
         return (
             <ContentContainer>
-                <TableTemplate title='SCORES' caption='Loading...' />
+                <ErrorMessage message={result.error.message} />
             </ContentContainer>
         );
     }
 
-    if (error !== null && error.status !== 404) {
-        return <ErrorMessage message={error.error.message} />
-    }
-
-    if (error) {
-        return <ScoresNotFound />
-    }
-
     return (
         <ContentContainer>
-            <Scores leaderboard={leaderboard} />
+            <Scores leaderboard={result.data.items} />
         </ContentContainer>
     );
 }
