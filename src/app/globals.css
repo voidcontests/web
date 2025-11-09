@@ -190,6 +190,10 @@
 }
 
 @layer utilities {
+    html {
+        scrollbar-gutter: stable;
+    }
+
     body {
         font-family: "Rubik", sans-serif;
     }
