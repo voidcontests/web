@@ -40,6 +40,12 @@ export default function AppliedStatus({ account, contest }: { account: Account |
             );
         }
 
+        if ((contest.awards.kind === 'pool' || contest.awards.kind === 'sponsored') && !account.address) {
+            return (
+                <span className="text-center font-medium">You need to connect wallet first</span>
+            );
+        }
+
         return (
             <Button variant="link" onClick={apply}>APPLY</Button>
         );

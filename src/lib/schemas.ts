@@ -25,11 +25,13 @@ export const PaginationSchema = <T extends z.ZodTypeAny>(item: T) =>
 export const UserSchema = z.object({
     id: z.number(),
     username: z.string(),
+    address: z.string().optional(),
 });
 
 export const AccountSchema = z.object({
     id: z.number(),
     username: z.string(),
+    address: z.string().optional(),
     role: z.object({
         name: z.string(),
         created_problems_limit: z.number(),
