@@ -1,8 +1,6 @@
 import ContentContainer from "@/containers/content";
 import { Separator } from "@/ui/separator";
-import { redirect } from "next/navigation";
 import CreatedContests from "@/modules/hub/created-contests";
-import { fetchAccount } from "@/actions/account";
 import { Suspense } from "react";
 import TableTemplate from "@/components/templates/table";
 import { Link } from "@/ui/link";
@@ -12,12 +10,6 @@ type Props = {
 };
 
 export default async function Page({ searchParams }: Props) {
-    const result = await fetchAccount();
-
-    if (!result.ok) {
-        redirect('/login?next=/hub');
-    }
-
     const params = await searchParams;
     const page = parseInt(params.page || '1', 10);
 

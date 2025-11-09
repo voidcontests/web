@@ -20,6 +20,7 @@ export default function PaginationControls({ offset, limit, total, onPrev, onNex
 
             <div className="w-1/3 flex justify-end space-x-2">
                 <Button
+                    type="button"
                     variant="ghost"
                     size="icon"
                     className="min-w-0"
@@ -29,6 +30,7 @@ export default function PaginationControls({ offset, limit, total, onPrev, onNex
                     <ChevronLeft className="mr-1 h-4 w-4" />
                 </Button>
                 <Button
+                    type="button"
                     variant="ghost"
                     size="icon"
                     className="min-w-0"

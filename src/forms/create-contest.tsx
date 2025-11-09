@@ -24,6 +24,7 @@ import { useRouter } from "next/navigation";
 import { ResultError } from "@/lib/client";
 import TableTemplate from "@/components/templates/table";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
+import PaginationControls from "@/components/pagination-controls";
 
 // TODO: cleanup
 
@@ -43,25 +44,31 @@ export interface FormData {
 
 export function CreateContestForm() {
     const [problems, setProblems] = useState<ProblemListItem[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [initialLoading, setInitialLoading] = useState(true);
     const [error, setError] = useState<ResultError | null>(null);
+    const [offset, setOffset] = useState(0);
+    const [total, setTotal] = useState(0);
+    const limit = 10;
     const router = useRouter();
 
     useEffect(() => {
         const load = async () => {
-            const result = await getCreatedProblems(0, 10);
+            const result = await getCreatedProblems(offset, limit);
 
             if (result.ok) {
                 setProblems(result.data.items);
+                setTotal(result.data.meta.total);
             } else {
                 setError(result);
                 toast({ title: 'Fetching problems failed', description: result.error.message });
             }
 
-            setLoading(false);
+            if (initialLoading) {
+                setInitialLoading(false);
+            }
         };
         load();
-    }, []);
+    }, [offset, initialLoading]);
 
     const { register, handleSubmit, setValue, watch } = useForm<FormData>({
         defaultValues: {
@@ -218,13 +225,21 @@ export function CreateContestForm() {
 
                 <Separator />
 
-                {/* TODO: Add pagination here */}
                 <IncludeProblems
                     problems={problems}
-                    loading={loading}
+                    loading={initialLoading}
                     error={error}
                     selectedIds={watch('problems_ids')}
                     onCheckedChange={onCheckedChange}
+                    offset={offset}
+                    limit={limit}
+                    total={total}
+                    onPrev={() => setOffset(Math.max(0, offset - limit))}
+                    onNext={() => {
+                        if (offset + limit < total) {
+                            setOffset(offset + limit);
+                        }
+                    }}
                 />
 
                 <Separator />
@@ -333,10 +348,15 @@ interface IncludeProblemsProps {
     loading: boolean,
     error: ResultError | null,
     selectedIds: number[],
-    onCheckedChange: (e: CheckedState, problemID: number) => void
+    onCheckedChange: (e: CheckedState, problemID: number) => void,
+    offset: number,
+    limit: number,
+    total: number,
+    onPrev: () => void,
+    onNext: () => void
 };
 
-function IncludeProblems({ problems, loading, error, selectedIds, onCheckedChange }: IncludeProblemsProps) {
+function IncludeProblems({ problems, loading, error, selectedIds, onCheckedChange, offset, limit, total, onPrev, onNext }: IncludeProblemsProps) {
     if (loading) {
         return (
             <TableTemplate title='SELECT PROBLEMS' caption='Loading...' />
@@ -355,13 +375,6 @@ function IncludeProblems({ problems, loading, error, selectedIds, onCheckedChang
                 SELECT PROBLEMS
             </TableTitle>
             <Table>
-                <TableCaption>
-                    {
-                        problems.length === 0
-                            ? <span>You need to create problems first <Link href="/hub/new/problem">here</Link>.</span>
-                            : <span>You can create new problems <Link href="/hub/new/problem">here</Link>.</span>
-                    }
-                </TableCaption>
                 <TableHeader>
                     <TableHeaderRow>
                         <TableHead>Inc.</TableHead>
@@ -395,6 +408,19 @@ function IncludeProblems({ problems, loading, error, selectedIds, onCheckedChang
                         ))
                     }
                 </TableBody>
+                <TableCaption>
+                    {total > 0 ? (
+                        <PaginationControls
+                            offset={offset}
+                            limit={limit}
+                            total={total}
+                            onPrev={onPrev}
+                            onNext={onNext}
+                        />
+                    ) : (
+                        <span>You need to create problems first <Link href="/hub/new/problem">here</Link>.</span>
+                    )}
+                </TableCaption>
             </Table>
         </TableContainer>
     );
