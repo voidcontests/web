@@ -339,7 +339,7 @@ export default function CreateProblemForm() {
                             </SelectContent>
                         </Select>
                         {watch('checker') && (
-                            <div className="text-sm text-secondary-foreground">
+                            <div className="text-xs text-secondary-foreground">
                                 {watch('checker') === 'tokens' && (
                                     <p>Compares output as whitespace-separated tokens. Ignores extra whitespace and line breaks.</p>
                                 )}

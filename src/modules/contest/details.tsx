@@ -114,7 +114,9 @@ export default function Details({ contest }: { contest: ContestDetailed }) {
             ) : (
               <>
                 <Prizes nanos={contest.awards.nanocoins} />
-                <EntryPrice nanos={contest.entry_price_ton_nanos} />
+                {contest.awards.kind === 'pool' &&
+                    <EntryPrice nanos={contest.entry_price_ton_nanos} />
+                }
               </>
             )}
           </>

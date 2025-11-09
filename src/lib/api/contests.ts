@@ -21,6 +21,8 @@ import {
 export type CreateContestFormData = {
     title: string;
     description?: string;
+    award_type: string;
+    entry_price_ton_nanos: number;
     problems_ids: number[];
     start_time: Date;
     end_time: Date;

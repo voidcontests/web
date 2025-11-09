@@ -23,10 +23,15 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { ResultError } from "@/lib/client";
 import TableTemplate from "@/components/templates/table";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 
 export interface FormData {
     title: string;
     description: string;
+    award_type: string;
+    entry_price_ton_nanos: number;
+    entry_price_input: string;
+    max_entries_input: string;
     problems_ids: number[];
     start_time: Date;
     end_time: Date;
@@ -60,6 +65,10 @@ export function CreateContestForm() {
         defaultValues: {
             title: "",
             description: "",
+            award_type: "no",
+            entry_price_ton_nanos: 0,
+            entry_price_input: "",
+            max_entries_input: "",
             problems_ids: [],
             start_time: undefined,
             end_time: undefined,
@@ -119,6 +128,97 @@ export function CreateContestForm() {
                     />
                 </div>
 
+                <Separator />
+
+                <div className="flex flex-col gap-2">
+                    <Label required>Award type</Label>
+                    <Select value={watch('award_type')} onValueChange={(value) => setValue('award_type', value)}>
+                        <SelectTrigger className="max-w-72">
+                            <SelectValue placeholder="Select award type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem value="no">No award</SelectItem>
+                                <SelectItem value="pool">Prize pool</SelectItem>
+                                <SelectItem value="sponsored">Sponsored</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    <div className="text-xs text-secondary-foreground">
+                        {watch('award_type') === 'no' && (
+                            <p>No prize pool will be distributed at the end of this competition.</p>
+                        )}
+                        {watch('award_type') === 'pool' && (
+                            <p>
+                                The prize pool will be formed from the entry fees of all participants. As the host,
+                                you can also add additional funds to the contest balance at any time.
+                            </p>
+                        )}
+                        {watch('award_type') === 'sponsored' && (
+                            <p>
+                                Participants can join for free. At the end of the competition, the prize pool will
+                                consist of the amount you deposit into the contest wallet.
+                            </p>
+                        )}
+                    </div>
+                </div>
+
+                {watch('award_type') === 'pool' && (
+                    <div className="flex flex-col gap-2">
+                        <Label required>
+                            Entry price (TON)
+                        </Label>
+                        <Input
+                            type="number"
+                            min="0"
+                            step="0.000000001"
+                            className="no-arrows max-w-72"
+                            value={watch("entry_price_input")}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                const inputValue = e.target.value;
+
+                                if (inputValue === "" || inputValue === null) {
+                                    setValue("entry_price_input", "");
+                                    setValue("entry_price_ton_nanos", 0);
+                                    return;
+                                }
+
+                                // Forbid negative sign
+                                if (inputValue.includes('-')) {
+                                    return;
+                                }
+
+                                const val = parseFloat(inputValue);
+
+                                // Forbid negative values
+                                if (val < 0) {
+                                    return;
+                                }
+
+                                if (isNaN(val)) return;
+
+                                setValue("entry_price_input", inputValue);
+                                setValue("entry_price_ton_nanos", Math.floor(val * 1_000_000_000));
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                                    e.preventDefault();
+                                }
+                                // Prevent entering negative sign
+                                if (e.key === '-') {
+                                    e.preventDefault();
+                                }
+                            }}
+                            placeholder="Entry price in TON"
+                        />
+                        <span className="text-xs text-secondary-foreground">
+                            Value in nanocoins: {watch("entry_price_ton_nanos").toLocaleString()}
+                        </span>
+                    </div>
+                )}
+
+                <Separator />
+
                 {/* TODO: Add pagination here */}
                 <IncludeProblems
                     problems={problems}
@@ -159,15 +259,47 @@ export function CreateContestForm() {
                     </Label>
                     <Input
                         type="number"
+                        min="0"
+                        step="1"
                         className="no-arrows max-w-70"
-                        {...register("max_entries", { valueAsNumber: true })}
+                        value={watch("max_entries_input")}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => {
                             const val = e.target.value;
-                            if (val.length !== 0) {
-                                const charcode = val[val.length - 1].charCodeAt(0);
-                                if (charcode < 48 || charcode > 57) return;
+
+                            if (val === "" || val === null) {
+                                setValue("max_entries_input", "");
+                                setValue("max_entries", 0);
+                                return;
                             }
-                            setValue("max_entries", Number(val));
+
+                            // Forbid negative sign and decimal point
+                            if (val.includes('-') || val.includes('.') || val.includes(',')) {
+                                return;
+                            }
+
+                            // Only allow digits
+                            if (!/^\d+$/.test(val)) {
+                                return;
+                            }
+
+                            const numVal = Number(val);
+
+                            // Forbid negative values
+                            if (numVal < 0) {
+                                return;
+                            }
+
+                            setValue("max_entries_input", val);
+                            setValue("max_entries", numVal);
+                        }}
+                        onKeyDown={(e) => {
+                            if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                                e.preventDefault();
+                            }
+                            // Prevent entering negative sign, decimal point, and comma
+                            if (e.key === '-' || e.key === '.' || e.key === ',' || e.key === 'e' || e.key === 'E') {
+                                e.preventDefault();
+                            }
                         }}
                         placeholder="Slots"
                     />
