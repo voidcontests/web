@@ -1,0 +1,18 @@
+diff --git a/src/app/globals.css b/src/app/globals.css
+index 4f03ff7..41a9b74 100644
+--- a/src/app/globals.css
++++ b/src/app/globals.css
+@@ -210,9 +210,12 @@
+         @apply border-border;
+     }
+ 
++    html {
++        scrollbar-gutter: stable;
++    }
++
+     body {
+         @apply bg-background text-foreground text-sm;
+-        overflow-y: scroll;
+     }
+ 
+     /* ::selection {

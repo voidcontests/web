@@ -7,170 +7,194 @@
 
 /* Styrene A Font Family */
 @font-face {
-    font-family: 'Styrene A';
-    src: url('/fonts/styrene/StyreneA-Thin-Trial-BF63f6cbd91263f.otf') format('opentype');
+    font-family: "Styrene A";
+    src: url("/fonts/styrene/StyreneA-Thin-Trial-BF63f6cbd91263f.otf")
+        format("opentype");
     font-weight: 100;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Styrene A';
-    src: url('/fonts/styrene/StyreneA-ThinItalic-Trial-BF63f6cbd95634b.otf') format('opentype');
+    font-family: "Styrene A";
+    src: url("/fonts/styrene/StyreneA-ThinItalic-Trial-BF63f6cbd95634b.otf")
+        format("opentype");
     font-weight: 100;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'Styrene A';
-    src: url('/fonts/styrene/StyreneA-Light-Trial-BF63f6cbd99dc3e.otf') format('opentype');
+    font-family: "Styrene A";
+    src: url("/fonts/styrene/StyreneA-Light-Trial-BF63f6cbd99dc3e.otf")
+        format("opentype");
     font-weight: 300;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Styrene A';
-    src: url('/fonts/styrene/StyreneA-LightItalic-Trial-BF63f6cbd9cb933.otf') format('opentype');
+    font-family: "Styrene A";
+    src: url("/fonts/styrene/StyreneA-LightItalic-Trial-BF63f6cbd9cb933.otf")
+        format("opentype");
     font-weight: 300;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'Styrene A';
-    src: url('/fonts/styrene/StyreneA-Regular-Trial-BF63f6cbd970ee9.otf') format('opentype');
+    font-family: "Styrene A";
+    src: url("/fonts/styrene/StyreneA-Regular-Trial-BF63f6cbd970ee9.otf")
+        format("opentype");
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Styrene A';
-    src: url('/fonts/styrene/StyreneA-RegularItalic-Trial-BF63f6cbd94325f.otf') format('opentype');
+    font-family: "Styrene A";
+    src: url("/fonts/styrene/StyreneA-RegularItalic-Trial-BF63f6cbd94325f.otf")
+        format("opentype");
     font-weight: 400;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'Styrene A';
-    src: url('/fonts/styrene/StyreneA-Medium-Trial-BF63f6cbdb24b6d.otf') format('opentype');
+    font-family: "Styrene A";
+    src: url("/fonts/styrene/StyreneA-Medium-Trial-BF63f6cbdb24b6d.otf")
+        format("opentype");
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Styrene A';
-    src: url('/fonts/styrene/StyreneA-MediumItalic-Trial-BF63f6cbd925a68.otf') format('opentype');
+    font-family: "Styrene A";
+    src: url("/fonts/styrene/StyreneA-MediumItalic-Trial-BF63f6cbd925a68.otf")
+        format("opentype");
     font-weight: 500;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'Styrene A';
-    src: url('/fonts/styrene/StyreneA-Bold-Trial-BF63f6cbda1877f.otf') format('opentype');
+    font-family: "Styrene A";
+    src: url("/fonts/styrene/StyreneA-Bold-Trial-BF63f6cbda1877f.otf")
+        format("opentype");
     font-weight: 700;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Styrene A';
-    src: url('/fonts/styrene/StyreneA-BoldItalic-Trial-BF63f6cbd9bec08.otf') format('opentype');
+    font-family: "Styrene A";
+    src: url("/fonts/styrene/StyreneA-BoldItalic-Trial-BF63f6cbd9bec08.otf")
+        format("opentype");
     font-weight: 700;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'Styrene A';
-    src: url('/fonts/styrene/StyreneA-Black-Trial-BF63f6cbd9da245.otf') format('opentype');
+    font-family: "Styrene A";
+    src: url("/fonts/styrene/StyreneA-Black-Trial-BF63f6cbd9da245.otf")
+        format("opentype");
     font-weight: 900;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Styrene A';
-    src: url('/fonts/styrene/StyreneA-BlackItalic-Trial-BF63f6cbd7cb688.otf') format('opentype');
+    font-family: "Styrene A";
+    src: url("/fonts/styrene/StyreneA-BlackItalic-Trial-BF63f6cbd7cb688.otf")
+        format("opentype");
     font-weight: 900;
     font-style: italic;
 }
 
 /* Styrene B Font Family */
 @font-face {
-    font-family: 'Styrene B';
-    src: url('/fonts/styrene/StyreneB-Thin-Trial-BF63f6cc84a4246.otf') format('opentype');
+    font-family: "Styrene B";
+    src: url("/fonts/styrene/StyreneB-Thin-Trial-BF63f6cc84a4246.otf")
+        format("opentype");
     font-weight: 100;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Styrene B';
-    src: url('/fonts/styrene/StyreneB-ThinItalic-Trial-BF63f6cbe8d3333.otf') format('opentype');
+    font-family: "Styrene B";
+    src: url("/fonts/styrene/StyreneB-ThinItalic-Trial-BF63f6cbe8d3333.otf")
+        format("opentype");
     font-weight: 100;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'Styrene B';
-    src: url('/fonts/styrene/StyreneB-Light-Trial-BF63f6cbe64b47b.otf') format('opentype');
+    font-family: "Styrene B";
+    src: url("/fonts/styrene/StyreneB-Light-Trial-BF63f6cbe64b47b.otf")
+        format("opentype");
     font-weight: 300;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Styrene B';
-    src: url('/fonts/styrene/StyreneB-LightItalic-Trial-BF63f6cbe9d67d1.otf') format('opentype');
+    font-family: "Styrene B";
+    src: url("/fonts/styrene/StyreneB-LightItalic-Trial-BF63f6cbe9d67d1.otf")
+        format("opentype");
     font-weight: 300;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'Styrene B';
-    src: url('/fonts/styrene/StyreneB-Regular-Trial-BF63f6cbe9db1d5.otf') format('opentype');
+    font-family: "Styrene B";
+    src: url("/fonts/styrene/StyreneB-Regular-Trial-BF63f6cbe9db1d5.otf")
+        format("opentype");
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Styrene B';
-    src: url('/fonts/styrene/StyreneB-RegularItalic-Trial-BF63f6cbe5c1942.otf') format('opentype');
+    font-family: "Styrene B";
+    src: url("/fonts/styrene/StyreneB-RegularItalic-Trial-BF63f6cbe5c1942.otf")
+        format("opentype");
     font-weight: 400;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'Styrene B';
-    src: url('/fonts/styrene/StyreneB-Medium-Trial-BF63f6cc85760c2.otf') format('opentype');
+    font-family: "Styrene B";
+    src: url("/fonts/styrene/StyreneB-Medium-Trial-BF63f6cc85760c2.otf")
+        format("opentype");
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Styrene B';
-    src: url('/fonts/styrene/StyreneB-MediumItalic-Trial-BF63f6cc84a421a.otf') format('opentype');
+    font-family: "Styrene B";
+    src: url("/fonts/styrene/StyreneB-MediumItalic-Trial-BF63f6cc84a421a.otf")
+        format("opentype");
     font-weight: 500;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'Styrene B';
-    src: url('/fonts/styrene/StyreneB-Bold-Trial-BF63f6cbe9f13bb.otf') format('opentype');
+    font-family: "Styrene B";
+    src: url("/fonts/styrene/StyreneB-Bold-Trial-BF63f6cbe9f13bb.otf")
+        format("opentype");
     font-weight: 700;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Styrene B';
-    src: url('/fonts/styrene/StyreneB-BoldItalic-Trial-BF63f6cbe6863e6.otf') format('opentype');
+    font-family: "Styrene B";
+    src: url("/fonts/styrene/StyreneB-BoldItalic-Trial-BF63f6cbe6863e6.otf")
+        format("opentype");
     font-weight: 700;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'Styrene B';
-    src: url('/fonts/styrene/StyreneB-Black-Trial-BF63f6cbe3dc69b.otf') format('opentype');
+    font-family: "Styrene B";
+    src: url("/fonts/styrene/StyreneB-Black-Trial-BF63f6cbe3dc69b.otf")
+        format("opentype");
     font-weight: 900;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Styrene B';
-    src: url('/fonts/styrene/StyreneB-BlackItalic-Trial-BF63f6cbe2d985b.otf') format('opentype');
+    font-family: "Styrene B";
+    src: url("/fonts/styrene/StyreneB-BlackItalic-Trial-BF63f6cbe2d985b.otf")
+        format("opentype");
     font-weight: 900;
     font-style: italic;
 }
@@ -210,12 +234,9 @@
         @apply border-border;
     }
 
-    html {
-        scrollbar-gutter: stable;
-    }
-
     body {
         @apply bg-background text-foreground text-sm;
+        overflow-y: scroll;
     }
 
     /* ::selection {
