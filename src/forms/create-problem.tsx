@@ -135,7 +135,7 @@ export default function CreateProblemForm() {
         }
 
         toast({ title: 'Problem created successfully' });
-        router.push('/hub');
+        router.push('/hub/problems');
     };
 
     function validate(): boolean {
