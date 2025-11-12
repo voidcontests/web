@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 import { useTonProof } from '@/hooks/ton-proof';
 
 // TODO: change to actual link when deployed
-const MANIFEST_URL = "https://raw.githubusercontent.com/voidcontests/web/refs/heads/legacy/ton-connect/public/tonconnect-manifest.json";
+const MANIFEST_URL = "https://raw.githubusercontent.com/voidcontests/web/refs/heads/feat/prizes/public/tonconnect-manifest.json";
 
 function TonProofInitializer() {
     useTonProof();
