@@ -210,9 +210,12 @@
         @apply border-border;
     }
 
+    html {
+        scrollbar-gutter: stable;
+    }
+
     body {
         @apply bg-background text-foreground text-sm;
-        overflow-y: scroll;
     }
 
     /* ::selection {
