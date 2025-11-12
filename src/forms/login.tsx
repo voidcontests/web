@@ -9,8 +9,7 @@ import { toast } from '@/components/toast';
 import { Container } from '@/containers/default';
 import { capitalize } from '@/lib/strings';
 import { useSearchParams } from '@/hooks/search-params';
-import { useRouter } from 'next/navigation';
-import { useAccount } from '@/hooks/use-account';
+import { useAccount } from '@/hooks/account';
 
 export interface FormData {
     username: string;

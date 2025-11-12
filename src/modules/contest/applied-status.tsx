@@ -7,6 +7,7 @@ import { createEntry } from "@/lib/api";
 import Link from "next/link";
 import { QRCodeSVG } from "qrcode.react";
 import { Container } from "@/containers/default";
+import { TonConnectButton } from "@/components/ton-connect/button";
 
 export default function AppliedStatus({ account, contest }: { account: Account | null, contest: ContestDetailed }) {
     if (!account) {
@@ -42,7 +43,7 @@ export default function AppliedStatus({ account, contest }: { account: Account |
 
         if ((contest.awards.kind === 'pool' || contest.awards.kind === 'sponsored') && !account.address) {
             return (
-                <span className="text-center font-medium">You need to connect wallet first</span>
+                <TonConnectButton />
             );
         }
 

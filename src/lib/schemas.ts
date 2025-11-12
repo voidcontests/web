@@ -105,14 +105,14 @@ export const PaymentSchema = z.object({
 export const EntrySchema = z.discriminatedUnion("is_paid", [
   z.object({
     is_admitted: z.boolean(),
-    submission_deadline: z.coerce.date(),
+    submission_deadline: z.coerce.date().optional(),
     message: z.string().optional(),
     is_paid: z.literal(false),
     created_at: z.coerce.date(),
   }),
   z.object({
     is_admitted: z.boolean(),
-    submission_deadline: z.coerce.date(),
+    submission_deadline: z.coerce.date().optional(),
     message: z.string().optional(),
     is_paid: z.literal(true),
     payment: PaymentSchema,

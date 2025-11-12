@@ -2,7 +2,7 @@
 
 import { Button } from "@/ui/button";
 import Link from "next/link";
-import { useAccount } from "@/hooks/use-account";
+import { useAccount } from "@/hooks/account";
 import { removeToken } from "@/lib/api";
 import { LogOut } from "lucide-react";
 import { Spinner } from "@/ui/spinner";

@@ -55,7 +55,7 @@ export type Result<T> = ResultSuccess<T> | ResultError;
 /**
  * Get the authentication token from cookies
  */
-function getToken(): string | undefined {
+export function getToken(): string | undefined {
     if (typeof document === 'undefined') return undefined;
 
     const name = config.cookies.token_key + '=';
