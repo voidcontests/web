@@ -8,7 +8,7 @@ interface UsernameProps {
 
 export function Username({ username, className, withAt = true }: UsernameProps) {
     return (
-        <span className={cn("inline-block max-w-[100px] truncate", className)}>
+        <span className={cn("inline max-w-[100px] truncate align-middle", className)}>
             {withAt ? `@${username}` : username}
         </span>
     );

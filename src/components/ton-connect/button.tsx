@@ -22,7 +22,7 @@ const TonConnectButton = () => {
     }
 
     const connect = async () => {
-        tonConnectUI.openModal();
+        tonConnectUI.openSingleWalletModal('tonkeeper');
     }
 
     if (!isConnectionRestored) {

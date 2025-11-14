@@ -14,6 +14,10 @@ export default function AppliedStatus({ account, contest }: { account: Account |
         return <NoAccount />;
     }
 
+    if (account.id === contest.creator.id) {
+        <span className="text-center font-medium">Can't apply to contest, created by you.</span>
+    }
+
     const apply = async () => {
         const result = await createEntry(contest.id);
         if (result.ok) {
